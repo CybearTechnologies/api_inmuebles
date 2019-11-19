@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    #	Uncomment if you'll use Https
+    #RewriteCond %{HTTPS} off
+    #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    #	Uncomment on production
+    #RewriteBase /
+    RewriteBase /inmobi-houston/
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+</IfModule>
+#---------------------------------------------------------------------------------
+#   CUSTOM REDIRECTS
+#---------------------------------------------------------------------------------
+# INMUEBLE
+RewriteRule ^property-type$ controllerPropertyType.php [NC,L]
+RewriteRule ^property-type/id/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
+#---------------------------------------------------------------------------------
+#   END CUSTOM REDIRECTS
+#---------------------------------------------------------------------------------
+<Files .htaccess>
+    order allow,deny
+    deny from all
+</Files>
