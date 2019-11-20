@@ -35,6 +35,15 @@ class DaoAgency extends Dao {
 	}
 
 	/**
+	 * @param $dbObject
+	 *
+	 * @return mixed
+	 */
+	protected function extract ($dbObject) {
+		return FactoryEntity::createAgency($dbObject->id, $dbObject->name);
+	}
+
+	/**
 	 * @return Agency[]
 	 * @throws DatabaseConnectionException
 	 * @throws AgencyNotFoundException
@@ -51,14 +60,5 @@ class DaoAgency extends Dao {
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
-	}
-
-	/**
-	 * @param $dbObject
-	 *
-	 * @return mixed
-	 */
-	protected function extract ($dbObject) {
-		return FactoryEntity::createAgency($dbObject->id, $dbObject->name);
 	}
 }

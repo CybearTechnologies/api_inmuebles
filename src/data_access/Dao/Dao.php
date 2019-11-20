@@ -20,13 +20,6 @@ abstract class Dao {
 	}
 
 	/**
-	 * @param $dbObject
-	 *
-	 * @return mixed
-	 */
-	protected abstract function extract ($dbObject);
-
-	/**
 	 * @param $dbObjectArray
 	 *
 	 * @return array
@@ -38,4 +31,11 @@ abstract class Dao {
 
 		return $array;
 	}
+
+	/**
+	 * @param $dbObject
+	 *
+	 * @return mixed
+	 */
+	protected abstract function extract ($dbObject);
 }

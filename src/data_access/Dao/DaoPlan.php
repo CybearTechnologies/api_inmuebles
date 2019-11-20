@@ -35,6 +35,15 @@ class DaoPlan extends Dao {
 	}
 
 	/**
+	 * @param $dbObject
+	 *
+	 * @return mixed
+	 */
+	protected function extract ($dbObject) {
+		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price);
+	}
+
+	/**
 	 * @return Plan[]
 	 * @throws DatabaseConnectionException
 	 * @throws PlanNotFoundException
@@ -51,14 +60,5 @@ class DaoPlan extends Dao {
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
-	}
-
-	/**
-	 * @param $dbObject
-	 *
-	 * @return mixed
-	 */
-	protected function extract ($dbObject) {
-		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price);
 	}
 }
