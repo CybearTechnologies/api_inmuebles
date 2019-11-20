@@ -1,10 +1,12 @@
 <?php
 class Property extends Entity {
+
 	private $_name;
 	private $_description;
 	private $_publishDate;
 	private $_state;
 	private $_propertyType;
+	private $_area;
 
 	/**
 	 * Property constructor.
@@ -15,14 +17,16 @@ class Property extends Entity {
 	 * @param string       $_publishDate
 	 * @param int          $_state
 	 * @param PropertyType $_propertyType
+	 * @param              $_area
 	 */
-	public function __construct ($_id, $_name, $_description, $_publishDate, $_state, $_propertyType) {
+	public function __construct ($_id, $_name, $_description, $_publishDate, $_state, $_propertyType, $_area) {
 		$this->setId($_id);
 		$this->_name = $_name;
 		$this->_description = $_description;
 		$this->_publishDate = $_publishDate;
 		$this->_state = $_state;
 		$this->_propertyType = $_propertyType;
+		$this->_area = $_area;
 	}
 
 	/**
@@ -94,4 +98,20 @@ class Property extends Entity {
 	public function setPropertyType ($propertyType):void {
 		$this->_propertyType = $propertyType;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getArea () {
+		return $this->_area;
+	}
+
+	/**
+	 * @param mixed $area
+	 */
+	public function setArea ($area):void {
+		$this->_area = $area;
+	}
+
+
 }
