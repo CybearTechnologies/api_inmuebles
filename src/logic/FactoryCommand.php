@@ -13,7 +13,20 @@ class FactoryCommand {
 		return new GetAllPropertyTypeCommand();
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return GetPropertyTypeByIdCommand
+	 */
 	static function createGetPropertyTypeByIdCommand ($id):GetPropertyTypeByIdCommand {
 		return new GetPropertyTypeByIdCommand($id);
+	}
+
+	static function createGetAllPlanCommand () {
+		return new GetAllPlanCommand();
+	}
+
+	static function createGetPlanByIdCommand ($id) {
+		return new GetPlanByIdCommand($id);
 	}
 }

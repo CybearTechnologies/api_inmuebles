@@ -8,7 +8,14 @@ class FactoryDao {
 	/**
 	 * @return DaoPropertyType
 	 */
-	public static function createDaoPropertyType () {
+	static function createDaoPropertyType ():DaoPropertyType {
 		return new DaoPropertyType();
+	}
+
+	/**
+	 * @return DaoPlan
+	 */
+	static function createDaoPlan ():DaoPlan {
+		return new DaoPlan();
 	}
 }

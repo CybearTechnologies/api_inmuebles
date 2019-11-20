@@ -11,9 +11,9 @@ class Environment {
 	private const SITE_KEY = "";
 	//	Database connections settings
 	private const HOST = "localhost";
-	private const DATABASE = "new";
-	private const USERNAME = "admin";
-	private const PASSWORD = "chuo1997";
+	private const DATABASE = "inmobilapp";
+	private const USERNAME = "inmobiladmind";
+	private const PASSWORD = "aeros191119";
 
 	/**
 	 * @return PDO

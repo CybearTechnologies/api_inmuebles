@@ -6,10 +6,6 @@
  */
 require_once __DIR__ . "/../../autoload.php";
 class FactoryEntity {
-	static function createProperty ($id, $name = '', $description = '', $publishDate = '', $state = '',
-		$propertyType = null):Property {
-		return new Property($id, $name, $description, $publishDate, $state, $propertyType);
-	}
 
 	/**
 	 * @param        $id
@@ -19,5 +15,9 @@ class FactoryEntity {
 	 */
 	static function createPropertyType ($id, $name = ''):PropertyType {
 		return new PropertyType($id, $name);
+	}
+
+	static function createPlan ($id, $name, $price) {
+		return new Plan($id, $name, $price);
 	}
 }

@@ -11,7 +11,18 @@ class FactoryDto {
 	 *
 	 * @return DtoPropertyType
 	 */
-	public static function createDtoPropertyType ($id, $name = '') {
+	static function createDtoPropertyType ($id, $name = ''):DtoPropertyType {
 		return new DtoPropertyType($id, $name);
+	}
+
+	/**
+	 * @param        $id
+	 * @param string $name
+	 * @param int    $price
+	 *
+	 * @return DtoPlan
+	 */
+	static function createDtoPlan ($id, $name = '', $price = 0):DtoPlan {
+		return new DtoPlan($id, $name, $price);
 	}
 }
