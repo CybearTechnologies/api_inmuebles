@@ -36,4 +36,14 @@ class FactoryEntity {
 	static function createAgency ($id, $name = '') {
 		return new Agency($id, $name);
 	}
+
+	/**
+	 * @param        $id
+	 * @param string $name
+	 *
+	 * @return Extra
+	 */
+	static function createExtra ($id, $name = '') {
+		return new Extra($id, $name);
+	}
 }

@@ -22,6 +22,9 @@ RewriteRule ^plan/id/([0-9]+)$ controllerPlan.php?id=$1 [NC,L]
 #AGENCIES
 RewriteRule ^agency$ controllerAgencies.php [NC,L]
 RewriteRule ^agency/id/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
+
+RewriteRule ^extra$ controllerExtra.php [NC,L]
+RewriteRule ^extra/id/([0-9]+)$ controllerextra.php?id=$1 [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------

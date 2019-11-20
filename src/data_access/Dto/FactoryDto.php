@@ -35,4 +35,14 @@ class FactoryDto {
 	static function createDtoAgency ($id, $name = '') {
 		return new DtoAgency($id, $name);
 	}
+
+	/**
+	 * @param        $id
+	 * @param string $name
+	 *
+	 * @return DtoExtra
+	 */
+	static function createDtoExtra ($id, $name = "") :DtoExtra{
+		return new DtoExtra($id, $name);
+	}
 }

@@ -19,7 +19,17 @@ class FactoryDao {
 		return new DaoPlan();
 	}
 
+	/**
+	 * @return DaoAgency
+	 */
 	static function createDaoAgency ():DaoAgency {
 		return new DaoAgency();
 	}
+
+	/**
+	 * @return DaoExtra
+	 */
+	static function createDaoExtra ():DaoExtra {
+	return new DaoExtra();
+}
 }
