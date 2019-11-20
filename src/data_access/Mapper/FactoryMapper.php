@@ -12,7 +12,14 @@ class FactoryMapper {
 		return new MapperPropertyType();
 	}
 
+	/**
+	 * @return MapperPlan
+	 */
 	static function createMapperPlan () {
 		return new MapperPlan();
+	}
+
+	static function createMapperAgency () {
+		return new MapperAgency();
 	}
 }

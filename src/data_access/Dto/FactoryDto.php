@@ -25,4 +25,14 @@ class FactoryDto {
 	static function createDtoPlan ($id, $name = '', $price = 0):DtoPlan {
 		return new DtoPlan($id, $name, $price);
 	}
+
+	/**
+	 * @param        $id
+	 * @param string $name
+	 *
+	 * @return DtoAgency
+	 */
+	static function createDtoAgency ($id, $name = '') {
+		return new DtoAgency($id, $name);
+	}
 }

@@ -18,4 +18,8 @@ class FactoryDao {
 	static function createDaoPlan ():DaoPlan {
 		return new DaoPlan();
 	}
+
+	static function createDaoAgency ():DaoAgency {
+		return new DaoAgency();
+	}
 }

@@ -1,6 +1,5 @@
 <?php
 class DtoPlan extends Dto {
-	public $id;
 	public $name;
 	public $price;
 

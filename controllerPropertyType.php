@@ -27,14 +27,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command->execute();
 				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
+				Result::setResponse(500);
 			}
 			catch (PropertyTypeNotFoundException $e) {
 				$return = array ('ok' => true, 'data' => array ());
+				Result::setResponse();
 			}
-			http_response_code(200);
 			echo json_encode($return);
 		}
 		break;

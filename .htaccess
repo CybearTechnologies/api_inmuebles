@@ -19,6 +19,9 @@ RewriteRule ^property-type/id/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
 #PLAN
 RewriteRule ^plan$ controllerPlan.php [NC,L]
 RewriteRule ^plan/id/([0-9]+)$ controllerPlan.php?id=$1 [NC,L]
+#AGENCIES
+RewriteRule ^agency$ controllerAgencies.php [NC,L]
+RewriteRule ^agency/id/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------

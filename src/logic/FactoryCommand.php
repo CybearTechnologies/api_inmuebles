@@ -22,11 +22,27 @@ class FactoryCommand {
 		return new GetPropertyTypeByIdCommand($id);
 	}
 
+	/**
+	 * @return GetAllPlanCommand
+	 */
 	static function createGetAllPlanCommand () {
 		return new GetAllPlanCommand();
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return GetPlanByIdCommand
+	 */
 	static function createGetPlanByIdCommand ($id) {
 		return new GetPlanByIdCommand($id);
+	}
+
+	static function createGetAllAgenciesCommand () {
+		return new GetAllAgenciesCommand();
+	}
+
+	static function createGetAgenciesById ($id) {
+		return new GetAgenciesByIdCommand($id);
 	}
 }
