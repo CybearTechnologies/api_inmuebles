@@ -25,7 +25,7 @@ class Result {
 	/**
 	 * @param int $responseCode
 	 */
-	public static function setResponse($responseCode = 200){
+	public static function setResponse ($responseCode = 200) {
 		http_response_code($responseCode);
 	}
 }

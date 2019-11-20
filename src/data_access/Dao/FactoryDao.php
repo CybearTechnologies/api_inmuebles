@@ -5,10 +5,10 @@
  * Time: 12:29 PM
  */
 class FactoryDao {
-    /**
-     * @return DaoPropertyType
-     */
-    public static function createDaoPropertyType() {
-        return new DaoPropertyType();
-    }
+	/**
+	 * @return DaoPropertyType
+	 */
+	public static function createDaoPropertyType () {
+		return new DaoPropertyType();
+	}
 }

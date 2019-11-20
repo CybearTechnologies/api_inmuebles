@@ -21,7 +21,7 @@ class Environment {
 	public static function database ():PDO {
 		try {
 			$PDO = new PDO("mysql:host=" . self::HOST . ";dbname=" . self::DATABASE, self::USERNAME,
-					self::PASSWORD);
+				self::PASSWORD);
 			$PDO->exec("set names utf8");
 			$PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -33,13 +33,14 @@ class Environment {
 
 		return null;
 	}
+
 	/**
 	 * @return string
 	 */
 	public static function baseURL ():string {
 		return self::BASE_URL;
 	}
-				
+
 	/**
 	 * @return string
 	 */

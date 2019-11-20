@@ -5,8 +5,8 @@
  * Time: 12:29 PM
  */
 /**
- * @param string        $class
- * @param string|null   $dir
+ * @param string      $class
+ * @param string|null $dir
  */
 function autoload ($class, $dir = null) {
 	if (is_null($dir))

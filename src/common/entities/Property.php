@@ -1,6 +1,5 @@
 <?php
 class Property extends Entity {
-
 	private $_name;
 	private $_description;
 	private $_publishDate;
@@ -112,6 +111,4 @@ class Property extends Entity {
 	public function setArea ($area):void {
 		$this->_area = $area;
 	}
-
-
 }

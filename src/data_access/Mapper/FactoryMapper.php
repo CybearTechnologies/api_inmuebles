@@ -8,7 +8,7 @@ class FactoryMapper {
 	/**
 	 * @return MapperPropertyType
 	 */
-	public static function createMapperPropertyType() {
+	public static function createMapperPropertyType () {
 		return new MapperPropertyType();
 	}
 }
