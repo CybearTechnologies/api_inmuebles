@@ -51,6 +51,15 @@ class DaoPropertyType extends Dao {
 	}
 
 	/**
+	 * @param $DBObject
+	 *
+	 * @return PropertyType
+	 */
+	protected function extract ($DBObject) {
+		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name);
+	}
+
+	/**
 	 * @return PropertyType[]
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyTypeNotFoundException
@@ -67,14 +76,5 @@ class DaoPropertyType extends Dao {
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
-	}
-
-	/**
-	 * @param $DBObject
-	 *
-	 * @return PropertyType
-	 */
-	protected function extract ($DBObject) {
-		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name);
 	}
 }

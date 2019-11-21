@@ -1,20 +1,6 @@
 <?php
 abstract class Mapper {
 	/**
-	 * @param Dto $dto
-	 *
-	 * @return Entity
-	 */
-	public abstract function fromDtoToEntity ($dto):Entity;
-
-	/**
-	 * @param Entity $entity
-	 *
-	 * @return Dto
-	 */
-	public abstract function fromEntityToDto ($entity):Dto;
-
-	/**
 	 * @param Dto[] $dtoArray
 	 *
 	 * @return Entity[]
@@ -28,6 +14,13 @@ abstract class Mapper {
 	}
 
 	/**
+	 * @param Dto $dto
+	 *
+	 * @return Entity
+	 */
+	public abstract function fromDtoToEntity ($dto):Entity;
+
+	/**
 	 * @param Entity[] $entityArray
 	 *
 	 * @return Dto[]
@@ -39,4 +32,11 @@ abstract class Mapper {
 
 		return $array;
 	}
+
+	/**
+	 * @param Entity $entity
+	 *
+	 * @return Dto
+	 */
+	public abstract function fromEntityToDto ($entity):Dto;
 }

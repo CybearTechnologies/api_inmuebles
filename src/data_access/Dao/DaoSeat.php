@@ -1,11 +1,11 @@
 <?php
-class DaoPlan extends Dao {
+class DaoSeat extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "SELECT plan_id id,plan_name name,plan_price price FROM plan";
-	private const QUERY_GET_BY_ID = "SELECT plan_id id,plan_name name,plan_price price FROM plan WHERE plan_id = :id";
+	private const QUERY_GET_ALL = "SELECT sea_id id, sea_name name, sea_rif rif FROM seat";
+	private const QUERY_GET_BY_ID = "SELECT sea_id id, sea_name name, sea_rif rif FROM seat WHERE sea_id = :id";
 
 	/**
-	 * DaoPlan constructor.
+	 * DaoSeat constructor.
 	 */
 	public function __construct () {
 		parent::__construct();
@@ -16,15 +16,15 @@ class DaoPlan extends Dao {
 	 *
 	 * @return mixed
 	 * @throws DatabaseConnectionException
-	 * @throws PlanNotFoundException
+	 * @throws SeatNotFoundException
 	 */
-	public function getPlanById ($id) {
+	public function getSeatById ($id) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PlanNotFoundException("No plan found", 200);
+				Throw new SeatNotFoundException("There are no seat found", 200);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
@@ -40,20 +40,20 @@ class DaoPlan extends Dao {
 	 * @return mixed
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price);
+		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif);
 	}
 
 	/**
-	 * @return Plan[]
+	 * @return Seat[]
 	 * @throws DatabaseConnectionException
-	 * @throws PlanNotFoundException
+	 * @throws SeatNotFoundException
 	 */
-	public function getAllPlans () {
+	public function getAllSeat () {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PlanNotFoundException("There are no plans found", 200);
+				Throw new SeatNotFoundException("There are no seat found", 200);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
