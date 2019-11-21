@@ -46,4 +46,14 @@ class FactoryEntity {
 	static function createExtra ($id, $name = '') {
 		return new Extra($id, $name);
 	}
+
+	/**
+	 * @param        $id
+	 * @param string $name
+	 *
+	 * @return Seat
+	 */
+	static function createSeat ($id, $name = '') {
+		return new Seat($id, $name);
+	}
 }
