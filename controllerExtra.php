@@ -2,11 +2,11 @@
 require_once "autoload.php";
 Tools::headers();
 $return = null;
-$mapper = FactoryMapper::createMapperAgency();
+$mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetAgenciesById($_GET['id']);
+			$command = FactoryCommand::createGetExtraByIdCommand($_GET['id']);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
@@ -16,14 +16,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
 				Result::setResponse(500);
 			}
-			catch (AgencyNotFoundException $e) {
-				$return = new Result(false, [], 'Agencia no encontrada no encontrada.');
+			catch (ExtraNotFoundException $e) {
+				$return = new Result(false, [], 'Extra no encontrada.');
 				Result::setResponse();
 			}
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createGetAllAgenciesCommand();
+			$command = FactoryCommand::createGetAllExtraCommand();
 			try {
 				$command->execute();
 				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
@@ -33,7 +33,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
 				Result::setResponse(500);
 			}
-			catch (AgencyNotFoundException $e) {
+			catch (ExtraNotFoundException $e) {
 				$return = array ('ok' => true, 'data' => array ());
 				Result::setResponse();
 			}

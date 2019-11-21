@@ -2,8 +2,14 @@
 class GetAllAgenciesCommand extends Command {
 	private $_dao;
 
-	public function execute ():void {
+	/**
+	 * GetAllAgenciesCommand constructor.
+	 */
+	public function __construct () {
 		$this->_dao = FactoryDao::createDaoAgency();
+	}
+
+	public function execute ():void {
 		$this->setData($this->_dao->getAllAgency());
 	}
 

@@ -1,30 +1,23 @@
 <?php
-class DaoAgency extends Dao {
+class DaoExtra extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "SELECT age_id id,age_name name FROM agency";
-	private const QUERY_GET_BY_ID = "SELECT age_id id,age_name name FROM agency WHERE age_id = :id";
-
-	/**
-	 * DaoAgency constructor.
-	 */
-	public function __construct () {
-		parent::__construct();
-	}
+	private const QUERY_GET_ALL = "Select ext_id id, ext_name name from extra";
+	private const QUERY_GET_BY_ID = "Select ext_id id, ext_name name from extra where ext_id=:id";
 
 	/**
 	 * @param $id
 	 *
 	 * @return mixed
 	 * @throws DatabaseConnectionException
-	 * @throws AgencyNotFoundException
+	 * @throws ExtraNotFoundException
 	 */
-	public function getAgencyById ($id) {
+	public function getExtraById ($id) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AgencyNotFoundException("There are no Agency found", 200);
+				Throw new ExtraNotFoundException("There are no Extra found", 200);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
@@ -35,16 +28,16 @@ class DaoAgency extends Dao {
 	}
 
 	/**
-	 * @return Agency[]
+	 * @return Extra[]
+	 * @throws ExtraNotFoundException
 	 * @throws DatabaseConnectionException
-	 * @throws AgencyNotFoundException
 	 */
-	public function getAllAgency () {
+	public function getAllExtra () {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AgencyNotFoundException("There are no A	gency found", 200);
+				Throw new ExtraNotFoundException("There are no Extra found", 200);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
@@ -59,6 +52,6 @@ class DaoAgency extends Dao {
 	 * @return mixed
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createAgency($dbObject->id, $dbObject->name);
+		return FactoryEntity::createExtra($dbObject->id,$dbObject->name);
 	}
 }

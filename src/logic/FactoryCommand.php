@@ -45,4 +45,20 @@ class FactoryCommand {
 	static function createGetAgenciesById ($id) {
 		return new GetAgenciesByIdCommand($id);
 	}
+
+	/**
+	 * @return GetAllExtraCommand
+	 */
+	static function createGetAllExtraCommand(){
+		return new GetAllExtraCommand();
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetExtraByIdCommand
+	 */
+	static function createGetExtraByIdCommand($id){
+		return new GetExtraByIdCommand($id);
+	}
 }
