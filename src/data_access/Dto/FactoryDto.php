@@ -42,7 +42,17 @@ class FactoryDto {
 	 *
 	 * @return DtoExtra
 	 */
-	static function createDtoExtra ($id, $name = "") :DtoExtra{
+	static function createDtoExtra ($id, $name = ""):DtoExtra {
 		return new DtoExtra($id, $name);
+	}
+
+	/**
+	 * @param        $id
+	 * @param string $rif
+	 *
+	 * @return DtoSeat
+	 */
+	static function createDtoSeat ($id, $rif = '') {
+		return new DtoSeat($id, $rif);
 	}
 }
