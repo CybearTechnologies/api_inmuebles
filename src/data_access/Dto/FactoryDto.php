@@ -57,4 +57,14 @@ class FactoryDto {
 	static function createDtoSeat ($id, $name = '', $rif = '') {
 		return new DtoSeat($id, $name, $rif);
 	}
+
+	/**
+	 * @param        $id
+	 * @param string $date
+	 *
+	 * @return DtoRequest
+	 */
+	static function createDtoRequest ($id, $date = '') {
+		return new DtoRequest($id, $date);
+	}
 }
