@@ -5,9 +5,10 @@ class DtoExtra extends Dto {
 	/**
 	 * DtoExtra constructor.
 	 *
-	 * @param $name
+	 * @param int $id
+	 * @param     $name
 	 */
-	public function __construct ($id, $name) {
+	public function __construct (int $id, $name) {
 		$this->id = $id;
 		$this->name = $name;
 	}

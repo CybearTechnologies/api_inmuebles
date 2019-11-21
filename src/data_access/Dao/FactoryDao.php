@@ -30,6 +30,6 @@ class FactoryDao {
 	 * @return DaoExtra
 	 */
 	static function createDaoExtra ():DaoExtra {
-	return new DaoExtra();
-}
+		return new DaoExtra();
+	}
 }

@@ -1,8 +1,8 @@
 <?php
 class DaoAgency extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "SELECT plan_id id,plan_name name,plan_price price FROM plan";
-	private const QUERY_GET_BY_ID = "SELECT plan_id id,plan_name name,plan_price price FROM plan WHERE plan_id = :id";
+	private const QUERY_GET_ALL = "SELECT age_id id,age_name name FROM agency";
+	private const QUERY_GET_BY_ID = "SELECT age_id id,age_name name FROM agency WHERE age_id = :id";
 
 	/**
 	 * DaoAgency constructor.
@@ -16,7 +16,7 @@ class DaoAgency extends Dao {
 	 *
 	 * @return mixed
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyTypeNotFoundException
+	 * @throws AgencyNotFoundException
 	 */
 	public function getAgencyById ($id) {
 		try {
@@ -24,7 +24,7 @@ class DaoAgency extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PropertyTypeNotFoundException("There are no Agency found", 200);
+				Throw new AgencyNotFoundException("There are no Agency found", 200);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
@@ -44,7 +44,7 @@ class DaoAgency extends Dao {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AgencyNotFoundException("There are no agency found", 200);
+				Throw new AgencyNotFoundException("There are no A	gency found", 200);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}

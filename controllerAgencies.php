@@ -38,6 +38,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			http_response_code(200);
+			echo json_encode($return);
 		}
 		break;
 }

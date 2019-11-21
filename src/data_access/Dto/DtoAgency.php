@@ -8,7 +8,7 @@ class DtoAgency extends Dto {
 	 * @param $id
 	 * @param $name
 	 */
-	public function __construct ($id, $name) {
+	public function __construct (int $id, $name) {
 		$this->id = $id;
 		$this->name = $name;
 	}
