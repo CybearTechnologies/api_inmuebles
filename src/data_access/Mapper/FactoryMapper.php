@@ -19,7 +19,17 @@ class FactoryMapper {
 		return new MapperPlan();
 	}
 
+	/**
+	 * @return MapperAgency
+	 */
 	static function createMapperAgency () {
 		return new MapperAgency();
+	}
+
+	/**
+	 * @return MapperExtra
+	 */
+	static function createMapperExtra () {
+		return new MapperExtra();
 	}
 }

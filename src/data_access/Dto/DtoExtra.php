@@ -1,12 +1,12 @@
 <?php
-class DtoAgency extends Dto {
+class DtoExtra extends Dto {
 	public $name;
 
 	/**
-	 * DtoAgency constructor.
+	 * DtoExtra constructor.
 	 *
-	 * @param $id
-	 * @param $name
+	 * @param int $id
+	 * @param     $name
 	 */
 	public function __construct (int $id, $name) {
 		$this->id = $id;
