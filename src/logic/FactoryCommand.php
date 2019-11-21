@@ -49,7 +49,7 @@ class FactoryCommand {
 	/**
 	 * @return GetAllExtraCommand
 	 */
-	static function createGetAllExtraCommand(){
+	static function createGetAllExtraCommand () {
 		return new GetAllExtraCommand();
 	}
 
@@ -58,7 +58,23 @@ class FactoryCommand {
 	 *
 	 * @return GetExtraByIdCommand
 	 */
-	static function createGetExtraByIdCommand($id){
+	static function createGetExtraByIdCommand ($id) {
 		return new GetExtraByIdCommand($id);
+	}
+
+	/**
+	 * @return GetAllSeatCommand
+	 */
+	static function createGetAllSeatCommand () {
+		return new GetAllSeatCommand();
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetSeatByIdCommand
+	 */
+	static function createGetSeatByIdCommand ($id) {
+		return new GetSeatByIdCommand($id);
 	}
 }

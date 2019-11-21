@@ -50,10 +50,11 @@ class FactoryEntity {
 	/**
 	 * @param        $id
 	 * @param string $name
+	 * @param        $rif
 	 *
 	 * @return Seat
 	 */
-	static function createSeat ($id, $name = '') {
-		return new Seat($id, $name);
+	static function createSeat ($id, $name = '', $rif = '') {
+		return new Seat($id, $name, $rif);
 	}
 }

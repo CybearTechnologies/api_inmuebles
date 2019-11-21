@@ -32,4 +32,11 @@ class FactoryDao {
 	static function createDaoExtra ():DaoExtra {
 		return new DaoExtra();
 	}
+
+	/**
+	 * @return DaoSeat
+	 */
+	static function createDaoSeat ():DaoSeat {
+		return new DaoSeat();
+	}
 }

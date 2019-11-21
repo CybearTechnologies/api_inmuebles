@@ -48,11 +48,12 @@ class FactoryDto {
 
 	/**
 	 * @param        $id
+	 * @param        $name
 	 * @param string $rif
 	 *
 	 * @return DtoSeat
 	 */
-	static function createDtoSeat ($id, $rif = '') {
-		return new DtoSeat($id, $rif);
+	static function createDtoSeat ($id, $name = '', $rif = '') {
+		return new DtoSeat($id, $name, $rif);
 	}
 }

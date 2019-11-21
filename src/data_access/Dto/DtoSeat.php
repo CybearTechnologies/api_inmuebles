@@ -6,10 +6,12 @@ class DtoSeat extends Dto {
 	/**
 	 * DtoSeat constructor.
 	 *
-	 * @param $name
-	 * @param $rif
+	 * @param int $id
+	 * @param     $name
+	 * @param     $rif
 	 */
-	public function __construct ($name, $rif) {
+	public function __construct (int $id, $name, $rif) {
+		$this->id = $id;
 		$this->name = $name;
 		$this->rif = $rif;
 	}
