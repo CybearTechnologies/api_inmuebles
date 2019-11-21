@@ -58,4 +58,14 @@ class FactoryEntity {
 	static function createSeat ($id = 0, $name = '', $rif = '') {
 		return new Seat($id, $name, $rif);
 	}
+
+	/**
+	 * @param        $id
+	 * @param string $date
+	 *
+	 * @return Request
+	 */
+	static function createRequest ($id, $date = '') {
+		return new Request($id, $date);
+	}
 }
