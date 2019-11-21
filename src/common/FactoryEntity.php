@@ -30,11 +30,12 @@ class FactoryEntity {
 	/**
 	 * @param        $id
 	 * @param string $name
+	 * @param Seat[] $seats
 	 *
 	 * @return Agency
 	 */
-	static function createAgency ($id, $name = '') {
-		return new Agency($id, $name);
+	static function createAgency ($id, $name = '', $seats = []) {
+		return new Agency($id, $name, $seats);
 	}
 
 	/**
@@ -54,7 +55,7 @@ class FactoryEntity {
 	 *
 	 * @return Seat
 	 */
-	static function createSeat ($id, $name = '', $rif = '') {
+	static function createSeat ($id = 0, $name = '', $rif = '') {
 		return new Seat($id, $name, $rif);
 	}
 }

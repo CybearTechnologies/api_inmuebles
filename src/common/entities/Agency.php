@@ -1,15 +1,19 @@
 <?php
 class Agency extends Entity {
 	private $_name;
+	private $_seats = [];
 
 	/**
 	 * Agency constructor.
 	 *
-	 * @param $_name
+	 * @param        $_id
+	 * @param        $_name
+	 * @param Seat[] $_seats
 	 */
-	public function __construct ($_id, $_name) {
+	public function __construct ($_id, $_name, $_seats) {
 		$this->setId($_id);
 		$this->_name = $_name;
+		$this->_seats = $_seats;
 	}
 
 	/**
@@ -24,5 +28,19 @@ class Agency extends Entity {
 	 */
 	public function setName ($name):void {
 		$this->_name = $name;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getSeats () {
+		return $this->_seats;
+	}
+
+	/**
+	 * @param mixed $seats
+	 */
+	public function setSeats ($seats):void {
+		$this->_seats = $seats;
 	}
 }
