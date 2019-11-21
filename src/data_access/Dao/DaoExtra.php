@@ -52,6 +52,6 @@ class DaoExtra extends Dao {
 	 * @return mixed
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createExtra($dbObject->id,$dbObject->name);
+		return FactoryEntity::createExtra($dbObject->id, $dbObject->name);
 	}
 }

@@ -6,7 +6,7 @@ class MapperAgency extends Mapper {
 	 * @return Entity
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createAgency($dto->id, $dto->name);
+		return FactoryEntity::createAgency($dto->id, $dto->name, $dto->seat);
 	}
 
 	/**
@@ -15,6 +15,21 @@ class MapperAgency extends Mapper {
 	 * @return Dto
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoAgency($entity->getId(), $entity->getName());
+		return FactoryDto::createDtoAgency($entity->getId(), $entity->getName(),
+			$this->createDtoSeat($entity->getSeats()));
+	}
+
+	/**
+	 * @param $seats
+	 *
+	 * @return Seat[]
+	 */
+	function createDtoSeat ($seats) {
+		$_seats = [];
+		foreach ($seats as $seat) {
+			array_push($_seats, FactoryDto::createDtoSeat($seat->getId(), $seat->getName(), $seat->getRif()));
+		}
+
+		return $_seats;
 	}
 }

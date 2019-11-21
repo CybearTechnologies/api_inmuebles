@@ -3,6 +3,9 @@ class DaoSeat extends Dao {
 	private const QUERY_CREATE = "";
 	private const QUERY_GET_ALL = "SELECT sea_id id, sea_name name, sea_rif rif FROM seat";
 	private const QUERY_GET_BY_ID = "SELECT sea_id id, sea_name name, sea_rif rif FROM seat WHERE sea_id = :id";
+	private const QUERY_GET_BY_AGENCY_ID = "SELECT sea_id id, sea_name name, sea_rif rif 
+											FROM seat , agency 
+											WHERE sea_agency_fk = age_id AND age_id = :id";
 
 	/**
 	 * DaoSeat constructor.
@@ -56,6 +59,29 @@ class DaoSeat extends Dao {
 				Throw new SeatNotFoundException("There are no seat found", 200);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $e) {
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return Seat[]
+	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
+	 */
+	public function getAllSeatsByAgencyID ($id) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_AGENCY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SeatNotFoundException("There are no seat found in this agency", 200);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+			}
 		}
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
