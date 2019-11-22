@@ -39,4 +39,11 @@ class FactoryMapper {
 	static function createMapperSeat () {
 		return new MapperSeat();
 	}
+
+	/**
+	 * @return MapperRequest
+	 */
+	static function createMapperRequest () {
+		return new MapperRequest();
+	}
 }

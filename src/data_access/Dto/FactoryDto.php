@@ -27,8 +27,8 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param        $id
-	 * @param string $name
+	 * @param           $id
+	 * @param string    $name
 	 * @param DtoSeat[] $seat
 	 *
 	 * @return DtoAgency
