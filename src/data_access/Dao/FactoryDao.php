@@ -39,4 +39,11 @@ class FactoryDao {
 	static function createDaoSeat ():DaoSeat {
 		return new DaoSeat();
 	}
+
+	/**
+	 * @return DaoRequest
+	 */
+	static function createDaoRequest ():DaoRequest {
+		return new DaoRequest();
+	}
 }

@@ -95,4 +95,36 @@ class FactoryCommand {
 	static function createAgenciesByIdWithSeatCommand ($id) {
 		return new GetAgenciesByIdWithSeatCommand($id);
 	}
+
+	/**
+	 * @return GetAllRequestCommand
+	 */
+	static function createGetAllRequestCommand () {
+		return new GetAllRequestCommand();
+	}
+
+	/**
+	 * @return GetRequestByIdCommand
+	 */
+	static function createGetRequestByIdCommand () {
+		return new GetRequestByIdCommand();
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetAllRequestByUserIdCommand
+	 */
+	static function createGetAllRequestByUserIdCommand ($id) {
+		return new GetAllRequestByUserIdCommand($id);
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetAllRequestByPropertyIdCommand
+	 */
+	static function createGetAllRequestByPropertyIdCommand ($id) {
+		return new GetAllRequestByPropertyIdCommand($id);
+	}
 }
