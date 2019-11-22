@@ -24,7 +24,11 @@ RewriteRule ^agency$ controllerAgencies.php [NC,L]
 RewriteRule ^agency/id/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
 #EXTRA
 RewriteRule ^extra$ controllerExtra.php [NC,L]
-RewriteRule ^extra/id/([0-9]+)$ controllerextra.php?id=$1 [NC,L]
+RewriteRule ^extra/id/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
+#LOCATION
+RewriteRule ^location/id/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]
+RewriteRule ^location/name/(.+)$ controllerLocation.php?id=$1 [NC,L]
+RewriteRule ^location/type/(.+)$ controllerLocation.php?id=$1 [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------

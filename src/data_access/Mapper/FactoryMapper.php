@@ -32,4 +32,11 @@ class FactoryMapper {
 	static function createMapperExtra () {
 		return new MapperExtra();
 	}
+
+	/**
+	 * @return MapperLocation
+	 */
+	static function createMapperLocation(){
+		return new MapperLocation();
+	}
 }

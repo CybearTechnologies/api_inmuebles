@@ -61,4 +61,21 @@ class FactoryCommand {
 	static function createGetExtraByIdCommand($id){
 		return new GetExtraByIdCommand($id);
 	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetLocationByIdCommand
+	 */
+	static function createGetLocationByIdCommand($id){
+		return new GetLocationByIdCommand($id);
+	}
+
+	static function createGetLocationByNameCommand($name){
+		return new GetLocationByNameCommand($name);
+	}
+
+	static function createGetLocationsByTypeCommand($type){
+		return new GetLocationsByTypeCommand($type);
+	}
 }
