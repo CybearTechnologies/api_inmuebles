@@ -1,4 +1,7 @@
 #   GitIgnore for basic api usage
 .DS_Store
 .idea
-Houston
+houston
+*.log
+sql
+*.sqlite
