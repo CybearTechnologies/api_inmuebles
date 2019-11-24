@@ -22,8 +22,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			echo json_encode($return);
 		}
-		else if(isset($_GET['type']) && is_string($_GET['type'])) {
-			$command = FactoryCommand::createGetLocationsByTypeCommand($_GET['type']);
+		elseif(isset($_GET['type'])) {
+			$command = FactoryCommand::createGetLocationsByTypeCommand('Municipio');
 			try {
 				$command->execute();
 				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
@@ -35,9 +35,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (LocationNotFoundException $e) {
 				$return = array ('ok' => true, 'data' => array ());
-				Result::setResponse();
+				Result::setResponse(404);
 			}
-			http_response_code(200);
 			echo json_encode($return);
 		}
 		break;

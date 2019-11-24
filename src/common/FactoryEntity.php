@@ -47,7 +47,7 @@ class FactoryEntity {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 * @param string $type
 	 *

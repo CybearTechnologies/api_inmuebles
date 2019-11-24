@@ -1,18 +1,18 @@
 <?php
 class MapperLocation extends Mapper {
 	/**
-	 * @param Dto $dto
+	 * @param DtoLocation $dto
 	 *
-	 * @return Entity
+	 * @return Location
 	 */
 	public function fromDtoToEntity ($dto):Entity {
 		return FactoryEntity::createLocation($dto->id,$dto->name,$dto->type);
 	}
 
 	/**
-	 * @param Entity $entity
+	 * @param Location $entity
 	 *
-	 * @return Dto
+	 * @return DtoLocation
 	 */
 	public function fromEntityToDto ($entity):Dto {
 		return FactoryDto::createDtoLocation($entity->getId(),$entity->getName(),$entity->getType());

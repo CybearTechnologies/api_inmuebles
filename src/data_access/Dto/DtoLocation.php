@@ -7,8 +7,8 @@ class DtoLocation extends Dto {
 	 * DtoLocation constructor.
 	 *
 	 * @param int $id
-	 * @param     $name
-	 * @param     $type
+	 * @param string    $name
+	 * @param string    $type
 	 */
 	public function __construct (int $id, $name, $type) {
 		$this->id = $id;

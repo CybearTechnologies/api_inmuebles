@@ -3,20 +3,27 @@ class GetLocationsByTypeCommand extends Command {
 	private $_dao;
 	private $_type;
 
-	/**
-	 * GetLocationsByTypeCommand constructor.
-	 *
-	 * @param $_id
-	 */
-	public function __construct ($_type) {
-		$this->_type = $_type;
+    /**
+     * GetLocationsByTypeCommand constructor.
+     *
+     * @param string $type
+     */
+	public function __construct ($type) {
+        $this->_dao = FactoryDao::createDaoLocation();
+		$this->_type = $type;
 	}
 
+    /**
+     * @throws DatabaseConnectionException
+     * @throws LocationNotFoundException
+     */
 	public function execute ():void {
-		$this->_dao = FactoryDao::createDaoLocation();
 		$this->setData($this->_dao->getLocationByType($this->_type));
 	}
 
+    /**
+     * @return Location[]
+     */
 	public function return () {
 		return $this->getData();
 	}
