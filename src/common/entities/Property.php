@@ -1,31 +1,31 @@
 <?php
 class Property extends Entity {
 	private $_name;
+	private $_area;
 	private $_description;
 	private $_publishDate;
 	private $_state;
-	private $_propertyType;
-	private $_area;
+	private $_floor;
 
 	/**
-	 * Extra constructor.
+	 * Property constructor.
 	 *
-	 * @param              $_id
-	 * @param string       $_name
-	 * @param string       $_description
-	 * @param string       $_publishDate
-	 * @param int          $_state
-	 * @param PropertyType $_propertyType
-	 * @param              $_area
+	 * @param int $id
+	 * @param     $name
+	 * @param     $area
+	 * @param     $description
+	 * @param     $publishDate
+	 * @param     $state
+	 * @param     $floor
 	 */
-	public function __construct ($_id, $_name, $_description, $_publishDate, $_state, $_propertyType, $_area) {
-		$this->setId($_id);
-		$this->_name = $_name;
-		$this->_description = $_description;
-		$this->_publishDate = $_publishDate;
-		$this->_state = $_state;
-		$this->_propertyType = $_propertyType;
-		$this->_area = $_area;
+	public function __construct (int $id, $name, $area, $description, $publishDate, $state, $floor) {
+		$this->setId($id);
+		$this->_name = $name;
+		$this->_area = $area;
+		$this->_description = $description;
+		$this->_publishDate = $publishDate;
+		$this->_state = $state;
+		$this->_floor = $floor;
 	}
 
 	/**
@@ -44,6 +44,20 @@ class Property extends Entity {
 
 	/**
 	 * @return mixed
+	 */
+	public function getArea () {
+		return $this->_area;
+	}
+
+	/**
+	 * @param mixed $area
+	 */
+	public function setArea ($area):void {
+		$this->_area = $area;
+	}
+
+	/**
+	 * @return string
 	 */
 	public function getDescription () {
 		return $this->_description;
@@ -71,44 +85,30 @@ class Property extends Entity {
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getState () {
 		return $this->_state;
 	}
 
 	/**
-	 * @param mixed $state
+	 * @param string $state
 	 */
 	public function setState ($state):void {
 		$this->_state = $state;
 	}
 
 	/**
-	 * @return PropertyType
+	 * @return string
 	 */
-	public function getPropertyType ():PropertyType {
-		return $this->_propertyType;
+	public function getFloor ():string {
+		return $this->_floor;
 	}
 
 	/**
-	 * @param PropertyType $propertyType
+	 * @param mixed $floor
 	 */
-	public function setPropertyType ($propertyType):void {
-		$this->_propertyType = $propertyType;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getArea () {
-		return $this->_area;
-	}
-
-	/**
-	 * @param mixed $area
-	 */
-	public function setArea ($area):void {
-		$this->_area = $area;
+	public function setFloor ($floor):void {
+		$this->_floor = $floor;
 	}
 }
