@@ -77,10 +77,6 @@ class FactoryCommand {
 		return new GetLocationByIdCommand($id);
 	}
 
-	static function createGetLocationByNameCommand($name){
-		return new GetLocationByNameCommand($name);
-	}
-
 	static function createGetLocationsByTypeCommand($type){
 		return new GetLocationsByTypeCommand($type);
 	}

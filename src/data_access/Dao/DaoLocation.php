@@ -1,9 +1,9 @@
 <?php
 class DaoLocation extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_BY_NAME = "Select loc_id id, loc_name name,loc_type type from location where loc_name=':name'";
-	private const QUERY_GET_BY_TYPE = "Select loc_id id, loc_name name,loc_type type from location where loc_type=':type'";
-	private const QUERY_GET_BY_ID = "Select loc_id id, loc_name name,loc_type type from location where loc_id=:id";
+	private const QUERY_GET_BY_NAME = "Select lo_id id, lo_name name,lo_type type from location where lo_name=':name'";
+	private const QUERY_GET_BY_TYPE = "Select lo_id id, lo_name name,lo_type type from location where lo_type=':type'";
+	private const QUERY_GET_BY_ID = "Select lo_id id, lo_name name,lo_type type from location where lo_id=:id";
 
 	/**
 	 * @param $id
