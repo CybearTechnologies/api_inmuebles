@@ -16,7 +16,7 @@ class DaoRequest extends Dao {
 	/**
 	 * @param $id
 	 *
-	 * @return array
+	 * @return Request[]
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
@@ -30,7 +30,8 @@ class DaoRequest extends Dao {
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -38,7 +39,7 @@ class DaoRequest extends Dao {
 	/**
 	 * @param $id
 	 *
-	 * @return array
+	 * @return Request[]
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
@@ -52,13 +53,14 @@ class DaoRequest extends Dao {
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
 
 	/**
-	 * @return array
+	 * @return Request[]
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
@@ -71,7 +73,8 @@ class DaoRequest extends Dao {
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -79,7 +82,7 @@ class DaoRequest extends Dao {
 	/**
 	 * @param $id
 	 *
-	 * @return mixed
+	 * @return Request
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
@@ -94,7 +97,8 @@ class DaoRequest extends Dao {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -102,7 +106,7 @@ class DaoRequest extends Dao {
 	/**
 	 * @param $dbObject
 	 *
-	 * @return mixed
+	 * @return Request
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createRequest($dbObject->id, $dbObject->date);

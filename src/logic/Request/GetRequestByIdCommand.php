@@ -5,17 +5,26 @@ class GetRequestByIdCommand extends Command {
 
 	/**
 	 * GetRequestByIdCommand constructor.
+	 *
+	 * @param $id
 	 */
-	public function __construct ($_id) {
-		$this->_id = $_id;
+	public function __construct ($id) {
+		$this->_id = $id;
 		$this->_dao = FactoryDao::createDaoRequest();
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws RequestNotFoundException
+	 */
 	public function execute ():void {
 		$this->setData($this->_dao->getRequestById($this->_id));
 	}
 
+	/**
+	 * @return Request
+	 */
 	public function return () {
-		$this->getData();
+		return $this->getData();
 	}
 }

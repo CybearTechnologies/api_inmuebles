@@ -17,7 +17,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse($e->getCode());
 			}
 			catch (ExtraNotFoundException $e) {
-				$return = new Result(true, [], 'Extra no encontrada.');
+				$return = new Result(true, [], 'Extra no encontrado.');
 				Result::setResponse($e->getCode());
 			}
 			echo json_encode($return);
@@ -26,7 +26,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllExtraCommand();
 			try {
 				$command->execute();
-				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
@@ -34,7 +34,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse($e->getCode());
 			}
 			catch (ExtraNotFoundException $e) {
-				$return = new Result(true, [], 'Error de conexión.');
+				$return = new Result(true, [], 'Extra no encontrado.');
 				Result::setResponse($e->getCode());
 			}
 			http_response_code(200);

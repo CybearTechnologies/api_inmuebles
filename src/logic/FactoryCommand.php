@@ -144,4 +144,13 @@ class FactoryCommand {
 	static function createGetAllRequestByPropertyIdCommand (int $id) {
 		return new GetAllRequestByPropertyIdCommand($id);
 	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetPropertyPriceByPropertyIdCommand
+	 */
+	static function createGetPropertyPriceByPropertyIdCommand ($id):GetPropertyPriceByPropertyIdCommand {
+		return new GetPropertyPriceByPropertyIdCommand($id);
+	}
 }
