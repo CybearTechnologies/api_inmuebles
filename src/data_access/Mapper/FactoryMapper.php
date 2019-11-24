@@ -29,7 +29,7 @@ class FactoryMapper {
 	/**
 	 * @return MapperExtra
 	 */
-	static function createMapperExtra () {
+	static function createMapperExtra ():MapperExtra {
 		return new MapperExtra();
 	}
 

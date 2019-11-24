@@ -14,11 +14,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = new Result(false, [], 'Error de conexión');
-				Result::setResponse(500);
+				Result::setResponse($e->getCode());
 			}
 			catch (PropertyTypeNotFoundException $e) {
 				$return = new Result(false, [], 'Propiedad no encontrada.');
-				Result::setResponse(404);
+				Result::setResponse($e->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -31,11 +31,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = new Result(false, [], 'Error de conexión');
-				Result::setResponse(500);
+				Result::setResponse($e->getCode());
 			}
 			catch (PropertyTypeNotFoundException $e) {
 				$return = new Result(false, [], 'Propiedad no encontrada.');
-				Result::setResponse(404);
+				Result::setResponse($e->getCode());
 			}
 			echo json_encode($return);
 		}

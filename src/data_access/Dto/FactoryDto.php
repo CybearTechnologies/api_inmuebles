@@ -38,12 +38,12 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 *
 	 * @return DtoExtra
 	 */
-	static function createDtoExtra ($id, $name = ""):DtoExtra {
+	static function createDtoExtra (int $id, $name = ""):DtoExtra {
 		return new DtoExtra($id, $name);
 	}
 

@@ -13,12 +13,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
-				Result::setResponse(500);
+				$return = new Result(false, [], 'Error de conexión.');
+				Result::setResponse($e->getCode());
 			}
 			catch (ExtraNotFoundException $e) {
-				$return = new Result(false, [], 'Extra no encontrada.');
-				Result::setResponse();
+				$return = new Result(true, [], 'Extra no encontrada.');
+				Result::setResponse($e->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -30,12 +30,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
-				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
-				Result::setResponse(500);
+				$return = new Result(false, [], 'Error de conexión.');
+				Result::setResponse($e->getCode());
 			}
 			catch (ExtraNotFoundException $e) {
-				$return = array ('ok' => true, 'data' => array ());
-				Result::setResponse();
+				$return = new Result(true, [], 'Error de conexión.');
+				Result::setResponse($e->getCode());
 			}
 			http_response_code(200);
 			echo json_encode($return);

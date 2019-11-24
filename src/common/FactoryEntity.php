@@ -38,12 +38,12 @@ class FactoryEntity {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 *
 	 * @return Extra
 	 */
-	static function createExtra ($id, $name = '') {
+	static function createExtra (int $id, $name = ''):Extra {
 		return new Extra($id, $name);
 	}
 

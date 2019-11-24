@@ -7,7 +7,7 @@ class DaoExtra extends Dao {
 	/**
 	 * @param $id
 	 *
-	 * @return mixed
+	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
@@ -17,31 +17,33 @@ class DaoExtra extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new ExtraNotFoundException("There are no Extra found", 200);
+				Throw new ExtraNotFoundException("There are no Extra found", 404);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
 
 	/**
 	 * @return Extra[]
-	 * @throws ExtraNotFoundException
 	 * @throws DatabaseConnectionException
+	 * @throws ExtraNotFoundException
 	 */
 	public function getAllExtra () {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new ExtraNotFoundException("There are no Extra found", 200);
+				Throw new ExtraNotFoundException("There are no Extra found", 404);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -49,7 +51,7 @@ class DaoExtra extends Dao {
 	/**
 	 * @param $dbObject
 	 *
-	 * @return mixed
+	 * @return Extra
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createExtra($dbObject->id, $dbObject->name);
