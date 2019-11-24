@@ -6,10 +6,11 @@ class GetExtraByIdCommand extends Command {
 	/**
 	 * GetExtraByIdCommand constructor.
 	 *
-	 * @param $_id
+	 * @param int $id
 	 */
-	public function __construct ($_id) {
-		$this->_id = $_id;
+	public function __construct (int $id) {
+		$this->_dao = FactoryDao::createDaoExtra();
+		$this->_id = $id;
 	}
 
 	/**
@@ -17,12 +18,11 @@ class GetExtraByIdCommand extends Command {
 	 * @throws ExtraNotFoundException
 	 */
 	public function execute ():void {
-		$this->_dao = FactoryDao::createDaoExtra();
 		$this->setData($this->_dao->getExtraById($this->_id));
 	}
 
 	/**
-	 * @return Extra
+	 * @return mixed
 	 */
 	public function return () {
 		return $this->getData();

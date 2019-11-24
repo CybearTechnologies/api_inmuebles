@@ -69,12 +69,24 @@ class FactoryEntity {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $date
 	 *
 	 * @return Request
 	 */
-	static function createRequest ($id, $date = '') {
+	static function createRequest (int $id, $date = '') {
 		return new Request($id, $date);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $price
+	 * @param string $date
+	 * @param bool   $final
+	 *
+	 * @return PropertyPrice
+	 */
+	static function createPropertyPrice (int $id, $price = 0, $date = '', $final = false):PropertyPrice {
+		return new PropertyPrice($id, $price, $date, $final);
 	}
 }

@@ -6,10 +6,10 @@ class GetAllRequestByPropertyIdCommand extends Command {
 	/**
 	 * GetAllRequestByPropertyIdCommand constructor.
 	 *
-	 * @param $_id
+	 * @param $id
 	 */
-	public function __construct (int $_id) {
-		$this->_id = $_id;
+	public function __construct (int $id) {
+		$this->_id = $id;
 		$this->_dao = FactoryDao::createDaoRequest();
 	}
 
@@ -21,7 +21,10 @@ class GetAllRequestByPropertyIdCommand extends Command {
 		$this->setData($this->_dao->getAllRequestByPropertyId($this->_id));
 	}
 
+	/**
+	 * @return Request[]
+	 */
 	public function return () {
-		$this->getData();
+		return $this->getData();
 	}
 }

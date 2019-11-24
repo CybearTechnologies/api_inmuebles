@@ -5,22 +5,23 @@ class Request extends Entity {
 	/**
 	 * Request constructor.
 	 *
-	 * @param $_date
+	 * @param int $id
+	 * @param     $date
 	 */
-	public function __construct (int $id, $_date) {
+	public function __construct (int $id, $date) {
 		$this->setId($id);
-		$this->_date = $_date;
+		$this->_date = $date;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getDate () {
 		return $this->_date;
 	}
 
 	/**
-	 * @param mixed $date
+	 * @param $date
 	 */
 	public function setDate ($date):void {
 		$this->_date = $date;

@@ -56,7 +56,25 @@ class Tools {
 	/**
 	 * @return object
 	 */
-	public static function getObject () {
+	static function getObject () {
 		return (object) $_GET;
+	}
+
+	/**
+	 * @param $date
+	 *
+	 * @return string
+	 */
+	static function formatDate ($date) {
+		try {
+			$date = new DateTime($date);
+
+			return $date->format('d-m-Y h:iA');
+		}
+		catch (Exception $exception) {
+			Logger::exception($exception, Logger::WARNING);
+
+			return $date = "";
+		}
 	}
 }

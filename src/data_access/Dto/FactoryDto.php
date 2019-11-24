@@ -68,7 +68,19 @@ class FactoryDto {
 	 *
 	 * @return DtoRequest
 	 */
-	static function createDtoRequest ($id, $date = '') {
+	static function createDtoRequest (int $id, $date = '') {
 		return new DtoRequest($id, $date);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $price
+	 * @param string $date
+	 * @param bool   $final
+	 *
+	 * @return DtoPropertyPrice
+	 */
+	static function createDtoPropertyPrice (int $id, $price = 0, $date = '', $final = false) {
+		return new DtoPropertyPrice($id, $price, $date, $final);
 	}
 }

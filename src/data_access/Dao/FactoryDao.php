@@ -50,4 +50,11 @@ class FactoryDao {
 	static function createDaoRequest ():DaoRequest {
 		return new DaoRequest();
 	}
+
+	/**
+	 * @return DaoPropertyPrice
+	 */
+	static function createDaoPropertyPrice ():DaoPropertyPrice {
+		return new DaoPropertyPrice();
+	}
 }

@@ -5,9 +5,11 @@ class GetAllRequestByUserIdCommand extends Command {
 
 	/**
 	 * GetAllRequestByUserIdCommand constructor.
+	 *
+	 * @param $id
 	 */
-	public function __construct ($_id) {
-		$this->_id = $_id;
+	public function __construct ($id) {
+		$this->_id = $id;
 		$this->_dao = FactoryDao::createDaoRequest();
 	}
 
@@ -19,7 +21,10 @@ class GetAllRequestByUserIdCommand extends Command {
 		$this->setData($this->_dao->getAllRequestByUserId($this->_id));
 	}
 
+	/**
+	 * @return Request[]
+	 */
 	public function return () {
-		$this->getData();
+		return $this->getData();
 	}
 }
