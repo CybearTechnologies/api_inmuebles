@@ -2,42 +2,41 @@
 require_once "autoload.php";
 Tools::headers();
 $return = null;
-$mapper = FactoryMapper::createMapperExtra();
+$mapper = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetExtraByIdCommand($_GET['id']);
+			$command = FactoryCommand::createGetSeatByIdCommand($_GET['id']);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error de conexión.');
-				Result::setResponse($e->getCode());
+				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
+				Result::setResponse(500);
 			}
-			catch (ExtraNotFoundException $e) {
-				$return = new Result(true, [], 'Extra no encontrada.');
-				Result::setResponse($e->getCode());
+			catch (SeatNotFoundException $e) {
+				$return = new Result(false, [], 'Sede no encontrada.');
+				Result::setResponse();
 			}
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createGetAllExtraCommand();
+			$command = FactoryCommand::createGetAllSeatCommand();
 			try {
 				$command->execute();
 				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error de conexión.');
-				Result::setResponse($e->getCode());
+				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
+				Result::setResponse(500);
 			}
-			catch (ExtraNotFoundException $e) {
-				$return = new Result(true, [], 'Error de conexión.');
-				Result::setResponse($e->getCode());
+			catch (SeatNotFoundException $e) {
+				$return = new Result(false, [], 'Sede no encontrada.');
+				Result::setResponse();
 			}
-			http_response_code(200);
 			echo json_encode($return);
 		}
 		break;

@@ -29,14 +29,25 @@ class FactoryMapper {
 	/**
 	 * @return MapperExtra
 	 */
-	static function createMapperExtra () {
+	static function createMapperExtra ():MapperExtra {
 		return new MapperExtra();
 	}
 
-	/**
-	 * @return MapperLocation
-	 */
 	static function createMapperLocation(){
 		return new MapperLocation();
+	}
+
+	/**
+	 * @return MapperSeat
+	 */
+	static function createMapperSeat () {
+		return new MapperSeat();
+	}
+
+	/**
+	 * @return MapperRequest
+	 */
+	static function createMapperRequest () {
+		return new MapperRequest();
 	}
 }

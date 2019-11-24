@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by Kevin Martinez
- * Date: 13-Nov-19
- * Time: 7:36 PM
- */
-class PropertyTypeNotFoundException extends CustomException {
+class RequestNotFoundException extends Exception {
 	public function __construct ($message = "", $code = 0, Throwable $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}

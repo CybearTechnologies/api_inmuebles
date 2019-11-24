@@ -5,22 +5,23 @@ class Extra extends Entity {
 	/**
 	 * Extra constructor.
 	 *
-	 * @param $_name
+	 * @param int $id
+	 * @param     $name
 	 */
-	public function __construct ($_id, $_name) {
-		$this->setId($_id);
-		$this->_name = $_name;
+	public function __construct (int $id, $name) {
+		$this->setId($id);
+		$this->_name = $name;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getName () {
+	public function getName ():string {
 		return $this->_name;
 	}
 
 	/**
-	 * @param mixed $name
+	 * @param string $name
 	 */
 	public function setName ($name):void {
 		$this->_name = $name;

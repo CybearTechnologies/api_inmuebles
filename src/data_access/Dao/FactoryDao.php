@@ -33,10 +33,21 @@ class FactoryDao {
 		return new DaoExtra();
 	}
 
-	/**
-	 * @return DaoLocation
-	 */
 	static function  createDaoLocation():DaoLocation{
 		return new DaoLocation();
+	}
+
+	/**
+	 * @return DaoSeat
+	 */
+	static function createDaoSeat ():DaoSeat {
+		return new DaoSeat();
+	}
+
+	/**
+	 * @return DaoRequest
+	 */
+	static function createDaoRequest ():DaoRequest {
+		return new DaoRequest();
 	}
 }

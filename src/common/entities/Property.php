@@ -8,7 +8,7 @@ class Property extends Entity {
 	private $_area;
 
 	/**
-	 * Property constructor.
+	 * Extra constructor.
 	 *
 	 * @param              $_id
 	 * @param string       $_name

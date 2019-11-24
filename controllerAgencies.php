@@ -6,7 +6,7 @@ $mapper = FactoryMapper::createMapperAgency();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetAgenciesById($_GET['id']);
+			$command = FactoryCommand::createAgenciesByIdWithSeatCommand($_GET['id']);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));

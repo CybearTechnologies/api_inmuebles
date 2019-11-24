@@ -17,6 +17,9 @@ class GetAllPropertyTypeCommand extends Command {
 		$this->setData($this->_dao->getAllPropertyTypes());
 	}
 
+	/**
+	 * @return PropertyType[]
+	 */
 	public function return () {
 		return $this->getData();
 	}

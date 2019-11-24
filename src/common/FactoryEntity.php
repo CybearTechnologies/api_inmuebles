@@ -4,15 +4,14 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-require_once __DIR__ . "/../../autoload.php";
 class FactoryEntity {
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType ($id, $name = ''):PropertyType {
+	static function createPropertyType (int $id, $name = ''):PropertyType {
 		return new PropertyType($id, $name);
 	}
 
@@ -30,20 +29,21 @@ class FactoryEntity {
 	/**
 	 * @param        $id
 	 * @param string $name
+	 * @param Seat[] $seats
 	 *
 	 * @return Agency
 	 */
-	static function createAgency ($id, $name = '') {
-		return new Agency($id, $name);
+	static function createAgency ($id, $name = '', $seats = []) {
+		return new Agency($id, $name, $seats);
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 *
 	 * @return Extra
 	 */
-	static function createExtra ($id, $name = '') {
+	static function createExtra (int $id, $name = ''):Extra {
 		return new Extra($id, $name);
 	}
 
@@ -58,4 +58,18 @@ class FactoryEntity {
 		return new Location($id,$name,$type);
 	}
 
+	/**
+	 * @param        $id
+	 * @param string $name
+	 * @param        $rif
+	 *
+	 * @return Seat
+	 */
+	static function createSeat ($id = 0, $name = '', $rif = '') {
+		return new Seat($id, $name, $rif);
+	}
+
+	static function createRequest ($id, $date = '') {
+		return new Request($id, $date);
+	}
 }

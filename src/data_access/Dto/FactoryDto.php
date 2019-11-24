@@ -11,7 +11,7 @@ class FactoryDto {
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType ($id, $name = ''):DtoPropertyType {
+	static function createDtoPropertyType (int $id, $name = ''):DtoPropertyType {
 		return new DtoPropertyType($id, $name);
 	}
 
@@ -27,33 +27,48 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param        $id
-	 * @param string $name
+	 * @param           $id
+	 * @param string    $name
+	 * @param DtoSeat[] $seats
 	 *
 	 * @return DtoAgency
 	 */
-	static function createDtoAgency ($id, $name = '') {
-		return new DtoAgency($id, $name);
+	static function createDtoAgency ($id, $name = '', $seats = []) {
+		return new DtoAgency($id, $name, $seats);
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 *
 	 * @return DtoExtra
 	 */
-	static function createDtoExtra ($id, $name = ""):DtoExtra {
+	static function createDtoExtra (int $id, $name = ""):DtoExtra {
 		return new DtoExtra($id, $name);
+	}
+
+	static function createDtoLocation ($id, $name = "", $type = ""):DtoLocation {
+		return new DtoLocation($id,$name,$type);
 	}
 
 	/**
 	 * @param        $id
-	 * @param string $name
-	 * @param string $type
+	 * @param        $name
+	 * @param string $rif
 	 *
-	 * @return DtoLocation
+	 * @return DtoSeat
 	 */
-	static function createDtoLocation ($id, $name = "", $type = ""):DtoLocation {
-		return new DtoLocation($id,$name,$type);
+	static function createDtoSeat ($id, $name = '', $rif = '') {
+		return new DtoSeat($id, $name, $rif);
+	}
+
+	/**
+	 * @param        $id
+	 * @param string $date
+	 *
+	 * @return DtoRequest
+	 */
+	static function createDtoRequest ($id, $date = '') {
+		return new DtoRequest($id, $date);
 	}
 }

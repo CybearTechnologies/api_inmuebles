@@ -4,7 +4,6 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-require_once __DIR__ . "/../../autoload.php";
 class FactoryCommand {
 	/**
 	 * @return GetAllPropertyTypeCommand
@@ -49,7 +48,7 @@ class FactoryCommand {
 	/**
 	 * @return GetAllExtraCommand
 	 */
-	static function createGetAllExtraCommand(){
+	static function createGetAllExtraCommand () {
 		return new GetAllExtraCommand();
 	}
 
@@ -58,15 +57,10 @@ class FactoryCommand {
 	 *
 	 * @return GetExtraByIdCommand
 	 */
-	static function createGetExtraByIdCommand($id){
+	static function createGetExtraByIdCommand ($id) {
 		return new GetExtraByIdCommand($id);
 	}
 
-	/**
-	 * @param $id
-	 *
-	 * @return GetLocationByIdCommand
-	 */
 	static function createGetLocationByIdCommand($id){
 		return new GetLocationByIdCommand($id);
 	}
@@ -77,5 +71,71 @@ class FactoryCommand {
 
 	static function createGetLocationsByTypeCommand($type){
 		return new GetLocationsByTypeCommand($type);
+	}
+
+	/**
+	 * @return GetAllSeatCommand
+	 */
+	static function createGetAllSeatCommand () {
+		return new GetAllSeatCommand();
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetSeatByIdCommand
+	 */
+	static function createGetSeatByIdCommand ($id) {
+		return new GetSeatByIdCommand($id);
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetAllSeatsByAgencyID
+	 */
+	static function createGetAllSeatsByAgencyID ($id) {
+		return new GetAllSeatsByAgencyID($id);
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetAgenciesByIdWithSeatCommand
+	 */
+	static function createAgenciesByIdWithSeatCommand ($id) {
+		return new GetAgenciesByIdWithSeatCommand($id);
+	}
+
+	/**
+	 * @return GetAllRequestCommand
+	 */
+	static function createGetAllRequestCommand () {
+		return new GetAllRequestCommand();
+	}
+
+	/**
+	 * @return GetRequestByIdCommand
+	 */
+	static function createGetRequestByIdCommand () {
+		return new GetRequestByIdCommand();
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetAllRequestByUserIdCommand
+	 */
+	static function createGetAllRequestByUserIdCommand ($id) {
+		return new GetAllRequestByUserIdCommand($id);
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return GetAllRequestByPropertyIdCommand
+	 */
+	static function createGetAllRequestByPropertyIdCommand ($id) {
+		return new GetAllRequestByPropertyIdCommand($id);
 	}
 }

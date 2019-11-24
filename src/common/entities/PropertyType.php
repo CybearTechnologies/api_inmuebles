@@ -5,12 +5,12 @@ class PropertyType extends Entity {
 	/**
 	 * PropertyType constructor.
 	 *
-	 * @param int    $_id
-	 * @param string $_name
+	 * @param int    $id
+	 * @param string $name
 	 */
-	public function __construct (int $_id, $_name) {
-		$this->setId($_id);
-		$this->_name = $_name;
+	public function __construct (int $id, $name) {
+		$this->setId($id);
+		$this->_name = $name;
 	}
 
 	/**
