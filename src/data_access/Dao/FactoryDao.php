@@ -33,7 +33,7 @@ class FactoryDao {
 		return new DaoExtra();
 	}
 
-	static function  createDaoLocation():DaoLocation{
+	static function createDaoLocation ():DaoLocation {
 		return new DaoLocation();
 	}
 
@@ -56,5 +56,12 @@ class FactoryDao {
 	 */
 	static function createDaoPropertyPrice ():DaoPropertyPrice {
 		return new DaoPropertyPrice();
+	}
+
+	/**
+	 * @return DaoProperty
+	 */
+	static function createDaoProperty ():DaoProperty {
+		return new DaoProperty();
 	}
 }
