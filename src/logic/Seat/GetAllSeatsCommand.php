@@ -1,16 +1,12 @@
 <?php
-class GetSeatByIdCommand extends Command {
+class GetAllSeatsCommand extends Command {
 	private $_dao;
-	private $_id;
 
 	/**
-	 * GetSeatByIdCommand constructor.
-	 *
-	 * @param int $id
+	 * GetAllSeatsCommand constructor.
 	 */
-	public function __construct ($id) {
+	public function __construct () {
 		$this->_dao = FactoryDao::createDaoSeat();
-		$this->_id = $id;
 	}
 
 	/**
@@ -18,11 +14,11 @@ class GetSeatByIdCommand extends Command {
 	 * @throws SeatNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getSeatById($this->_id));
+		$this->setData($this->_dao->getAllSeats());
 	}
 
 	/**
-	 * @return Seat
+	 * @return Seat[]
 	 */
 	public function return () {
 		return $this->getData();

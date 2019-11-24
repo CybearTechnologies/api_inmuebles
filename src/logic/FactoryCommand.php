@@ -5,6 +5,9 @@
  * Time: 12:29 PM
  */
 class FactoryCommand {
+	//-----------------------------------------------------------------------------
+	// PROPERTY TYPES
+	//-----------------------------------------------------------------------------
 	/**
 	 * @return GetAllPropertyTypeCommand
 	 */
@@ -20,6 +23,9 @@ class FactoryCommand {
 	static function createGetPropertyTypeByIdCommand ($id):GetPropertyTypeByIdCommand {
 		return new GetPropertyTypeByIdCommand($id);
 	}
+	//-----------------------------------------------------------------------------
+	// PLANS
+	//-----------------------------------------------------------------------------
 
 	/**
 	 * @return GetAllPlanCommand
@@ -36,15 +42,21 @@ class FactoryCommand {
 	static function createGetPlanByIdCommand ($id) {
 		return new GetPlanByIdCommand($id);
 	}
+	//-----------------------------------------------------------------------------
+	// AGENCY
+	//-----------------------------------------------------------------------------
 
 	static function createGetAllAgenciesCommand () {
 		return new GetAllAgenciesCommand();
 	}
 
-	static function createGetAgenciesById ($id) {
-		return new GetAgenciesByIdCommand($id);
+	static function createGetAgencyByIdCommand ($id) {
+		return new GetAgencyByIdCommand($id);
 	}
 
+	//-----------------------------------------------------------------------------
+	// EXTRA
+	//-----------------------------------------------------------------------------
 	/**
 	 * @return GetAllExtraCommand
 	 */
@@ -61,15 +73,19 @@ class FactoryCommand {
 		return new GetExtraByIdCommand($id);
 	}
 
+
+	//-----------------------------------------------------------------------------
+	// SEATS
+	//-----------------------------------------------------------------------------
 	/**
-	 * @return GetAllSeatCommand
+	 * @return GetAllSeatsCommand
 	 */
 	static function createGetAllSeatCommand () {
-		return new GetAllSeatCommand();
+		return new GetAllSeatsCommand();
 	}
 
 	/**
-	 * @param $id
+	 * @param int $id
 	 *
 	 * @return GetSeatByIdCommand
 	 */
@@ -78,22 +94,17 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $id
+	 * @param int $id
 	 *
-	 * @return GetAllSeatsByAgencyID
+	 * @return GetAllSeatsByAgencyCommand
 	 */
-	static function createGetAllSeatsByAgencyID ($id) {
-		return new GetAllSeatsByAgencyID($id);
+	static function createGetAllSeatsByAgency ($id) {
+		return new GetAllSeatsByAgencyCommand($id);
 	}
 
-	/**
-	 * @param $id
-	 *
-	 * @return GetAgenciesByIdWithSeatCommand
-	 */
-	static function createAgenciesByIdWithSeatCommand ($id) {
-		return new GetAgenciesByIdWithSeatCommand($id);
-	}
+	//-----------------------------------------------------------------------------
+	// REQUEST
+	//-----------------------------------------------------------------------------
 
 	/**
 	 * @return GetAllRequestCommand
@@ -103,10 +114,12 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return GetRequestByIdCommand
 	 */
-	static function createGetRequestByIdCommand () {
-		return new GetRequestByIdCommand();
+	static function createGetRequestByIdCommand (int $id) {
+		return new GetRequestByIdCommand($id);
 	}
 
 	/**

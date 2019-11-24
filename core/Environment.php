@@ -11,7 +11,7 @@ class Environment {
 	private const SITE_KEY = "";
 	//	Database connections settings
 	private const HOST = "localhost";
-	private const DATABASE = "inmobilapp";
+	private const DATABASE = "inmobiliaria";
 	private const USERNAME = "root";
 	private const PASSWORD = "";
 

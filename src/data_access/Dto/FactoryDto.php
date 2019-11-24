@@ -27,13 +27,13 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param           $id
-	 * @param string    $name
-	 * @param DtoSeat[] $seats
+	 * @param int            $id
+	 * @param string         $name
+	 * @param DtoSeat[]|null $seats
 	 *
 	 * @return DtoAgency
 	 */
-	static function createDtoAgency ($id, $name = '', $seats = []) {
+	static function createDtoAgency (int $id, $name = '', $seats = null) {
 		return new DtoAgency($id, $name, $seats);
 	}
 
@@ -48,13 +48,13 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param        $id
-	 * @param        $name
+	 * @param int    $id
+	 * @param string $name
 	 * @param string $rif
 	 *
 	 * @return DtoSeat
 	 */
-	static function createDtoSeat ($id, $name = '', $rif = '') {
+	static function createDtoSeat (int $id, $name = '', $rif = '') {
 		return new DtoSeat($id, $name, $rif);
 	}
 

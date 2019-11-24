@@ -1,46 +1,31 @@
 <?php
 class Agency extends Entity {
 	private $_name;
-	private $_seats = [];
 
 	/**
 	 * Agency constructor.
 	 *
-	 * @param        $_id
-	 * @param        $_name
-	 * @param Seat[] $_seats
+	 * @param int    $id
+	 * @param string $name
 	 */
-	public function __construct ($_id, $_name, $_seats) {
-		$this->setId($_id);
-		$this->_name = $_name;
-		$this->_seats = $_seats;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getName () {
-		return $this->_name;
-	}
-
-	/**
-	 * @param mixed $name
-	 */
-	public function setName ($name):void {
+	public function __construct (int $id, string $name) {
+		$this->setId($id);
 		$this->_name = $name;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getSeats () {
-		return $this->_seats;
+	public function getName ():string {
+		return $this->_name;
 	}
 
 	/**
-	 * @param mixed $seats
+	 * @param string $name
 	 */
-	public function setSeats ($seats):void {
-		$this->_seats = $seats;
+	public function setName (string $name):void {
+		$this->_name = $name;
 	}
+
+
 }

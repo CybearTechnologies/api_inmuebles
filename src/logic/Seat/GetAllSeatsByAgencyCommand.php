@@ -1,10 +1,10 @@
 <?php
-class GetSeatByIdCommand extends Command {
+class GetAllSeatsByAgencyCommand extends Command {
 	private $_dao;
 	private $_id;
 
 	/**
-	 * GetSeatByIdCommand constructor.
+	 * GetAllSeatsByAgencyCommand constructor.
 	 *
 	 * @param int $id
 	 */
@@ -18,11 +18,11 @@ class GetSeatByIdCommand extends Command {
 	 * @throws SeatNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getSeatById($this->_id));
+		$this->setData($this->_dao->getAllSeatsByAgency($this->_id));
 	}
 
 	/**
-	 * @return Seat
+	 * @return Seat[]
 	 */
 	public function return () {
 		return $this->getData();

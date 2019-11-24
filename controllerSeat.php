@@ -1,24 +1,25 @@
 <?php
 require_once "autoload.php";
 Tools::headers();
+$get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetSeatByIdCommand($_GET['id']);
+		if (isset($get->id) && is_numeric($get->id)) {
+			$command = FactoryCommand::createGetSeatByIdCommand($get->id);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], 'Error de conexión.');
+				Result::setResponse($exception->getCode());
 			}
-			catch (SeatNotFoundException $e) {
-				$return = new Result(false, [], 'Sede no encontrada.');
-				Result::setResponse();
+			catch (SeatNotFoundException $exception) {
+				$return = new Result(false, [], 'Sede #' . $get->id . ' no encontrada.');
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -26,16 +27,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllSeatCommand();
 			try {
 				$command->execute();
-				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], 'Error de conexión.');
+				Result::setResponse($exception->getCode());
 			}
-			catch (SeatNotFoundException $e) {
-				$return = new Result(false, [], 'Sede no encontrada.');
-				Result::setResponse();
+			catch (SeatNotFoundException $exception) {
+				$return = new Result(false, [], 'No se encontraron sedes.');
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
