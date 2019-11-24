@@ -78,4 +78,20 @@ class FactoryEntity {
 	static function createPropertyPrice (int $id, $price = 0, $date = '', $final = false):PropertyPrice {
 		return new PropertyPrice($id, $price, $date, $final);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $area
+	 * @param string $description
+	 * @param string $publishDate
+	 * @param string $state
+	 * @param int    $floor
+	 *
+	 * @return Property
+	 */
+	static function createProperty (int $id, $name = '', $area = 0, $description = '',
+		$publishDate = '', $state = '', $floor = 0) {
+		return new Property($id, $name, $area, $description, $publishDate, $state, $floor);
+	}
 }
