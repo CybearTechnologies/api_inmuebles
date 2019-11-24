@@ -6,12 +6,12 @@
  */
 class FactoryEntity {
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType ($id, $name = ''):PropertyType {
+	static function createPropertyType (int $id, $name = ''):PropertyType {
 		return new PropertyType($id, $name);
 	}
 

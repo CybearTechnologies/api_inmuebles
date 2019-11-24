@@ -5,9 +5,10 @@ class Extra extends Entity {
 	/**
 	 * Extra constructor.
 	 *
+	 * @param $_id
 	 * @param $_name
 	 */
-	public function __construct ($_id, $_name) {
+	public function __construct (int $_id, $_name) {
 		$this->setId($_id);
 		$this->_name = $_name;
 	}

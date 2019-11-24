@@ -11,7 +11,7 @@ class FactoryDto {
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType ($id, $name = ''):DtoPropertyType {
+	static function createDtoPropertyType (int $id, $name = ''):DtoPropertyType {
 		return new DtoPropertyType($id, $name);
 	}
 
