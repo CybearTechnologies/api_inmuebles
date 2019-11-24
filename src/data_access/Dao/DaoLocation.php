@@ -58,7 +58,7 @@ class DaoLocation extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws LocationNotFoundException
 	 */
-	public function getLocationByType ($type) {
+	public function getLocationsByType ($type) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_TYPE);
 			$stmt->bindParam(":type", $type, PDO::PARAM_STR);
