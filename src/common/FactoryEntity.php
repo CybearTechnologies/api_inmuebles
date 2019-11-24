@@ -27,14 +27,13 @@ class FactoryEntity {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
-	 * @param Seat[] $seats
 	 *
 	 * @return Agency
 	 */
-	static function createAgency ($id, $name = '', $seats = []) {
-		return new Agency($id, $name, $seats);
+	static function createAgency (int $id, $name = '') {
+		return new Agency($id, $name);
 	}
 
 	/**
@@ -59,16 +58,22 @@ class FactoryEntity {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
-	 * @param        $rif
+	 * @param string $rif
 	 *
 	 * @return Seat
 	 */
-	static function createSeat ($id = 0, $name = '', $rif = '') {
+	static function createSeat (int $id, $name = '', $rif = '') {
 		return new Seat($id, $name, $rif);
 	}
 
+	/**
+	 * @param        $id
+	 * @param string $date
+	 *
+	 * @return Request
+	 */
 	static function createRequest ($id, $date = '') {
 		return new Request($id, $date);
 	}

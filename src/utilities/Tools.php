@@ -52,4 +52,11 @@ class Tools {
 
 		return $ip;
 	}
+
+	/**
+	 * @return object
+	 */
+	public static function getObject () {
+		return (object) $_GET;
+	}
 }

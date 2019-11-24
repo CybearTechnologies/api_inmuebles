@@ -1,18 +1,18 @@
 <?php
 class DtoAgency extends Dto {
 	public $name;
-	public $seat = [];
+	public $seats;
 
 	/**
 	 * DtoAgency constructor.
 	 *
-	 * @param int  $id
-	 * @param      $name
-	 * @param Seat $seat []
+	 * @param int            $id
+	 * @param string         $name
+	 * @param DtoSeat[]|null $seats
 	 */
-	public function __construct (int $id, $name, $seat) {
+	public function __construct (int $id, string $name, $seats) {
 		$this->id = $id;
 		$this->name = $name;
-		$this->seat = $seat;
+		$this->seats = $seats;
 	}
 }

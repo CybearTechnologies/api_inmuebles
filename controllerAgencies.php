@@ -1,24 +1,39 @@
 <?php
 require_once "autoload.php";
 Tools::headers();
+$get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperAgency();
+$mapperSeat = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createAgenciesByIdWithSeatCommand($_GET['id']);
+		if (isset($get->id) && is_numeric($get->id)) {
+			$command = FactoryCommand::createGetAgencyByIdCommand($get->id);
 			try {
 				$command->execute();
-				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
+				$dto = $mapper->fromEntityToDTO($command->return());
+				if (isset($_GET['seats'])) {
+					$command = FactoryCommand::createGetAllSeatsByAgency($get->id);
+					try {
+						$command->execute();
+						$dto->seats = $mapperSeat->fromEntityArrayToDtoArray($command->return());
+					}
+					catch (SeatNotFoundException $exception) {
+						unset($dto->seats);
+					}
+				}
+				else
+					unset($dto->seats);
+				$return = new Result(true, $dto);
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], 'Error de conexión.');
+				Result::setResponse($exception->getCode());
 			}
-			catch (AgencyNotFoundException $e) {
-				$return = new Result(false, [], 'Agencia no encontrada no encontrada.');
-				Result::setResponse();
+			catch (AgencyNotFoundException $exception) {
+				$return = new Result(false, [], 'Agencia #' . $get->id . ' no encontrada.');
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -26,18 +41,17 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllAgenciesCommand();
 			try {
 				$command->execute();
-				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], 'Error de conexión.');
+				Result::setResponse($exception->getCode());
 			}
-			catch (AgencyNotFoundException $e) {
-				$return = array ('ok' => true, 'data' => array ());
-				Result::setResponse();
+			catch (AgencyNotFoundException $exception) {
+				$return = new Result(false, [], 'No se encontraron inmobiliarias.');
+				Result::setResponse($exception->getCode());
 			}
-			http_response_code(200);
 			echo json_encode($return);
 		}
 		break;

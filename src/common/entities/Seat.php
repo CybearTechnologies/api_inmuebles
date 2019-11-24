@@ -6,41 +6,41 @@ class Seat extends Entity {
 	/**
 	 * Seat constructor.
 	 *
-	 * @param int $_id
-	 * @param     $_name
-	 * @param     $_rif
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $rif
 	 */
-	public function __construct (int $_id, $_name, $_rif) {
-		$this->setId($_id);
-		$this->_name = $_name;
-		$this->_rif = $_rif;
+	public function __construct (int $id, string $name, string $rif) {
+		$this->setId($id);
+		$this->_name = $name;
+		$this->_rif = $rif;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getName () {
 		return $this->_name;
 	}
 
 	/**
-	 * @param mixed $name
+	 * @param string $name
 	 */
-	public function setName ($name):void {
+	public function setName (string $name):void {
 		$this->_name = $name;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getRif () {
 		return $this->_rif;
 	}
 
 	/**
-	 * @param mixed $rif
+	 * @param string $rif
 	 */
-	public function setRif ($rif):void {
+	public function setRif (string $rif):void {
 		$this->_rif = $rif;
 	}
 }
