@@ -4,7 +4,6 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-require_once __DIR__ . "/../../autoload.php";
 class FactoryEntity {
 	/**
 	 * @param        $id

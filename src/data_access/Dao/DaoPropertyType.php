@@ -22,7 +22,8 @@ class DaoPropertyType extends Dao {
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->execute();
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -45,18 +46,10 @@ class DaoPropertyType extends Dao {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database Connection problem.", 500);
 		}
-	}
-
-	/**
-	 * @param $DBObject
-	 *
-	 * @return PropertyType
-	 */
-	protected function extract ($DBObject) {
-		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name);
 	}
 
 	/**
@@ -73,8 +66,18 @@ class DaoPropertyType extends Dao {
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
+	}
+
+	/**
+	 * @param $DBObject
+	 *
+	 * @return PropertyType
+	 */
+	protected function extract ($DBObject) {
+		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name);
 	}
 }
