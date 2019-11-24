@@ -3,23 +3,34 @@ require_once "autoload.php";
 Tools::headers();
 $get = Tools::getObject();
 $return = null;
-$mapper = FactoryMapper::createMapperAgency();
-$mapperSeat = FactoryMapper::createMapperSeat();
+$mapper = FactoryMapper::createMapperProperty();
+$mapperExtra = FactoryMapper::createMapperExtra();
+$mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetPropertyById($get->id);
+			$command = FactoryCommand::createGetPropertyByIdCommand($get->id);
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($_GET['extra'])) {
+				if (isset($_GET['extras'])) {
 					$command = FactoryCommand::createGetAllExtrasByPropertyIdCommand($get->id);
 					try {
 						$command->execute();
-						$dto->seats = $mapperSeat->fromEntityArrayToDtoArray($command->return());
+						$dto->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
+						if (isset($_GET['price'])) {
+							$command = FactoryCommand::createGetPropertyPriceByPropertyIdCommand($get->id);
+							try {
+								$command->execute();
+								$dto->price = $mapperPropertyPrice->fromEntityArrayToDtoArray($command->return());
+							}
+							catch (InvalidPropertyPriceException $exception) {
+								unset($dto->price);
+							}
+						}
 					}
-					catch (SeatNotFoundException $exception) {
-						unset($dto->seats);
+					catch (ExtraNotFoundException $exception) {
+						unset($dto->extras);
 					}
 				}
 				else
@@ -31,8 +42,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new Result(false, [], 'Error de conexión.');
 				Result::setResponse($exception->getCode());
 			}
-			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], 'Agencia #' . $get->id . ' no encontrada.');
+			catch (PropertyNotFoundException $exception) {
+				$return = new Result(false, [], 'Propiedad #' . $get->id . ' no encontrada.');
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

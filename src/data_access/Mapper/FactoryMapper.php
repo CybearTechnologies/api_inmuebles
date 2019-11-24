@@ -13,6 +13,13 @@ class FactoryMapper {
 	}
 
 	/**
+	 * @return MapperPropertyPrice
+	 */
+	static function createMapperPropertyPrice () {
+		return new MapperPropertyPrice();
+	}
+
+	/**
 	 * @return MapperPropertyType
 	 */
 	static function createMapperPropertyType () {
