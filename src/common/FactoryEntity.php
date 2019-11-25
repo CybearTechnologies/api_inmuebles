@@ -40,11 +40,12 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $name
+	 * @param int    $active
 	 *
 	 * @return Extra
 	 */
-	static function createExtra (int $id, $name = ''):Extra {
-		return new Extra($id, $name);
+	static function createExtra (int $id, $name = '', $active = 1):Extra {
+		return new Extra($id, $name, $active);
 	}
 
 	/**

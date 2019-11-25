@@ -41,11 +41,12 @@ class FactoryDto {
 	/**
 	 * @param int    $id
 	 * @param string $name
+	 * @param int    $active
 	 *
 	 * @return DtoExtra
 	 */
-	static function createDtoExtra (int $id, $name = ""):DtoExtra {
-		return new DtoExtra($id, $name);
+	static function createDtoExtra (int $id, $name = "", $active = 1):DtoExtra {
+		return new DtoExtra($id, $name, $active);
 	}
 
 	static function createDtoLocation ($id, $name = "", $type = ""):DtoLocation {

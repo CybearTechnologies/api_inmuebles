@@ -27,7 +27,7 @@ RewriteRule ^agency/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
 RewriteRule ^agency/seats/([0-9]+)$ controllerAgencies.php?seats=true&id=$1 [NC,L]
 #	EXTRA
 RewriteRule ^extra$ controllerExtra.php [NC,L]
-RewriteRule ^extra/id/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
+RewriteRule ^extra/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
 #   LOCATION
 RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]
 RewriteRule ^location/type/(pais|estado|municipio|Pais|Estado|Municipio|Pais)$ controllerLocation.php?type=$1 [NC,L]
