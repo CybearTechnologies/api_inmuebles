@@ -104,4 +104,8 @@ class FactoryDto {
 	static function createDtoPropertyPrice (int $id, $price = 0, $date = '', $final = false) {
 		return new DtoPropertyPrice($id, $price, $date, $final);
 	}
+
+	static function  createDtoRating(int $id, $score = '', $message = '', $active = 1, $user = null){
+	    return new DtoRating($id,$score,$message,$active,$user);
+    }
 }

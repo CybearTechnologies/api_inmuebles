@@ -184,4 +184,22 @@ class FactoryCommand {
 	static function createGetPropertyByIdCommand ($id) {
 		return new GetPropertyByIdCommand($id);
 	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return GetAllRatingByUserCommand
+	 */
+	static function createGetAllRatingByUserCommand (int $id):GetAllRatingByUserCommand {
+		return new GetAllRatingByUserCommand($id);
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return GetRatingByIdCommand
+	 */
+	static function createGetRatingByIdCommand (int $id):GetRatingByIdCommand {
+		return new GetRatingByIdCommand($id);
+	}
 }

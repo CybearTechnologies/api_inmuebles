@@ -122,4 +122,9 @@ class FactoryEntity {
 		$delete = '', $blocked = '') {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
 	}
+
+    static function createRating(int $id, $score = '', $message = '', $active = '')
+    {
+	    return new Rating($id,$score,$message,$active);
+    }
 }

@@ -64,4 +64,12 @@ class FactoryDao {
 	static function createDaoProperty ():DaoProperty {
 		return new DaoProperty();
 	}
+
+	/**
+	 * @return DaoRating
+	 */
+    static function createDaoRating(): DaoRating
+    {
+        return new DaoRating();
+    }
 }
