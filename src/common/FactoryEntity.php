@@ -53,8 +53,8 @@ class FactoryEntity {
 	 *
 	 * @return Location
 	 */
-	static function createLocation($id,$name='',$type=''){
-		return new Location($id,$name,$type);
+	static function createLocation ($id, $name = '', $type = '') {
+		return new Location($id, $name, $type);
 	}
 
 	/**
@@ -104,5 +104,22 @@ class FactoryEntity {
 	static function createProperty (int $id, $name = '', $area = 0, $description = '',
 		$publishDate = '', $state = '', $floor = 0) {
 		return new Property($id, $name, $area, $description, $publishDate, $state, $floor);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @param string $address
+	 * @param string $email
+	 * @param string $password
+	 * @param string $delete
+	 * @param string $blocked
+	 *
+	 * @return User
+	 */
+	static function createUser (int $id, $firstName = '', $lastName = '', $address = '', $email = '', $password = '',
+		$delete = '', $blocked = '') {
+		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
 	}
 }
