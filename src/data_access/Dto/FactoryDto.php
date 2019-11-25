@@ -48,7 +48,7 @@ class FactoryDto {
 	}
 
 	static function createDtoLocation ($id, $name = "", $type = ""):DtoLocation {
-		return new DtoLocation($id,$name,$type);
+		return new DtoLocation($id, $name, $type);
 	}
 
 	/**
@@ -70,6 +70,27 @@ class FactoryDto {
 	 */
 	static function createDtoRequest (int $id, $date = '') {
 		return new DtoRequest($id, $date);
+	}
+
+	/**
+	 * @param int             $id
+	 * @param string          $name
+	 * @param int             $area
+	 * @param string          $description
+	 * @param string          $publishDate
+	 * @param string          $state
+	 * @param int             $floor
+	 * @param Extra[]         $extras
+	 * @param array           $request
+	 * @param string          $user
+	 * @param PropertyPrice[] $propertyPrice
+	 *
+	 * @return DtoProperty
+	 */
+	static function createDtoProperty (int $id, $name = '', $area = 0, $description = '', $publishDate = '',
+		$state = '', $floor = 0, $extras = [], $request = [], $user = '', $propertyPrice = []):DtoProperty {
+		return new DtoProperty($id, $name, $area, $description, $publishDate, $state, $floor, $extras,
+			$request, $user, $propertyPrice);
 	}
 
 	/**

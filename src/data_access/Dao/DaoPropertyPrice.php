@@ -16,16 +16,17 @@ class DaoPropertyPrice extends Dao {
 	/**
 	 * @param $id
 	 *
-	 * @return array
+	 * @return PropertyPrice[]
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyTypeNotFoundException
+	 * @throws InvalidPropertyPriceException
 	 */
 	public function getPriceByPropertyId ($id) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_PROPERTY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PropertyTypeNotFoundException("There are no price for this property found", 200);
+				Throw new InvalidPropertyPriceException("There are no price for this property found", 200);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}

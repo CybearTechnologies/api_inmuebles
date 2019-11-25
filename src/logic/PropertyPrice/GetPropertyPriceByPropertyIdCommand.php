@@ -15,7 +15,7 @@ class GetPropertyPriceByPropertyIdCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyTypeNotFoundException
+	 * @throws InvalidPropertyPriceException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->getPriceByPropertyId($this->_id));

@@ -6,6 +6,20 @@
  */
 class FactoryMapper {
 	/**
+	 * @return MapperProperty
+	 */
+	static function createMapperProperty () {
+		return new MapperProperty();
+	}
+
+	/**
+	 * @return MapperPropertyPrice
+	 */
+	static function createMapperPropertyPrice () {
+		return new MapperPropertyPrice();
+	}
+
+	/**
 	 * @return MapperPropertyType
 	 */
 	static function createMapperPropertyType () {
@@ -33,7 +47,7 @@ class FactoryMapper {
 		return new MapperExtra();
 	}
 
-	static function createMapperLocation(){
+	static function createMapperLocation () {
 		return new MapperLocation();
 	}
 

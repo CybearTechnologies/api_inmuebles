@@ -18,7 +18,7 @@ class GetLocationsByTypeCommand extends Command {
      * @throws LocationNotFoundException
      */
 	public function execute ():void {
-		$this->setData($this->_dao->getLocationByType($this->_type));
+		$this->setData($this->_dao->getLocationsByType($this->_type));
 	}
 
     /**

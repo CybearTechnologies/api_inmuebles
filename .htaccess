@@ -14,6 +14,8 @@
 #   CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
 #	INMUEBLE
+RewriteRule ^property/id/([0-9]+)$ controllerProperty.php?extras=true&id=$1 [NC,L]
+#   TIPO DE INMUBELE
 RewriteRule ^property-type$ controllerPropertyType.php [NC,L]
 RewriteRule ^property-type/id/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
 #	PLAN
