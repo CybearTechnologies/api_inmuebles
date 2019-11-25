@@ -1,7 +1,7 @@
 <?php
 class DaoAgency extends Dao {
-	private const QUERY_GET_ALL = "SELECT ag_id id,ag_name name FROM agency";
-	private const QUERY_GET_BY_ID = "SELECT ag_id id,ag_name name FROM agency WHERE ag_id = :id";
+	private const QUERY_GET_ALL = "CALL getAllAgencies()";
+	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
 
 	/**
 	 * DaoAgency constructor.
