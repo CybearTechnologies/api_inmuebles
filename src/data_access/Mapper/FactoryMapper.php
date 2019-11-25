@@ -50,4 +50,8 @@ class FactoryMapper {
 	static function createMapperRequest () {
 		return new MapperRequest();
 	}
+
+	static function  createMapperRating(){
+	    return new MapperRating();
+    }
 }

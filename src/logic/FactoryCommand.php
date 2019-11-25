@@ -79,11 +79,11 @@ class FactoryCommand {
 		return new GetExtraByIdCommand($id);
 	}
 
-	static function createGetLocationByIdCommand($id){
+	static function createGetLocationByIdCommand ($id) {
 		return new GetLocationByIdCommand($id);
 	}
 
-	static function createGetLocationsByTypeCommand($type){
+	static function createGetLocationsByTypeCommand ($type) {
 		return new GetLocationsByTypeCommand($type);
 	}
 
@@ -160,5 +160,23 @@ class FactoryCommand {
 	 */
 	static function createGetPropertyPriceByPropertyIdCommand ($id):GetPropertyPriceByPropertyIdCommand {
 		return new GetPropertyPriceByPropertyIdCommand($id);
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return GetAllRatingByUserCommand
+	 */
+	static function createGetAllRatingByUserCommand (int $id):GetAllRatingByUserCommand {
+		return new GetAllRatingByUserCommand($id);
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return GetRatingByIdCommand
+	 */
+	static function createGetRatingByIdCommand (int $id):GetRatingByIdCommand {
+		return new GetRatingByIdCommand($id);
 	}
 }
