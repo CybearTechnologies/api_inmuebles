@@ -2,6 +2,7 @@
 class Seat extends Entity {
 	private $_name;
 	private $_rif;
+	private $_active;
 
 	/**
 	 * Seat constructor.
@@ -9,11 +10,13 @@ class Seat extends Entity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $rif
+	 * @param int    $active
 	 */
-	public function __construct (int $id, string $name, string $rif) {
+	public function __construct (int $id, string $name, string $rif, int $active) {
 		$this->setId($id);
 		$this->_name = $name;
 		$this->_rif = $rif;
+		$this->_active = $active;
 	}
 
 	/**
@@ -42,5 +45,19 @@ class Seat extends Entity {
 	 */
 	public function setRif (string $rif):void {
 		$this->_rif = $rif;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getActive ():int {
+		return $this->_active;
+	}
+
+	/**
+	 * @param int $active
+	 */
+	public function setActive (int $active):void {
+		$this->_active = $active;
 	}
 }

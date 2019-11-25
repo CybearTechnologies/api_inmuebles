@@ -1,10 +1,8 @@
 <?php
 class DaoSeat extends Dao {
-	private const QUERY_GET_ALL = "SELECT se_id id, se_name name, se_rif rif FROM seat";
-	private const QUERY_GET_BY_ID = "SELECT se_id id, se_name name, se_rif rif FROM seat WHERE se_id = :id";
-	private const QUERY_GET_BY_AGENCY = "SELECT se_id id, se_name name, se_rif rif 
-											FROM seat , agency 
-											WHERE se_agency_fk = ag_id AND ag_id = :id";
+	private const QUERY_GET_ALL = "CALL getAllSeats()";
+	private const QUERY_GET_BY_ID = "CALL getSeatById(:id)";
+	private const QUERY_GET_BY_AGENCY = "CALL getSeatsByAgency(:id)";
 
 	/**
 	 * DaoSeat constructor.
@@ -84,6 +82,6 @@ class DaoSeat extends Dao {
 	 * @return Seat
 	 */
 	protected function extract ($dbObject):Seat {
-		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif);
+		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif, $dbObject->active);
 	}
 }

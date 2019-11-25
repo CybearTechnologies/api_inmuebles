@@ -61,11 +61,12 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $rif
+	 * @param int    $active
 	 *
 	 * @return Seat
 	 */
-	static function createSeat (int $id, $name = '', $rif = '') {
-		return new Seat($id, $name, $rif);
+	static function createSeat (int $id, $name = '', $rif = '', $active = 1) {
+		return new Seat($id, $name, $rif, $active);
 	}
 
 	/**
@@ -123,8 +124,7 @@ class FactoryEntity {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
 	}
 
-    static function createRating(int $id, $score = '', $message = '', $active = '')
-    {
-	    return new Rating($id,$score,$message,$active);
-    }
+	static function createRating (int $id, $score = '', $message = '', $active = '') {
+		return new Rating($id, $score, $message, $active);
+	}
 }

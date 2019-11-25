@@ -55,11 +55,12 @@ class FactoryDto {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $rif
+	 * @param int    $active
 	 *
 	 * @return DtoSeat
 	 */
-	static function createDtoSeat (int $id, $name = '', $rif = '') {
-		return new DtoSeat($id, $name, $rif);
+	static function createDtoSeat (int $id, $name = '', $rif = '', int $active = 1) {
+		return new DtoSeat($id, $name, $rif, $active);
 	}
 
 	/**
@@ -105,7 +106,7 @@ class FactoryDto {
 		return new DtoPropertyPrice($id, $price, $date, $final);
 	}
 
-	static function  createDtoRating(int $id, $score = '', $message = '', $active = 1, $user = null){
-	    return new DtoRating($id,$score,$message,$active,$user);
-    }
+	static function createDtoRating (int $id, $score = '', $message = '', $active = 1, $user = null) {
+		return new DtoRating($id, $score, $message, $active, $user);
+	}
 }
