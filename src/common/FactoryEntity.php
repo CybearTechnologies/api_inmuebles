@@ -29,11 +29,12 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $name
+	 * @param int    $active
 	 *
 	 * @return Agency
 	 */
-	static function createAgency (int $id, $name = '') {
-		return new Agency($id, $name);
+	static function createAgency (int $id, $name = '', $active = 1) {
+		return new Agency($id, $name, $active);
 	}
 
 	/**

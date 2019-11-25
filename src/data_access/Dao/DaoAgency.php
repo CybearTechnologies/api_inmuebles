@@ -59,6 +59,6 @@ class DaoAgency extends Dao {
 	 * @return Agency
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createAgency($dbObject->id, $dbObject->name);
+		return FactoryEntity::createAgency($dbObject->id, $dbObject->name,$dbObject->active);
 	}
 }

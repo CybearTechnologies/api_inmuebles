@@ -29,12 +29,13 @@ class FactoryDto {
 	/**
 	 * @param int            $id
 	 * @param string         $name
+	 * @param int            $active
 	 * @param DtoSeat[]|null $seats
 	 *
 	 * @return DtoAgency
 	 */
-	static function createDtoAgency (int $id, $name = '', $seats = null) {
-		return new DtoAgency($id, $name, $seats);
+	static function createDtoAgency (int $id, $name = '', $active = 1, $seats = null) {
+		return new DtoAgency($id, $name, $active, $seats);
 	}
 
 	/**
