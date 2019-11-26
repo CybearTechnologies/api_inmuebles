@@ -14,18 +14,19 @@ require_once __DIR__ . './../src/logic/Location/GetLocationByIdCommand.php';
 class GetLocationByIdCommandTest extends TestCase {
 	private $_command;
 	private $_location;
+
 	public function testReturn () {
 		$this->_command = FactoryCommand::createGetLocationByIdCommand(16);
-		$this->_location = FactoryEntity::createLocation(16,"Monagas","Estado");
+		$this->_location = FactoryEntity::createLocation(16, "Monagas", "Estado");
 		try {
 			$this->_command->execute();
-			$this->assertEquals($this->_location,$this->_command->return());
+			$this->assertEquals($this->_location, $this->_command->return());
 		}
 		catch (DatabaseConnectionException $exception) {
-			Logger::exception($exception,Logger::NOTICE);
+			Logger::exception($exception, Logger::NOTICE);
 		}
 		catch (LocationNotFoundException $exception) {
-			Logger::exception($exception,Logger::NOTICE);
+			Logger::exception($exception, Logger::NOTICE);
 		}
 	}
 }

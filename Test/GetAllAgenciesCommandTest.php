@@ -13,6 +13,7 @@ require_once __DIR__ . './../src/data_access/Dao/DaoAgency.php';
 require_once __DIR__ . './../src/logic/Agency/GetAgencyByIdCommand.php';
 class GetAllAgenciesCommandTest extends TestCase {
 	private $_command;
+
 	public function testReturn () {
 		$this->_command = FactoryCommand::createGetAllAgenciesCommand();
 		try {
