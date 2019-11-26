@@ -16,14 +16,15 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 * @param int    $price
+	 * @param int    $active
 	 *
 	 * @return DtoPlan
 	 */
-	static function createDtoPlan ($id, $name = '', $price = 0):DtoPlan {
-		return new DtoPlan($id, $name, $price);
+	static function createDtoPlan (int $id, $name = '', $price = 0, $active = 1):DtoPlan {
+		return new DtoPlan($id, $name, $price, $active);
 	}
 
 	/**

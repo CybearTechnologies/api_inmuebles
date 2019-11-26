@@ -16,14 +16,15 @@ class FactoryEntity {
 	}
 
 	/**
-	 * @param $id
-	 * @param $name
-	 * @param $price
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $price
+	 * @param int    $active
 	 *
 	 * @return Plan
 	 */
-	static function createPlan ($id, $name, $price) {
-		return new Plan($id, $name, $price);
+	static function createPlan (int $id, $name = '', $price = 0, $active = 1) {
+		return new Plan($id, $name, $price, $active);
 	}
 
 	/**
