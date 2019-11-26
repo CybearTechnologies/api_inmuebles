@@ -6,9 +6,9 @@ class GetAllRatingByUserCommand extends Command {
 	/**
 	 * GetAllRatingByUserCommand constructor.
 	 *
-	 * @param $id
+	 * @param int $id
 	 */
-	public function __construct ($id) {
+	public function __construct (int $id) {
 		$this->_dao = FactoryDao::createDaoRating();
 		$this->id = $id;
 	}

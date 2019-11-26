@@ -5,12 +5,18 @@ class GetRatingByIdCommand extends Command {
 
 	/**
 	 * GetRatingByIdCommand constructor.
+	 *
+	 * @param int $_id
 	 */
-	public function __construct ($_id) {
+	public function __construct (int $_id) {
 		$this->_dao = FactoryDao::createDaoRating();
 		$this->_id = $_id;
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws RatingNotFoundException
+	 */
 	public function execute ():void {
 		$this->setData($this->_dao->getRatingById($this->_id));
 	}
