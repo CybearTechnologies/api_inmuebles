@@ -9,22 +9,24 @@ require_once __DIR__ . './../src/data_access/Dao/FactoryDao.php';
 require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../src/data_access/Dao/DaoAgency.php';
-require_once __DIR__ . './../src/logic/Agency/GetAgencyByIdCommand.php';
-class GetAllAgenciesCommandTest extends TestCase {
+require_once __DIR__ . './../src/data_access/Dao/DaoSeat.php';
+require_once __DIR__ . './../src/logic/Seat/GetSeatByIdCommand.php';
+class GetSeatByIdCommandTest extends TestCase {
 	private $_command;
+	private $_seat;
 
 	public function testReturn () {
-		$this->_command = FactoryCommand::createGetAllAgenciesCommand();
+		$this->_command = FactoryCommand::createGetSeatByIdCommand(1);
+		$this->_seat = FactoryEntity::createSeat(1, "C21 Los palos grandes", "J-12306151", 1);
 		try {
 			$this->_command->execute();
-			$this->assertNotEmpty($this->_command->return());
-		}
-		catch (AgencyNotFoundException $exception) {
-			Logger::exception($exception, Logger::NOTICE);
+			$this->assertEquals($this->_seat, $this->_command->return());
 		}
 		catch (DatabaseConnectionException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
-		};
+		}
+		catch (SeatNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
+		}
 	}
 }

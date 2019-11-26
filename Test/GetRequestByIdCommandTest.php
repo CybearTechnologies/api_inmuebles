@@ -9,22 +9,24 @@ require_once __DIR__ . './../src/data_access/Dao/FactoryDao.php';
 require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../src/data_access/Dao/DaoAgency.php';
-require_once __DIR__ . './../src/logic/Agency/GetAgencyByIdCommand.php';
-class GetAllAgenciesCommandTest extends TestCase {
+require_once __DIR__ . './../src/data_access/Dao/DaoRequest.php';
+require_once __DIR__ . './../src/logic/Request/GetRequestByIdCommand.php';
+class GetRequestByIdCommandTest extends TestCase {
 	private $_command;
+	private $_request;
 
 	public function testReturn () {
-		$this->_command = FactoryCommand::createGetAllAgenciesCommand();
+		$this->_command = FactoryCommand::createGetRequestByIdCommand(1);
+		$this->_request = FactoryEntity::createRequest(1, "2019-11-24 00:00:00", 1);
 		try {
 			$this->_command->execute();
-			$this->assertNotEmpty($this->_command->return());
-		}
-		catch (AgencyNotFoundException $exception) {
-			Logger::exception($exception, Logger::NOTICE);
+			$this->assertEquals($this->_request, $this->_command->return());
 		}
 		catch (DatabaseConnectionException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
-		};
+		}
+		catch (RequestNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
+		}
 	}
 }

@@ -1,8 +1,8 @@
 <?php
 class DaoPropertyType extends Dao {
 	private const QUERY_CREATE = "INSERT INTO property_type(pt_name) VALUES (:name);";
-	private const QUERY_GET_ALL = "SELECT pt_id id, pt_name name FROM property_type";
-	private const QUERY_GET_BY_ID = "SELECT pt_id id, pt_name name FROM property_type WHERE pt_id=:id";
+	private const QUERY_GET_ALL = "SELECT pt_id id, pt_name name, pt_active active FROM property_type";
+	private const QUERY_GET_BY_ID = "SELECT pt_id id, pt_name name, pt_active active FROM property_type WHERE pt_id=:id";
 
 	/**
 	 * DaoPropertyType constructor.
@@ -78,6 +78,6 @@ class DaoPropertyType extends Dao {
 	 * @return PropertyType
 	 */
 	protected function extract ($DBObject) {
-		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name);
+		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->active);
 	}
 }

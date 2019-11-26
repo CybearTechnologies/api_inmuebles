@@ -9,22 +9,22 @@ require_once __DIR__ . './../src/data_access/Dao/FactoryDao.php';
 require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../src/data_access/Dao/DaoAgency.php';
-require_once __DIR__ . './../src/logic/Agency/GetAgencyByIdCommand.php';
-class GetAllAgenciesCommandTest extends TestCase {
+require_once __DIR__ . './../src/data_access/Dao/DaoRequest.php';
+require_once __DIR__ . './../src/logic/Request/GetAllRequestByUserIdCommand.php';
+class GetAllRequestByUserIdCommandTest extends TestCase {
 	private $_command;
 
 	public function testReturn () {
-		$this->_command = FactoryCommand::createGetAllAgenciesCommand();
+		$this->_command = FactoryCommand::createGetAllRequestByPropertyIdCommand(1);
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
 		}
-		catch (AgencyNotFoundException $exception) {
-			Logger::exception($exception, Logger::NOTICE);
-		}
 		catch (DatabaseConnectionException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
-		};
+		}
+		catch (RequestNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
+		}
 	}
 }

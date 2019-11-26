@@ -17,7 +17,7 @@ class GetPropertyTypeByIdCommandTest extends TestCase {
 
 	public function testReturn () {
 		$this->_command = FactoryCommand::createGetPropertyTypeByIdCommand(1);
-		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento");
+		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", 1);
 		try {
 			$this->_command->execute();
 			$this->assertEquals($this->_propertyType, $this->_command->return());

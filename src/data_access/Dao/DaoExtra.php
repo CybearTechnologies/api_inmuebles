@@ -3,7 +3,7 @@ class DaoExtra extends Dao {
 	private const QUERY_CREATE = "";
 	private const QUERY_GET_ALL = "CALL getAllExtra()";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
-	private const QUERY_GET_BY_PROPERTY_ID = "";
+	private const QUERY_GET_BY_PROPERTY_ID = "CALL getAllExtraByPropertyID(:id)";
 
 	/**
 	 * @param $id
@@ -39,6 +39,7 @@ class DaoExtra extends Dao {
 	public function getAllPropertyExtra ($id) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_PROPERTY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new ExtraNotFoundException("There are no Extra found for this property", 404);

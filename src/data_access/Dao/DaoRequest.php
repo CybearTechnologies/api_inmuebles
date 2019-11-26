@@ -1,10 +1,10 @@
 <?php
 class DaoRequest extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "";
-	private const QUERY_GET_BY_ID = "";
+	private const QUERY_GET_ALL = "CALL getAllRequest()";
+	private const QUERY_GET_BY_ID = "CALL getRequestById(:id)";
 	private const QUERY_GET_BY_USER_ID = "";
-	private const QUERY_GET_BY_PROPERTY_ID = "";
+	private const QUERY_GET_BY_PROPERTY_ID = "CALL getallrequestbyproperty(:id)";
 
 	/**
 	 * DaoRequest constructor.
