@@ -23,8 +23,10 @@ class GetPropertyTypeByIdCommandTest extends TestCase {
 			$this->assertEquals($this->_propertyType, $this->_command->return());
 		}
 		catch (DatabaseConnectionException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
 		catch (PropertyTypeNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
 	}
 }
