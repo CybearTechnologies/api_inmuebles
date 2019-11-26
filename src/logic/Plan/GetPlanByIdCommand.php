@@ -10,11 +10,18 @@ class GetPlanByIdCommand extends Command {
 	 */
 	public function __construct ($_id) { $this->_id = $_id; }
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
+	 */
 	public function execute ():void {
 		$this->_dao = FactoryDao::createDaoPlan();
 		$this->setData($this->_dao->getPlanById($this->_id));
 	}
 
+	/**
+	 * @return Plan
+	 */
 	public function return () {
 		return $this->getData();
 	}

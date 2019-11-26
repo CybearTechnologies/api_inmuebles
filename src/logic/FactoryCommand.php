@@ -121,7 +121,7 @@ class FactoryCommand {
 	 *
 	 * @return GetAllSeatsByAgencyCommand
 	 */
-	static function createGetAllSeatsByAgency (int $id) {
+	static function createGetAllSeatsByAgencyCommand (int $id) {
 		return new GetAllSeatsByAgencyCommand($id);
 	}
 

@@ -12,11 +12,18 @@ class GetLocationByIdCommand extends Command {
 		$this->_id = $_id;
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws LocationNotFoundException
+	 */
 	public function execute ():void {
 		$this->_dao = FactoryDao::createDaoLocation();
 		$this->setData($this->_dao->getLocationById($this->_id));
 	}
 
+	/**
+	 * @return Location
+	 */
 	public function return () {
 		return $this->getData();
 	}

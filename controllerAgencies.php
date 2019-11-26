@@ -13,7 +13,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
 				if (isset($_GET['seats'])) {
-					$command = FactoryCommand::createGetAllSeatsByAgency($get->id);
+					$command = FactoryCommand::createGetAllSeatsByAgencyCommand($get->id);
 					try {
 						$command->execute();
 						$dto->seats = $mapperSeat->fromEntityArrayToDtoArray($command->return());
