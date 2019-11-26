@@ -1,10 +1,10 @@
 <?php
 class DaoRequest extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "SELECT req_id id, req_date date FROM request";
-	private const QUERY_GET_BY_ID = "SELECT req_id id, req_date date FROM request WHERE req_id = :id";
-	private const QUERY_GET_BY_USER_ID = "SELECT req_id id, req_date date FROM request WHERE req_user_fk = :id";
-	private const QUERY_GET_BY_PROPERTY_ID = "SELECT req_id id, req_date date FROM request WHERE req_property_fk = :id";
+	private const QUERY_GET_ALL = "";
+	private const QUERY_GET_BY_ID = "";
+	private const QUERY_GET_BY_USER_ID = "";
+	private const QUERY_GET_BY_PROPERTY_ID = "";
 
 	/**
 	 * DaoRequest constructor.
@@ -109,6 +109,6 @@ class DaoRequest extends Dao {
 	 * @return Request
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRequest($dbObject->id, $dbObject->date);
+		return FactoryEntity::createRequest($dbObject->id, $dbObject->date, $dbObject->active);
 	}
 }

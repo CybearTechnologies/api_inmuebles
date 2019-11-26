@@ -67,13 +67,14 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $date
+	 * @param int    $active
 	 *
 	 * @return DtoRequest
 	 */
-	static function createDtoRequest (int $id, $date = '') {
-		return new DtoRequest($id, $date);
+	static function createDtoRequest (int $id, $date = '', $active = 1) {
+		return new DtoRequest($id, $date, $active);
 	}
 
 	/**

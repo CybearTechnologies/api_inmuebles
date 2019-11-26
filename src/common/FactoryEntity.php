@@ -75,11 +75,12 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $date
+	 * @param int    $active
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, $date = '') {
-		return new Request($id, $date);
+	static function createRequest (int $id, $date = '', $active = 1) {
+		return new Request($id, $date, $active);
 	}
 
 	/**
