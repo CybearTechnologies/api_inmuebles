@@ -102,13 +102,13 @@ class FactoryEntity {
 	 * @param int    $area
 	 * @param string $description
 	 * @param string $publishDate
-	 * @param string $state
+	 * @param int    $state
 	 * @param int    $floor
 	 *
 	 * @return Property
 	 */
 	static function createProperty (int $id, $name = '', $area = 0, $description = '',
-		$publishDate = '', $state = '', $floor = 0) {
+		$publishDate = '', $state = 1, $floor = 0) {
 		return new Property($id, $name, $area, $description, $publishDate, $state, $floor);
 	}
 
@@ -119,17 +119,25 @@ class FactoryEntity {
 	 * @param string $address
 	 * @param string $email
 	 * @param string $password
-	 * @param string $delete
-	 * @param string $blocked
+	 * @param int    $delete
+	 * @param int    $blocked
 	 *
 	 * @return User
 	 */
 	static function createUser (int $id, $firstName = '', $lastName = '', $address = '', $email = '', $password = '',
-		$delete = '', $blocked = '') {
+		$delete = 0, $blocked = 0) {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
 	}
 
-	static function createRating (int $id, $score = '', $message = '', $active = '') {
+	/**
+	 * @param int    $id
+	 * @param string $score
+	 * @param string $message
+	 * @param int    $active
+	 *
+	 * @return Rating
+	 */
+	static function createRating (int $id, $score = '', $message = '', $active = 1) {
 		return new Rating($id, $score, $message, $active);
 	}
 }

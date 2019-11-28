@@ -9,31 +9,30 @@ require_once __DIR__ . './../src/data_access/Dao/FactoryDao.php';
 require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../src/data_access/Dao/DaoAgency.php';
-require_once __DIR__ . './../src/logic/Agency/GetAgencyByIdCommand.php';
+require_once __DIR__ . './../src/data_access/Dao/DaoProperty.php';
+require_once __DIR__ . './../src/logic/Property/GetAllPropertyCommand.php';
 /**
- * Class GetAgencyByIdCommandTest
- * @covers GetAgencyByIdCommand
+ * Class GetAllPropertyCommandTest
+ * @covers GetAllPropertyCommand
  */
-class GetAgencyByIdCommandTest extends TestCase {
+class GetAllPropertyCommandTest extends TestCase {
 	private $_command;
-	private $_agency;
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAgencyByIdCommand(1);
-		$this->_agency = FactoryEntity::createAgency(1, "Century21", 1);
+		$this->_command = FactoryCommand::createGetAllPropertyCommand();
 	}
 
 	public function testReturn () {
 		try {
 			$this->_command->execute();
-			$this->assertEquals($this->_agency, $this->_command->return());
+			$this->assertNotEmpty($this->_command->return());
 		}
-		catch (AgencyNotFoundException $e) {
+		catch (DatabaseConnectionException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
-		catch (DatabaseConnectionException $e) {
+		catch (PropertyNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
-		$this->_command->return();
 	}
 }

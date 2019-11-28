@@ -11,13 +11,25 @@ require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoSeat.php';
 require_once __DIR__ . './../src/logic/Seat/GetSeatByIdCommand.php';
+/**
+ * Class GetSeatByIdCommandTest
+ * @covers GetSeatByIdCommand
+ */
 class GetSeatByIdCommandTest extends TestCase {
 	private $_command;
 	private $_seat;
 
-	public function testReturn () {
+	protected function setUp ():void {
+		parent::setUp();
 		$this->_command = FactoryCommand::createGetSeatByIdCommand(1);
 		$this->_seat = FactoryEntity::createSeat(1, "C21 Los palos grandes", "J-12306151", 1);
+	}
+
+	/**
+	 * @covers GetSeatByIdCommand
+	 * @covers ::return
+	 */
+	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertEquals($this->_seat, $this->_command->return());

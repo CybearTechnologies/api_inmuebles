@@ -202,4 +202,11 @@ class FactoryCommand {
 	static function createGetRatingByIdCommand (int $id):GetRatingByIdCommand {
 		return new GetRatingByIdCommand($id);
 	}
+
+	/**
+	 * @return GetAllPropertyCommand
+	 */
+	static function createGetAllPropertyCommand ():GetAllPropertyCommand {
+		return new GetAllPropertyCommand();
+	}
 }

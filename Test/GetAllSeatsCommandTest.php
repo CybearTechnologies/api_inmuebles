@@ -11,11 +11,19 @@ require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoSeat.php';
 require_once __DIR__ . './../src/logic/Seat/GetAllSeatsCommand.php';
+/**
+ * Class GetAllSeatsCommandTest
+ * @covers GetAllSeatsCommand
+ */
 class GetAllSeatsCommandTest extends TestCase {
 	private $_command;
 
-	public function testReturn () {
+	protected function setUp ():void {
+		parent::setUp();
 		$this->_command = FactoryCommand::createGetAllSeatCommand();
+	}
+
+	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());

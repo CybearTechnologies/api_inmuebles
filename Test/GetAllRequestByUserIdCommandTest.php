@@ -11,11 +11,19 @@ require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoRequest.php';
 require_once __DIR__ . './../src/logic/Request/GetAllRequestByUserIdCommand.php';
+/**
+ * Class GetAllRequestByUserIdCommandTest
+ * @covers GetAllRequestByPropertyIdCommand
+ */
 class GetAllRequestByUserIdCommandTest extends TestCase {
 	private $_command;
 
-	public function testReturn () {
+	protected function setUp ():void {
+		parent::setUp();
 		$this->_command = FactoryCommand::createGetAllRequestByPropertyIdCommand(1);
+	}
+
+	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());

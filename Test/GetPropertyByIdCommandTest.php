@@ -9,29 +9,32 @@ require_once __DIR__ . './../src/data_access/Dao/FactoryDao.php';
 require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../src/data_access/Dao/DaoRating.php';
-require_once __DIR__ . './../src/logic/Rating/GetAllRatingByUserCommand.php';
+require_once __DIR__ . './../src/data_access/Dao/DaoProperty.php';
+require_once __DIR__ . './../src/logic/Property/GetPropertyByIdCommand.php';
 /**
- * Class GetAllRatingByUserCommandTest
- * @covers GetAllRatingByUserCommand
+ * Class GetPropertyByIdCommandTest
+ * @covers GetPropertyByIdCommand
  */
-class GetAllRatingByUserCommandTest extends TestCase {
+class GetPropertyByIdCommandTest extends TestCase {
 	private $_command;
+	private $_property;
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllRatingByUserCommand(1);
+		$this->_command = FactoryCommand::createGetPropertyByIdCommand(1);
+		$this->_property = FactoryEntity::createProperty(1, "Apartamento en los palos grandes", 125.23,
+			"bonito apartamento", "2019-11-24 00:00:00", 1, 0);
 	}
 
 	public function testReturn () {
 		try {
 			$this->_command->execute();
-			$this->assertNotEmpty($this->_command->return());
+			$this->assertEquals($this->_property, $this->_command->return());
 		}
 		catch (DatabaseConnectionException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-		catch (RatingNotFoundException $exception) {
+		catch (PropertyNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
 	}

@@ -11,13 +11,21 @@ require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoPropertyType.php';
 require_once __DIR__ . './../src/logic/PropertyType/GetPropertyTypeByIdCommand.php';
+/**
+ * Class GetPropertyTypeByIdCommandTest
+ * @covers GetPropertyTypeByIdCommand
+ */
 class GetPropertyTypeByIdCommandTest extends TestCase {
 	private $_command;
 	private $_propertyType;
 
-	public function testReturn () {
+	protected function setUp ():void {
+		parent::setUp();
 		$this->_command = FactoryCommand::createGetPropertyTypeByIdCommand(1);
 		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", 1);
+	}
+
+	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertEquals($this->_propertyType, $this->_command->return());

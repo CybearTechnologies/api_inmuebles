@@ -11,13 +11,21 @@ require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoExtra.php';
 require_once __DIR__ . './../src/logic/Extra/GetAllExtraCommand.php';
+/**
+ * Class GetExtraByIdCommandTest
+ * @covers GetExtraByIdCommand
+ */
 class GetExtraByIdCommandTest extends TestCase {
 	private $_command;
 	private $_extra;
 
-	public function testReturn () {
+	protected function setUp ():void {
+		parent::setUp();
 		$this->_command = FactoryCommand::createGetExtraByIdCommand(1);
 		$this->_extra = FactoryEntity::createExtra(1, "Piso", 1);
+	}
+
+	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertEquals($this->_extra, $this->_command->return());
