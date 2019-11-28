@@ -25,10 +25,6 @@ class GetSeatByIdCommandTest extends TestCase {
 		$this->_seat = FactoryEntity::createSeat(1, "C21 Los palos grandes", "J-12306151", 1);
 	}
 
-	/**
-	 * @covers GetSeatByIdCommand
-	 * @covers ::return
-	 */
 	public function testReturn () {
 		try {
 			$this->_command->execute();
