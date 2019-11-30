@@ -72,6 +72,6 @@ class FactoryMapper {
 	 * @return MapperRating
 	 */
 	static function createMapperRating ():MapperRating {
-	    return new MapperRating();
-    }
+		return new MapperRating();
+	}
 }
