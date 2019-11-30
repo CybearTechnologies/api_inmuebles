@@ -2,10 +2,8 @@
 class DaoRating extends Dao
 {
     private const QUERY_CREATE = "";
-    private const QUERY_GET_ALL_BY_USER = "Select ra_id id, ra_score score, ra_message message, 
-    ra_active active from rating where ra_user_fk =:id";
-    private const QUERY_GET_BY_ID = "Select ra_id id, ra_score score, ra_message message, 
-    ra_active active, ra_user_fk user from rating where ra_id=:id";
+	private const QUERY_GET_ALL_BY_USER = "CALL getAllRatingByUser(:id)";
+	private const QUERY_GET_BY_ID = "CALL getRatingById(:id)";
 
 
     /**

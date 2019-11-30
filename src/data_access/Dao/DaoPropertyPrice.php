@@ -3,8 +3,7 @@ class DaoPropertyPrice extends Dao {
 	private const QUERY_CREATE = "";
 	private const QUERY_GET_ALL = "";
 	private const QUERY_GET_BY_ID = "";
-	private const QUERY_GET_BY_PROPERTY_ID = "SELECT pp_id id, pp_price price, pp_date_created date, pp_final final
-	FROM property_price WHERE pp_property_fk = :id";
+	private const QUERY_GET_BY_PROPERTY_ID = "CALL getAllPricesByProperty(:id)";
 
 	/**
 	 * DaoPropertyPrice constructor.

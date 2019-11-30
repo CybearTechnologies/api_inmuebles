@@ -1,0 +1,2 @@
+[30/11/2019 14:16:02 000000 +01:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyPrice.php] [Error] on line: 26 SQLSTATE[42000]: Syntax error or access violation: 1305 PROCEDURE inmobilapp.getAllPricesByPropeerty does not exist
+[30/11/2019 14:16:02 000000 +01:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyPrice.php] [Notice] on line: 34 Database connection problem.
