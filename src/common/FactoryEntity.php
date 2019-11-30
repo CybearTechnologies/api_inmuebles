@@ -24,7 +24,7 @@ class FactoryEntity {
 	 *
 	 * @return Plan
 	 */
-	static function createPlan (int $id, $name = '', $price = 0, $active = 1) {
+	static function createPlan (int $id, $name = '', $price = 0, $active = 1):Plan {
 		return new Plan($id, $name, $price, $active);
 	}
 
@@ -35,7 +35,7 @@ class FactoryEntity {
 	 *
 	 * @return Agency
 	 */
-	static function createAgency (int $id, $name = '', $active = 1) {
+	static function createAgency (int $id, $name = '', $active = 1):Agency {
 		return new Agency($id, $name, $active);
 	}
 
@@ -57,7 +57,7 @@ class FactoryEntity {
 	 *
 	 * @return Location
 	 */
-	static function createLocation ($id, $name = '', $type = '') {
+	static function createLocation ($id, $name = '', $type = ''):Location {
 		return new Location($id, $name, $type);
 	}
 
@@ -69,7 +69,7 @@ class FactoryEntity {
 	 *
 	 * @return Seat
 	 */
-	static function createSeat (int $id, $name = '', $rif = '', $active = 1) {
+	static function createSeat (int $id, $name = '', $rif = '', $active = 1):Seat {
 		return new Seat($id, $name, $rif, $active);
 	}
 
@@ -80,7 +80,7 @@ class FactoryEntity {
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, $date = '', $active = 1) {
+	static function createRequest (int $id, $date = '', $active = 1):Request {
 		return new Request($id, $date, $active);
 	}
 
@@ -108,7 +108,7 @@ class FactoryEntity {
 	 * @return Property
 	 */
 	static function createProperty (int $id, $name = '', $area = 0, $description = '',
-		$publishDate = '', $state = 1, $floor = 0) {
+		$publishDate = '', $state = 1, $floor = 0):Property {
 		return new Property($id, $name, $area, $description, $publishDate, $state, $floor);
 	}
 
@@ -125,7 +125,7 @@ class FactoryEntity {
 	 * @return User
 	 */
 	static function createUser (int $id, $firstName = '', $lastName = '', $address = '', $email = '', $password = '',
-		$delete = 0, $blocked = 0) {
+		$delete = 0, $blocked = 0):User {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
 	}
 
@@ -137,7 +137,7 @@ class FactoryEntity {
 	 *
 	 * @return Rating
 	 */
-	static function createRating (int $id, $score = '', $message = '', $active = 1) {
+	static function createRating (int $id, $score = '', $message = '', $active = 1):Rating {
 		return new Rating($id, $score, $message, $active);
 	}
 }
