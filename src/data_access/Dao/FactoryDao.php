@@ -33,6 +33,9 @@ class FactoryDao {
 		return new DaoExtra();
 	}
 
+	/**
+	 * @return DaoLocation
+	 */
 	static function createDaoLocation ():DaoLocation {
 		return new DaoLocation();
 	}
@@ -68,8 +71,7 @@ class FactoryDao {
 	/**
 	 * @return DaoRating
 	 */
-    static function createDaoRating(): DaoRating
-    {
-        return new DaoRating();
-    }
+	static function createDaoRating ():DaoRating {
+		return new DaoRating();
+	}
 }
