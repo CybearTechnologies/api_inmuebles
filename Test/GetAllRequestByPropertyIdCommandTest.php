@@ -18,11 +18,6 @@ require_once __DIR__ . './../src/logic/Request/GetAllRequestByPropertyIdCommand.
 class GetAllRequestByPropertyIdCommandTest extends TestCase {
 	private $_command;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllRequestByPropertyIdCommand(1);
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -34,5 +29,10 @@ class GetAllRequestByPropertyIdCommandTest extends TestCase {
 		catch (RequestNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllRequestByPropertyIdCommand(1);
 	}
 }

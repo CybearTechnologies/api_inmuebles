@@ -19,12 +19,6 @@ class GetExtraByIdCommandTest extends TestCase {
 	private $_command;
 	private $_extra;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetExtraByIdCommand(1);
-		$this->_extra = FactoryEntity::createExtra(1, "Piso", 1);
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -36,5 +30,11 @@ class GetExtraByIdCommandTest extends TestCase {
 		catch (ExtraNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetExtraByIdCommand(1);
+		$this->_extra = FactoryEntity::createExtra(1, "Piso", 1);
 	}
 }

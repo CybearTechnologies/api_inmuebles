@@ -19,12 +19,6 @@ class GetRatingByIdCommandTest extends TestCase {
 	private $_command;
 	private $_rating;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetRatingByIdCommand(1);
-		$this->_rating = FactoryEntity::createRating(1, 4, "Buen trabajo", 1);
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -36,5 +30,11 @@ class GetRatingByIdCommandTest extends TestCase {
 		catch (RatingNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetRatingByIdCommand(1);
+		$this->_rating = FactoryEntity::createRating(1, 4, "Buen trabajo", 1);
 	}
 }

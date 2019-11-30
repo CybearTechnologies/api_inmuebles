@@ -18,11 +18,6 @@ require_once __DIR__ . './../src/logic/PropertyType/GetAllPropertyTypeCommand.ph
 class GetAllPropertyTypeCommandTest extends TestCase {
 	private $_command;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllPropertyTypeCommand();
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -34,5 +29,10 @@ class GetAllPropertyTypeCommandTest extends TestCase {
 		catch (PropertyTypeNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllPropertyTypeCommand();
 	}
 }

@@ -18,11 +18,6 @@ require_once __DIR__ . './../src/logic/Seat/GetAllSeatsCommand.php';
 class GetAllSeatsCommandTest extends TestCase {
 	private $_command;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllSeatCommand();
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -34,5 +29,10 @@ class GetAllSeatsCommandTest extends TestCase {
 		catch (SeatNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllSeatCommand();
 	}
 }

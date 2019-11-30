@@ -18,11 +18,6 @@ require_once __DIR__ . './../src/logic/Extra/GetAllExtraCommand.php';
 class GetAllExtraCommandTest extends TestCase {
 	private $_command;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllExtraCommand();
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -32,5 +27,10 @@ class GetAllExtraCommandTest extends TestCase {
 		}
 		catch (ExtraNotFoundException $e) {
 		}
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllExtraCommand();
 	}
 }

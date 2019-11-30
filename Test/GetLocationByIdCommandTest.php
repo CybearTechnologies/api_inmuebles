@@ -19,12 +19,6 @@ class GetLocationByIdCommandTest extends TestCase {
 	private $_command;
 	private $_location;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetLocationByIdCommand(16);
-		$this->_location = FactoryEntity::createLocation(16, "Monagas", "Estado");
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -36,5 +30,11 @@ class GetLocationByIdCommandTest extends TestCase {
 		catch (LocationNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetLocationByIdCommand(16);
+		$this->_location = FactoryEntity::createLocation(16, "Monagas", "Estado");
 	}
 }

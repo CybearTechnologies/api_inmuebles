@@ -19,12 +19,6 @@ class GetAgencyByIdCommandTest extends TestCase {
 	private $_command;
 	private $_agency;
 
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAgencyByIdCommand(1);
-		$this->_agency = FactoryEntity::createAgency(1, "Century21", 1);
-	}
-
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -35,5 +29,11 @@ class GetAgencyByIdCommandTest extends TestCase {
 		catch (DatabaseConnectionException $e) {
 		}
 		$this->_command->return();
+	}
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAgencyByIdCommand(1);
+		$this->_agency = FactoryEntity::createAgency(1, "Century21", 1);
 	}
 }
