@@ -29,7 +29,7 @@ class FactoryCommand {
 	/**
 	 * @return GetAllPlanCommand
 	 */
-	static function createGetAllPlanCommand () {
+	static function createGetAllPlanCommand ():GetAllPlanCommand {
 		return new GetAllPlanCommand();
 	}
 
@@ -38,7 +38,7 @@ class FactoryCommand {
 	 *
 	 * @return GetPlanByIdCommand
 	 */
-	static function createGetPlanByIdCommand (int $id) {
+	static function createGetPlanByIdCommand (int $id):GetPlanByIdCommand {
 		return new GetPlanByIdCommand($id);
 	}
 	//-----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ class FactoryCommand {
 	/**
 	 * @return GetAllAgenciesCommand
 	 */
-	static function createGetAllAgenciesCommand () {
+	static function createGetAllAgenciesCommand ():GetAllAgenciesCommand {
 		return new GetAllAgenciesCommand();
 	}
 
@@ -56,7 +56,7 @@ class FactoryCommand {
 	 *
 	 * @return GetAgencyByIdCommand
 	 */
-	static function createGetAgencyByIdCommand (int $id) {
+	static function createGetAgencyByIdCommand (int $id):GetAgencyByIdCommand {
 		return new GetAgencyByIdCommand($id);
 	}
 
@@ -68,14 +68,14 @@ class FactoryCommand {
 	 *
 	 * @return GetAllExtrasByPropertyIdCommand
 	 */
-	static function createGetAllExtrasByPropertyIdCommand (int $id) {
+	static function createGetAllExtrasByPropertyIdCommand (int $id):GetAllExtrasByPropertyIdCommand {
 		return new GetAllExtrasByPropertyIdCommand($id);
 	}
 
 	/**
 	 * @return GetAllExtraCommand
 	 */
-	static function createGetAllExtraCommand () {
+	static function createGetAllExtraCommand ():GetAllExtraCommand {
 		return new GetAllExtraCommand();
 	}
 
@@ -84,15 +84,25 @@ class FactoryCommand {
 	 *
 	 * @return GetExtraByIdCommand
 	 */
-	static function createGetExtraByIdCommand (int $id) {
+	static function createGetExtraByIdCommand (int $id):GetExtraByIdCommand {
 		return new GetExtraByIdCommand($id);
 	}
 
-	static function createGetLocationByIdCommand ($id) {
+	/**
+	 * @param $id
+	 *
+	 * @return GetLocationByIdCommand
+	 */
+	static function createGetLocationByIdCommand ($id):GetLocationByIdCommand {
 		return new GetLocationByIdCommand($id);
 	}
 
-	static function createGetLocationsByTypeCommand ($type) {
+	/**
+	 * @param $type
+	 *
+	 * @return GetLocationsByTypeCommand
+	 */
+	static function createGetLocationsByTypeCommand ($type):GetLocationsByTypeCommand {
 		return new GetLocationsByTypeCommand($type);
 	}
 
@@ -103,7 +113,7 @@ class FactoryCommand {
 	/**
 	 * @return GetAllSeatsCommand
 	 */
-	static function createGetAllSeatCommand () {
+	static function createGetAllSeatCommand ():GetAllSeatsCommand {
 		return new GetAllSeatsCommand();
 	}
 
@@ -112,7 +122,7 @@ class FactoryCommand {
 	 *
 	 * @return GetSeatByIdCommand
 	 */
-	static function createGetSeatByIdCommand (int $id) {
+	static function createGetSeatByIdCommand (int $id):GetSeatByIdCommand {
 		return new GetSeatByIdCommand($id);
 	}
 
@@ -121,7 +131,7 @@ class FactoryCommand {
 	 *
 	 * @return GetAllSeatsByAgencyCommand
 	 */
-	static function createGetAllSeatsByAgencyCommand (int $id) {
+	static function createGetAllSeatsByAgencyCommand (int $id):GetAllSeatsByAgencyCommand {
 		return new GetAllSeatsByAgencyCommand($id);
 	}
 
@@ -131,7 +141,7 @@ class FactoryCommand {
 	/**
 	 * @return GetAllRequestCommand
 	 */
-	static function createGetAllRequestCommand () {
+	static function createGetAllRequestCommand ():GetAllRequestCommand {
 		return new GetAllRequestCommand();
 	}
 
@@ -140,7 +150,7 @@ class FactoryCommand {
 	 *
 	 * @return GetRequestByIdCommand
 	 */
-	static function createGetRequestByIdCommand (int $id) {
+	static function createGetRequestByIdCommand (int $id):GetRequestByIdCommand {
 		return new GetRequestByIdCommand($id);
 	}
 
@@ -149,7 +159,7 @@ class FactoryCommand {
 	 *
 	 * @return GetAllRequestByUserIdCommand
 	 */
-	static function createGetAllRequestByUserIdCommand (int $id) {
+	static function createGetAllRequestByUserIdCommand (int $id):GetAllRequestByUserIdCommand {
 		return new GetAllRequestByUserIdCommand($id);
 	}
 
@@ -158,7 +168,7 @@ class FactoryCommand {
 	 *
 	 * @return GetAllRequestByPropertyIdCommand
 	 */
-	static function createGetAllRequestByPropertyIdCommand (int $id) {
+	static function createGetAllRequestByPropertyIdCommand (int $id):GetAllRequestByPropertyIdCommand {
 		return new GetAllRequestByPropertyIdCommand($id);
 	}
 
@@ -181,7 +191,7 @@ class FactoryCommand {
 	 *
 	 * @return GetPropertyByIdCommand
 	 */
-	static function createGetPropertyByIdCommand ($id) {
+	static function createGetPropertyByIdCommand ($id):GetPropertyByIdCommand {
 		return new GetPropertyByIdCommand($id);
 	}
 
