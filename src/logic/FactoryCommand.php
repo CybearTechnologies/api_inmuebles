@@ -219,4 +219,13 @@ class FactoryCommand {
 	static function createGetAllPropertyCommand ():GetAllPropertyCommand {
 		return new GetAllPropertyCommand();
 	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CreatePropertyTypeCommand
+	 */
+	static function createPropertyTypeCommand (PropertyType $propertyType):CreatePropertyTypeCommand {
+		return new CreatePropertyTypeCommand($propertyType);
+	}
 }

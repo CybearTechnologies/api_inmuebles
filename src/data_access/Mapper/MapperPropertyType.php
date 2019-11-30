@@ -6,6 +6,10 @@ class MapperPropertyType extends Mapper {
 	 * @return PropertyType
 	 */
 	public function fromDTOToEntity ($dto):Entity {
+		if (!isset($dto->id))
+			$dto->id = -1;
+		if (!isset($dto->active))
+			$dto->active = 0;
 		return FactoryEntity::createPropertyType($dto->id, $dto->name, $dto->active);
 	}
 

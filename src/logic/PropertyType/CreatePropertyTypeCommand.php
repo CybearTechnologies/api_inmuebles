@@ -1,23 +1,23 @@
 <?php
 class CreatePropertyTypeCommand extends Command {
 	private $_dao;
-	private $_propertyType;
+	private $_name;
 
 	/**
 	 * CreatePropertyTypeCommand constructor.
 	 *
 	 * @param PropertyType $propertyType
 	 */
-	public function __construct ($propertyType) {
+	public function __construct (PropertyType $propertyType) {
 		$this->_dao = FactoryDao::createDaoPropertyType();
-		$this->_propertyType = $propertyType;
+		$this->_name = $propertyType->getName();
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createPropertyType($this->_propertyType));
+		$this->setData($this->_dao->createPropertyType($this->_name));
 	}
 
 	/**
