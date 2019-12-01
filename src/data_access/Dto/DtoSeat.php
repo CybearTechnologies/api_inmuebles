@@ -10,9 +10,9 @@ class DtoSeat extends Dto {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $rif
-	 * @param int    $active
+	 * @param bool   $active
 	 */
-	public function __construct (int $id, string $name, string $rif, int $active) {
+	public function __construct (int $id, string $name, string $rif, bool $active) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->rif = $rif;

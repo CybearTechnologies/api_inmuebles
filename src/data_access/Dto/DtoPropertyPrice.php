@@ -7,12 +7,12 @@ class DtoPropertyPrice extends Dto {
 	/**
 	 * DtoPropertyPrice constructor.
 	 *
-	 * @param int $id
-	 * @param     $price
-	 * @param     $date
-	 * @param     $final
+	 * @param int    $id
+	 * @param float  $price
+	 * @param string $date
+	 * @param float  $final
 	 */
-	public function __construct (int $id, $price, $date, $final) {
+	public function __construct (int $id, float $price, string $date, float $final) {
 		$this->id = $id;
 		$this->price = $price;
 		$this->date = $date;

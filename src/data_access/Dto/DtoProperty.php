@@ -15,20 +15,20 @@ class DtoProperty extends Dto {
 	/**
 	 * DtoProperty constructor.
 	 *
-	 * @param $id
-	 * @param $name
-	 * @param $area
-	 * @param $description
-	 * @param $publishDate
-	 * @param $state
-	 * @param $floor
-	 * @param $extras
-	 * @param $request
-	 * @param $user
-	 * @param $price
+	 * @param int                $id
+	 * @param string             $name
+	 * @param float              $area
+	 * @param string             $description
+	 * @param string             $publishDate
+	 * @param int                $state
+	 * @param int                $floor
+	 * @param DtoExtra[]         $extras
+	 * @param DtoRequest[]       $request
+	 * @param DtoUser|null       $user
+	 * @param DtoPropertyPrice[] $price
 	 */
-	public function __construct (int $id, $name, $area, $description, $publishDate,
-		$state, $floor, $extras, $request, $user, $price) {
+	public function __construct (int $id, string $name, float $area, string $description, string $publishDate,
+		int $state, int $floor, $extras, $request, $user, $price) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->area = $area;

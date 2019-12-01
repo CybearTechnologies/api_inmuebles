@@ -14,10 +14,11 @@
 #   CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
 #	INMUEBLE
-RewriteRule ^property/id/([0-9]+)$ controllerProperty.php?extras=true&id=$1 [NC,L]
+RewriteRule ^property/([0-9]+)$ controllerProperty.php?extras=true&id=$1 [NC,L]
+RewriteRule ^property/$ controllerProperty.php? [NC,L]
 #   TIPO DE INMUBELE
 RewriteRule ^property-type$ controllerPropertyType.php [NC,L]
-RewriteRule ^property-type/id/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
+RewriteRule ^property-type/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
 #	PLAN
 RewriteRule ^plan$ controllerPlan.php [NC,L]
 RewriteRule ^plan/([0-9]+)$ controllerPlan.php?id=$1 [NC,L]
@@ -30,7 +31,7 @@ RewriteRule ^extra$ controllerExtra.php [NC,L]
 RewriteRule ^extra/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
 #   LOCATION
 RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]
-RewriteRule ^location/type/(pais|estado|municipio|Pais|Estado|Municipio|Pais)$ controllerLocation.php?type=$1 [NC,L]
+RewriteRule ^location/type/(pais|estado|municipio|Estado|Municipio|Pais)$ controllerLocation.php?type=$1 [NC,L]
 #	SEAT
 RewriteRule ^seat$ controllerSeat.php [NC,L]
 RewriteRule ^seat/([0-9]+)$ controllerSeat.php?id=$1 [NC,L]

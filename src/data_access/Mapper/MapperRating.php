@@ -19,6 +19,7 @@ class MapperRating extends Mapper
      */
     public function fromEntityToDto($entity): Dto
     {
-        return FactoryDto::createDtoRating($entity->getId(), $entity->getScore(), $entity->getMessage(), $entity->getActive());
+		return FactoryDto::createDtoRating($entity->getId(), $entity->getScore(), $entity->getMessage(),
+			$entity->isActive());
     }
 }

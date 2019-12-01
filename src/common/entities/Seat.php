@@ -10,9 +10,9 @@ class Seat extends Entity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $rif
-	 * @param int    $active
+	 * @param bool   $active
 	 */
-	public function __construct (int $id, string $name, string $rif, int $active) {
+	public function __construct (int $id, string $name, string $rif, bool $active) {
 		$this->setId($id);
 		$this->_name = $name;
 		$this->_rif = $rif;
@@ -48,16 +48,16 @@ class Seat extends Entity {
 	}
 
 	/**
-	 * @return int
+	 * @return bool
 	 */
-	public function getActive ():int {
+	public function isActive ():bool {
 		return $this->_active;
 	}
 
 	/**
-	 * @param int $active
+	 * @param bool $active
 	 */
-	public function setActive (int $active):void {
+	public function setActive (bool $active):void {
 		$this->_active = $active;
 	}
 }

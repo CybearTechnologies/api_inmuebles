@@ -8,9 +8,9 @@ class Request extends Entity {
 	 *
 	 * @param int    $id
 	 * @param string $date
-	 * @param int    $active
+	 * @param bool   $active
 	 */
-	public function __construct (int $id, string $date, int $active) {
+	public function __construct (int $id, string $date, bool $active) {
 		$this->setId($id);
 		$this->_active = $active;
 		$this->_date = $date;
@@ -31,16 +31,16 @@ class Request extends Entity {
 	}
 
 	/**
-	 * @return int
+	 * @return bool
 	 */
-	public function getActive ():int {
+	public function isActive ():bool {
 		return $this->_active;
 	}
 
 	/**
-	 * @param int $active
+	 * @param bool $active
 	 */
-	public function setActive (int $active):void {
+	public function setActive (bool $active):void {
 		$this->_active = $active;
 	}
 

@@ -17,6 +17,9 @@ class GetAllPropertyCommand extends Command {
 		$this->setData($this->_dao->getAllProperty());
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function return () {
 		return $this->getData();
 	}

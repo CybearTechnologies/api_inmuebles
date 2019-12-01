@@ -8,9 +8,9 @@ class DtoExtra extends Dto {
 	 *
 	 * @param int    $id
 	 * @param string $name
-	 * @param int    $active
+	 * @param bool   $active
 	 */
-	public function __construct (int $id, string $name, int $active) {
+	public function __construct (int $id, string $name, bool $active) {
 		$this->id = $id;
 		$this->active = $active;
 		$this->name = $name;

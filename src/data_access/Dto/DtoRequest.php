@@ -8,9 +8,9 @@ class DtoRequest extends Dto {
 	 *
 	 * @param int    $id
 	 * @param string $date
-	 * @param int    $active
+	 * @param bool   $active
 	 */
-	public function __construct (int $id, string $date, int $active) {
+	public function __construct (int $id, string $date, bool $active) {
 		$this->id = $id;
 		$this->active = $active;
 		$this->date = $date;

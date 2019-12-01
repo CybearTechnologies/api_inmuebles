@@ -10,15 +10,16 @@ class Property extends Entity {
 	/**
 	 * Property constructor.
 	 *
-	 * @param int $id
-	 * @param     $name
-	 * @param     $area
-	 * @param     $description
-	 * @param     $publishDate
-	 * @param     $state
-	 * @param     $floor
+	 * @param int    $id
+	 * @param string $name
+	 * @param float  $area
+	 * @param string $description
+	 * @param string $publishDate
+	 * @param int    $state
+	 * @param int    $floor
 	 */
-	public function __construct (int $id, $name, $area, $description, $publishDate, $state, $floor) {
+	public function __construct (int $id, string $name, float $area, string $description, string $publishDate,
+		int $state, int $floor) {
 		$this->setId($id);
 		$this->_name = $name;
 		$this->_area = $area;

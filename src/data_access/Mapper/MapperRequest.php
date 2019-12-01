@@ -15,6 +15,7 @@ class MapperRequest extends Mapper {
 	 * @return Dto
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoRequest($entity->getId(), $entity->getDate(), $entity->getActive());
+		return FactoryDto::createDtoRequest($entity->getId(), Tools::formatDate($entity->getDate()),
+			$entity->isActive());
 	}
 }

@@ -8,7 +8,21 @@ class User extends Entity {
 	private $_delete;
 	private $_blocked;
 
-	public function __construct (int $id, $firstName, $lastName, $address, $email, $password, $delete, $blocked) {
+	/**
+	 * User constructor.
+	 *
+	 * @param int    $id
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @param string $address
+	 * @param string $email
+	 * @param string $password
+	 * @param bool   $delete
+	 * @param bool   $blocked
+	 */
+	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
+		string $password, bool $delete, bool $blocked) {
+		$this->setId($id);
 		$this->_firstName = $firstName;
 		$this->_lastName = $lastName;
 		$this->_address = $address;

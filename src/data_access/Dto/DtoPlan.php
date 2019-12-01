@@ -10,9 +10,9 @@ class DtoPlan extends Dto {
 	 * @param int    $id
 	 * @param string $name
 	 * @param float  $price
-	 * @param int    $active
+	 * @param bool   $active
 	 */
-	public function __construct (int $id, string $name, float $price, int $active) {
+	public function __construct (int $id, string $name, float $price, bool $active) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->price = $price;

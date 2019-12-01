@@ -6,17 +6,16 @@ class DtoRating extends Dto
    public $active;
    public $user;
 
-
-    /**
-     * DtoRating constructor.
-     * @param $id
-     * @param $score
-     * @param $message
-     * @param $active
-     * @param $user
-     */
-    public function __construct($id, $score, $message, $active, $user)
-    {
+	/**
+	 * DtoRating constructor.
+	 *
+	 * @param int    $id
+	 * @param float  $score
+	 * @param string $message
+	 * @param bool   $active
+	 * @param User   $user
+	 */
+	public function __construct (int $id, float $score, string $message, bool $active, User $user) {
         $this->id=$id;
         $this->score = $score;
         $this->message = $message;

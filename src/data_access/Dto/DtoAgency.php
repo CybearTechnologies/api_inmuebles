@@ -9,10 +9,10 @@ class DtoAgency extends Dto {
 	 *
 	 * @param int            $id
 	 * @param string         $name
-	 * @param int            $active
+	 * @param bool           $active
 	 * @param DtoSeat[]|null $seats
 	 */
-	public function __construct (int $id, string $name, int $active, $seats) {
+	public function __construct (int $id, string $name, bool $active, $seats) {
 		$this->id = $id;
 		$this->name = $name;
 		$this->active = $active;

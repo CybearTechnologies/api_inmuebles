@@ -8,11 +8,11 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $name
-	 * @param int    $active
+	 * @param bool   $active
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType (int $id, $name = '', $active = 1):PropertyType {
+	static function createPropertyType (int $id, $name = '', $active = true):PropertyType {
 		return new PropertyType($id, $name, $active);
 	}
 
@@ -20,38 +20,38 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param int    $price
-	 * @param int    $active
+	 * @param bool   $active
 	 *
 	 * @return Plan
 	 */
-	static function createPlan (int $id, $name = '', $price = 0, $active = 1):Plan {
+	static function createPlan (int $id, $name = '', $price = 0, $active = true):Plan {
 		return new Plan($id, $name, $price, $active);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param string $name
-	 * @param int    $active
+	 * @param bool   $active
 	 *
 	 * @return Agency
 	 */
-	static function createAgency (int $id, $name = '', $active = 1):Agency {
+	static function createAgency (int $id, $name = '', $active = true):Agency {
 		return new Agency($id, $name, $active);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param string $name
-	 * @param int    $active
+	 * @param bool   $active
 	 *
 	 * @return Extra
 	 */
-	static function createExtra (int $id, $name = '', $active = 1):Extra {
+	static function createExtra (int $id, $name = '', $active = true):Extra {
 		return new Extra($id, $name, $active);
 	}
 
 	/**
-	 * @param int    $id
+	 * @param        $id
 	 * @param string $name
 	 * @param string $type
 	 *
@@ -65,22 +65,22 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $rif
-	 * @param int    $active
+	 * @param bool   $active
 	 *
 	 * @return Seat
 	 */
-	static function createSeat (int $id, $name = '', $rif = '', $active = 1):Seat {
+	static function createSeat (int $id, $name = '', $rif = '', $active = true):Seat {
 		return new Seat($id, $name, $rif, $active);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param string $date
-	 * @param int    $active
+	 * @param bool   $active
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, $date = '', $active = 1):Request {
+	static function createRequest (int $id, $date = '', $active = true):Request {
 		return new Request($id, $date, $active);
 	}
 
@@ -102,13 +102,13 @@ class FactoryEntity {
 	 * @param int    $area
 	 * @param string $description
 	 * @param string $publishDate
-	 * @param int    $state
+	 * @param bool   $state
 	 * @param int    $floor
 	 *
 	 * @return Property
 	 */
 	static function createProperty (int $id, $name = '', $area = 0, $description = '',
-		$publishDate = '', $state = 1, $floor = 0):Property {
+		$publishDate = '', $state = true, $floor = 0):Property {
 		return new Property($id, $name, $area, $description, $publishDate, $state, $floor);
 	}
 
@@ -119,13 +119,13 @@ class FactoryEntity {
 	 * @param string $address
 	 * @param string $email
 	 * @param string $password
-	 * @param int    $delete
-	 * @param int    $blocked
+	 * @param bool   $delete
+	 * @param bool   $blocked
 	 *
 	 * @return User
 	 */
 	static function createUser (int $id, $firstName = '', $lastName = '', $address = '', $email = '', $password = '',
-		$delete = 0, $blocked = 0):User {
+		$delete = false, $blocked = false):User {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
 	}
 
@@ -133,11 +133,11 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param string $score
 	 * @param string $message
-	 * @param int    $active
+	 * @param bool   $active
 	 *
 	 * @return Rating
 	 */
-	static function createRating (int $id, $score = '', $message = '', $active = 1):Rating {
+	static function createRating (int $id, $score = '', $message = '', $active = true):Rating {
 		return new Rating($id, $score, $message, $active);
 	}
 }

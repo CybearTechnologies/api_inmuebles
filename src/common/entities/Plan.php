@@ -10,9 +10,9 @@ class Plan extends Entity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param float  $price
-	 * @param int    $active
+	 * @param bool   $active
 	 */
-	public function __construct (int $id, string $name, float $price, int $active) {
+	public function __construct (int $id, string $name, float $price, bool $active) {
 		$this->setId($id);
 		$this->_name = $name;
 		$this->_price = $price;
@@ -48,16 +48,16 @@ class Plan extends Entity {
 	}
 
 	/**
-	 * @return int
+	 * @return bool
 	 */
-	public function getActive ():int {
+	public function isActive ():bool {
 		return $this->_active;
 	}
 
 	/**
-	 * @param int $active
+	 * @param bool $active
 	 */
-	public function setActive (int $active):void {
+	public function setActive (bool $active):void {
 		$this->_active = $active;
 	}
 }

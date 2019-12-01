@@ -1,5 +1,5 @@
 <?php
-class DtoUser extends Entity {
+class DtoUser extends Dto {
 	public $firstName;
 	public $lastName;
 	public $address;
@@ -20,7 +20,8 @@ class DtoUser extends Entity {
 	 * @param     $delete
 	 * @param     $blocked
 	 */
-	public function __construct (int $id, $firstName, $lastName, $address, $email, $password, $delete, $blocked) {
+	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
+		string $password, bool $delete, bool $blocked) {
 		$this->id = $id;
 		$this->firstName = $firstName;
 		$this->lastName = $lastName;

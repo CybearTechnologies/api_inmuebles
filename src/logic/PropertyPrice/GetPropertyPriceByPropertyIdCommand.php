@@ -22,7 +22,7 @@ class GetPropertyPriceByPropertyIdCommand extends Command {
 	}
 
 	/**
-	 * @return PropertyPrice
+	 * @return PropertyPrice[]
 	 */
 	public function return () {
 		return $this->getData();

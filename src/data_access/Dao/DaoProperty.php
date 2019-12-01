@@ -23,7 +23,7 @@ class DaoProperty extends Dao {
 	}
 
 	/**
-	 * @return Property
+	 * @return Property[]
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
@@ -34,7 +34,7 @@ class DaoProperty extends Dao {
 			if ($stmt->rowCount() == 0)
 				Throw new PropertyNotFoundException("There are no property found", 404);
 			else {
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 			}
 		}
 		catch (PDOException $exception) {

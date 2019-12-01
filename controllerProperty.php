@@ -49,7 +49,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createGetAllAgenciesCommand();
+			$command = FactoryCommand::createGetAllPropertyCommand();
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
@@ -59,8 +59,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new Result(false, [], 'Error de conexión.');
 				Result::setResponse($exception->getCode());
 			}
-			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], 'No se encontraron inmobiliarias.');
+			catch (PropertyNotFoundException $exception) {
+				$return = new Result(false, [], 'No se encontraron propiedades.');
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

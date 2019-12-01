@@ -5,14 +5,15 @@ class Rating extends Entity
     private $_message;
     private $_active;
 
-    /**
-     * Rating constructor.
-     * @param $_id
-     * @param $_score
-     * @param $_message
-     * @param $_active
-     */
-    public function __construct($_id, $_score, $_message, $_active)
+	/**
+	 * Rating constructor.
+	 *
+	 * @param int    $_id
+	 * @param float  $_score
+	 * @param string $_message
+	 * @param bool   $_active
+	 */
+	public function __construct (int $_id, float $_score, string $_message, bool $_active)
     {
         $this->setId($_id);
         $this->_score = $_score;
@@ -52,23 +53,17 @@ class Rating extends Entity
         $this->_message = $message;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getActive()
-    {
-        return $this->_active;
-    }
+	/**
+	 * @return bool
+	 */
+	public function isActive ():bool {
+		return $this->_active;
+	}
 
-    /**
-     * @param mixed $active
-     */
-    public function setActive($active): void
-    {
-        $this->_active = $active;
-    }
-
-
-
-
+	/**
+	 * @param bool $active
+	 */
+	public function setActive (bool $active):void {
+		$this->_active = $active;
+	}
 }
