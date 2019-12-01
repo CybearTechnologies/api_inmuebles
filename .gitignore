@@ -5,4 +5,4 @@ sql
 houston
 *.log
 core/Environment.php
-/vendor/
+vendor/
