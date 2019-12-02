@@ -15,7 +15,7 @@
 #---------------------------------------------------------------------------------
 #	INMUEBLE
 RewriteRule ^property/([0-9]+)$ controllerProperty.php?extras=true&id=$1 [NC,L]
-RewriteRule ^property/$ controllerProperty.php? [NC,L]
+RewriteRule ^property$ controllerProperty.php? [NC,L]
 #   TIPO DE INMUBELE
 RewriteRule ^property-type$ controllerPropertyType.php [NC,L]
 RewriteRule ^property-type/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]

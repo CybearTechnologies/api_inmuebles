@@ -43,6 +43,4 @@ class Request extends Entity {
 	public function setActive (bool $active):void {
 		$this->_active = $active;
 	}
-
-
 }

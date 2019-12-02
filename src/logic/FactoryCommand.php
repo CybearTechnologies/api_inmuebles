@@ -228,4 +228,22 @@ class FactoryCommand {
 	static function createPropertyTypeCommand (PropertyType $propertyType):CreatePropertyTypeCommand {
 		return new CreatePropertyTypeCommand($propertyType);
 	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return GetPropertyTypeByNameCommand
+	 */
+	static function createGetPropertyTypeByNameCommand (PropertyType $propertyType):GetPropertyTypeByNameCommand {
+		return new GetPropertyTypeByNameCommand($propertyType);
+	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return DeletePropertyTypeCommand
+	 */
+	static function createDeletePropertyTypeCommand (PropertyType $propertyType):DeletePropertyTypeCommand {
+		return new DeletePropertyTypeCommand($propertyType);
+	}
 }

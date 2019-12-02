@@ -2,7 +2,7 @@
 class DaoSeat extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllSeats()";
 	private const QUERY_GET_BY_ID = "CALL getSeatById(:id)";
-	private const QUERY_GET_BY_AGENCY = "CALL getSeatsByAgency(:id)";
+	private const QUERY_GET_BY_AGENCY = "CALL getAllSeatsByAgency(:id)";
 
 	/**
 	 * DaoSeat constructor.

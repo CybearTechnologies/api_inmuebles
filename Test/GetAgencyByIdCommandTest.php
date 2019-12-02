@@ -24,9 +24,11 @@ class GetAgencyByIdCommandTest extends TestCase {
 			$this->_command->execute();
 			$this->assertEquals($this->_agency, $this->_command->return());
 		}
-		catch (AgencyNotFoundException $e) {
+		catch (AgencyNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
-		catch (DatabaseConnectionException $e) {
+		catch (DatabaseConnectionException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
 		$this->_command->return();
 	}
