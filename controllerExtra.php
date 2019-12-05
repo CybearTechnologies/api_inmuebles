@@ -1,24 +1,25 @@
 <?php
 require_once "autoload.php";
 Tools::headers();
+$get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetExtraByIdCommand($_GET['id']);
+		if (isset($get->id) && is_numeric($get->id)) {
+			$command = FactoryCommand::createGetExtraByIdCommand($get->id);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error de conexión.');
-				Result::setResponse($e->getCode());
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (ExtraNotFoundException $e) {
-				$return = new Result(true, [], 'Extra no encontrado.');
-				Result::setResponse($e->getCode());
+			catch (ExtraNotFoundException $exception) {
+				$return = new Result(true, [], Values::getText("EXTRA_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -29,13 +30,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error de conexión.');
-				Result::setResponse($e->getCode());
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (ExtraNotFoundException $e) {
-				$return = new Result(true, [], 'Extra no encontrado.');
-				Result::setResponse($e->getCode());
+			catch (ExtraNotFoundException $exception) {
+				$return = new Result(true, [], Values::getText("EXTRAS_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			http_response_code(200);
 			echo json_encode($return);

@@ -13,12 +13,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($_GET['extras'])) {
+				if (isset($get->extras)) {
 					$command = FactoryCommand::createGetAllExtrasByPropertyIdCommand($get->id);
 					try {
 						$command->execute();
 						$dto->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
-						if (isset($_GET['price'])) {
+						if (isset($get->extra)) {
 							$command = FactoryCommand::createGetPropertyPriceByPropertyIdCommand($get->id);
 							try {
 								$command->execute();
@@ -39,11 +39,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (PropertyNotFoundException $exception) {
-				$return = new Result(false, [], 'Propiedad #' . $get->id . ' no encontrada.');
+				$return = new Result(false, [], Values::getText("PROPERTY_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -56,11 +56,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (PropertyNotFoundException $exception) {
-				$return = new Result(false, [], 'No se encontraron propiedades.');
+				$return = new Result(false, [], Values::getText("PROPERTIES_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

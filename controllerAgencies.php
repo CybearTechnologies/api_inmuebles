@@ -12,7 +12,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($_GET['seats'])) {
+				if (isset($get->seats)) {
 					$command = FactoryCommand::createGetAllSeatsByAgencyCommand($get->id);
 					try {
 						$command->execute();
@@ -28,11 +28,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], 'Agencia #' . $get->id . ' no encontrada.');
+				$return = new Result(false, [], Values::getText("AGENCY_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -45,11 +45,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], 'No se encontraron inmobiliarias.');
+				$return = new Result(false, [], Values::getText("AGENCIES_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

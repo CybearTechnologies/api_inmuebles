@@ -14,11 +14,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (SeatNotFoundException $exception) {
-				$return = new Result(false, [], 'Sede #' . $get->id . ' no encontrada.');
+				$return = new Result(false, [], Values::getText("SEAT_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -31,11 +31,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (SeatNotFoundException $exception) {
-				$return = new Result(false, [], 'No se encontraron sedes.');
+				$return = new Result(false, [], Values::getText("SEATS_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
