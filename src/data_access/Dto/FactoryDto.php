@@ -9,11 +9,12 @@ class FactoryDto {
 	 * @param int    $id
 	 * @param string $name
 	 * @param bool   $active
+	 * @param int    $user
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType (int $id, $name = '', $active = true):DtoPropertyType {
-		return new DtoPropertyType($id, $name, $active);
+	static function createDtoPropertyType (int $id, $name = '', $active = true, int $user):DtoPropertyType {
+		return new DtoPropertyType($id, $name, $active, $user);
 	}
 
 	/**
