@@ -13,29 +13,29 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error de conexión');
-				Result::setResponse($e->getCode());
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (PropertyTypeNotFoundException $e) {
-				$return = new Result(false, [], 'Propiedad no encontrada.');
-				Result::setResponse($e->getCode());
+			catch (PropertyTypeNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("PROPERTY_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 		}
 		else {
 			$command = FactoryCommand::createGetAllPropertyTypeCommand();
 			try {
 				$command->execute();
-				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error de conexión');
-				Result::setResponse($e->getCode());
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (PropertyTypeNotFoundException $e) {
-				$return = new Result(false, [], 'Propiedad no encontrada.');
-				Result::setResponse($e->getCode());
+			catch (PropertyTypeNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("PROPERTY_TYPES_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 		}
 		echo json_encode($return);
@@ -46,16 +46,22 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command = FactoryCommand::createPropertyTypeCommand($mapper->fromDTOToEntity($post));
 				$command->execute();
-				$return = array ('ok' => true);
+				$return = new Result();
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error de conexión');
-				Result::setResponse($e->getCode());
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
+			}
+			catch (PropertyTypeNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("PROPERTY_TYPE_NOT_FOUND"));
+			}
+			catch (PropetyTypeAlreadyExistException $exception) {
+				$return = new Result(false, [], Values::getText("PROPERTY_TYPE_ALREADY_EXIST"));
 			}
 		}
 		else {
-			$return = new Result(false, [], 'Datos Incompletos');
+			$return = new Result(false, [], Values::getText("DATA_INCOMPLETE"));
 			Result::setResponse(500);
 		}
 		echo json_encode($return);
