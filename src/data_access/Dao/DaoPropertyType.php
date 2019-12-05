@@ -6,21 +6,26 @@ SELECT pt_id id,pt_name name, pt_active active FROM property_type WHERE pt_id=la
 	private const QUERY_GET_BY_ID = "CALL getPropertyTypeById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPropertyTypeByName(:name)";
 	private const QUERY_DELETE_PROPERTY_TYPE = "CALL deletePropertyTypeById(:id)";
+	private $_propertyType;
+
 	/**
 	 * DaoPropertyType constructor.
+	 *
+	 * @param PropertyType $propertyType
 	 */
-	public function __construct () {
+	public function __construct ($propertyType) {
 		parent::__construct();
+		$this->_propertyType = $propertyType;
 	}
 
 	/**
-	 * @param $name
 	 *
 	 * @return PropertyType
 	 * @throws DatabaseConnectionException
 	 */
-	public function createPropertyType ($name) {
+	public function createPropertyType () {
 		try {
+			$name = $this->_propertyType->getName();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->execute();
@@ -34,14 +39,13 @@ SELECT pt_id id,pt_name name, pt_active active FROM property_type WHERE pt_id=la
 	}
 
 	/**
-	 * @param $id
-	 *
 	 * @return PropertyType
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyTypeNotFoundException
 	 */
-	public function getPropertyTypeById ($id) {
+	public function getPropertyTypeById () {
 		try {
+			$id = $this->_propertyType->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -58,13 +62,12 @@ SELECT pt_id id,pt_name name, pt_active active FROM property_type WHERE pt_id=la
 	}
 
 	/**
-	 * @param $id
-	 *
 	 * @return void
 	 * @throws DatabaseConnectionException
 	 */
-	public function deletePropertyById ($id):void {
+	public function deletePropertyById ():void {
 		try {
+			$id = $this->_propertyType->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_PROPERTY_TYPE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -76,14 +79,13 @@ SELECT pt_id id,pt_name name, pt_active active FROM property_type WHERE pt_id=la
 	}
 
 	/**
-	 * @param $name
-	 *
 	 * @return PropertyType
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyTypeNotFoundException
 	 */
-	public function getPropertyByName ($name) {
+	public function getPropertyByName () {
 		try {
+			$name = strtolower($this->_propertyType->getName());
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->execute();

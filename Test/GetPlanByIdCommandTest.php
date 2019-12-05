@@ -19,6 +19,12 @@ class GetPlanByIdCommandTest extends TestCase {
 	private $_command;
 	private $_plan;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_plan = FactoryEntity::createPlan(3, "Premium", 15, 1);
+		$this->_command = FactoryCommand::createGetPlanByIdCommand($this->_plan);
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -30,11 +36,5 @@ class GetPlanByIdCommandTest extends TestCase {
 		catch (PlanNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetPlanByIdCommand(3);
-		$this->_plan = FactoryEntity::createPlan(3, "Premium", 15, 1);
 	}
 }

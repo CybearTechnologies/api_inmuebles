@@ -1,15 +1,14 @@
 <?php
 class GetLocationByIdCommand extends Command {
 	private $_dao;
-	private $_id;
 
 	/**
 	 * GetLocationByIdCommand constructor.
 	 *
-	 * @param $_id
+	 * @param Location $location
 	 */
-	public function __construct ($_id) {
-		$this->_id = $_id;
+	public function __construct ($location) {
+		$this->_dao = FactoryDao::createDaoLocation($location);
 	}
 
 	/**
@@ -17,8 +16,7 @@ class GetLocationByIdCommand extends Command {
 	 * @throws LocationNotFoundException
 	 */
 	public function execute ():void {
-		$this->_dao = FactoryDao::createDaoLocation();
-		$this->setData($this->_dao->getLocationById($this->_id));
+		$this->setData($this->_dao->getLocationById());
 	}
 
 	/**

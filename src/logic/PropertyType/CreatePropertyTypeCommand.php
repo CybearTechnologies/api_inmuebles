@@ -11,7 +11,6 @@ class CreatePropertyTypeCommand extends Command {
 	public function __construct (PropertyType $propertyType) {
 		$this->_dao = FactoryDao::createDaoPropertyType();
 		$this->_command = FactoryCommand::createGetPropertyTypeByNameCommand($propertyType);
-		$this->_name = strtolower($propertyType->getName());
 	}
 
 	/**
@@ -22,7 +21,7 @@ class CreatePropertyTypeCommand extends Command {
 	public function execute ():void {
 		$this->_command->execute();
 		if ($this->_command->return() != $this->_name)
-			$this->setData($this->_dao->createPropertyType($this->_name));
+			$this->setData($this->_dao->createPropertyType());
 		else
 			Throw new PropetyTypeAlreadyExistException("La propiedad ya existe");
 	}
@@ -30,7 +29,7 @@ class CreatePropertyTypeCommand extends Command {
 	/**
 	 * @return PropertyType
 	 */
-	public function return () {
+	public function return ():PropertyType {
 		return $this->getData();
 	}
 }

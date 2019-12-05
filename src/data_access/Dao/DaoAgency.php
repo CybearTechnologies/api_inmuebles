@@ -2,23 +2,27 @@
 class DaoAgency extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllAgencies()";
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
+	private $_entity;
 
 	/**
 	 * DaoAgency constructor.
+	 *
+	 * @param Agency $entity
 	 */
-	public function __construct () {
+	public function __construct ($entity) {
 		parent::__construct();
+		$this->_entity = $entity;
 	}
 
 	/**
-	 * @param int $id
 	 *
 	 * @return Agency
 	 * @throws DatabaseConnectionException
 	 * @throws AgencyNotFoundException
 	 */
-	public function getAgencyById ($id) {
+	public function getAgencyById () {
 		try {
+			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

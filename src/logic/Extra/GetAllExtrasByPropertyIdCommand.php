@@ -1,16 +1,14 @@
 <?php
 class GetAllExtrasByPropertyIdCommand extends Command {
 	private $_dao;
-	private $_id;
 
 	/**
 	 * GetAllExtrasByPropertyIdCommand constructor.
 	 *
-	 * @param $id
+	 * @param Property $property
 	 */
-	public function __construct ($id) {
-		$this->_id = $id;
-		$this->_dao = FactoryDao::createDaoExtra();
+	public function __construct ($property) {
+		$this->_dao = FactoryDao::createDaoExtra($property);
 	}
 
 	/**
@@ -18,7 +16,7 @@ class GetAllExtrasByPropertyIdCommand extends Command {
 	 * @throws ExtraNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllPropertyExtra($this->_id));
+		$this->setData($this->_dao->getAllPropertyExtra());
 	}
 
 	/**

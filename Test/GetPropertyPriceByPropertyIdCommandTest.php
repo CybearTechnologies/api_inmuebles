@@ -18,6 +18,11 @@ require_once __DIR__ . './../src/logic/PropertyPrice/GetPropertyPriceByPropertyI
 class GetPropertyPriceByPropertyIdCommandTest extends TestCase {
 	private $_command;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetPropertyPriceByPropertyIdCommand(FactoryEntity::createProperty(1));
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -29,10 +34,5 @@ class GetPropertyPriceByPropertyIdCommandTest extends TestCase {
 		catch (InvalidPropertyPriceException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetPropertyPriceByPropertyIdCommand(1);
 	}
 }

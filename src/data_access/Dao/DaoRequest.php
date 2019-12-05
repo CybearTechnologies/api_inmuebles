@@ -3,49 +3,29 @@ class DaoRequest extends Dao {
 	private const QUERY_CREATE = "";
 	private const QUERY_GET_ALL = "CALL getAllRequest()";
 	private const QUERY_GET_BY_ID = "CALL getRequestById(:id)";
-	private const QUERY_GET_BY_USER_ID = "";
-	private const QUERY_GET_BY_PROPERTY_ID = "CALL getallrequestbyproperty(:id)";
+	private const QUERY_GET_BY_USER_ID = "CALL getAllRequestByUserId(:id)";
+	private const QUERY_GET_REQUEST_BY_PROPERTY_ID = "CALL getAllRequestByProperty(:id)";
+	private $_entity;
 
 	/**
 	 * DaoRequest constructor.
+	 *
+	 * @param Request|Property|User $entity
 	 */
-	public function __construct () {
+	public function __construct ($entity) {
 		parent::__construct();
+		$this->_entity = $entity;
 	}
 
 	/**
-	 * @param $id
-	 *
 	 * @return Request[]
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
-	public function getAllRequestByPropertyId ($id) {
+	public function getAllRequestByPropertyId () {
 		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_PROPERTY_ID);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new RequestNotFoundException("There are no request found", 200);
-			else
-				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
-		}
-		catch (PDOException $exception) {
-			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
-		}
-	}
-
-	/**
-	 * @param $id
-	 *
-	 * @return Request[]
-	 * @throws DatabaseConnectionException
-	 * @throws RequestNotFoundException
-	 */
-	public function getAllRequestByUserId ($id) {
-		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_ID);
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_REQUEST_BY_PROPERTY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
@@ -80,14 +60,35 @@ class DaoRequest extends Dao {
 	}
 
 	/**
-	 * @param $id
-	 *
+	 * @return Request[]
+	 * @throws DatabaseConnectionException
+	 * @throws RequestNotFoundException
+	 */
+	public function getAllRequestByUserId () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new RequestNotFoundException("There are no request found", 200);
+			else
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
 	 * @return Request
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
-	public function getRequestById ($id) {
+	public function getRequestById () {
 		try {
+			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

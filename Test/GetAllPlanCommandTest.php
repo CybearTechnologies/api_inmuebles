@@ -18,6 +18,11 @@ require_once __DIR__ . './../src/logic/Plan/GetAllPlanCommand.php';
 class GetAllPlanCommandTest extends TestCase {
 	private $_command;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllPlanCommand();
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -29,10 +34,5 @@ class GetAllPlanCommandTest extends TestCase {
 		catch (PlanNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllPlanCommand();
 	}
 }

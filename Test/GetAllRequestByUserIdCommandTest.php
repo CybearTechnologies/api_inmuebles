@@ -18,6 +18,11 @@ require_once __DIR__ . './../src/logic/Request/GetAllRequestByUserIdCommand.php'
 class GetAllRequestByUserIdCommandTest extends TestCase {
 	private $_command;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllRequestByUserIdCommand(FactoryEntity::createUser(1));
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -29,10 +34,5 @@ class GetAllRequestByUserIdCommandTest extends TestCase {
 		catch (RequestNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllRequestByPropertyIdCommand(1);
 	}
 }

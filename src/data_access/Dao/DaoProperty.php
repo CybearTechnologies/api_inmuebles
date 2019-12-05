@@ -3,22 +3,26 @@ class DaoProperty extends Dao {
 	private const QUERY_CREATE = "";
 	private const QUERY_GET_ALL = "CALL getAllProperty()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id)";
+	private $_property;
 
 	/**
 	 * DaoProperty constructor.
-	 */
-	public function __construct () {
-		parent::__construct();
-	}
-
-	/**
+	 *
 	 * @param Property $property
 	 */
-	public function createProperty ($property) {
+	public function __construct ($property) {
+		parent::__construct();
+		$this->_property = $property;
+	}
+
+	public function createProperty () {
+		$name = $this->_property->getName();
+		$description = $this->_property->getDescription();
+		$area = $this->_property->getArea();
 		$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-		$stmt->bindParam(":name", $property->getName(), PDO::PARAM_STR);
-		$stmt->bindParam(":description", $property->getDescription(), PDO::PARAM_STR);
-		$stmt->bindParam(":area", $property->getArea(), PDO::PARAM_STR);
+		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+		$stmt->bindParam(":description", $description, PDO::PARAM_STR);
+		$stmt->bindParam(":area", $area, PDO::PARAM_STR);
 		$stmt->execute();
 	}
 
@@ -44,14 +48,13 @@ class DaoProperty extends Dao {
 	}
 
 	/**
-	 * @param $id
-	 *
 	 * @return Property
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function getPropertyById ($id) {
+	public function getPropertyById () {
 		try {
+			$id = $this->_property->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

@@ -1,7 +1,6 @@
 <?php
 class DeletePropertyTypeCommand extends Command {
 	private $_dao;
-	private $_propertyType;
 
 	/**
 	 * DeletePropertyTypeCommand constructor.
@@ -9,16 +8,14 @@ class DeletePropertyTypeCommand extends Command {
 	 * @param PropertyType $propertyType
 	 */
 	public function __construct (PropertyType $propertyType) {
-		$this->_dao = FactoryDao::createDaoPropertyType();
-		$this->_propertyType = $propertyType;
+		$this->_dao = FactoryDao::createDaoPropertyType($propertyType);
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyTypeNotFoundException
 	 */
 	public function execute ():void {
-		$this->_dao->deletePropertyById($this->_propertyType->getId());
+		$this->_dao->deletePropertyById();
 	}
 
 	public function return () {

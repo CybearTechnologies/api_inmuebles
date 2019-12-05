@@ -1,7 +1,6 @@
 <?php
 class GetPropertyTypeByNameCommand extends Command {
 	private $_dao;
-	private $_propertyName;
 
 	/**
 	 * GetPropertyTypeByNameCommand constructor.
@@ -9,8 +8,7 @@ class GetPropertyTypeByNameCommand extends Command {
 	 * @param PropertyType $propertyType
 	 */
 	public function __construct (PropertyType $propertyType) {
-		$this->_dao = FactoryDao::createDaoPropertyType();
-		$this->_propertyName = strtolower($propertyType->getName());
+		$this->_dao = FactoryDao::createDaoPropertyType($propertyType);
 	}
 
 	/**
@@ -18,13 +16,13 @@ class GetPropertyTypeByNameCommand extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertyByName($this->_propertyName));
+		$this->setData($this->_dao->getPropertyByName());
 	}
 
 	/**
-	 * @return mixed
+	 * @return PropertyType
 	 */
-	public function return () {
+	public function return ():PropertyType {
 		return $this->getData();
 	}
 }

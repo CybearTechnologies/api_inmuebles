@@ -3,23 +3,26 @@ class DaoPlan extends Dao {
 	private const QUERY_CREATE = "";
 	private const QUERY_GET_ALL = "CALL getAllPlans()";
 	private const QUERY_GET_BY_ID = "CALL getPlanById(:id)";
+	private $_plan;
 
 	/**
 	 * DaoPlan constructor.
+	 *
+	 * @param Plan $plan
 	 */
-	public function __construct () {
+	public function __construct ($plan) {
 		parent::__construct();
+		$this->_plan = $plan;
 	}
 
 	/**
-	 * @param $id
-	 *
-	 * @return mixed
+	 * @return Plan
 	 * @throws DatabaseConnectionException
 	 * @throws PlanNotFoundException
 	 */
-	public function getPlanById ($id) {
+	public function getPlanById () {
 		try {
+			$id = $this->_plan->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -32,15 +35,6 @@ class DaoPlan extends Dao {
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
-	}
-
-	/**
-	 * @param $dbObject
-	 *
-	 * @return mixed
-	 */
-	protected function extract ($dbObject) {
-		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price, $dbObject->active);
 	}
 
 	/**
@@ -60,5 +54,14 @@ class DaoPlan extends Dao {
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
+	}
+
+	/**
+	 * @param $dbObject
+	 *
+	 * @return Plan
+	 */
+	protected function extract ($dbObject) {
+		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price, $dbObject->active);
 	}
 }

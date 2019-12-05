@@ -18,6 +18,11 @@ require_once __DIR__ . './../src/logic/Request/GetAllRequestCommand.php';
 class GetAllRequestCommandTest extends TestCase {
 	private $_command;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllRequestCommand();
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -29,10 +34,5 @@ class GetAllRequestCommandTest extends TestCase {
 		catch (RequestNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllRequestCommand();
 	}
 }

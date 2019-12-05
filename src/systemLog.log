@@ -1,1 +1,5 @@
-[02/12/2019 01:42:00 000000 +01:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 91 There are no property type called ,totona, found
+[05/12/2019 19:20:59 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[05/12/2019 19:20:59 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoSeat.php] [Notice] on line: 36 Database connection problem.
+[05/12/2019 19:23:41 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[05/12/2019 19:34:09 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[05/12/2019 19:37:46 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found

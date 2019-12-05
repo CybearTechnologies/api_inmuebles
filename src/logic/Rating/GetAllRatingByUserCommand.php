@@ -1,16 +1,14 @@
 <?php
 class GetAllRatingByUserCommand extends Command {
 	private $_dao;
-	private $id;
 
 	/**
 	 * GetAllRatingByUserCommand constructor.
 	 *
-	 * @param int $id
+	 * @param User $user
 	 */
-	public function __construct (int $id) {
-		$this->_dao = FactoryDao::createDaoRating();
-		$this->id = $id;
+	public function __construct ($user) {
+		$this->_dao = FactoryDao::createDaoRating($user);
 	}
 
 	/**
@@ -18,7 +16,7 @@ class GetAllRatingByUserCommand extends Command {
 	 * @throws RatingNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllRatingByUser($this->id));
+		$this->setData($this->_dao->getAllRatingByUser());
 	}
 
 	/**
