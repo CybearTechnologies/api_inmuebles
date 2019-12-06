@@ -6,15 +6,17 @@ $return = null;
 $mapper = FactoryMapper::createMapperProperty();
 $mapperExtra = FactoryMapper::createMapperExtra();
 $mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
+$property = FactoryEntity::createProperty(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetPropertyByIdCommand($get->id);
+			$property->setId($get->id);
+			$command = FactoryCommand::createGetPropertyByIdCommand($property);
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
 				if (isset($get->extras)) {
-					$command = FactoryCommand::createGetAllExtrasByPropertyIdCommand($get->id);
+					$command = FactoryCommand::createGetAllExtrasByPropertyIdCommand($property);
 					try {
 						$command->execute();
 						$dto->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());

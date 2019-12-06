@@ -4,10 +4,12 @@ Tools::headers();
 $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperPropertyType();
+$propertyType = FactoryEntity::createPropertyType(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetPropertyTypeByIdCommand($get->id);
+			$propertyType->setId($get->id);
+			$command = FactoryCommand::createGetPropertyTypeByIdCommand($propertyType);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));

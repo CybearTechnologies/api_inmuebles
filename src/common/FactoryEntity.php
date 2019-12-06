@@ -104,12 +104,13 @@ class FactoryEntity {
 	 * @param string $publishDate
 	 * @param bool   $state
 	 * @param int    $floor
+	 * @param int    $extra
 	 *
 	 * @return Property
 	 */
 	static function createProperty (int $id, $name = '', $area = 0, $description = '',
-		$publishDate = '', $state = true, $floor = 0):Property {
-		return new Property($id, $name, $area, $description, $publishDate, $state, $floor);
+		$publishDate = '', $state = true, $floor = 0, $extra = 0):Property {
+		return new Property($id, $name, $area, $description, $publishDate, $state, $floor, $extra);
 	}
 
 	/**
@@ -131,13 +132,13 @@ class FactoryEntity {
 
 	/**
 	 * @param int    $id
-	 * @param string $score
+	 * @param float  $score
 	 * @param string $message
 	 * @param bool   $active
 	 *
 	 * @return Rating
 	 */
-	static function createRating (int $id, $score = '', $message = '', $active = true):Rating {
+	static function createRating (int $id, $score = 0.0, $message = '', $active = true):Rating {
 		return new Rating($id, $score, $message, $active);
 	}
 }

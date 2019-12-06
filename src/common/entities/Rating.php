@@ -1,6 +1,5 @@
 <?php
-class Rating extends Entity
-{
+class Rating extends Entity {
     private $_score;
     private $_message;
     private $_active;

@@ -4,10 +4,12 @@ Tools::headers();
 $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperSeat();
+$seat = FactoryEntity::createSeat(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetSeatByIdCommand($get->id);
+			$seat->setId($get->id);
+			$command = FactoryCommand::createGetSeatByIdCommand($seat);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));

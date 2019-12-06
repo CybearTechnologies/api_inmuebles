@@ -6,6 +6,7 @@ class Property extends Entity {
 	private $_publishDate;
 	private $_state;
 	private $_floor;
+	private $_extra;
 
 	/**
 	 * Property constructor.
@@ -17,9 +18,10 @@ class Property extends Entity {
 	 * @param string $publishDate
 	 * @param int    $state
 	 * @param int    $floor
+	 * @param int    $extra
 	 */
 	public function __construct (int $id, string $name, float $area, string $description, string $publishDate,
-		int $state, int $floor) {
+		int $state, int $floor, int $extra) {
 		$this->setId($id);
 		$this->_name = $name;
 		$this->_area = $area;
@@ -27,6 +29,7 @@ class Property extends Entity {
 		$this->_publishDate = $publishDate;
 		$this->_state = $state;
 		$this->_floor = $floor;
+		$this->_extra = $extra;
 	}
 
 	/**
@@ -111,5 +114,19 @@ class Property extends Entity {
 	 */
 	public function setFloor ($floor):void {
 		$this->_floor = $floor;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getExtra ():int {
+		return $this->_extra;
+	}
+
+	/**
+	 * @param int $extra
+	 */
+	public function setExtra (int $extra):void {
+		$this->_extra = $extra;
 	}
 }

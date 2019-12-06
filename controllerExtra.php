@@ -7,7 +7,8 @@ $mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetExtraByIdCommand($get->id);
+			$extra = FactoryEntity::createExtra($get->id);
+			$command = FactoryCommand::createGetExtraByIdCommand($extra);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));

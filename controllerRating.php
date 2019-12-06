@@ -4,10 +4,13 @@ Tools::headers();
 $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperRating();
+$rating = FactoryEntity::createRating(0);
+$user = FactoryEntity::createUser(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetRatingByIdCommand($get->id);
+			$rating->setId($get->id);
+			$command = FactoryCommand::createGetRatingByIdCommand($rating);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
@@ -24,7 +27,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		elseif (isset($get->id_user) && is_numeric($get->id_user)) {
-			$command = FactoryCommand::createGetAllRatingByUserCommand($get->id_user);
+			$user->setId($get->id_user);
+			$command = FactoryCommand::createGetAllRatingByUserCommand($user);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
@@ -42,4 +46,3 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		break;
 }
-

@@ -4,10 +4,12 @@ Tools::headers();
 $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperLocation();
+$location = FactoryEntity::createLocation(-1);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetLocationByIdCommand($get->id);
+			$location->setId($get->id);
+			$command = FactoryCommand::createGetLocationByIdCommand($location);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
@@ -24,7 +26,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		elseif (isset($get->type)) {
-			$command = FactoryCommand::createGetLocationsByTypeCommand($get->type);
+			$location->setType($get->type);
+			$command = FactoryCommand::createGetLocationsByTypeCommand($location);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));

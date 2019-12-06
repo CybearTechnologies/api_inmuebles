@@ -4,10 +4,12 @@ Tools::headers();
 $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperPlan();
+$plan = FactoryEntity::createPlan(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetPlanByIdCommand($get->id);
+			$plan->setId($get->id);
+			$command = FactoryCommand::createGetPlanByIdCommand($plan);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));

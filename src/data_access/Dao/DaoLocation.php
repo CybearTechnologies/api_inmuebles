@@ -45,9 +45,9 @@ class DaoLocation extends Dao {
      */
 	public function getLocationByName () {
         try {
-			$type = $this->_location->getName();
+			$name = $this->_location->getName();
             $stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
-            $stmt->bindParam(":name", $type, PDO::PARAM_STR);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
             $stmt->execute();
             if ($stmt->rowCount() == 0)
                 Throw new LocationNotFoundException("There are no Location found", 200);

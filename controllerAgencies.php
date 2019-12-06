@@ -8,12 +8,13 @@ $mapperSeat = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetAgencyByIdCommand($get->id);
+			$agency = FactoryEntity::createAgency($get->id);
+			$command = FactoryCommand::createGetAgencyByIdCommand($agency);
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
 				if (isset($get->seats)) {
-					$command = FactoryCommand::createGetAllSeatsByAgencyCommand($get->id);
+					$command = FactoryCommand::createGetAllSeatsByAgencyCommand($agency);
 					try {
 						$command->execute();
 						$dto->seats = $mapperSeat->fromEntityArrayToDtoArray($command->return());
