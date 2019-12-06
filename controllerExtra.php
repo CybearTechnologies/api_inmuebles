@@ -1,24 +1,26 @@
 <?php
 require_once "autoload.php";
 Tools::headers();
+$get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetExtraByIdCommand($_GET['id']);
+		if (isset($get->id) && is_numeric($get->id)) {
+			$extra = FactoryEntity::createExtra($get->id);
+			$command = FactoryCommand::createGetExtraByIdCommand($extra);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (ExtraNotFoundException $e) {
-				$return = new Result(false, [], 'Extra no encontrada.');
-				Result::setResponse();
+			catch (ExtraNotFoundException $exception) {
+				$return = new Result(true, [], Values::getText("EXTRA_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -26,16 +28,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllExtraCommand();
 			try {
 				$command->execute();
-				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (ExtraNotFoundException $e) {
-				$return = array ('ok' => true, 'data' => array ());
-				Result::setResponse();
+			catch (ExtraNotFoundException $exception) {
+				$return = new Result(true, [], Values::getText("EXTRAS_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			http_response_code(200);
 			echo json_encode($return);

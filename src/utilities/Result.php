@@ -16,7 +16,7 @@ class Result {
 	 * @param array $data
 	 * @param array $errors
 	 */
-	public function __construct ($success, $data = [], $errors = []) {
+	public function __construct ($success = true, $data = [], $errors = []) {
 		$this->success = $success;
 		$this->data = $data;
 		$this->errors = $errors;

@@ -4,46 +4,142 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-require_once __DIR__ . "/../../autoload.php";
 class FactoryEntity {
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
+	 * @param bool   $active
+	 * @param int    $user
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType ($id, $name = ''):PropertyType {
-		return new PropertyType($id, $name);
+	static function createPropertyType (int $id, $name = '', $active = true, int $user):PropertyType {
+		return new PropertyType($id, $name, $active, $user);
 	}
 
 	/**
-	 * @param $id
-	 * @param $name
-	 * @param $price
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $price
+	 * @param bool   $active
 	 *
 	 * @return Plan
 	 */
-	static function createPlan ($id, $name, $price) {
-		return new Plan($id, $name, $price);
+	static function createPlan (int $id, $name = '', $price = 0, $active = true):Plan {
+		return new Plan($id, $name, $price, $active);
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
+	 * @param bool   $active
 	 *
 	 * @return Agency
 	 */
-	static function createAgency ($id, $name = '') {
-		return new Agency($id, $name);
+	static function createAgency (int $id, $name = '', $active = true):Agency {
+		return new Agency($id, $name, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param bool   $active
+	 *
+	 * @return Extra
+	 */
+	static function createExtra (int $id, $name = '', $active = true):Extra {
+		return new Extra($id, $name, $active);
 	}
 
 	/**
 	 * @param        $id
 	 * @param string $name
+	 * @param string $type
 	 *
-	 * @return Extra
+	 * @return Location
 	 */
-	static function createExtra ($id, $name = '') {
-		return new Extra($id, $name);
+	static function createLocation ($id, $name = '', $type = ''):Location {
+		return new Location($id, $name, $type);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $rif
+	 * @param bool   $active
+	 *
+	 * @return Seat
+	 */
+	static function createSeat (int $id, $name = '', $rif = '', $active = true):Seat {
+		return new Seat($id, $name, $rif, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $date
+	 * @param bool   $active
+	 *
+	 * @return Request
+	 */
+	static function createRequest (int $id, $date = '', $active = true):Request {
+		return new Request($id, $date, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $price
+	 * @param string $date
+	 * @param bool   $final
+	 *
+	 * @return PropertyPrice
+	 */
+	static function createPropertyPrice (int $id, $price = 0, $date = '', $final = false):PropertyPrice {
+		return new PropertyPrice($id, $price, $date, $final);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $area
+	 * @param string $description
+	 * @param string $publishDate
+	 * @param bool   $state
+	 * @param int    $floor
+	 * @param int    $extra
+	 *
+	 * @return Property
+	 */
+	static function createProperty (int $id, $name = '', $area = 0, $description = '',
+		$publishDate = '', $state = true, $floor = 0, $extra = 0):Property {
+		return new Property($id, $name, $area, $description, $publishDate, $state, $floor, $extra);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @param string $address
+	 * @param string $email
+	 * @param string $password
+	 * @param bool   $delete
+	 * @param bool   $blocked
+	 *
+	 * @return User
+	 */
+	static function createUser (int $id, $firstName = '', $lastName = '', $address = '', $email = '', $password = '',
+		$delete = false, $blocked = false):User {
+		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param float  $score
+	 * @param string $message
+	 * @param bool   $active
+	 *
+	 * @return Rating
+	 */
+	static function createRating (int $id, $score = 0.0, $message = '', $active = true):Rating {
+		return new Rating($id, $score, $message, $active);
 	}
 }

@@ -1,25 +1,28 @@
 <?php
 class DaoPlan extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "SELECT plan_id id,plan_name name,plan_price price FROM plan";
-	private const QUERY_GET_BY_ID = "SELECT plan_id id,plan_name name,plan_price price FROM plan WHERE plan_id = :id";
+	private const QUERY_GET_ALL = "CALL getAllPlans()";
+	private const QUERY_GET_BY_ID = "CALL getPlanById(:id)";
+	private $_plan;
 
 	/**
 	 * DaoPlan constructor.
+	 *
+	 * @param Plan $plan
 	 */
-	public function __construct () {
+	public function __construct ($plan) {
 		parent::__construct();
+		$this->_plan = $plan;
 	}
 
 	/**
-	 * @param $id
-	 *
-	 * @return mixed
+	 * @return Plan
 	 * @throws DatabaseConnectionException
 	 * @throws PlanNotFoundException
 	 */
-	public function getPlanById ($id) {
+	public function getPlanById () {
 		try {
+			$id = $this->_plan->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -56,9 +59,9 @@ class DaoPlan extends Dao {
 	/**
 	 * @param $dbObject
 	 *
-	 * @return mixed
+	 * @return Plan
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price);
+		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price, $dbObject->active);
 	}
 }

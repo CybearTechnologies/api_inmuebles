@@ -6,15 +6,15 @@ class MapperAgency extends Mapper {
 	 * @return Entity
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createAgency($dto->id, $dto->name);
+		return FactoryEntity::createAgency($dto->id, $dto->name, $dto->active);
 	}
 
 	/**
 	 * @param Agency $entity
 	 *
-	 * @return Dto
+	 * @return DtoAgency
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoAgency($entity->getId(), $entity->getName());
+		return FactoryDto::createDtoAgency($entity->getId(), $entity->getName(), $entity->isActive());
 	}
 }

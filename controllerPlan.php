@@ -1,24 +1,27 @@
 <?php
 require_once "autoload.php";
 Tools::headers();
+$get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperPlan();
+$plan = FactoryEntity::createPlan(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetPlanByIdCommand($_GET['id']);
+		if (isset($get->id) && is_numeric($get->id)) {
+			$plan->setId($get->id);
+			$command = FactoryCommand::createGetPlanByIdCommand($plan);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (PlanNotFoundException $e) {
-				$return = new Result(false, [], 'Plan no encontrado.');
-				Result::setResponse();
+			catch (PlanNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("PLAN_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -26,16 +29,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllPlanCommand();
 			try {
 				$command->execute();
-				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (PlanNotFoundException $e) {
-				$return = array ('ok' => true, 'data' => array ());
-				Result::setResponse();
+			catch (PlanNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("PLANS_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}

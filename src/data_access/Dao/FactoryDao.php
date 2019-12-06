@@ -6,30 +6,92 @@
  */
 class FactoryDao {
 	/**
+	 * @param PropertyType|null $propertyType
+	 *
 	 * @return DaoPropertyType
 	 */
-	static function createDaoPropertyType ():DaoPropertyType {
-		return new DaoPropertyType();
+	static function createDaoPropertyType ($propertyType = null):DaoPropertyType {
+		return new DaoPropertyType($propertyType);
 	}
 
 	/**
+	 * @param Plan|null $plan
+	 *
 	 * @return DaoPlan
 	 */
-	static function createDaoPlan ():DaoPlan {
-		return new DaoPlan();
+	static function createDaoPlan ($plan = null):DaoPlan {
+		return new DaoPlan($plan);
 	}
 
 	/**
+	 * @param Agency|null $agency
+	 *
 	 * @return DaoAgency
 	 */
-	static function createDaoAgency ():DaoAgency {
-		return new DaoAgency();
+	static function createDaoAgency ($agency = null):DaoAgency {
+		return new DaoAgency($agency);
 	}
 
 	/**
+	 * @param Extra|Entity $entity
+	 *
 	 * @return DaoExtra
 	 */
-	static function createDaoExtra ():DaoExtra {
-		return new DaoExtra();
+	static function createDaoExtra ($entity = null):DaoExtra {
+		return new DaoExtra($entity);
+	}
+
+	/**
+	 * @param Location|null $location
+	 *
+	 * @return DaoLocation
+	 */
+	static function createDaoLocation ($location = null):DaoLocation {
+		return new DaoLocation($location);
+	}
+
+	/**
+	 * @param Seat|Agency $entity
+	 *
+	 * @return DaoSeat
+	 */
+	static function createDaoSeat ($entity = null):DaoSeat {
+		return new DaoSeat($entity);
+	}
+
+	/**
+	 * @param Request|Property|User $entity
+	 *
+	 * @return DaoRequest
+	 */
+	static function createDaoRequest ($entity = null):DaoRequest {
+		return new DaoRequest($entity);
+	}
+
+	/**
+	 * @param PropertyPrice|Property $entity
+	 *
+	 * @return DaoPropertyPrice
+	 */
+	static function createDaoPropertyPrice ($entity):DaoPropertyPrice {
+		return new DaoPropertyPrice($entity);
+	}
+
+	/**
+	 * @param Property|null $property
+	 *
+	 * @return DaoProperty
+	 */
+	static function createDaoProperty ($property = null):DaoProperty {
+		return new DaoProperty($property);
+	}
+
+	/**
+	 * @param Rating|User $entity
+	 *
+	 * @return DaoRating
+	 */
+	static function createDaoRating ($entity):DaoRating {
+		return new DaoRating($entity);
 	}
 }

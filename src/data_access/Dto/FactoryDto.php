@@ -6,43 +6,129 @@
  */
 class FactoryDto {
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
+	 * @param bool   $active
+	 * @param int    $user
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType ($id, $name = ''):DtoPropertyType {
-		return new DtoPropertyType($id, $name);
+	static function createDtoPropertyType (int $id, $name = '', $active = true, int $user):DtoPropertyType {
+		return new DtoPropertyType($id, $name, $active, $user);
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 * @param int    $price
+	 * @param bool   $active
 	 *
 	 * @return DtoPlan
 	 */
-	static function createDtoPlan ($id, $name = '', $price = 0):DtoPlan {
-		return new DtoPlan($id, $name, $price);
+	static function createDtoPlan (int $id, $name = "", $price = 0, $active = true):DtoPlan {
+		return new DtoPlan($id, $name, $price, $active);
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
+	 * @param bool   $active
+	 * @param null   $seats
 	 *
 	 * @return DtoAgency
 	 */
-	static function createDtoAgency ($id, $name = '') {
-		return new DtoAgency($id, $name);
+	static function createDtoAgency (int $id, $name = "", $active = true, $seats = null):DtoAgency {
+		return new DtoAgency($id, $name, $active, $seats);
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
+	 * @param bool   $active
 	 *
 	 * @return DtoExtra
 	 */
-	static function createDtoExtra ($id, $name = "") :DtoExtra{
-		return new DtoExtra($id, $name);
+	static function createDtoExtra (int $id, $name = "", $active = true):DtoExtra {
+		return new DtoExtra($id, $name, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $type
+	 *
+	 * @return DtoLocation
+	 */
+	static function createDtoLocation (int $id, $name = "", $type = ""):DtoLocation {
+		return new DtoLocation($id, $name, $type);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $rif
+	 * @param bool   $active
+	 *
+	 * @return DtoSeat
+	 */
+	static function createDtoSeat (int $id, $name = "", $rif = "", $active = true):DtoSeat {
+		return new DtoSeat($id, $name, $rif, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $date
+	 * @param bool   $active
+	 *
+	 * @return DtoRequest
+	 */
+	static function createDtoRequest (int $id, $date = "", $active = true):DtoRequest {
+		return new DtoRequest($id, $date, $active);
+	}
+
+	/**
+	 * @param int                $id
+	 * @param string             $name
+	 * @param int                $area
+	 * @param string             $description
+	 * @param string             $publishDate
+	 * @param int                $state
+	 * @param int                $floor
+	 * @param DtoExtra[]         $extras
+	 * @param DtoRequest[]       $request
+	 * @param DtoUser|null       $user
+	 * @param DtoPropertyPrice[] $propertyPrice
+	 *
+	 * @return DtoProperty
+	 */
+	static function createDtoProperty (int $id, $name = "", $area = 0, $description = '', $publishDate = '',
+		$state = 0, $floor = 0, $extras = [], $request = [], $user = null, $propertyPrice = []):DtoProperty {
+		return new DtoProperty($id, $name, $area, $description, $publishDate, $state, $floor, $extras,
+			$request, $user, $propertyPrice);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $price
+	 * @param string $date
+	 * @param bool   $final
+	 *
+	 * @return DtoPropertyPrice
+	 */
+	static function createDtoPropertyPrice (int $id, $price = 0, $date = "", $final = false):DtoPropertyPrice {
+		return new DtoPropertyPrice($id, $price, $date, $final);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param float  $score
+	 * @param string $message
+	 * @param bool   $active
+	 * @param User   $user
+	 *
+	 * @return DtoRating
+	 */
+	static function createDtoRating (int $id, $score = 0.0, $message = "", $active = true):DtoRating {
+		return new DtoRating($id, $score, $message, $active);
 	}
 }

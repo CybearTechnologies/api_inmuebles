@@ -1,28 +1,46 @@
 <?php
 class Agency extends Entity {
 	private $_name;
+	private $_active;
 
 	/**
 	 * Agency constructor.
 	 *
-	 * @param $_name
+	 * @param int    $id
+	 * @param string $name
+	 * @param bool   $active
 	 */
-	public function __construct ($_id, $_name) {
-		$this->setId($_id);
-		$this->_name = $_name;
+	public function __construct (int $id, string $name, bool $active) {
+		$this->setId($id);
+		$this->_name = $name;
+		$this->_active = $active;
 	}
 
 	/**
-	 * @return mixed
+	 * @return string
 	 */
-	public function getName () {
+	public function getName ():string {
 		return $this->_name;
 	}
 
 	/**
-	 * @param mixed $name
+	 * @param string $name
 	 */
-	public function setName ($name):void {
+	public function setName (string $name):void {
 		$this->_name = $name;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isActive ():bool {
+		return $this->_active;
+	}
+
+	/**
+	 * @param bool $active
+	 */
+	public function setActive (bool $active):void {
+		$this->_active = $active;
 	}
 }

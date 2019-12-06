@@ -1,6 +1,8 @@
 #   GitIgnore for basic api usage
 .DS_Store
 .idea
-Houston
-/sql
-/vendor
+sql
+houston
+*.log
+core/Environment.php
+vendor/

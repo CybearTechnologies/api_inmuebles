@@ -1,16 +1,14 @@
 <?php
 class GetPropertyTypeByIdCommand extends Command {
 	private $_dao;
-	private $_id;
 
 	/**
 	 * GetPropertyTypeByIdCommand constructor.
 	 *
-	 * @param $id
+	 * @param PropertyType $propertyType
 	 */
-	public function __construct ($id) {
-		$this->_id = $id;
-		$this->_dao = FactoryDao::createDaoPropertyType();
+	public function __construct ($propertyType) {
+		$this->_dao = FactoryDao::createDaoPropertyType($propertyType);
 	}
 
 	/**
@@ -18,7 +16,7 @@ class GetPropertyTypeByIdCommand extends Command {
 	 * @throws PropertyTypeNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertyById($this->_id));
+		$this->setData($this->_dao->getPropertyTypeById());
 	}
 
 	/**

@@ -1,5 +1,5 @@
-[21/11/2019 12:19:13 000000 +01:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 24 SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
-
-[21/11/2019 12:19:24 000000 +01:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 24 SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
-
-[21/11/2019 12:48:43 000000 +01:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 24 SQLSTATE[HY000] [1045] Access denied for user 'inmobiladmind'@'localhost' (using password: YES)
+[05/12/2019 19:20:59 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[05/12/2019 19:20:59 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoSeat.php] [Notice] on line: 36 Database connection problem.
+[05/12/2019 19:23:41 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[05/12/2019 19:34:09 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[05/12/2019 19:37:46 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found

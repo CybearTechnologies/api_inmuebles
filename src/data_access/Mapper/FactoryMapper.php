@@ -6,30 +6,72 @@
  */
 class FactoryMapper {
 	/**
+	 * @return MapperProperty
+	 */
+	static function createMapperProperty ():MapperProperty {
+		return new MapperProperty();
+	}
+
+	/**
+	 * @return MapperPropertyPrice
+	 */
+	static function createMapperPropertyPrice ():MapperPropertyPrice {
+		return new MapperPropertyPrice();
+	}
+
+	/**
 	 * @return MapperPropertyType
 	 */
-	static function createMapperPropertyType () {
+	static function createMapperPropertyType ():MapperPropertyType {
 		return new MapperPropertyType();
 	}
 
 	/**
 	 * @return MapperPlan
 	 */
-	static function createMapperPlan () {
+	static function createMapperPlan ():MapperPlan {
 		return new MapperPlan();
 	}
 
 	/**
 	 * @return MapperAgency
 	 */
-	static function createMapperAgency () {
+	static function createMapperAgency ():MapperAgency {
 		return new MapperAgency();
 	}
 
 	/**
 	 * @return MapperExtra
 	 */
-	static function createMapperExtra () {
+	static function createMapperExtra ():MapperExtra {
 		return new MapperExtra();
+	}
+
+	/**
+	 * @return MapperLocation
+	 */
+	static function createMapperLocation ():MapperLocation {
+		return new MapperLocation();
+	}
+
+	/**
+	 * @return MapperSeat
+	 */
+	static function createMapperSeat ():MapperSeat {
+		return new MapperSeat();
+	}
+
+	/**
+	 * @return MapperRequest
+	 */
+	static function createMapperRequest ():MapperRequest {
+		return new MapperRequest();
+	}
+
+	/**
+	 * @return MapperRating
+	 */
+	static function createMapperRating ():MapperRating {
+		return new MapperRating();
 	}
 }
