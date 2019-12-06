@@ -25,6 +25,14 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param Agency $agency
+	 *
+	 * @return GetAllSeatsByAgencyCommand
+	 */
+	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
+		return new GetAllSeatsByAgencyCommand($agency);
+	}
+	/**
 	 * EXTRA
 	 */
 	/**
@@ -158,13 +166,14 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param User $user
+	 * @param Property $property
 	 *
-	 * @return GetAllRatingByUserCommand
+	 * @return GetAllRequestByPropertyIdCommand
 	 */
-	static function createGetAllRatingByUserCommand ($user):GetAllRatingByUserCommand {
-		return new GetAllRatingByUserCommand($user);
+	static function createGetAllRequestByPropertyIdCommand ($property):GetAllRequestByPropertyIdCommand {
+		return new GetAllRequestByPropertyIdCommand($property);
 	}
+
 	/**
 	 * PropertyPrice
 	 */
@@ -176,11 +185,9 @@ class FactoryCommand {
 	static function createGetPropertyPriceByPropertyIdCommand ($property):GetPropertyPriceByPropertyIdCommand {
 		return new GetPropertyPriceByPropertyIdCommand($property);
 	}
-
-
-	//-----------------------------------------------------------------------------
-	// SEATS
-	//-----------------------------------------------------------------------------
+	/**
+	 * SEATS
+	 */
 	/**
 	 * @return GetAllSeatsCommand
 	 */
@@ -198,17 +205,8 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Agency $agency
-	 *
-	 * @return GetAllSeatsByAgencyCommand
+	 * REQUEST
 	 */
-	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
-		return new GetAllSeatsByAgencyCommand($agency);
-	}
-
-	//-----------------------------------------------------------------------------
-	// REQUEST
-	//-----------------------------------------------------------------------------
 	/**
 	 * @return GetAllRequestCommand
 	 */
@@ -235,14 +233,8 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Property $property
-	 *
-	 * @return GetAllRequestByPropertyIdCommand
+	 * RATING
 	 */
-	static function createGetAllRequestByPropertyIdCommand ($property):GetAllRequestByPropertyIdCommand {
-		return new GetAllRequestByPropertyIdCommand($property);
-	}
-
 	/**
 	 * @param Rating $rating
 	 *
@@ -252,5 +244,12 @@ class FactoryCommand {
 		return new GetRatingByIdCommand($rating);
 	}
 
-
+	/**
+	 * @param User $user
+	 *
+	 * @return GetAllRatingByUserCommand
+	 */
+	static function createGetAllRatingByUserCommand ($user):GetAllRatingByUserCommand {
+		return new GetAllRatingByUserCommand($user);
+	}
 }

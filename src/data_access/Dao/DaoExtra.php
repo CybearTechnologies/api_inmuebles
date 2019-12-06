@@ -1,7 +1,7 @@
 <?php
 class DaoExtra extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "CALL getAllExtra()";
+	private const QUERY_GET_ALL = "CALL getAllExtras()";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
 	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyID(:id)";
 	private $_entity;
