@@ -16,14 +16,20 @@ class DaoProperty extends Dao {
 	}
 
 	public function createProperty () {
-		$name = $this->_property->getName();
-		$description = $this->_property->getDescription();
-		$area = $this->_property->getArea();
-		$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
-		$stmt->bindParam(":description", $description, PDO::PARAM_STR);
-		$stmt->bindParam(":area", $area, PDO::PARAM_STR);
-		$stmt->execute();
+		try {
+			$name = $this->_property->getName();
+			$description = $this->_property->getDescription();
+			$area = $this->_property->getArea();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":description", $description, PDO::PARAM_STR);
+			$stmt->bindParam(":area", $area, PDO::PARAM_STR);
+			$stmt->execute();
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
 	}
 
 	/**

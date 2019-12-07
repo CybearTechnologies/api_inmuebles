@@ -3,12 +3,12 @@ class DeleteAgencyByIdCommand extends Command {
 	private $_dao;
 
 	/**
-	 * GetAgencyByIdCommand constructor.
+	 * DeleteAgencyByIdCommand constructor.
 	 *
-	 * @param Agency $agency
+	 * @param Agency $entity
 	 */
-	public function __construct ($agency) {
-		$this->_dao = FactoryDao::createDaoAgency($agency);
+	public function __construct ($entity) {
+		$this->_dao = FactoryDao::createDaoAgency($entity);
 	}
 
 	public function execute ():void {

@@ -3,7 +3,7 @@ class CreateAccessCommand extends Command {
 	private $_dao;
 
 	/**
-	 * GetAccessByIdCommand constructor.
+	 * CreateAccessCommand constructor.
 	 *
 	 * @param Access $entity
 	 */

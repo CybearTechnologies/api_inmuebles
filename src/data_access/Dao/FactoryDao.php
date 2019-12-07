@@ -73,7 +73,7 @@ class FactoryDao {
 	 *
 	 * @return DaoPropertyPrice
 	 */
-	static function createDaoPropertyPrice ($entity):DaoPropertyPrice {
+	static function createDaoPropertyPrice ($entity = null):DaoPropertyPrice {
 		return new DaoPropertyPrice($entity);
 	}
 

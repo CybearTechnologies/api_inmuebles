@@ -3,7 +3,7 @@ class DeleteAccessByIdCommand extends Command {
 	private $_dao;
 
 	/**
-	 * GetAccessByIdCommand constructor.
+	 * DeleteAccessByIdCommand constructor.
 	 *
 	 * @param Access $entity
 	 */

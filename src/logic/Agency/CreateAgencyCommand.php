@@ -3,7 +3,7 @@ class CreateAgencyCommand extends Command {
 	private $_dao;
 
 	/**
-	 * GetAgencyByIdCommand constructor.
+	 * CreateAgencyCommand constructor.
 	 *
 	 * @param Agency $agency
 	 */
@@ -18,7 +18,7 @@ class CreateAgencyCommand extends Command {
 	/**
 	 * @return Agency
 	 */
-	public function return () {
+	public function return ():Agency {
 		return $this->getData();
 	}
 }

@@ -9,7 +9,7 @@ class CreatePropertyTypeCommand extends Command {
 	 * @param PropertyType $propertyType
 	 */
 	public function __construct (PropertyType $propertyType) {
-		$this->_dao = FactoryDao::createDaoPropertyType();
+		$this->_dao = FactoryDao::createDaoPropertyType($propertyType);
 		$this->_command = FactoryCommand::createGetPropertyTypeByNameCommand($propertyType);
 	}
 
@@ -23,7 +23,7 @@ class CreatePropertyTypeCommand extends Command {
 		if ($this->_command->return() != $this->_name)
 			$this->setData($this->_dao->createPropertyType());
 		else
-			Throw new PropetyTypeAlreadyExistException("La propiedad ya existe");
+			Throw new PropetyTypeAlreadyExistException("Este tipo de propiedad ya existe");
 	}
 
 	/**
