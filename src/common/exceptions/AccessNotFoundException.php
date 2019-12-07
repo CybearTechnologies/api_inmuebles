@@ -1,5 +1,5 @@
 <?php
-class AccessNotFoundException extends Exception {
+class AccessNotFoundException extends CustomException {
 	/**
 	 * AccessNotFoundException constructor.
 	 *

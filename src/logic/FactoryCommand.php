@@ -7,6 +7,35 @@
 class FactoryCommand {
 	/**
 	 *ACCESS
+	 *
+	 * @param Access $access
+	 *
+	 * @return CreateAccessCommand
+	 */
+	static function createCreateAccessCommand ($access):CreateAccessCommand {
+		return new CreateAccessCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return DeleteAccessByIdCommand
+	 */
+	static function createDeleteAccessByIdCommand ($access):DeleteAccessByIdCommand {
+		return new DeleteAccessByIdCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return GetAccessByIdCommand
+	 */
+	static function createGetAccessByIdCommand ($access):GetAccessByIdCommand {
+		return new GetAccessByIdCommand($access);
+	}
+
+	/**
+	 * @return GetAllAccessCommand
 	 */
 	static function createGetAllAccessCommand ():GetAllAccessCommand {
 		return new GetAllAccessCommand();

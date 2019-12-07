@@ -1,8 +1,9 @@
 <?php
 class DaoAccess extends Dao {
-	private const QUERY_CREATE_AGENCY = "";
+	private const QUERY_CREATE_ACCESS = "";
 	private const QUERY_GET_ALL = "CALL getAllAccess()";
-	private const QUERY_GET_BY_ID = "";
+	private const QUERY_GET_BY_ID = "CALL getAccessById()";
+	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById()";
 	private $_entity;
 
 	/**
@@ -15,6 +16,69 @@ class DaoAccess extends Dao {
 		$this->_entity = $_entity;
 	}
 
+	/**
+	 * @return Access
+	 * @throws DatabaseConnectionException
+	 * @throws AccessNotFoundException
+	 */
+	public function createAccess () {
+		try {
+			$name = $this->_entity->getName();
+			$abbreviation = $this->_entity->getAbbreviation();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ACCESS);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":abbreviation", $abbreviation, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AccessNotFoundException("Error creating access{$this->_entity->getName()}", 404);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Access
+	 * @throws DatabaseConnectionException
+	 * @throws AccessNotFoundException
+	 */
+	public function getAccessById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AccessNotFoundException("There are no Access found", 404);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	public function deleteAccessById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
 	/**
 	 * @return Access[]
 	 * @throws DatabaseConnectionException
