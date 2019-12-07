@@ -6,6 +6,28 @@
  */
 abstract class Entity {
 	private $_id;
+	private $_userCreator;
+	private $_userModifier;
+	private $_dateCreated;
+	private $_dateModified;
+
+	/**
+	 * Entity constructor.
+	 *
+	 * @param int    $_id
+	 * @param int    $_userCreator
+	 * @param int    $_userModifier
+	 * @param string $_dateCreated
+	 * @param string $_dateModified
+	 */
+	public function __construct (int $_id, int $_userCreator, int $_userModifier, string $_dateCreated,
+		string $_dateModified) {
+		$this->_id = $_id;
+		$this->_userCreator = $_userCreator;
+		$this->_userModifier = $_userModifier;
+		$this->_dateCreated = $_dateCreated;
+		$this->_dateModified = $_dateModified;
+	}
 
 	/**
 	 * @return int
@@ -19,5 +41,61 @@ abstract class Entity {
 	 */
 	public function setId ($id) {
 		$this->_id = $id;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getUserCreator () {
+		return $this->_userCreator;
+	}
+
+	/**
+	 * @param mixed $userCreator
+	 */
+	public function setUserCreator ($userCreator):void {
+		$this->_userCreator = $userCreator;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getUserModifier () {
+		return $this->_userModifier;
+	}
+
+	/**
+	 * @param mixed $userModifier
+	 */
+	public function setUserModifier ($userModifier):void {
+		$this->_userModifier = $userModifier;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDateCreated () {
+		return $this->_dateCreated;
+	}
+
+	/**
+	 * @param mixed $dateCreated
+	 */
+	public function setDateCreated ($dateCreated):void {
+		$this->_dateCreated = $dateCreated;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDateModified () {
+		return $this->_dateModified;
+	}
+
+	/**
+	 * @param mixed $dateModified
+	 */
+	public function setDateModified ($dateModified):void {
+		$this->_dateModified = $dateModified;
 	}
 }

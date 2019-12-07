@@ -10,11 +10,16 @@ class FactoryEntity {
 	 * @param string $name
 	 * @param bool   $active
 	 * @param int    $user
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType (int $id, $name = '', $active = true, int $user = 0):PropertyType {
-		return new PropertyType($id, $name, $active, $user);
+	static function createPropertyType (int $id, $name = "", $active = true, int $user = 0, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):PropertyType {
+		return new PropertyType($id, $name, $active, $user, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -22,44 +27,65 @@ class FactoryEntity {
 	 * @param string $name
 	 * @param int    $price
 	 * @param bool   $active
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Plan
 	 */
-	static function createPlan (int $id, $name = '', $price = 0, $active = true):Plan {
-		return new Plan($id, $name, $price, $active);
+	static function createPlan (int $id, $name = "", $price = 0, $active = true, int $userCreator = 0,
+		int $userModifier = 0,
+		string $dateCreated = "", string $dateModified = ""):Plan {
+		return new Plan($id, $name, $price, $active, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param string $name
 	 * @param bool   $active
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Agency
 	 */
-	static function createAgency (int $id, $name = '', $active = true):Agency {
-		return new Agency($id, $name, $active);
+	static function createAgency (int $id, $name = "", $active = true, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Agency {
+		return new Agency($id, $name, $active, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param string $name
 	 * @param bool   $active
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Extra
 	 */
-	static function createExtra (int $id, $name = '', $active = true):Extra {
-		return new Extra($id, $name, $active);
+	static function createExtra (int $id, $name = '', $active = true, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Extra {
+		return new Extra($id, $name, $active, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
 	 * @param        $id
 	 * @param string $name
 	 * @param string $type
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Location
 	 */
-	static function createLocation ($id, $name = '', $type = ''):Location {
-		return new Location($id, $name, $type);
+	static function createLocation ($id, $name = "", $type = "", int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Location {
+		return new Location($id, $name, $type, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -67,22 +93,32 @@ class FactoryEntity {
 	 * @param string $name
 	 * @param string $rif
 	 * @param bool   $active
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Seat
 	 */
-	static function createSeat (int $id, $name = '', $rif = '', $active = true):Seat {
-		return new Seat($id, $name, $rif, $active);
+	static function createSeat (int $id, $name = "", $rif = "", $active = true, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Seat {
+		return new Seat($id, $name, $rif, $active, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param string $date
 	 * @param bool   $active
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, $date = '', $active = true):Request {
-		return new Request($id, $date, $active);
+	static function createRequest (int $id, $date = "", $active = true, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Request {
+		return new Request($id, $date, $active, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -90,11 +126,16 @@ class FactoryEntity {
 	 * @param int    $price
 	 * @param string $date
 	 * @param bool   $final
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return PropertyPrice
 	 */
-	static function createPropertyPrice (int $id, $price = 0, $date = '', $final = false):PropertyPrice {
-		return new PropertyPrice($id, $price, $date, $final);
+	static function createPropertyPrice (int $id, $price = 0, $date = "", $final = false, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):PropertyPrice {
+		return new PropertyPrice($id, $price, $date, $final, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -102,16 +143,21 @@ class FactoryEntity {
 	 * @param string $name
 	 * @param int    $area
 	 * @param string $description
-	 * @param string $publishDate
 	 * @param bool   $state
 	 * @param int    $floor
 	 * @param int    $extra
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Property
 	 */
-	static function createProperty (int $id, $name = '', $area = 0, $description = '',
-		$publishDate = '', $state = true, $floor = 0, $extra = 0):Property {
-		return new Property($id, $name, $area, $description, $publishDate, $state, $floor, $extra);
+	static function createProperty (int $id, $name = "", $area = 0, $description = "", $state = true, $floor = 0,
+		$extra = 0, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Property {
+		return new Property($id, $name, $area, $description, $state, $floor, $extra, $userCreator,
+			$userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -123,12 +169,18 @@ class FactoryEntity {
 	 * @param string $password
 	 * @param bool   $delete
 	 * @param bool   $blocked
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return User
 	 */
-	static function createUser (int $id, $firstName = '', $lastName = '', $address = '', $email = '', $password = '',
-		$delete = false, $blocked = false):User {
-		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked);
+	static function createUser (int $id, $firstName = "", $lastName = "", $address = "", $email = "", $password = "",
+		$delete = false, $blocked = false, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):User {
+		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked, $userCreator,
+			$userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -136,24 +188,31 @@ class FactoryEntity {
 	 * @param float  $score
 	 * @param string $message
 	 * @param bool   $active
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 *
 	 * @return Rating
 	 */
-	static function createRating (int $id, $score = 0.0, $message = '', $active = true):Rating {
-		return new Rating($id, $score, $message, $active);
+	static function createRating (int $id, $score = 0.0, $message = "", $active = true, int $userCreator = 0,
+		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Rating {
+		return new Rating($id, $score, $message, $active, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $abbreviation
+	 * @param int    $userCreator
+	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 *
 	 * @return Access
 	 */
-	static function createAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "",
-		$dateModified = ""):Access {
-		return new Access($id, $name, $abbreviation, $dateCreated, $dateModified);
+	static function createAccess (int $id, $name = "", $abbreviation = "", int $userCreator = 0, int $userModifier = 0,
+		$dateCreated = "", string $dateModified = ""):Access {
+		return new Access($id, $name, $abbreviation, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 }

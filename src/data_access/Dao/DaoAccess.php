@@ -1,8 +1,8 @@
 <?php
 class DaoAccess extends Dao {
-	private const QUERY_CREATE_ACCESS = "";
+	private const QUERY_CREATE_ACCESS = "CALL insertAccess(:name,:abbreviation,:user)";
 	private const QUERY_GET_ALL = "CALL getAllAccess()";
-	private const QUERY_GET_BY_ID = "CALL getAccessById()";
+	private const QUERY_GET_BY_ID = "CALL getAccessById(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById()";
 	private $_entity;
 
@@ -17,23 +17,18 @@ class DaoAccess extends Dao {
 	}
 
 	/**
-	 * @return Access
 	 * @throws DatabaseConnectionException
-	 * @throws AccessNotFoundException
 	 */
 	public function createAccess () {
 		try {
 			$name = $this->_entity->getName();
 			$abbreviation = $this->_entity->getAbbreviation();
+			$userId = $this->_entity->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ACCESS);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":abbreviation", $abbreviation, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $userId, PDO::PARAM_STR);
 			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new AccessNotFoundException("Error creating access{$this->_entity->getName()}", 404);
-			else {
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
-			}
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -105,6 +100,6 @@ class DaoAccess extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createAccess($dbObject->id, $dbObject->name, $dbObject->abbreviation,
-			$dbObject->dateCreated, $dbObject->dateModified);
+			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified);
 	}
 }
