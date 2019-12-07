@@ -6,6 +6,13 @@
  */
 class FactoryCommand {
 	/**
+	 *ACCESS
+	 */
+	static function createGetAllAccessCommand ():GetAllAccessCommand {
+		return new GetAllAccessCommand();
+	}
+
+	/**
 	 * AGENCY
 	 */
 	/**

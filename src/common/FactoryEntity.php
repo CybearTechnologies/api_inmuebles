@@ -142,4 +142,18 @@ class FactoryEntity {
 	static function createRating (int $id, $score = 0.0, $message = '', $active = true):Rating {
 		return new Rating($id, $score, $message, $active);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return Access
+	 */
+	static function createAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "",
+		$dateModified = ""):Access {
+		return new Access($id, $name, $abbreviation, $dateCreated, $dateModified);
+	}
 }

@@ -94,4 +94,13 @@ class FactoryDao {
 	static function createDaoRating ($entity):DaoRating {
 		return new DaoRating($entity);
 	}
+
+	/**
+	 * @param Access|null $entity
+	 *
+	 * @return DaoAccess
+	 */
+	static function createDaoAccess ($entity = null):DaoAccess {
+		return new DaoAccess($entity);
+	}
 }

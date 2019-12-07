@@ -9,12 +9,11 @@ class FactoryDto {
 	 * @param int    $id
 	 * @param string $name
 	 * @param bool   $active
-	 * @param int    $user
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType (int $id, $name = '', $active = true, int $user):DtoPropertyType {
-		return new DtoPropertyType($id, $name, $active, $user);
+	static function createDtoPropertyType (int $id, $name = '', $active = true):DtoPropertyType {
+		return new DtoPropertyType($id, $name, $active);
 	}
 
 	/**
@@ -124,11 +123,23 @@ class FactoryDto {
 	 * @param float  $score
 	 * @param string $message
 	 * @param bool   $active
-	 * @param User   $user
 	 *
 	 * @return DtoRating
 	 */
 	static function createDtoRating (int $id, $score = 0.0, $message = "", $active = true):DtoRating {
 		return new DtoRating($id, $score, $message, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoAccess
+	 */
+	static function createDtoAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "", $dateModified = "") {
+		return new DtoAccess($id, $name, $abbreviation, $dateCreated, $dateModified);
 	}
 }

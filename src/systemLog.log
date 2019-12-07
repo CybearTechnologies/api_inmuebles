@@ -1,0 +1,8 @@
+[06/12/2019 12:37:55 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[06/12/2019 16:34:23 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 23 SQLSTATE[HY000] [2002] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+
+[06/12/2019 20:41:59 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 92 There are no property type called ,totona, found
+[06/12/2019 20:42:05 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoRating.php] [Notice] on line: 29 There are no Rating found
+[06/12/2019 20:42:19 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoRating.php] [Notice] on line: 52 There are no Rating found
+[06/12/2019 20:42:20 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 23 SQLSTATE[HY000] [1203] User buscamatch already has more than 'max_user_connections' active connections
+[06/12/2019 20:42:21 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 23 SQLSTATE[HY000] [1203] User buscamatch already has more than 'max_user_connections' active connections
