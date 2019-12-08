@@ -19,7 +19,7 @@ class GetAccessByIdCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_access = FactoryEntity::createAccess(1, "Usuario - Crear", "us_c",
-			1, 1, "2019-11-24 20:40:14", "2019-11-24 20:40:14");
+			1, 1, 1, 1, "2019-11-24 20:40:14", "2019-11-24 20:40:14");
 		$this->_command = FactoryCommand::createGetAccessByIdCommand($this->_access);
 	}
 

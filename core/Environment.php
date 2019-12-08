@@ -37,7 +37,6 @@ class Environment {
 		catch (Exception $exception) {
 			Logger::exception($exception, Logger::ERROR);
 		}
-
 		return null;
 	}
 

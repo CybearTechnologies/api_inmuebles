@@ -15,15 +15,17 @@ class Property extends Entity {
 	 * @param string $description
 	 * @param int    $state
 	 * @param int    $floor
+	 * @param bool   $active
+	 * @param bool   $delete
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $name, float $area, string $description,
-		int $state, int $floor, int $userCreator, int $userModifier,
+		int $state, int $floor, bool $active, bool $delete, int $userCreator, int $userModifier,
 		string $dateCreated, string $dateModified) {
-		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified);
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 		$this->_area = $area;
 		$this->_description = $description;

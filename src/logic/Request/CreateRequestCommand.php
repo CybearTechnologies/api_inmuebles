@@ -1,7 +1,5 @@
 <?php
 class CreateRequestCommand extends Command {
-	private $_dao;
-
 	/**
 	 * CreateRequestCommand constructor.
 	 *

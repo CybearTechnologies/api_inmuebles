@@ -139,7 +139,25 @@ class FactoryDto {
 	 *
 	 * @return DtoAccess
 	 */
-	static function createDtoAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "", $dateModified = "") {
+	static function createDtoAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "",
+		$dateModified = ""):DtoAccess {
 		return new DtoAccess($id, $name, $abbreviation, $dateCreated, $dateModified);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param        $userCreator
+	 * @param        $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoRol
+	 */
+	static function createDtoRol (int $id, string $name, bool $active, bool $delete, $userCreator, $userModifier,
+		string $dateCreated = "", string $dateModified = ""):DtoRol {
+		return new DtoRol($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 }

@@ -1,7 +1,5 @@
 <?php
 class DeletePlanByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * DeletePlanByIdCommand constructor.
 	 *

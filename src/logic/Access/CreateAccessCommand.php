@@ -1,7 +1,5 @@
 <?php
 class CreateAccessCommand extends Command {
-	private $_dao;
-
 	/**
 	 * CreateAccessCommand constructor.
 	 *

@@ -1,8 +1,9 @@
 <?php
 class DaoPlan extends Dao {
-	private const QUERY_CREATE = "";
+	private const QUERY_CREATE = "CALL insertPlan(:name,:price,:active,:user)";
 	private const QUERY_GET_ALL = "CALL getAllPlans()";
 	private const QUERY_GET_BY_ID = "CALL getPlanById(:id)";
+	private const QUERY_DELETE_BY_ID = "CALL deletePlan(:id)";
 	private $_plan;
 
 	/**

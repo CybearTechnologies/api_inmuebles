@@ -1,7 +1,5 @@
 <?php
 class GetAllRatingByUserCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAllRatingByUserCommand constructor.
 	 *

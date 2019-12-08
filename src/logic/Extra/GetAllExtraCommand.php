@@ -1,7 +1,5 @@
 <?php
 class GetAllExtraCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAllExtraCommand constructor.
 	 */

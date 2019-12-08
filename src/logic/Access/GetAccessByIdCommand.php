@@ -1,7 +1,5 @@
 <?php
 class GetAccessByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAccessByIdCommand constructor.
 	 *

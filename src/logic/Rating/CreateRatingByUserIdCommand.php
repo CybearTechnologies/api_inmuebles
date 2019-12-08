@@ -1,7 +1,5 @@
 <?php
 class CreateRatingByUserIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * CreateRatingByUserIdCommand constructor.
 	 *

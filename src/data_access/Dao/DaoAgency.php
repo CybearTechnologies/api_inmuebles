@@ -3,7 +3,7 @@ class DaoAgency extends Dao {
 	private const QUERY_CREATE_AGENCY = "CALL createAgency(:name)";
 	private const QUERY_GET_ALL = "CALL getAllAgencies()";
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
-	private const QUERY_DELETE_BY_ID = "CALL deleteAgencyById(:id)";
+	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id)";
 	private $_entity;
 
 	/**

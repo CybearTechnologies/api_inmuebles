@@ -1,23 +1,23 @@
 <?php
-class CreatePlanCommand extends Command {
+class DeleteRolCommand extends Command {
 	/**
-	 * CretePlanCommand constructor.
+	 * DeleteRolCommand constructor.
 	 *
-	 * @param Plan $entity
+	 * @param Rol $entity
 	 */
 	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoPlan($entity);
+		$this->_dao = FactoryDao::createDaoRol($entity);
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createPlan());
+		$this->setData($this->_dao->deleteRolById());
 	}
 
 	/**
-	 * @return Plan
+	 * @return Rol
 	 */
 	public function return () {
 		return $this->getData();

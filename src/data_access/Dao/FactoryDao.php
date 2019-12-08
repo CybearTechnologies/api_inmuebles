@@ -103,4 +103,13 @@ class FactoryDao {
 	static function createDaoAccess ($entity = null):DaoAccess {
 		return new DaoAccess($entity);
 	}
+
+	/**
+	 * @param Rol $entity
+	 *
+	 * @return DaoRol
+	 */
+	static function createDaoRol ($entity = null):DaoRol {
+		return new DaoRol($entity);
+	}
 }

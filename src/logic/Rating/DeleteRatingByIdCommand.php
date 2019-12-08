@@ -1,7 +1,5 @@
 <?php
 class DeleteRatingByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * DeleteRatingByIdCommand constructor.
 	 *

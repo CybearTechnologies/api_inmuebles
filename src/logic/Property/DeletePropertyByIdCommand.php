@@ -1,7 +1,5 @@
 <?php
 class DeletePropertyByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * DeletePropertyByIdCommand constructor.
 	 *

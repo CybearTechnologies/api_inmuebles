@@ -1,7 +1,5 @@
 <?php
 class DeleteRequestByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * DeleteRequestByIdCommand constructor.
 	 *

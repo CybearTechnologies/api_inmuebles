@@ -10,6 +10,8 @@ abstract class Entity {
 	private $_userModifier;
 	private $_dateCreated;
 	private $_dateModified;
+	private $_active;
+	private $_delete;
 
 	/**
 	 * Entity constructor.
@@ -19,14 +21,18 @@ abstract class Entity {
 	 * @param int    $_userModifier
 	 * @param string $_dateCreated
 	 * @param string $_dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 */
 	public function __construct (int $_id, int $_userCreator, int $_userModifier, string $_dateCreated,
-		string $_dateModified) {
+		string $_dateModified, bool $active, bool $delete) {
 		$this->_id = $_id;
 		$this->_userCreator = $_userCreator;
 		$this->_userModifier = $_userModifier;
 		$this->_dateCreated = $_dateCreated;
 		$this->_dateModified = $_dateModified;
+		$this->_active = $active;
+		$this->_delete = $delete;
 	}
 
 	/**
@@ -44,16 +50,16 @@ abstract class Entity {
 	}
 
 	/**
-	 * @return mixed
+	 * @return int
 	 */
-	public function getUserCreator () {
+	public function getUserCreator ():int {
 		return $this->_userCreator;
 	}
 
 	/**
-	 * @param mixed $userCreator
+	 * @param int $userCreator
 	 */
-	public function setUserCreator ($userCreator):void {
+	public function setUserCreator (int $userCreator):void {
 		$this->_userCreator = $userCreator;
 	}
 
@@ -97,5 +103,33 @@ abstract class Entity {
 	 */
 	public function setDateModified ($dateModified):void {
 		$this->_dateModified = $dateModified;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isActive ():bool {
+		return $this->_active;
+	}
+
+	/**
+	 * @param bool $active
+	 */
+	public function setActive (bool $active):void {
+		$this->_active = $active;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isDelete ():bool {
+		return $this->_delete;
+	}
+
+	/**
+	 * @param bool $delete
+	 */
+	public function setDelete (bool $delete):void {
+		$this->_delete = $delete;
 	}
 }

@@ -1,7 +1,5 @@
 <?php
 class GetPropertyTypeByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetPropertyTypeByIdCommand constructor.
 	 *

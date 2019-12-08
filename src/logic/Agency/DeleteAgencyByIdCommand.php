@@ -1,7 +1,5 @@
 <?php
 class DeleteAgencyByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * DeleteAgencyByIdCommand constructor.
 	 *
@@ -11,6 +9,9 @@ class DeleteAgencyByIdCommand extends Command {
 		$this->_dao = FactoryDao::createDaoAgency($entity);
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 */
 	public function execute ():void {
 		$this->setData($this->_dao->deleteAgencyById());
 	}

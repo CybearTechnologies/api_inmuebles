@@ -1,7 +1,5 @@
 <?php
 class CreatePropertyPriceByPropertyCommand extends Command {
-	private $_dao;
-
 	/**
 	 * CreatePropertyPriceByProperty constructor.
 	 *

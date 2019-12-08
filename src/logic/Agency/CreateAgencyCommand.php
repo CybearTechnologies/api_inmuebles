@@ -1,7 +1,5 @@
 <?php
 class CreateAgencyCommand extends Command {
-	private $_dao;
-
 	/**
 	 * CreateAgencyCommand constructor.
 	 *
@@ -11,6 +9,9 @@ class CreateAgencyCommand extends Command {
 		$this->_dao = FactoryDao::createDaoAgency($agency);
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 */
 	public function execute ():void {
 		$this->setData($this->_dao->createAgency());
 	}
