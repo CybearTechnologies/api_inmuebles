@@ -2,7 +2,9 @@
 .DS_Store
 .idea
 sql
+vendor
+core
 houston
 *.log
-core/Environment.php
-vendor/
+*.lock
+.phpunit.result.cache

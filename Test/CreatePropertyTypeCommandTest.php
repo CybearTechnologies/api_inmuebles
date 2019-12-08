@@ -17,23 +17,25 @@ class CreatePropertyTypeCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_propertyType = FactoryEntity::createPropertyType(-1, "Totona", true);
+		$this->_propertyType = FactoryEntity::createPropertyType(-1, "fefwtw", true);
 		$this->_command = FactoryCommand::createPropertyTypeCommand($this->_propertyType);
 	}
 
 	public function testReturn () {
 		try {
 			$this->_command->execute();
+			$propertyType = $this->_command->return();
+			Environment::database()->exec('DELETE FROM property_type WHERE pt_id =' . $propertyType->getId());
+			$this->assertEquals($this->_propertyType->getName(), $propertyType->getName());
 		}
 		catch (DatabaseConnectionException $exception) {
-			Logger::exception($exception, Logger::NOTICE);
-		}
-		catch (PropertyTypeNotFoundException $exception) {
-			Logger::exception($exception, Logger::NOTICE);
+			echo $exception->getMessage();
 		}
 		catch (PropetyTypeAlreadyExistException $exception) {
-			Logger::exception($exception, Logger::NOTICE);
+			echo $exception->getMessage();
 		}
-		$this->assertEquals($this->_propertyType, $this->_command->return());
+		catch (PropertyTypeNotFoundException $exception) {
+			echo $exception->getMessage();
+		}
 	}
 }

@@ -18,8 +18,14 @@ class Result {
 	 */
 	public function __construct ($success = true, $data = [], $errors = []) {
 		$this->success = $success;
-		$this->data = $data;
-		$this->errors = $errors;
+		if (!empty($data))
+			$this->data = $data;
+		else
+			unset($this->data);
+		if (!empty($errors))
+			$this->errors = $errors;
+		else
+			unset($this->errors);
 	}
 
 	/**
