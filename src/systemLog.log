@@ -1,16 +1,8 @@
-[06/12/2019 12:37:55 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
-[06/12/2019 16:34:23 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 23 SQLSTATE[HY000] [2002] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
-
-[06/12/2019 20:41:59 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 92 There are no property type called ,totona, found
-[06/12/2019 20:42:05 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoRating.php] [Notice] on line: 29 There are no Rating found
-[06/12/2019 20:42:19 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoRating.php] [Notice] on line: 52 There are no Rating found
-[06/12/2019 20:42:20 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 23 SQLSTATE[HY000] [1203] User buscamatch already has more than 'max_user_connections' active connections
-[06/12/2019 20:42:21 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\core\Environment.php] [Error] on line: 23 SQLSTATE[HY000] [1203] User buscamatch already has more than 'max_user_connections' active connections
-[07/12/2019 14:50:39 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
-[07/12/2019 14:50:45 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
-[07/12/2019 14:50:47 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
-[07/12/2019 14:50:47 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
-[07/12/2019 14:50:48 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoRating.php] [Notice] on line: 31 There are no Rating found
-[07/12/2019 16:23:53 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
-[07/12/2019 16:24:09 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoRating.php] [Notice] on line: 54 There are no Rating found
-[07/12/2019 16:26:04 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoRating.php] [Notice] on line: 31 There are no Rating found
+[07/12/2019 21:12:46 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoExtra.php] [Error] on line: 50 SQLSTATE[42000]: Syntax error or access violation: 1305 PROCEDURE inmobilapp.getAllExtras does not exist
+[07/12/2019 21:16:50 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 21:19:02 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 21:53:09 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 21:55:32 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 22:00:03 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 22:00:28 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 22:03:35 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found

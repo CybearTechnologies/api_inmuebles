@@ -5,7 +5,6 @@ class Property extends Entity {
 	private $_description;
 	private $_state;
 	private $_floor;
-	private $_extra;
 
 	/**
 	 * Property constructor.
@@ -16,14 +15,13 @@ class Property extends Entity {
 	 * @param string $description
 	 * @param int    $state
 	 * @param int    $floor
-	 * @param int    $extra
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $name, float $area, string $description,
-		int $state, int $floor, int $extra, int $userCreator, int $userModifier,
+		int $state, int $floor, int $userCreator, int $userModifier,
 		string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified);
 		$this->_name = $name;
@@ -31,7 +29,6 @@ class Property extends Entity {
 		$this->_description = $description;
 		$this->_state = $state;
 		$this->_floor = $floor;
-		$this->_extra = $extra;
 	}
 
 	/**
@@ -102,19 +99,5 @@ class Property extends Entity {
 	 */
 	public function setFloor ($floor):void {
 		$this->_floor = $floor;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getExtra ():int {
-		return $this->_extra;
-	}
-
-	/**
-	 * @param int $extra
-	 */
-	public function setExtra (int $extra):void {
-		$this->_extra = $extra;
 	}
 }

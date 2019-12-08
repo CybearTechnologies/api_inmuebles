@@ -12,7 +12,6 @@ class CreateAccessCommand extends Command {
 	}
 
 	/**
-	 * @throws AccessNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {

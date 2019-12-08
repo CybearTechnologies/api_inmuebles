@@ -141,11 +141,10 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $name
-	 * @param int    $area
+	 * @param float  $area
 	 * @param string $description
-	 * @param bool   $state
+	 * @param int    $state
 	 * @param int    $floor
-	 * @param int    $extra
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -153,10 +152,10 @@ class FactoryEntity {
 	 *
 	 * @return Property
 	 */
-	static function createProperty (int $id, $name = "", $area = 0, $description = "", $state = true, $floor = 0,
-		$extra = 0, int $userCreator = 0,
+	static function createProperty (int $id, $name = "", $area = 0.0, $description = "", $state = 0, $floor = 0,
+		int $userCreator = 0,
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Property {
-		return new Property($id, $name, $area, $description, $state, $floor, $extra, $userCreator,
+		return new Property($id, $name, $area, $description, $state, $floor, $userCreator,
 			$userModifier, $dateCreated, $dateModified);
 	}
 

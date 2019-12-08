@@ -15,6 +15,9 @@ class DaoProperty extends Dao {
 		$this->_property = $property;
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 */
 	public function createProperty () {
 		try {
 			$name = $this->_property->getName();
@@ -83,6 +86,7 @@ class DaoProperty extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createProperty($dbObject->id, $dbObject->name, $dbObject->area, $dbObject->description,
-			$dbObject->publishDate, $dbObject->state, $dbObject->floor);
+			$dbObject->state, $dbObject->floor, $dbObject->userCreator, $dbObject->userModifier,
+			$dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

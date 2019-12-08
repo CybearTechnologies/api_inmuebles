@@ -6,6 +6,7 @@
  */
 require_once __DIR__ . "/../autoload.php";
 class Environment {
+	/*
 	//	Site settings
 	private const SITE_KEY = "";
 	//	Database connections settings
@@ -13,6 +14,13 @@ class Environment {
 	private const DATABASE = "buscamatch";
 	private const USERNAME = "buscamatch";
 	private const PASSWORD = "best!M4tch";
+	*/
+	private const SITE_KEY = "";
+	//	Database connections settings
+	private const HOST = "localhost";
+	private const DATABASE = "inmobilapp";
+	private const USERNAME = "root";
+	private const PASSWORD = "";
 
 	/**
 	 * @return PDO
@@ -31,13 +39,6 @@ class Environment {
 		}
 
 		return null;
-	}
-
-	/**
-	 * @return string
-	 */
-	public static function baseURL ():string {
-		return self::BASE_URL;
 	}
 
 	/**

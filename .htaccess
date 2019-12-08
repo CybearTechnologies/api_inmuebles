@@ -13,6 +13,9 @@
 #---------------------------------------------------------------------------------
 #   CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
+#	ACCESS
+RewriteRule ^access/([0-9]+)$ controllerAccess.php?id=$1 [NC,L]
+RewriteRule ^access$ controllerAccess.php [NC,L]
 #	INMUEBLE
 RewriteRule ^property/([0-9]+)$ controllerProperty.php?extras=true&price=true&id=$1 [NC,L]
 RewriteRule ^property$ controllerProperty.php?extras=true [NC,L]

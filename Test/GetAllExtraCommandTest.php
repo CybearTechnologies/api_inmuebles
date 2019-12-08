@@ -28,9 +28,11 @@ class GetAllExtraCommandTest extends TestCase {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
 		}
-		catch (DatabaseConnectionException $e) {
+		catch (DatabaseConnectionException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
-		catch (ExtraNotFoundException $e) {
+		catch (ExtraNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
 	}
 }
