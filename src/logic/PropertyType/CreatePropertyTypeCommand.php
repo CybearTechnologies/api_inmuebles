@@ -1,7 +1,6 @@
 <?php
 class CreatePropertyTypeCommand extends Command {
 	private $_dao;
-	private $_name;
 	private $_command;
 	/**
 	 * CreatePropertyTypeCommand constructor.
@@ -15,15 +14,17 @@ class CreatePropertyTypeCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws PropetyTypeAlreadyExistException
 	 * @throws PropertyTypeNotFoundException
+	 * @throws PropetyTypeAlreadyExistException
 	 */
 	public function execute ():void {
-		$this->_command->execute();
-		if ($this->_command->return() != $this->_name)
-			$this->setData($this->_dao->createPropertyType());
-		else
+		try {
+			$this->_command->execute();
 			Throw new PropetyTypeAlreadyExistException("Este tipo de propiedad ya existe");
+		}
+		catch (PropertyTypeNotFoundException $exception) {
+			$this->setData($this->_dao->createPropertyType());
+		}
 	}
 
 	/**
