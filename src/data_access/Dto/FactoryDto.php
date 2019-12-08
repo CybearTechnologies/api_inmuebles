@@ -120,14 +120,26 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
-	 * @param string $score
+	 * @param float  $score
 	 * @param string $message
 	 * @param bool   $active
-	 * @param User   $user
 	 *
 	 * @return DtoRating
 	 */
-	static function createDtoRating (int $id, $score = "", $message = "", $active = true, $user = null):DtoRating {
-		return new DtoRating($id, $score, $message, $active, $user);
+	static function createDtoRating (int $id, $score = 0.0, $message = "", $active = true):DtoRating {
+		return new DtoRating($id, $score, $message, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoAccess
+	 */
+	static function createDtoAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "", $dateModified = "") {
+		return new DtoAccess($id, $name, $abbreviation, $dateCreated, $dateModified);
 	}
 }

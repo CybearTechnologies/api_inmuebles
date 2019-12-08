@@ -3,16 +3,27 @@ class DaoLocation extends Dao {
 	private const QUERY_GET_BY_NAME = "Select lo_id id, lo_name name,lo_type type from location where lo_name=:name";
 	private const QUERY_GET_BY_TYPE = "Select lo_id id, lo_name name,lo_type type from location where lo_type=:type";
 	private const QUERY_GET_BY_ID = "Select lo_id id, lo_name name,lo_type type from location where lo_id=:id";
+	private $_location;
 
 	/**
-	 * @param $id
+	 * DaoLocation constructor.
 	 *
-	 * @return mixed
+	 * @param Location $location
+	 */
+	public function __construct ($location) {
+		parent::__construct();
+		$this->_location = $location;
+	}
+
+	/**
+	 *
+	 * @return Location
 	 * @throws DatabaseConnectionException
 	 * @throws LocationNotFoundException
 	 */
-	public function getLocationById ($id) {
+	public function getLocationById () {
 		try {
+			$id = $this->_location->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -28,16 +39,15 @@ class DaoLocation extends Dao {
 	}
 
     /**
-     * @param $type
-     *
-     * @return mixed
+	 * @return Location
      * @throws DatabaseConnectionException
      * @throws LocationNotFoundException
      */
-    public function getLocationByName ($type) {
+	public function getLocationByName () {
         try {
+			$name = $this->_location->getName();
             $stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
-            $stmt->bindParam(":name", $type, PDO::PARAM_STR);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
             $stmt->execute();
             if ($stmt->rowCount() == 0)
                 Throw new LocationNotFoundException("There are no Location found", 200);
@@ -51,14 +61,13 @@ class DaoLocation extends Dao {
     }
 
 	/**
-	 * @param string $type
-	 *
 	 * @return Location[]
 	 * @throws DatabaseConnectionException
 	 * @throws LocationNotFoundException
 	 */
-	public function getLocationsByType ($type) {
+	public function getLocationsByType () {
 		try {
+			$type = $this->_location->getType();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_TYPE);
 			$stmt->bindParam(":type", $type, PDO::PARAM_STR);
 			$stmt->execute();

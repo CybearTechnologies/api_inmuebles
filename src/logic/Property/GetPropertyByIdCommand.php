@@ -1,16 +1,14 @@
 <?php
 class GetPropertyByIdCommand extends Command {
 	private $_dao;
-	private $_id;
 
 	/**
 	 * GetPropertyByIdCommand constructor.
 	 *
-	 * @param $id
+	 * @param Property $property
 	 */
-	public function __construct ($id) {
-		$this->_id = $id;
-		$this->_dao = FactoryDao::createDaoProperty();
+	public function __construct ($property) {
+		$this->_dao = FactoryDao::createDaoProperty($property);
 	}
 
 	/**
@@ -18,13 +16,13 @@ class GetPropertyByIdCommand extends Command {
 	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertyById($this->_id));
+		$this->setData($this->_dao->getPropertyById());
 	}
 
 	/**
 	 * @return Property
 	 */
-	public function return () {
+	public function return ():Property {
 		return $this->getData();
 	}
 }

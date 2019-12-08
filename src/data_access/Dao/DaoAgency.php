@@ -1,24 +1,45 @@
 <?php
 class DaoAgency extends Dao {
+	private const QUERY_CREATE_AGENCY = "CALL createAgency(:name)";
 	private const QUERY_GET_ALL = "CALL getAllAgencies()";
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
+	private const QUERY_DELETE_BY_ID = "CALL deleteAgencyById(:id)";
+	private $_entity;
 
 	/**
 	 * DaoAgency constructor.
+	 *
+	 * @param Agency $entity
 	 */
-	public function __construct () {
+	public function __construct ($entity) {
 		parent::__construct();
+		$this->_entity = $entity;
 	}
 
 	/**
-	 * @param int $id
+	 * @throws DatabaseConnectionException
+	 */
+	public function createAgency () {
+		try {
+			$id = $this->_entity->getName();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_AGENCY);
+			$stmt->bindParam(":name", $id, PDO::PARAM_INT);
+			$stmt->execute();
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+	/**
 	 *
 	 * @return Agency
 	 * @throws DatabaseConnectionException
 	 * @throws AgencyNotFoundException
 	 */
-	public function getAgencyById ($id) {
+	public function getAgencyById () {
 		try {
+			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -53,6 +74,21 @@ class DaoAgency extends Dao {
 		}
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	public function deleteAgencyById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
 	/**
 	 * @param $dbObject
 	 *

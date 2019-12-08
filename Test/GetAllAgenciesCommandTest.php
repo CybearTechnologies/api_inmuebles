@@ -18,6 +18,11 @@ require_once __DIR__ . './../src/logic/Agency/GetAgencyByIdCommand.php';
 class GetAllAgenciesCommandTest extends TestCase {
 	private $_command;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllAgenciesCommand();
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -29,10 +34,5 @@ class GetAllAgenciesCommandTest extends TestCase {
 		catch (DatabaseConnectionException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		};
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllAgenciesCommand();
 	}
 }

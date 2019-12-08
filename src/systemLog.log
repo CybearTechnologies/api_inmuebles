@@ -1,0 +1,8 @@
+[07/12/2019 21:12:46 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoExtra.php] [Error] on line: 50 SQLSTATE[42000]: Syntax error or access violation: 1305 PROCEDURE inmobilapp.getAllExtras does not exist
+[07/12/2019 21:16:50 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 21:19:02 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 21:53:09 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 21:55:32 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 22:00:03 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 22:00:28 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found
+[07/12/2019 22:03:35 000000 -04:00] [C:\xampp\htdocs\inmobi-houston\src\data_access\Dao\DaoPropertyType.php] [Notice] on line: 93 There are no property type called ,totona, found

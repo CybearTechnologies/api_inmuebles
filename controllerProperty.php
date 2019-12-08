@@ -6,20 +6,22 @@ $return = null;
 $mapper = FactoryMapper::createMapperProperty();
 $mapperExtra = FactoryMapper::createMapperExtra();
 $mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
+$property = FactoryEntity::createProperty(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetPropertyByIdCommand($get->id);
+			$property->setId($get->id);
+			$command = FactoryCommand::createGetPropertyByIdCommand($property);
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($_GET['extras'])) {
-					$command = FactoryCommand::createGetAllExtrasByPropertyIdCommand($get->id);
+				if (isset($get->extras)) {
+					$command = FactoryCommand::createGetAllExtrasByPropertyIdCommand($property);
 					try {
 						$command->execute();
 						$dto->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
-						if (isset($_GET['price'])) {
-							$command = FactoryCommand::createGetPropertyPriceByPropertyIdCommand($get->id);
+						if (isset($get->price)) {
+							$command = FactoryCommand::createGetPropertyPriceByPropertyIdCommand($property);
 							try {
 								$command->execute();
 								$dto->price = $mapperPropertyPrice->fromEntityArrayToDtoArray($command->return());
@@ -39,11 +41,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (PropertyNotFoundException $exception) {
-				$return = new Result(false, [], 'Propiedad #' . $get->id . ' no encontrada.');
+				$return = new Result(false, [], Values::getText("PROPERTY_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -56,11 +58,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (PropertyNotFoundException $exception) {
-				$return = new Result(false, [], 'No se encontraron propiedades.');
+				$return = new Result(false, [], Values::getText("PROPERTIES_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

@@ -1,16 +1,14 @@
 <?php
 class GetAllRequestByPropertyIdCommand extends Command {
 	private $_dao;
-	private $_id;
 
 	/**
 	 * GetAllRequestByPropertyIdCommand constructor.
 	 *
-	 * @param $id
+	 * @param Property $property
 	 */
-	public function __construct (int $id) {
-		$this->_id = $id;
-		$this->_dao = FactoryDao::createDaoRequest();
+	public function __construct ($property) {
+		$this->_dao = FactoryDao::createDaoRequest($property);
 	}
 
 	/**
@@ -18,7 +16,7 @@ class GetAllRequestByPropertyIdCommand extends Command {
 	 * @throws RequestNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllRequestByPropertyId($this->_id));
+		$this->setData($this->_dao->getAllRequestByPropertyId());
 	}
 
 	/**

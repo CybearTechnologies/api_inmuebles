@@ -16,12 +16,17 @@ require_once __DIR__ . './../src/logic/Seat/GetAllSeatsByAgencyCommand.php';
  * @covers GetAllSeatsByAgencyCommand
  */
 class GetAllSeatsByAgencyCommandTest extends TestCase {
-	private $_commandToTest;
+	private $_command;
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllSeatsByAgencyCommand(FactoryEntity::createAgency(1));
+	}
 
 	public function test () {
 		try {
-			$this->_commandToTest->execute();
-			$this->assertNotEmpty($this->_commandToTest->return(), 'This agency has seats!');
+			$this->_command->execute();
+			$this->assertNotEmpty($this->_command->return());
 		}
 		catch (DatabaseConnectionException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
@@ -29,10 +34,5 @@ class GetAllSeatsByAgencyCommandTest extends TestCase {
 		catch (SeatNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_commandToTest = FactoryCommand::createGetAllSeatsByAgencyCommand(1);
 	}
 }

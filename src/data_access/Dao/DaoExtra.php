@@ -1,19 +1,29 @@
 <?php
 class DaoExtra extends Dao {
 	private const QUERY_CREATE = "";
-	private const QUERY_GET_ALL = "CALL getAllExtra()";
+	private const QUERY_GET_ALL = "CALL getAllExtras()";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
-	private const QUERY_GET_BY_PROPERTY_ID = "CALL getAllExtraByPropertyID(:id)";
+	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyID(:id)";
+	private $_entity;
 
 	/**
-	 * @param $id
+	 * DaoExtra constructor.
 	 *
+	 * @param Extra|Property $entity
+	 */
+	public function __construct ($entity) {
+		parent::__construct();
+		$this->_entity = $entity;
+	}
+
+	/**
 	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function getExtraById ($id) {
+	public function getExtraById () {
 		try {
+			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -22,29 +32,6 @@ class DaoExtra extends Dao {
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
-		}
-		catch (PDOException $exception) {
-			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
-		}
-	}
-
-	/**
-	 * @param $id
-	 *
-	 * @return Extra[]
-	 * @throws DatabaseConnectionException
-	 * @throws ExtraNotFoundException
-	 */
-	public function getAllPropertyExtra ($id) {
-		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_PROPERTY_ID);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new ExtraNotFoundException("There are no Extra found for this property", 404);
-			else
-				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -72,6 +59,27 @@ class DaoExtra extends Dao {
 		}
 	}
 
+	/**
+	 * @return Extra[]
+	 * @throws DatabaseConnectionException
+	 * @throws ExtraNotFoundException
+	 */
+	public function getAllPropertyExtra () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_EXTRA_BY_PROPERTY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new ExtraNotFoundException("There are no Extra found for this property", 404);
+			else
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
 	/**
 	 * @param $dbObject
 	 *

@@ -18,19 +18,21 @@ require_once __DIR__ . './../src/logic/Extra/GetAllExtraCommand.php';
 class GetAllExtraCommandTest extends TestCase {
 	private $_command;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllExtraCommand();
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
 		}
-		catch (DatabaseConnectionException $e) {
+		catch (DatabaseConnectionException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
-		catch (ExtraNotFoundException $e) {
+		catch (ExtraNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllExtraCommand();
 	}
 }

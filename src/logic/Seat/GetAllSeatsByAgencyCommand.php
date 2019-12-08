@@ -1,16 +1,14 @@
 <?php
 class GetAllSeatsByAgencyCommand extends Command {
 	private $_dao;
-	private $_id;
 
 	/**
 	 * GetAllSeatsByAgencyCommand constructor.
 	 *
-	 * @param int $id
+	 * @param Agency $agency
 	 */
-	public function __construct ($id) {
-		$this->_dao = FactoryDao::createDaoSeat();
-		$this->_id = $id;
+	public function __construct ($agency) {
+		$this->_dao = FactoryDao::createDaoSeat($agency);
 	}
 
 	/**
@@ -18,7 +16,7 @@ class GetAllSeatsByAgencyCommand extends Command {
 	 * @throws SeatNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllSeatsByAgency($this->_id));
+		$this->setData($this->_dao->getAllSeatsByAgency());
 	}
 
 	/**

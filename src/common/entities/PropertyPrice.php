@@ -7,30 +7,21 @@ class PropertyPrice extends Entity {
 	/**
 	 * PropertyPrice constructor.
 	 *
-	 * @param int   $id
-	 * @param float $price
-	 * @param       $date
-	 * @param bool  $final
+	 * @param int    $id
+	 * @param float  $price
+	 * @param        $date
+	 * @param bool   $final
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 */
-	public function __construct (int $id, float $price, $date, bool $final) {
-		$this->setId($id);
+	public function __construct (int $id, float $price, $date, bool $final, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified);
 		$this->_price = $price;
 		$this->_date = $date;
 		$this->_final = $final;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDate ():string {
-		return $this->_date;
-	}
-
-	/**
-	 * @param string $date
-	 */
-	public function setDate ($date):void {
-		$this->_date = $date;
 	}
 
 	/**
@@ -45,6 +36,20 @@ class PropertyPrice extends Entity {
 	 */
 	public function setPrice (float $price):void {
 		$this->_price = $price;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDate () {
+		return $this->_date;
+	}
+
+	/**
+	 * @param mixed $date
+	 */
+	public function setDate ($date):void {
+		$this->_date = $date;
 	}
 
 	/**

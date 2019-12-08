@@ -1,44 +1,48 @@
 <?php
 require_once "autoload.php";
 Tools::headers();
+$get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperRating();
+$rating = FactoryEntity::createRating(0);
+$user = FactoryEntity::createUser(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-			$command = FactoryCommand::createGetRatingByIdCommand($_GET['id']);
+		if (isset($get->id) && is_numeric($get->id)) {
+			$rating->setId($get->id);
+			$command = FactoryCommand::createGetRatingByIdCommand($rating);
 			try {
 				$command->execute();
 				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = new Result(false, [], 'Error al conectarse a la base de datos.');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (LocationNotFoundException $e) {
-				$return = new Result(false, [], 'Extra no encontrada.');
-				Result::setResponse();
+			catch (RatingNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("RATING_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
-		elseif (isset($_GET['id_user']) && is_numeric($_GET['id_user'])) {
-			$command = FactoryCommand::createGetAllRatingByUserCommand($_GET['id_user']);
+		elseif (isset($get->id_user) && is_numeric($get->id_user)) {
+			$user->setId($get->id_user);
+			$command = FactoryCommand::createGetAllRatingByUserCommand($user);
 			try {
 				$command->execute();
-				$return = array ('ok' => true, 'data' => $mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
 				Result::setResponse();
 			}
-			catch (DatabaseConnectionException $e) {
-				$return = array ('ok' => false, 'errors' => 'Error de conexion a la base de datos');
-				Result::setResponse(500);
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				Result::setResponse($exception->getCode());
 			}
-			catch (LocationNotFoundException $e) {
-				$return = array ('ok' => true, 'data' => array ());
-				Result::setResponse(404);
+			catch (RatingNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("RATING_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
 		break;
 }
-

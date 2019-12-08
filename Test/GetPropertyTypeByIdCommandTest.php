@@ -19,6 +19,12 @@ class GetPropertyTypeByIdCommandTest extends TestCase {
 	private $_command;
 	private $_propertyType;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", 1);
+		$this->_command = FactoryCommand::createGetPropertyTypeByIdCommand($this->_propertyType);
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -30,11 +36,5 @@ class GetPropertyTypeByIdCommandTest extends TestCase {
 		catch (PropertyTypeNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetPropertyTypeByIdCommand(1);
-		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", 1);
 	}
 }

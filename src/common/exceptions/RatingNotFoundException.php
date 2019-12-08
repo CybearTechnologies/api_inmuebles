@@ -1,6 +1,5 @@
 <?php
-class RatingNotFoundException extends Exception
-{
+class RatingNotFoundException extends Exception {
 	/**
 	 * RatingNotFoundException constructor.
 	 *

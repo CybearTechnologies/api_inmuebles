@@ -18,6 +18,11 @@ require_once __DIR__ . './../src/logic/Property/GetAllPropertyCommand.php';
 class GetAllPropertyCommandTest extends TestCase {
 	private $_command;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_command = FactoryCommand::createGetAllPropertyCommand();
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -29,10 +34,5 @@ class GetAllPropertyCommandTest extends TestCase {
 		catch (PropertyNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllPropertyCommand();
 	}
 }

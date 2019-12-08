@@ -17,12 +17,19 @@ require_once __DIR__ . './../src/logic/Location/GetLocationByIdCommand.php';
  */
 class GetLocationsByTypeCommandTest extends TestCase {
 	private $_command;
+	private $_location;
+
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_location = FactoryEntity::createLocation(-1, '', 'Estado');
+		$this->_command = FactoryCommand::createGetLocationsByTypeCommand($this->_location);
+	}
 
 	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
-			$this->_command = FactoryCommand::createGetLocationsByTypeCommand("Estado");
+			$this->_command = FactoryCommand::createGetLocationsByTypeCommand($this->_location);
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
 		}
@@ -32,10 +39,5 @@ class GetLocationsByTypeCommandTest extends TestCase {
 		catch (LocationNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetLocationsByTypeCommand("Pais");
 	}
 }

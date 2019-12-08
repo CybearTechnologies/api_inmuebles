@@ -3,7 +3,6 @@ class Property extends Entity {
 	private $_name;
 	private $_area;
 	private $_description;
-	private $_publishDate;
 	private $_state;
 	private $_floor;
 
@@ -14,17 +13,20 @@ class Property extends Entity {
 	 * @param string $name
 	 * @param float  $area
 	 * @param string $description
-	 * @param string $publishDate
 	 * @param int    $state
 	 * @param int    $floor
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, float $area, string $description, string $publishDate,
-		int $state, int $floor) {
-		$this->setId($id);
+	public function __construct (int $id, string $name, float $area, string $description,
+		int $state, int $floor, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified);
 		$this->_name = $name;
 		$this->_area = $area;
 		$this->_description = $description;
-		$this->_publishDate = $publishDate;
 		$this->_state = $state;
 		$this->_floor = $floor;
 	}
@@ -69,20 +71,6 @@ class Property extends Entity {
 	 */
 	public function setDescription ($description):void {
 		$this->_description = $description;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getPublishDate () {
-		return $this->_publishDate;
-	}
-
-	/**
-	 * @param mixed $publishDate
-	 */
-	public function setPublishDate ($publishDate):void {
-		$this->_publishDate = $publishDate;
 	}
 
 	/**

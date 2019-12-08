@@ -19,21 +19,23 @@ class GetAgencyByIdCommandTest extends TestCase {
 	private $_command;
 	private $_agency;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_agency = FactoryEntity::createAgency(1, "Century21", 1);
+		$this->_command = FactoryCommand::createGetAgencyByIdCommand($this->_agency);
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertEquals($this->_agency, $this->_command->return());
 		}
-		catch (AgencyNotFoundException $e) {
+		catch (AgencyNotFoundException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
-		catch (DatabaseConnectionException $e) {
+		catch (DatabaseConnectionException $exception) {
+			Logger::exception($exception, Logger::NOTICE);
 		}
 		$this->_command->return();
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetAgencyByIdCommand(1);
-		$this->_agency = FactoryEntity::createAgency(1, "Century21", 1);
 	}
 }

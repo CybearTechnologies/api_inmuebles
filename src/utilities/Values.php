@@ -7,7 +7,25 @@
 class Values {
 	private const VALUES = array (
 		'ACTIVE' => array ('text' => 'Active', 'value' => 1),
-		'INACTIVE' => array ('text' => 'Inactive', 'value' => 0)
+		'INACTIVE' => array ('text' => 'Inactive', 'value' => 0),
+		'DATA_INCOMPLETE' => array ('text' => 'Datos incompletos', 'value' => 200),
+		'DATABASE_ERROR' => array ('text' => 'Error de conexión', 'value' => 500),
+		'AGENCY_NOT_FOUND' => array ('text' => 'Agencia no encontrada', 'value' => 404),
+		'AGENCIES_NOT_FOUND' => array ('text' => 'Agencias no encontradas', 'value' => 404),
+		'SEAT_NOT_FOUND' => array ('text' => 'Sede no encontrada', 'value' => 404),
+		'SEATS_NOT_FOUND' => array ('text' => 'Sedes no encontradas', 'value' => 404),
+		'EXTRA_NOT_FOUND' => array ('text' => 'Extra no encontrado', 'value' => 404),
+		'EXTRAS_NOT_FOUND' => array ('text' => 'Extras no encontrados', 'value' => 404),
+		'LOCATION_NOT_FOUND' => array ('text' => 'Ubicacion no encontrada', 'value' => 404),
+		'PLAN_NOT_FOUND' => array ('text' => 'Plan no encontrado', 'value' => 404),
+		'PLANS_NOT_FOUND' => array ('text' => 'Planes no encontrados', 'value' => 404),
+		'RATING_NOT_FOUND' => array ('text' => 'Puntuaje no encontrado', 'value' => 404),
+		'RATINGS_NOT_FOUND' => array ('text' => 'Puntuajes no encontrados', 'value' => 404),
+		'PROPERTY_NOT_FOUND' => array ('text' => 'Propiedad no encontrada', 'value' => 404),
+		'PROPERTIES_NOT_FOUND' => array ('text' => 'Propiedades no encontradas', 'value' => 404),
+		'PROPERTY_TYPE_NOT_FOUND' => array ('text' => 'Tipo de propiedad no encontrada', 'value' => 404),
+		'PROPERTY_TYPES_NOT_FOUND' => array ('text' => 'No se encontraron tipos de propiedades', 'value' => 404),
+		'PROPERTY_TYPE_ALREADY_EXIST' => array ('text' => 'Tipo de propiedad ya se encuentra', 'value' => 200)
 	);
 
 	/**

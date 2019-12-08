@@ -8,12 +8,13 @@ $mapperSeat = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createGetAgencyByIdCommand($get->id);
+			$agency = FactoryEntity::createAgency($get->id);
+			$command = FactoryCommand::createGetAgencyByIdCommand($agency);
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($_GET['seats'])) {
-					$command = FactoryCommand::createGetAllSeatsByAgencyCommand($get->id);
+				if (isset($get->seats)) {
+					$command = FactoryCommand::createGetAllSeatsByAgencyCommand($agency);
 					try {
 						$command->execute();
 						$dto->seats = $mapperSeat->fromEntityArrayToDtoArray($command->return());
@@ -28,11 +29,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], 'Agencia #' . $get->id . ' no encontrada.');
+				$return = new Result(false, [], Values::getText("AGENCY_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -45,11 +46,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], 'Error de conexión.');
+				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], 'No se encontraron inmobiliarias.');
+				$return = new Result(false, [], Values::getText("AGENCIES_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

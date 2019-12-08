@@ -2,24 +2,49 @@
 class DaoSeat extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllSeats()";
 	private const QUERY_GET_BY_ID = "CALL getSeatById(:id)";
-	private const QUERY_GET_BY_AGENCY = "CALL getSeatsByAgency(:id)";
+	private const QUERY_GET_BY_AGENCY = "CALL getAllSeatsByAgency(:id)";
+	private const QUERY_GET_SEATS_BY_AGENCY = "CALL getSeatsByAgency(:id)";
+	private $_entity;
 
 	/**
 	 * DaoSeat constructor.
+	 *
+	 * @param Seat|Agency $entity
 	 */
-	public function __construct () {
+	public function __construct ($entity) {
 		parent::__construct();
+		$this->_entity = $entity;
 	}
 
 	/**
-	 * @param int $id
-	 *
+	 * @return Seat[]
+	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
+	 */
+	public function getAllSeatsByAgency () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_SEATS_BY_AGENCY);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SeatNotFoundException("There are no seat found in this agency", 404);
+			else
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $e) {
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
 	 * @return Seat
 	 * @throws DatabaseConnectionException
 	 * @throws SeatNotFoundException
 	 */
-	public function getSeatById ($id) {
+	public function getSeatById () {
 		try {
+			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -50,28 +75,6 @@ class DaoSeat extends Dao {
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
-		}
-	}
-
-	/**
-	 * @param int $id
-	 *
-	 * @return Seat[]
-	 * @throws DatabaseConnectionException
-	 * @throws SeatNotFoundException
-	 */
-	public function getAllSeatsByAgency ($id) {
-		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_AGENCY);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new SeatNotFoundException("There are no seat found in this agency", 404);
-			else
-				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
-		}
-		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}

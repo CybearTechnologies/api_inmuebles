@@ -9,9 +9,14 @@ class Extra extends Entity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param bool   $active
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, bool $active) {
-		$this->setId($id);
+	public function __construct (int $id, string $name, bool $active, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified);
 		$this->_active = $active;
 		$this->_name = $name;
 	}
@@ -26,7 +31,7 @@ class Extra extends Entity {
 	/**
 	 * @param string $name
 	 */
-	public function setName ($name):void {
+	public function setName (string $name):void {
 		$this->_name = $name;
 	}
 

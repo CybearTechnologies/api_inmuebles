@@ -19,6 +19,12 @@ class GetSeatByIdCommandTest extends TestCase {
 	private $_command;
 	private $_seat;
 
+	protected function setUp ():void {
+		parent::setUp();
+		$this->_seat = FactoryEntity::createSeat(1, "C21 Los palos grandes", "J-12306151", 1);
+		$this->_command = FactoryCommand::createGetSeatByIdCommand($this->_seat);
+	}
+
 	public function testReturn () {
 		try {
 			$this->_command->execute();
@@ -30,11 +36,5 @@ class GetSeatByIdCommandTest extends TestCase {
 		catch (SeatNotFoundException $exception) {
 			Logger::exception($exception, Logger::NOTICE);
 		}
-	}
-
-	protected function setUp ():void {
-		parent::setUp();
-		$this->_command = FactoryCommand::createGetSeatByIdCommand(1);
-		$this->_seat = FactoryEntity::createSeat(1, "C21 Los palos grandes", "J-12306151", 1);
 	}
 }
