@@ -2,15 +2,15 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . './../vendor/autoload.php';
-require_once __DIR__ . './../src/logic/FactoryCommand.php';
-require_once __DIR__ . './../src/logic/Command.php';
-require_once __DIR__ . './../src/data_access/Dao/FactoryDao.php';
-require_once __DIR__ . './../src/data_access/Dao/Dao.php';
-require_once __DIR__ . './../core/Environment.php';
+require_once __DIR__ . './../../vendor/autoload.php';
+require_once __DIR__ . './../../src/logic/FactoryCommand.php';
+require_once __DIR__ . './../../src/logic/Command.php';
+require_once __DIR__ . './../../src/data_access/Dao/FactoryDao.php';
+require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
+require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../src/data_access/Dao/DaoPlan.php';
-require_once __DIR__ . './../src/logic/Plan/GetAllPlanCommand.php';
+require_once __DIR__ . './../../src/data_access/Dao/DaoPlan.php';
+require_once __DIR__ . './../../src/logic/Plan/GetAllPlanCommand.php';
 /**
  * Class UpdatePlanCommandTest
  * @covers GetPlanByIdCommand
@@ -24,9 +24,9 @@ class UpdatePlanCommandTest extends TestCase {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
 			$this->_plan = FactoryEntity::createPlan($this->_command->return()->getId(), 'pedro', 235435.0);
-			$update = FactoryCommand::createUpdatePlanCommand($this->_plan);
-			$update->execute();
-			$plan = $update->return();
+			$this->_command = FactoryCommand::createUpdatePlanCommand($this->_plan);
+			$this->_command->execute();
+			$plan = $this->_command->return();
 			Environment::database()->exec('DELETE FROM plan WHERE pl_id =' . $this->_plan->getId());
 			$this->assertEquals($this->_plan->getId(), $plan->getId());
 			$this->assertEquals($this->_plan->getName(), $plan->getName());
@@ -34,9 +34,6 @@ class UpdatePlanCommandTest extends TestCase {
 			$this->assertNotEquals($this->_plan->getDateModified(), $plan->getDateModified());
 		}
 		catch (DatabaseConnectionException $exception) {
-			echo $exception->getMessage();
-		}
-		catch (PlanNotFoundException $exception) {
 			echo $exception->getMessage();
 		}
 		catch (PlanAlreadyExistException $exception) {
