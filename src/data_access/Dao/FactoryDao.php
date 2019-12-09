@@ -123,9 +123,11 @@ class FactoryDao {
 	}
 
 	/**
-	 * @return DaoUser
+	 * @param User $user
+	 *
+	 * @return DaoUser|null
 	 */
-	public static function createDaoUser ():DaoUser {
-		return new DaoUser();
+	public static function createDaoUser ($user = null):DaoUser {
+		return new DaoUser($user);
 	}
 }

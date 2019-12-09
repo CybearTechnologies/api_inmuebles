@@ -1,6 +1,5 @@
 <?php
 class GetUserByUsernameCommand extends Command {
-	private $_dao;
 	private $_entity;
 
 	/**
@@ -9,16 +8,17 @@ class GetUserByUsernameCommand extends Command {
 	 * @param User $entity
 	 */
 	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoUser();
+		$this->_dao = FactoryDao::createDaoUser($entity);
 		$this->_entity = $entity;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
+	 * @throws MultipleUserException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getUserByUsername($this->_entity->getEmail()));
+		$this->setData($this->_dao->getUserByUsername());
 	}
 
 	/**

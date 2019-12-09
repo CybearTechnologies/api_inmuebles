@@ -181,22 +181,28 @@ class FactoryEntity {
 	 * @param string $address
 	 * @param string $email
 	 * @param string $password
-	 * @param bool   $active
-	 * @param bool   $delete
-	 * @param bool   $blocked
 	 * @param int    $userCreator
 	 * @param int    $userModifier
+	 * @param bool   $active
+	 * @param bool   $blocked
+	 * @param bool   $deleted
+	 * @param int    $seat
+	 * @param int    $rol
+	 * @param int    $plan
+	 * @param int    $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 *
 	 * @return User
 	 */
-	static function createUser (int $id, $firstName = "", $lastName = "", $address = "", $email = "", $password = "",
-		$active = true,
-		$delete = false, $blocked = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+	static function createUser (int $id, string $firstName = "", string $lastName = "", string $address = "",
+		string $email = "",
+		string $password = "", int $userCreator = 1, int $userModifier = 1, bool $active = true, bool $blocked = false,
+		bool $deleted = false,
+		int $seat = 1, int $rol = 1, int $plan = 1, int $location = 1, string $dateCreated = "",
 		string $dateModified = ""):User {
-		return new User($id, $firstName, $lastName, $address, $email, $password, $delete, $blocked, $active,
-			$userCreator, $userModifier, $dateCreated, $dateModified);
+		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
+			$blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
 	}
 
 	/**

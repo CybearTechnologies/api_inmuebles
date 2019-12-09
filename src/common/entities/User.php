@@ -7,6 +7,10 @@ class User extends Entity {
 	private $_password;
 	private $_deleted;
 	private $_blocked;
+	private $_seat;
+	private $_rol;
+	private $_plan;
+	private $_location;
 
 	/**
 	 * User constructor.
@@ -17,17 +21,22 @@ class User extends Entity {
 	 * @param string $address
 	 * @param string $email
 	 * @param string $password
-	 * @param bool   $deleted
-	 * @param bool   $blocked
 	 * @param int    $userCreator
 	 * @param int    $userModifier
+	 * @param bool   $active
+	 * @param bool   $blocked
+	 * @param bool   $deleted
+	 * @param int    $seat
+	 * @param int    $rol
+	 * @param int    $plan
+	 * @param int    $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, bool $deleted, bool $blocked, int $userCreator, int $userModifier,
-		string $dateCreated, string $dateModified) {
-		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified);
+		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
+		int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->_firstName = $firstName;
 		$this->_lastName = $lastName;
 		$this->_address = $address;
@@ -35,6 +44,10 @@ class User extends Entity {
 		$this->_password = $password;
 		$this->_deleted = $deleted;
 		$this->_blocked = $blocked;
+		$this->_seat = $seat;
+		$this->_rol = $rol;
+		$this->_plan = $plan;
+		$this->_location = $location;
 	}
 
 	/**
@@ -133,5 +146,61 @@ class User extends Entity {
 	 */
 	public function setBlocked (bool $blocked):void {
 		$this->_blocked = $blocked;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getSeat ():int {
+		return $this->_seat;
+	}
+
+	/**
+	 * @param int $seat
+	 */
+	public function setSeat (int $seat):void {
+		$this->_seat = $seat;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getRol ():int {
+		return $this->_rol;
+	}
+
+	/**
+	 * @param int $rol
+	 */
+	public function setRol (int $rol):void {
+		$this->_rol = $rol;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getPlan ():int {
+		return $this->_plan;
+	}
+
+	/**
+	 * @param int $plan
+	 */
+	public function setPlan (int $plan):void {
+		$this->_plan = $plan;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getLocation ():int {
+		return $this->_location;
+	}
+
+	/**
+	 * @param int $location
+	 */
+	public function setLocation (int $location):void {
+		$this->_location = $location;
 	}
 }
