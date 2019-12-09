@@ -114,10 +114,12 @@ class FactoryDao {
 	}
 
 	/**
+	 * @param Origin $origin
+	 *
 	 * @return DaoOrigin
 	 */
-	public static function createDaoOrigin ():DaoOrigin {
-		return new DaoOrigin();
+	public static function createDaoOrigin (Origin $origin):DaoOrigin {
+		return new DaoOrigin($origin);
 	}
 
 	/**

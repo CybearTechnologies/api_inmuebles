@@ -1,16 +1,15 @@
 <?php
 class GetOriginByPublicKeyCommand extends Command {
-	private $_dao;
-	private $_publicKey;
+	private $_origin;
 
 	/**
 	 * GetOriginByPublicKeyCommand constructor.
 	 *
-	 * @param string $publicKey
+	 * @param Origin $origin
 	 */
-	public function __construct (string $publicKey) {
-		$this->_dao = FactoryDao::createDaoOrigin();
-		$this->_publicKey = $publicKey;
+	public function __construct (Origin $origin) {
+		$this->_dao = FactoryDao::createDaoOrigin($origin);
+		$this->_origin = $origin;
 	}
 
 	/**
@@ -18,7 +17,7 @@ class GetOriginByPublicKeyCommand extends Command {
 	 * @throws OriginNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getOriginByPublicKey($this->_publicKey));
+		$this->setData($this->_dao->getOriginByPublicKey());
 	}
 
 	/**

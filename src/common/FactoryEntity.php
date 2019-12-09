@@ -75,6 +75,7 @@ class FactoryEntity {
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Extra {
 		return new Extra($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
+
 	/**
 	 * @param        $id
 	 * @param string $name
@@ -263,7 +264,8 @@ class FactoryEntity {
 	 *
 	 * @return Origin
 	 */
-	static function createOrigin (int $id, string $name, string $privateKey, string $publicKey, bool $active):Origin {
+	static function createOrigin (int $id, string $name = '', string $privateKey = '', string $publicKey = '',
+		bool $active = true):Origin {
 		return new Origin($id, $name, $privateKey, $publicKey, $active);
 	}
 }

@@ -466,4 +466,22 @@ class FactoryCommand {
 	public static function createGetAgencyByNameCommand ($agency):GetAgencyByNameCommand {
 		return new GetAgencyByNameCommand($agency);
 	}
+
+	/**
+	 * @param Origin $origin
+	 *
+	 * @return GetOriginByPublicKeyCommand
+	 */
+	public static function createGetOriginByPublicKeyCommand (Origin $origin) {
+		return new GetOriginByPublicKeyCommand($origin);
+	}
+
+	/**
+	 * @param User $user
+	 *
+	 * @return GetUserByUsernameCommand
+	 */
+	public static function createGetUserByUsernameCommand (User $user) {
+		return new GetUserByUsernameCommand($user);
+	}
 }
