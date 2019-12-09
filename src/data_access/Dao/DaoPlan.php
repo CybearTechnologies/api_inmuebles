@@ -5,7 +5,7 @@ class DaoPlan extends Dao {
 	private const QUERY_GET_BY_ID = "CALL getPlanById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPlanByName(:name)";
 	private const QUERY_UPDATE = "CALL updatePlan(:id,:name,:price,:user)";
-	private const QUERY_DELETE = "CALL deletePlan(:id)";
+	private const QUERY_DELETE = "CALL deletePlan(:id,:user)";
 	private $_entity;
 
 	/**
@@ -138,8 +138,10 @@ class DaoPlan extends Dao {
 	public function deletePlanById () {
 		try {
 			$id = $this->_entity->getId();
+			$user = $this->_entity->getUserModifier();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));

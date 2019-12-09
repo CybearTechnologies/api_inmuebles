@@ -3,7 +3,7 @@ class DaoAgency extends Dao {
 	private const QUERY_CREATE_AGENCY = "CALL insertAgency(:name,:user)";
 	private const QUERY_GET_ALL = "CALL getAllAgencies()";
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
-	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id)";
+	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id,:user)";
 	private const QUERY_GET_BY_NAME = "CALL getAgencyByName(:name)";
 	private $_entity;
 
@@ -86,9 +86,13 @@ class DaoAgency extends Dao {
 	public function deleteAgencyById () {
 		try {
 			$id = $this->_entity->getId();
+			$user = $this->_entity->getUserModifier();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -125,6 +129,6 @@ class DaoAgency extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createAgency($dbObject->id, $dbObject->name, $dbObject->active, $dbObject->delete,
-			$dbObject->user_created, $dbObject->user_modified);
+			$dbObject->user_created, $dbObject->user_modified, $dbObject->date_created, $dbObject->date_modified);
 	}
 }

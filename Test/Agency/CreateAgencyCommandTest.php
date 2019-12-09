@@ -2,23 +2,21 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once __DIR__ . './../vendor/autoload.php';
-require_once __DIR__ . './../src/logic/FactoryCommand.php';
-require_once __DIR__ . './../src/logic/Command.php';
-require_once __DIR__ . './../src/data_access/Dao/FactoryDao.php';
-require_once __DIR__ . './../src/data_access/Dao/Dao.php';
-require_once __DIR__ . './../core/Environment.php';
+require_once __DIR__ . './../../vendor/autoload.php';
+require_once __DIR__ . './../../src/logic/FactoryCommand.php';
+require_once __DIR__ . './../../src/logic/Command.php';
+require_once __DIR__ . './../../src/data_access/Dao/FactoryDao.php';
+require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
+require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../src/data_access/Dao/DaoAgency.php';
-require_once __DIR__ . './../src/logic/Agency/CreateAgencyCommand.php';
+require_once __DIR__ . './../../src/data_access/Dao/DaoAgency.php';
+require_once __DIR__ . './../../src/logic/Agency/CreateAgencyCommand.php';
 class CreateAgencyCommandTest extends TestCase {
 	private $_command;
 	private $_agency;
 
 	/**
 	 * CreateAgencyCommandTest constructor.
-	 *
-	 * @param $_command
 	 */
 	public function setUp ():void {
 		$this->_agency = FactoryEntity::createAgency(-1, "Sensation", 1, 0, 1, 1);

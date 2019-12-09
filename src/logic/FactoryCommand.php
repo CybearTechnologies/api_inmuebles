@@ -19,6 +19,15 @@ class FactoryCommand {
 	/**
 	 * @param Access $access
 	 *
+	 * @return GetAccessByAbbreviationCommand
+	 */
+	static function createGetAccessByAbbreviationCommand ($access):GetAccessByAbbreviationCommand {
+		return new GetAccessByAbbreviationCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
 	 * @return DeleteAccessByIdCommand
 	 */
 	static function createDeleteAccessByIdCommand ($access):DeleteAccessByIdCommand {
@@ -32,6 +41,15 @@ class FactoryCommand {
 	 */
 	static function createGetAccessByIdCommand ($access):GetAccessByIdCommand {
 		return new GetAccessByIdCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return GetAccessByNameCommand
+	 */
+	static function createGetAccessByNameCommand ($access):GetAccessByNameCommand {
+		return new GetAccessByNameCommand($access);
 	}
 
 	/**
@@ -193,7 +211,7 @@ class FactoryCommand {
 	/**
 	 * @param Plan $plan
 	 *
-	 * @return DeletePlanByIdCommand
+	 * @return UpdatePlanCommand
 	 */
 	static function createUpdatePlanCommand ($plan):UpdatePlanCommand {
 		return new UpdatePlanCommand($plan);

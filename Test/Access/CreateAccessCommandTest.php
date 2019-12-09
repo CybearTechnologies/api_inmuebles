@@ -9,41 +9,34 @@ require_once __DIR__ . './../../src/data_access/Dao/FactoryDao.php';
 require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
-require_once __DIR__ . './../../src/data_access/Dao/DaoPlan.php';
-require_once __DIR__ . './../../src/logic/Plan/GetAllPlanCommand.php';
-/**
- * Class UpdatePlanCommandTest
- * @covers GetPlanByIdCommand
- */
-class DeletePlanCommandTest extends TestCase {
+require_once __DIR__ . './../../src/data_access/Dao/DaoAccess.php';
+require_once __DIR__ . './../../src/logic/Access/CreateAccessCommand.php';
+class CreateAccessCommandTest extends TestCase {
 	private $_command;
-	private $_plan;
+	private $_access;
 
-	public function testReturn () {
+	public function testExecute () {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
-			$this->_command = FactoryCommand::createDeletePlanByIdCommand($this->_command->return());
-			$this->_command->execute();
-			$this->_plan = $this->_command->return();
-			$this->assertEquals(true, $this->_plan->isDelete());
+			$this->_access = $this->_command->return();
 		}
 		catch (DatabaseConnectionException $exception) {
 			echo $exception->getMessage();
 		}
-		catch (PlanAlreadyExistException $exception) {
+		catch (AccessAlreadyExistException $exception) {
 			echo $exception->getMessage();
 		}
 	}
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_plan = FactoryEntity::createPlan(-1, 'Pepito', 4849.0);
-		$this->_command = FactoryCommand::createCreatePlanCommand($this->_plan);
+		$this->_access = FactoryEntity::createAccess(-1, "Acceder a Google", "AC-GO");
+		$this->_command = FactoryCommand::createCreateAccessCommand($this->_access);
 	}
 
 	protected function tearDown ():void {
 		parent::tearDown();
-		Environment::database()->exec('DELETE FROM plan WHERE pl_id =' . $this->_plan->getId());
+		Environment::database()->exec('DELETE FROM access WHERE ac_id =' . $this->_access->getId());
 	}
 }

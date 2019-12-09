@@ -2,18 +2,20 @@
 class DaoAccess extends Dao {
 	private const QUERY_CREATE_ACCESS = "CALL insertAccess(:name,:abbreviation,:user)";
 	private const QUERY_GET_ALL = "CALL getAllAccess()";
-	private const QUERY_GET_BY_ID = "CALL getAccessById(:id)";
+	private const QUERY_GET_BY_ID = "CALL getAccessByid(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById()";
+	private const QUERY_GET_BY_NAME = "CALL getAccessByName(:name)";
+	private const QUERY_GET_BY_ABBREVIATION = "CALL getAccessByAbbreviation(:abbreviation)";
 	private $_entity;
 
 	/**
 	 * DaoAccess constructor.
 	 *
-	 * @param Access $_entity
+	 * @param Access $entity
 	 */
-	public function __construct ($_entity) {
+	public function __construct ($entity) {
 		parent::__construct();
-		$this->_entity = $_entity;
+		$this->_entity = $entity;
 	}
 
 	/**
@@ -23,12 +25,60 @@ class DaoAccess extends Dao {
 		try {
 			$name = $this->_entity->getName();
 			$abbreviation = $this->_entity->getAbbreviation();
-			$userId = $this->_entity->getUserCreator();
+			$user = $this->_entity->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ACCESS);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":abbreviation", $abbreviation, PDO::PARAM_STR);
-			$stmt->bindParam(":user", $userId, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
 			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Access
+	 * @throws AccessNotFoundException
+	 * @throws DatabaseConnectionException
+	 */
+	public function getAccessByAbbreviation () {
+		try {
+			$abbreviation = strtolower($this->_entity->getAbbreviation());
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ABBREVIATION);
+			$stmt->bindParam(":abbreviation", $abbreviation, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AccessNotFoundException("There are no acces with this '{$abbreviation}' found", 404);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Access
+	 * @throws AccessNotFoundException
+	 * @throws DatabaseConnectionException
+	 */
+	public function getAccessByName () {
+		try {
+			$name = strtolower($this->_entity->getName());
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AccessNotFoundException("There are no acces called '{$name}' found", 404);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -100,7 +150,7 @@ class DaoAccess extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createAccess($dbObject->id, $dbObject->name, $dbObject->abbreviation, $dbObject->active,
-			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
-			$dbObject->dateModified);
+			$dbObject->delete, $dbObject->user_created, $dbObject->user_modified, $dbObject->date_created,
+			$dbObject->date_modified);
 	}
 }

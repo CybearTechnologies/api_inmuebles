@@ -231,7 +231,7 @@ class FactoryEntity {
 	 * @return Access
 	 */
 	static function createAccess (int $id, $name = "", $abbreviation = "", $active = true, $delete = false,
-		int $userCreator = 0, int $userModifier = 0, $dateCreated = "", $dateModified = ""):Access {
+		int $userCreator = 1, int $userModifier = 1, $dateCreated = "", $dateModified = ""):Access {
 		return new Access($id, $name, $abbreviation, $active, $delete, $userCreator, $userModifier, $dateCreated,
 			$dateModified);
 	}
