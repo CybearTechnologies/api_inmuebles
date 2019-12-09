@@ -77,4 +77,25 @@ class Tools {
 			return $date = "";
 		}
 	}
+
+	/**
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	static function encryptSha256(string $string){
+		return hash('sha256', $string);
+	}
+
+	/**
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	static function siteEncrypt ($string) {
+		$key = Environment::siteKey();
+		for ($i = 0; $i < strlen($key); $i++)
+			$string = str_replace($key[$i], $i, $string);
+		return $string;
+	}
 }

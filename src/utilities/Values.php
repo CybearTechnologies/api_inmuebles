@@ -25,7 +25,8 @@ class Values {
 		'PROPERTIES_NOT_FOUND' => array ('text' => 'Propiedades no encontradas', 'value' => 404),
 		'PROPERTY_TYPE_NOT_FOUND' => array ('text' => 'Tipo de propiedad no encontrada', 'value' => 404),
 		'PROPERTY_TYPES_NOT_FOUND' => array ('text' => 'No se encontraron tipos de propiedades', 'value' => 404),
-		'PROPERTY_TYPE_ALREADY_EXIST' => array ('text' => 'Tipo de propiedad ya se encuentra', 'value' => 200)
+		'PROPERTY_TYPE_ALREADY_EXIST' => array ('text' => 'Tipo de propiedad ya se encuentra', 'value' => 200),
+		'ORIGIN_NOT_FOUND' => array ('text' => 'Error al iniciar sesión', 'value' => 500),
 	);
 
 	/**
