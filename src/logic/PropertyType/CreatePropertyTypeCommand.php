@@ -1,7 +1,5 @@
 <?php
 class CreatePropertyTypeCommand extends Command {
-	private $_dao;
-	private $_name;
 	private $_command;
 	/**
 	 * CreatePropertyTypeCommand constructor.

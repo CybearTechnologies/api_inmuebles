@@ -161,17 +161,8 @@ class FactoryCommand {
 	 *
 	 * @return CreatePlanCommand
 	 */
-	static function createCreatePlanByIdCommand ($plan):CreatePlanCommand {
+	static function createCreatePlanCommand ($plan):CreatePlanCommand {
 		return new CreatePlanCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return DeletePlanByIdCommand
-	 */
-	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
-		return new DeletePlanByIdCommand($plan);
 	}
 
 	/**
@@ -188,6 +179,33 @@ class FactoryCommand {
 	 */
 	static function createGetPlanByIdCommand ($plan):GetPlanByIdCommand {
 		return new GetPlanByIdCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return GetPlanByNameCommand
+	 */
+	static function createGetPlanByNameCommand ($plan):GetPlanByNameCommand {
+		return new GetPlanByNameCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return DeletePlanByIdCommand
+	 */
+	static function createUpdatePlanCommand ($plan):UpdatePlanCommand {
+		return new UpdatePlanCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return DeletePlanByIdCommand
+	 */
+	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
+		return new DeletePlanByIdCommand($plan);
 	}
 
 	/**
@@ -438,5 +456,14 @@ class FactoryCommand {
 	 */
 	static function createGetAllRatingByUserCommand ($user):GetAllRatingByUserCommand {
 		return new GetAllRatingByUserCommand($user);
+	}
+
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return GetAgencyByNameCommand
+	 */
+	public static function createGetAgencyByNameCommand ($agency):GetAgencyByNameCommand {
+		return new GetAgencyByNameCommand($agency);
 	}
 }

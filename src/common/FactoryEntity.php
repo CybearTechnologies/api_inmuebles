@@ -18,9 +18,8 @@ class FactoryEntity {
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType (int $id, $name = "", $active = true, $delete = false, int $user = 0,
-		int $userCreator = 0,
-		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):PropertyType {
+	static function createPropertyType (int $id, $name = "", $active = true, $delete = false, int $user = 1,
+		int $userCreator = 1, int $userModifier = 1, string $dateCreated = "", string $dateModified = ""):PropertyType {
 		return new PropertyType($id, $name, $active, $delete, $user, $userCreator, $userModifier, $dateCreated,
 			$dateModified);
 	}
@@ -38,9 +37,8 @@ class FactoryEntity {
 	 *
 	 * @return Plan
 	 */
-	static function createPlan (int $id, $name = "", $price = 0, $active = true, $delete = false, int $userCreator = 0,
-		int $userModifier = 0,
-		string $dateCreated = "", string $dateModified = ""):Plan {
+	static function createPlan (int $id, string $name = "", float $price = 0, bool $active = true, bool $delete = false,
+		int $userCreator = 1, int $userModifier = 1, string $dateCreated = "", string $dateModified = ""):Plan {
 		return new Plan($id, $name, $price, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 

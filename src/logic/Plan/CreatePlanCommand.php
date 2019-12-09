@@ -1,19 +1,29 @@
 <?php
 class CreatePlanCommand extends Command {
+	private $_command;
+
 	/**
 	 * CretePlanCommand constructor.
 	 *
 	 * @param Plan $entity
 	 */
 	public function __construct ($entity) {
+		$this->_command = FactoryCommand::createGetPlanByNameCommand($entity);
 		$this->_dao = FactoryDao::createDaoPlan($entity);
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws PlanAlreadyExistException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createPlan());
+		try {
+			$this->_command->execute();
+			Throw new PlanAlreadyExistException("Plan ya existente");
+		}
+		catch (PlanNotFoundException $exception) {
+			$this->setData($this->_dao->createPlan());
+		}
 	}
 
 	/**

@@ -17,8 +17,7 @@ class Plan extends Entity {
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $name, float $price, bool $active, bool $delete, int $userCreator,
-		int $userModifier,
-		string $dateCreated, string $dateModified) {
+		int $userModifier, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 		$this->_price = $price;
