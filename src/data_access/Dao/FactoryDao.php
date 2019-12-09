@@ -112,4 +112,20 @@ class FactoryDao {
 	static function createDaoRol ($entity = null):DaoRol {
 		return new DaoRol($entity);
 	}
+
+	/**
+	 * @param Origin $origin
+	 *
+	 * @return DaoOrigin
+	 */
+	public static function createDaoOrigin (Origin $origin):DaoOrigin {
+		return new DaoOrigin($origin);
+	}
+
+	/**
+	 * @return DaoUser
+	 */
+	public static function createDaoUser ():DaoUser {
+		return new DaoUser();
+	}
 }

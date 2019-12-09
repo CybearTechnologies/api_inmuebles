@@ -15,11 +15,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (ExtraNotFoundException $exception) {
-				$return = new Result(true, [], Values::getText("EXTRA_NOT_FOUND"));
+				$return = new Result(true, [], Values::getText("ERROR_EXTRA_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -32,11 +32,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (ExtraNotFoundException $exception) {
-				$return = new Result(true, [], Values::getText("EXTRAS_NOT_FOUND"));
+				$return = new Result(true, [], Values::getText("ERROR_EXTRAS_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			http_response_code(200);

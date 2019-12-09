@@ -29,11 +29,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("AGENCY_NOT_FOUND"));
+				$return = new Result(false, [], Values::getText("ERROR_AGENCY_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -46,11 +46,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("AGENCIES_NOT_FOUND"));
+				$return = new Result(false, [], Values::getText("ERROR_AGENCIES_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

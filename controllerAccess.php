@@ -20,7 +20,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse($exception->getCode());
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 		}
@@ -36,7 +36,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse($exception->getCode());
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 		}
@@ -52,7 +52,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 		}

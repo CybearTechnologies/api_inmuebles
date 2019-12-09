@@ -16,11 +16,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (LocationNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("LOCATION_NOT_FOUND"));
+				$return = new Result(false, [], Values::getText("ERROR_LOCATION_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
@@ -34,11 +34,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (LocationNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("LOCATION_NOT_FOUND"));
+				$return = new Result(false, [], Values::getText("ERROR_LOCATION_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 			echo json_encode($return);

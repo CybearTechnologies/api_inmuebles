@@ -16,11 +16,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (PropertyTypeNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("PROPERTY_NOT_FOUND"));
+				$return = new Result(false, [], Values::getText("ERROR_PROPERTY_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 		}
@@ -32,11 +32,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (PropertyTypeNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("PROPERTY_TYPES_NOT_FOUND"));
+				$return = new Result(false, [], Values::getText("ERROR_PROPERTY_TYPES_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
 			}
 		}
@@ -52,18 +52,18 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Result::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("DATABASE_ERROR"));
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
 			}
 			catch (PropertyTypeNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("PROPERTY_TYPE_NOT_FOUND"));
+				$return = new Result(false, [], Values::getText("ERROR_PROPERTY_TYPE_NOT_FOUND"));
 			}
 			catch (PropetyTypeAlreadyExistException $exception) {
-				$return = new Result(false, [], Values::getText("PROPERTY_TYPE_ALREADY_EXIST"));
+				$return = new Result(false, [], Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
 			}
 		}
 		else {
-			$return = new Result(false, [], Values::getText("DATA_INCOMPLETE"));
+			$return = new Result(false, [], Values::getText("ERROR_DATA_INCOMPLETE"));
 			Result::setResponse(500);
 		}
 		echo json_encode($return);
