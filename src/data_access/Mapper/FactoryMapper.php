@@ -81,4 +81,11 @@ class FactoryMapper {
 	static function createMapperAccess ():MapperAccess {
 		return new MapperAccess();
 	}
+
+	/**
+	 * @return MapperUser
+	 */
+	static function createMapperUser ():MapperUser {
+		return new MapperUser();
+	}
 }

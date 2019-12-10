@@ -6,4 +6,10 @@
  */
 abstract class Dto {
 	public $id;
+	public $userCreator;
+	public $userModifier;
+	public $dateCreated;
+	public $dateModified;
+	public $active;
+	public $delete;
 }

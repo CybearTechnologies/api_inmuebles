@@ -160,4 +160,32 @@ class FactoryDto {
 		string $dateCreated = "", string $dateModified = ""):DtoRol {
 		return new DtoRol($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @param string $address
+	 * @param string $email
+	 * @param string $password
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param bool   $active
+	 * @param bool   $blocked
+	 * @param bool   $deleted
+	 * @param int    $seat
+	 * @param int    $rol
+	 * @param int    $plan
+	 * @param int    $location
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoUser
+	 */
+	static function createDtoUser (int $id, string $firstName, string $lastName, string $address, string $email,
+		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
+		int $rol, int $plan, int $location, string $dateCreated, string $dateModified):DtoUser {
+		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier,
+			$active, $blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
+	}
 }
