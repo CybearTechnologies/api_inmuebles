@@ -502,4 +502,13 @@ class FactoryCommand {
 	public static function createGetUserByUsernameCommand (User $user) {
 		return new GetUserByUsernameCommand($user);
 	}
+
+	/**
+	 * @param User $user
+	 *
+	 * @return GetUserByIdCommand
+	 */
+	public static function createGetUserByIdCommand (User $user):GetUserByIdCommand {
+		return new GetUserByIdCommand($user);
+	}
 }

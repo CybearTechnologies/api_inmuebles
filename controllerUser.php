@@ -18,18 +18,38 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (DatabaseConnectionException $exception) {
 				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
 				Result::setResponse($exception->getCode());
-				echo 'EPA ENTRO EN EL C1';
 			}
 			catch (MultipleUserException $exception) {
 				$return = new Result(false, [], Values::getText("ERROR_MULTIPLE_USER"));
 				Result::setResponse($exception->getCode());
-				echo 'EPA ENTRO EN EL C2';
 			}
 			catch (UserNotFoundException $exception) {
 				$return = new Result(false, [], Values::getText("ERROR_USER_NOT_FOUND"));
 				Result::setResponse($exception->getCode());
-				echo 'EPA ENTRO EN EL C3';
+			}
+			echo json_encode($return);
+		}
+		elseif (isset($get->id) && is_numeric($get->id)) {
+			$user->setId($get->id);
+			$command = FactoryCommand::createGetUserByIdCommand($user);
+			try {
+				$command->execute();
+				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
+				Result::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
+				Result::setResponse($exception->getCode());
+			}
+			catch (MultipleUserException $exception) {
+				$return = new Result(false, [], Values::getText("ERROR_MULTIPLE_USER"));
+				Result::setResponse($exception->getCode());
+			}
+			catch (UserNotFoundException $exception) {
+				$return = new Result(false, [], Values::getText("ERROR_USER_NOT_FOUND"));
+				Result::setResponse($exception->getCode());
 			}
 		}
 		echo json_encode($return);
+		break;
 }
