@@ -1,6 +1,6 @@
 <?php
 class DaoProperty extends Dao {
-	private const QUERY_CREATE = "";
+	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:type,:location,:user)"; //TODO
 	private const QUERY_GET_ALL = "CALL getAllProperty()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id)";
 	private $_property;

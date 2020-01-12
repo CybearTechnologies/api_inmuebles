@@ -1,6 +1,6 @@
 <?php
 class DaoPropertyType extends Dao {
-	private const QUERY_CREATE = "INSERT INTO property_type(pt_name) VALUES (:name);";
+	private const QUERY_CREATE = "CALL insertPropertyType(pt_name,pt_user_created_fk) VALUES (:name,:user);";
 	private const QUERY_GET_ALL = "CALL getAllPropertyType()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyTypeById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPropertyTypeByName(:name)";
