@@ -1,7 +1,5 @@
 <?php
 class GetLocationsByTypeCommand extends Command {
-	private $_dao;
-
     /**
      * GetLocationsByTypeCommand constructor.
      *

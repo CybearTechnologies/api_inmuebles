@@ -1,7 +1,5 @@
 <?php
 class GetPlanByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetPlanByIdCommand constructor.
 	 *

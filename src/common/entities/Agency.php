@@ -1,7 +1,6 @@
 <?php
 class Agency extends Entity {
 	private $_name;
-	private $_active;
 
 	/**
 	 * Agency constructor.
@@ -9,11 +8,16 @@ class Agency extends Entity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, bool $active) {
-		$this->setId($id);
+	public function __construct (int $id, string $name, bool $active, bool $delete, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
-		$this->_active = $active;
 	}
 
 	/**
@@ -28,19 +32,5 @@ class Agency extends Entity {
 	 */
 	public function setName (string $name):void {
 		$this->_name = $name;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isActive ():bool {
-		return $this->_active;
-	}
-
-	/**
-	 * @param bool $active
-	 */
-	public function setActive (bool $active):void {
-		$this->_active = $active;
 	}
 }

@@ -1,7 +1,5 @@
 <?php
 class GetAllAgenciesCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAllAgenciesCommand constructor.
 	 */

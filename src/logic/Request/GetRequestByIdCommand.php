@@ -1,7 +1,5 @@
 <?php
 class GetRequestByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetRequestByIdCommand constructor.
 	 *

@@ -1,6 +1,5 @@
 <?php
 class GetAllSeatsCommand extends Command {
-	private $_dao;
 
 	/**
 	 * GetAllSeatsCommand constructor.

@@ -9,12 +9,11 @@ class FactoryDto {
 	 * @param int    $id
 	 * @param string $name
 	 * @param bool   $active
-	 * @param int    $user
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType (int $id, $name = '', $active = true, int $user):DtoPropertyType {
-		return new DtoPropertyType($id, $name, $active, $user);
+	static function createDtoPropertyType (int $id, $name = '', $active = true):DtoPropertyType {
+		return new DtoPropertyType($id, $name, $active);
 	}
 
 	/**
@@ -124,11 +123,69 @@ class FactoryDto {
 	 * @param float  $score
 	 * @param string $message
 	 * @param bool   $active
-	 * @param User   $user
 	 *
 	 * @return DtoRating
 	 */
 	static function createDtoRating (int $id, $score = 0.0, $message = "", $active = true):DtoRating {
 		return new DtoRating($id, $score, $message, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoAccess
+	 */
+	static function createDtoAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "",
+		$dateModified = ""):DtoAccess {
+		return new DtoAccess($id, $name, $abbreviation, $dateCreated, $dateModified);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param        $userCreator
+	 * @param        $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoRol
+	 */
+	static function createDtoRol (int $id, string $name, bool $active, bool $delete, $userCreator, $userModifier,
+		string $dateCreated = "", string $dateModified = ""):DtoRol {
+		return new DtoRol($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @param string $address
+	 * @param string $email
+	 * @param string $password
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param bool   $active
+	 * @param bool   $blocked
+	 * @param bool   $deleted
+	 * @param int    $seat
+	 * @param int    $rol
+	 * @param int    $plan
+	 * @param int    $location
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoUser
+	 */
+	static function createDtoUser (int $id, string $firstName, string $lastName, string $address, string $email,
+		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
+		int $rol, int $plan, int $location, string $dateCreated, string $dateModified):DtoUser {
+		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier,
+			$active, $blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
 	}
 }

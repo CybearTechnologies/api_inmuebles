@@ -1,18 +1,44 @@
 <?php
 class DaoPlan extends Dao {
-	private const QUERY_CREATE = "";
+	private const QUERY_CREATE = "CALL insertPlan(:name,:price,:user);";
 	private const QUERY_GET_ALL = "CALL getAllPlans()";
 	private const QUERY_GET_BY_ID = "CALL getPlanById(:id)";
-	private $_plan;
+	private const QUERY_GET_BY_NAME = "CALL getPlanByName(:name)";
+	private const QUERY_UPDATE = "CALL updatePlan(:id,:name,:price,:user)";
+	private const QUERY_DELETE = "CALL deletePlan(:id,:user)";
+	private $_entity;
 
 	/**
 	 * DaoPlan constructor.
 	 *
-	 * @param Plan $plan
+	 * @param Plan $entity
 	 */
-	public function __construct ($plan) {
+	public function __construct ($entity) {
 		parent::__construct();
-		$this->_plan = $plan;
+		$this->_entity = $entity;
+	}
+
+	/**
+	 * @return Plan
+	 * @throws DatabaseConnectionException
+	 */
+	public function createPlan () {
+		try {
+			$name = $this->_entity->getName();
+			$price = $this->_entity->getPrice();
+			$user = $this->_entity->getUserCreator();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
 	}
 
 	/**
@@ -20,9 +46,31 @@ class DaoPlan extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws PlanNotFoundException
 	 */
+	public function getPlanByName () {
+		try {
+			$name = strtolower($this->_entity->getName());
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
+			$stmt->bindParam(":name", $name, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PlanNotFoundException("No plan found", 200);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+	/**
+	 * @return Plan
+	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
+	 */
 	public function getPlanById () {
 		try {
-			$id = $this->_plan->getId();
+			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -32,7 +80,8 @@ class DaoPlan extends Dao {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -51,7 +100,54 @@ class DaoPlan extends Dao {
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Plan
+	 * @throws DatabaseConnectionException
+	 */
+	public function updatePlanById () {
+		try {
+			$id = $this->_entity->getId();
+			$name = $this->_entity->getName();
+			$price = $this->_entity->getPrice();
+			$user = $this->_entity->getUserCreator();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Plan
+	 * @throws DatabaseConnectionException
+	 */
+	public function deletePlanById () {
+		try {
+			$id = $this->_entity->getId();
+			$user = $this->_entity->getUserModifier();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -62,6 +158,8 @@ class DaoPlan extends Dao {
 	 * @return Plan
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price, $dbObject->active);
+		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price, $dbObject->active,
+			$dbObject->delete, $dbObject->user_created, $dbObject->user_modified, $dbObject->date_created,
+			$dbObject->date_modified);
 	}
 }

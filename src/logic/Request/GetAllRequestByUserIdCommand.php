@@ -1,7 +1,5 @@
 <?php
 class GetAllRequestByUserIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAllRequestByUserIdCommand constructor.
 	 *

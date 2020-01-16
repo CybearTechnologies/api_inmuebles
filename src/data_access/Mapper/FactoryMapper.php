@@ -74,4 +74,18 @@ class FactoryMapper {
 	static function createMapperRating ():MapperRating {
 		return new MapperRating();
 	}
+
+	/**
+	 * @return MapperAccess
+	 */
+	static function createMapperAccess ():MapperAccess {
+		return new MapperAccess();
+	}
+
+	/**
+	 * @return MapperUser
+	 */
+	static function createMapperUser ():MapperUser {
+		return new MapperUser();
+	}
 }

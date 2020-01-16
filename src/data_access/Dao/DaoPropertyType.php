@@ -1,7 +1,6 @@
 <?php
 class DaoPropertyType extends Dao {
-	private const QUERY_CREATE = "INSERT INTO property_type(pt_name) VALUES (:name);
-SELECT pt_id id,pt_name name, pt_active active FROM property_type WHERE pt_id=last_insert_id()";
+	private const QUERY_CREATE = "CALL insertPropertyType(pt_name,pt_user_created_fk) VALUES (:name,:user);";
 	private const QUERY_GET_ALL = "CALL getAllPropertyType()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyTypeById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPropertyTypeByName(:name)";
@@ -19,9 +18,9 @@ SELECT pt_id id,pt_name name, pt_active active FROM property_type WHERE pt_id=la
 	}
 
 	/**
-	 *
 	 * @return PropertyType
 	 * @throws DatabaseConnectionException
+	 * @throws PropertyTypeNotFoundException
 	 */
 	public function createPropertyType () {
 		try {
@@ -29,8 +28,9 @@ SELECT pt_id id,pt_name name, pt_active active FROM property_type WHERE pt_id=la
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->execute();
+			$this->_propertyType->setId($this->getDatabase()->lastInsertId());
 
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			return $this->getPropertyTypeById();
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

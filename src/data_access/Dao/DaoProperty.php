@@ -1,6 +1,6 @@
 <?php
 class DaoProperty extends Dao {
-	private const QUERY_CREATE = "";
+	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:type,:location,:user)"; //TODO
 	private const QUERY_GET_ALL = "CALL getAllProperty()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id)";
 	private $_property;
@@ -15,15 +15,24 @@ class DaoProperty extends Dao {
 		$this->_property = $property;
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 */
 	public function createProperty () {
-		$name = $this->_property->getName();
-		$description = $this->_property->getDescription();
-		$area = $this->_property->getArea();
-		$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
-		$stmt->bindParam(":description", $description, PDO::PARAM_STR);
-		$stmt->bindParam(":area", $area, PDO::PARAM_STR);
-		$stmt->execute();
+		try {
+			$name = $this->_property->getName();
+			$description = $this->_property->getDescription();
+			$area = $this->_property->getArea();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":description", $description, PDO::PARAM_STR);
+			$stmt->bindParam(":area", $area, PDO::PARAM_STR);
+			$stmt->execute();
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
 	}
 
 	/**
@@ -77,6 +86,7 @@ class DaoProperty extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createProperty($dbObject->id, $dbObject->name, $dbObject->area, $dbObject->description,
-			$dbObject->publishDate, $dbObject->state, $dbObject->floor);
+			$dbObject->state, $dbObject->floor, $dbObject->active, $dbObject->delete, $dbObject->user_created,
+			$dbObject->user_modifier, $dbObject->date_created, $dbObject->date_modified);
 	}
 }

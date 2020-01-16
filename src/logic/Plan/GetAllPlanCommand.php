@@ -1,7 +1,5 @@
 <?php
 class GetAllPlanCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAllPlanCommand constructor.
 	 */

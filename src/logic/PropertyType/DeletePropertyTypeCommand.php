@@ -1,7 +1,5 @@
 <?php
 class DeletePropertyTypeCommand extends Command {
-	private $_dao;
-
 	/**
 	 * DeletePropertyTypeCommand constructor.
 	 *

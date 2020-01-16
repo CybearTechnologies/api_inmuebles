@@ -1,7 +1,5 @@
 <?php
 class GetAllRequestByPropertyIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAllRequestByPropertyIdCommand constructor.
 	 *

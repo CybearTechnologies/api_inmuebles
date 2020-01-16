@@ -1,7 +1,5 @@
 <?php
 class GetAgencyByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetAgencyByIdCommand constructor.
 	 *

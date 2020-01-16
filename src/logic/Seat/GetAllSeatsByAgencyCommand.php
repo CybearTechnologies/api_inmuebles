@@ -1,6 +1,5 @@
 <?php
 class GetAllSeatsByAgencyCommand extends Command {
-	private $_dao;
 
 	/**
 	 * GetAllSeatsByAgencyCommand constructor.

@@ -1,7 +1,5 @@
 <?php
 class GetRatingByIdCommand extends Command {
-	private $_dao;
-
 	/**
 	 * GetRatingByIdCommand constructor.
 	 *

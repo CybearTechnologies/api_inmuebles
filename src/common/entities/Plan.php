@@ -2,7 +2,6 @@
 class Plan extends Entity {
 	private $_name;
 	private $_price;
-	private $_active;
 
 	/**
 	 * Plan constructor.
@@ -11,12 +10,17 @@ class Plan extends Entity {
 	 * @param string $name
 	 * @param float  $price
 	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, float $price, bool $active) {
-		$this->setId($id);
+	public function __construct (int $id, string $name, float $price, bool $active, bool $delete, int $userCreator,
+		int $userModifier, string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 		$this->_price = $price;
-		$this->_active = $active;
 	}
 
 	/**
@@ -45,19 +49,5 @@ class Plan extends Entity {
 	 */
 	public function setPrice (float $price):void {
 		$this->_price = $price;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isActive ():bool {
-		return $this->_active;
-	}
-
-	/**
-	 * @param bool $active
-	 */
-	public function setActive (bool $active):void {
-		$this->_active = $active;
 	}
 }

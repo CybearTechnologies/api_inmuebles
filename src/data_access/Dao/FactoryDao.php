@@ -73,7 +73,7 @@ class FactoryDao {
 	 *
 	 * @return DaoPropertyPrice
 	 */
-	static function createDaoPropertyPrice ($entity):DaoPropertyPrice {
+	static function createDaoPropertyPrice ($entity = null):DaoPropertyPrice {
 		return new DaoPropertyPrice($entity);
 	}
 
@@ -93,5 +93,41 @@ class FactoryDao {
 	 */
 	static function createDaoRating ($entity):DaoRating {
 		return new DaoRating($entity);
+	}
+
+	/**
+	 * @param Access|null $entity
+	 *
+	 * @return DaoAccess
+	 */
+	static function createDaoAccess ($entity = null):DaoAccess {
+		return new DaoAccess($entity);
+	}
+
+	/**
+	 * @param Rol $entity
+	 *
+	 * @return DaoRol
+	 */
+	static function createDaoRol ($entity = null):DaoRol {
+		return new DaoRol($entity);
+	}
+
+	/**
+	 * @param Origin $origin
+	 *
+	 * @return DaoOrigin
+	 */
+	public static function createDaoOrigin (Origin $origin):DaoOrigin {
+		return new DaoOrigin($origin);
+	}
+
+	/**
+	 * @param User $user
+	 *
+	 * @return DaoUser|null
+	 */
+	public static function createDaoUser ($user = null):DaoUser {
+		return new DaoUser($user);
 	}
 }

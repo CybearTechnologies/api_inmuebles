@@ -6,8 +6,80 @@
  */
 class FactoryCommand {
 	/**
+	 *ACCESS
+	 *
+	 * @param Access $access
+	 *
+	 * @return CreateAccessCommand
+	 */
+	static function createCreateAccessCommand ($access):CreateAccessCommand {
+		return new CreateAccessCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return GetAccessByAbbreviationCommand
+	 */
+	static function createGetAccessByAbbreviationCommand ($access):GetAccessByAbbreviationCommand {
+		return new GetAccessByAbbreviationCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return DeleteAccessByIdCommand
+	 */
+	static function createDeleteAccessByIdCommand ($access):DeleteAccessByIdCommand {
+		return new DeleteAccessByIdCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return GetAccessByIdCommand
+	 */
+	static function createGetAccessByIdCommand ($access):GetAccessByIdCommand {
+		return new GetAccessByIdCommand($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return GetAccessByNameCommand
+	 */
+	static function createGetAccessByNameCommand ($access):GetAccessByNameCommand {
+		return new GetAccessByNameCommand($access);
+	}
+
+	/**
+	 * @return GetAllAccessCommand
+	 */
+	static function createGetAllAccessCommand ():GetAllAccessCommand {
+		return new GetAllAccessCommand();
+	}
+
+	/**
 	 * AGENCY
 	 */
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return CreateAgencyCommand
+	 */
+	static function createCreateAgencyCommand ($agency):CreateAgencyCommand {
+		return new CreateAgencyCommand($agency);
+	}
+
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return DeleteAgencyByIdCommand
+	 */
+	static function createDeleteAgencyByIdCommand ($agency):DeleteAgencyByIdCommand {
+		return new DeleteAgencyByIdCommand($agency);
+	}
+
 	/**
 	 * @return GetAllAgenciesCommand
 	 */
@@ -25,8 +97,34 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param Agency $agency
+	 *
+	 * @return GetAllSeatsByAgencyCommand
+	 */
+	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
+		return new GetAllSeatsByAgencyCommand($agency);
+	}
+	/**
 	 * EXTRA
 	 */
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return CreateExtraCommand
+	 */
+	static function createCreateExtraCommand ($extra):CreateExtraCommand {
+		return new CreateExtraCommand($extra);
+	}
+
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return DeleteExtraByIdCommand
+	 */
+	static function createDeleteExtraByIdCommand ($extra):DeleteExtraByIdCommand {
+		return new DeleteExtraByIdCommand($extra);
+	}
+
 	/**
 	 * @param Property $property
 	 *
@@ -77,6 +175,15 @@ class FactoryCommand {
 	 * PLANS
 	 */
 	/**
+	 * @param Plan $plan
+	 *
+	 * @return CreatePlanCommand
+	 */
+	static function createCreatePlanCommand ($plan):CreatePlanCommand {
+		return new CreatePlanCommand($plan);
+	}
+
+	/**
 	 * @return GetAllPlanCommand
 	 */
 	static function createGetAllPlanCommand ():GetAllPlanCommand {
@@ -90,6 +197,33 @@ class FactoryCommand {
 	 */
 	static function createGetPlanByIdCommand ($plan):GetPlanByIdCommand {
 		return new GetPlanByIdCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return GetPlanByNameCommand
+	 */
+	static function createGetPlanByNameCommand ($plan):GetPlanByNameCommand {
+		return new GetPlanByNameCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return UpdatePlanCommand
+	 */
+	static function createUpdatePlanCommand ($plan):UpdatePlanCommand {
+		return new UpdatePlanCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return DeletePlanByIdCommand
+	 */
+	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
+		return new DeletePlanByIdCommand($plan);
 	}
 
 	/**
@@ -142,6 +276,24 @@ class FactoryCommand {
 	 * PROPERTY
 	 */
 	/**
+	 * @param Property $property
+	 *
+	 * @return CreatePropertyCommand
+	 */
+	static function createCreatePropertyCommand ($property):CreatePropertyCommand {
+		return new CreatePropertyCommand($property);
+	}
+
+	/**
+	 * @param Property $property
+	 *
+	 * @return DeletePropertyByIdCommand
+	 */
+	static function createDeletePopertyByIdCommand ($property):DeletePropertyByIdCommand {
+		return new DeletePropertyByIdCommand($property);
+	}
+
+	/**
 	 * @return GetAllPropertyCommand
 	 */
 	static function createGetAllPropertyCommand ():GetAllPropertyCommand {
@@ -158,16 +310,42 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param User $user
+	 * @param Property $property
 	 *
-	 * @return GetAllRatingByUserCommand
+	 * @return GetAllRequestByPropertyIdCommand
 	 */
-	static function createGetAllRatingByUserCommand ($user):GetAllRatingByUserCommand {
-		return new GetAllRatingByUserCommand($user);
+	static function createGetAllRequestByPropertyIdCommand ($property):GetAllRequestByPropertyIdCommand {
+		return new GetAllRequestByPropertyIdCommand($property);
 	}
+
 	/**
 	 * PropertyPrice
 	 */
+	/**
+	 * @param Property $property
+	 *
+	 * @return CreatePropertyPriceByPropertyCommand
+	 */
+	static function createCreatePropertyPriceByPropertyCommand ($property):CreatePropertyPriceByPropertyCommand {
+		return new CreatePropertyPriceByPropertyCommand($property);
+	}
+
+	/**
+	 * @param PropertyPrice $propertyPrice
+	 *
+	 * @return DeletePropertyPriceByIdCommand
+	 */
+	static function createDeletePropertyPriceByIdCommand ($propertyPrice):DeletePropertyPriceByIdCommand {
+		return new DeletePropertyPriceByIdCommand($propertyPrice);
+	}
+
+	/**
+	 * @return GetAllPropertyPriceCommand
+	 */
+	static function createGetAllPropertyPriceCommand ():GetAllPropertyPriceCommand {
+		return new GetAllPropertyPriceCommand();
+	}
+
 	/**
 	 * @param Property $property
 	 *
@@ -176,11 +354,27 @@ class FactoryCommand {
 	static function createGetPropertyPriceByPropertyIdCommand ($property):GetPropertyPriceByPropertyIdCommand {
 		return new GetPropertyPriceByPropertyIdCommand($property);
 	}
+	/**
+	 * SEATS
+	 */
+	/**
+	 * @param Seat $seat
+	 *
+	 * @return CreateSeatCommand
+	 */
+	static function createCreateSeatCommand (Seat $seat):CreateSeatCommand {
+		return new CreateSeatCommand($seat);
+	}
 
+	/**
+	 * @param $seat
+	 *
+	 * @return DeleteSeatByIdCommand
+	 */
+	static function createDeleteSeatByIdCommand ($seat):DeleteSeatByIdCommand {
+		return new DeleteSeatByIdCommand($seat);
+	}
 
-	//-----------------------------------------------------------------------------
-	// SEATS
-	//-----------------------------------------------------------------------------
 	/**
 	 * @return GetAllSeatsCommand
 	 */
@@ -198,17 +392,26 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Agency $agency
-	 *
-	 * @return GetAllSeatsByAgencyCommand
+	 * REQUEST
 	 */
-	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
-		return new GetAllSeatsByAgencyCommand($agency);
+	/**
+	 * @param Request $request
+	 *
+	 * @return CreateRequestCommand
+	 */
+	static function createCreateRequestCommand ($request):CreateRequestCommand {
+		return new CreateRequestCommand($request);
 	}
 
-	//-----------------------------------------------------------------------------
-	// REQUEST
-	//-----------------------------------------------------------------------------
+	/**
+	 * @param $request
+	 *
+	 * @return DeleteRequestByIdCommand
+	 */
+	static function creatDeleteRequestByIdCommand ($request):DeleteRequestByIdCommand {
+		return new DeleteRequestByIdCommand($request);
+	}
+
 	/**
 	 * @return GetAllRequestCommand
 	 */
@@ -235,12 +438,24 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Property $property
-	 *
-	 * @return GetAllRequestByPropertyIdCommand
+	 * RATING
 	 */
-	static function createGetAllRequestByPropertyIdCommand ($property):GetAllRequestByPropertyIdCommand {
-		return new GetAllRequestByPropertyIdCommand($property);
+	/**
+	 * @param User $user
+	 *
+	 * @return CreateRatingByUserIdCommand
+	 */
+	static function createCreateRatingByUserIdCommand ($user):CreateRatingByUserIdCommand {
+		return new CreateRatingByUserIdCommand($user);
+	}
+
+	/**
+	 * @param Rating $rating
+	 *
+	 * @return DeleteRatingByIdCommand
+	 */
+	static function createDeleteRatingByIdCommand ($rating):DeleteRatingByIdCommand {
+		return new DeleteRatingByIdCommand($rating);
 	}
 
 	/**
@@ -252,5 +467,48 @@ class FactoryCommand {
 		return new GetRatingByIdCommand($rating);
 	}
 
+	/**
+	 * @param User $user
+	 *
+	 * @return GetAllRatingByUserCommand
+	 */
+	static function createGetAllRatingByUserCommand ($user):GetAllRatingByUserCommand {
+		return new GetAllRatingByUserCommand($user);
+	}
 
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return GetAgencyByNameCommand
+	 */
+	public static function createGetAgencyByNameCommand ($agency):GetAgencyByNameCommand {
+		return new GetAgencyByNameCommand($agency);
+	}
+
+	/**
+	 * @param Origin $origin
+	 *
+	 * @return GetOriginByPublicKeyCommand
+	 */
+	public static function createGetOriginByPublicKeyCommand (Origin $origin) {
+		return new GetOriginByPublicKeyCommand($origin);
+	}
+
+	/**
+	 * @param User $user
+	 *
+	 * @return GetUserByUsernameCommand
+	 */
+	public static function createGetUserByUsernameCommand (User $user) {
+		return new GetUserByUsernameCommand($user);
+	}
+
+	/**
+	 * @param User $user
+	 *
+	 * @return GetUserByIdCommand
+	 */
+	public static function createGetUserByIdCommand (User $user):GetUserByIdCommand {
+		return new GetUserByIdCommand($user);
+	}
 }

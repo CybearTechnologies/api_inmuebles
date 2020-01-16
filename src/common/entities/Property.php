@@ -3,10 +3,8 @@ class Property extends Entity {
 	private $_name;
 	private $_area;
 	private $_description;
-	private $_publishDate;
 	private $_state;
 	private $_floor;
-	private $_extra;
 
 	/**
 	 * Property constructor.
@@ -15,21 +13,24 @@ class Property extends Entity {
 	 * @param string $name
 	 * @param float  $area
 	 * @param string $description
-	 * @param string $publishDate
 	 * @param int    $state
 	 * @param int    $floor
-	 * @param int    $extra
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, float $area, string $description, string $publishDate,
-		int $state, int $floor, int $extra) {
-		$this->setId($id);
+	public function __construct (int $id, string $name, float $area, string $description,
+		int $state, int $floor, bool $active, bool $delete, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 		$this->_area = $area;
 		$this->_description = $description;
-		$this->_publishDate = $publishDate;
 		$this->_state = $state;
 		$this->_floor = $floor;
-		$this->_extra = $extra;
 	}
 
 	/**
@@ -75,20 +76,6 @@ class Property extends Entity {
 	}
 
 	/**
-	 * @return mixed
-	 */
-	public function getPublishDate () {
-		return $this->_publishDate;
-	}
-
-	/**
-	 * @param mixed $publishDate
-	 */
-	public function setPublishDate ($publishDate):void {
-		$this->_publishDate = $publishDate;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getState () {
@@ -114,19 +101,5 @@ class Property extends Entity {
 	 */
 	public function setFloor ($floor):void {
 		$this->_floor = $floor;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getExtra ():int {
-		return $this->_extra;
-	}
-
-	/**
-	 * @param int $extra
-	 */
-	public function setExtra (int $extra):void {
-		$this->_extra = $extra;
 	}
 }
