@@ -3,6 +3,7 @@ class PropertyPrice extends Entity {
 	private $_price;
 	private $_date;
 	private $_final;
+	private $_property;
 
 	/**
 	 * PropertyPrice constructor.

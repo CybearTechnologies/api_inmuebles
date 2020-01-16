@@ -1,9 +1,9 @@
 <?php
 class DaoLocation extends Dao {
 	//TODO usar SP y probarlos
-	private const QUERY_GET_BY_NAME = "Select lo_id id, lo_name name,lo_type type from location where lo_name=:name";
-	private const QUERY_GET_BY_TYPE = "Select lo_id id, lo_name name,lo_type type from location where lo_type=:type";
-	private const QUERY_GET_BY_ID = "Select lo_id id, lo_name name,lo_type type from location where lo_id=:id";
+	private const QUERY_GET_BY_NAME = "CALL getlocationsbyname(:name)";
+	private const QUERY_GET_BY_TYPE = "CALL getlocationsbytype(:type)";
+	private const QUERY_GET_BY_ID = "CALL getlocationsbyid(:id)";
 	private $_location;
 
 	/**
