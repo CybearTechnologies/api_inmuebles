@@ -11,7 +11,6 @@ class CreatePropertyPriceByPropertyCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws InvalidPropertyPriceException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->createPropertyPrice());
