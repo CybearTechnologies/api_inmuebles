@@ -2,8 +2,8 @@
 class DaoPropertyPrice extends Dao {
 	//insertpropertyprice(price double(20,2), final tinyint,property int,user int)
 	private const QUERY_CREATE = "CALL insertPropertyPrice(:price,:final,:property,:user)";
-	private const QUERY_GET_ALL = "";
-	private const QUERY_GET_BY_ID = "";
+	private const QUERY_GET_ALL = "CALL getAllPropertyPrice()";
+	private const QUERY_GET_BY_ID = "CALL getPropertyPriceById(:id)";
 	private const QUERY_GET_PRICE_BY_PROPERTY_ID = "CALL getAllPricesByProperty(:id)";
 	private $_entity;
 
@@ -37,6 +37,9 @@ class DaoPropertyPrice extends Dao {
 			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
+	}
+
+	public function createPropertyPrice () {
 	}
 
 	/**
