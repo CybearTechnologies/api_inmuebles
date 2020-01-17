@@ -1,7 +1,7 @@
 <?php
 class DaoPropertyPrice extends Dao {
 	//insertpropertyprice(price double(20,2), final tinyint,property int,user int)
-	private const QUERY_CREATE = "CALL insertPropertyPrice(:price,:final,:property,:user)";
+	private const QUERY_CREATE = "CALL insertpropertyprice(:price,:final,:property,:user)";
 	private const QUERY_GET_ALL = "";
 	private const QUERY_GET_BY_ID = "CALL getpropertypricebyid(:id)";
 	private const QUERY_GET_PRICE_BY_PROPERTY_ID = "CALL getAllPricesByProperty(:id)";
