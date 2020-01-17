@@ -5,7 +5,6 @@ class User extends Entity {
 	private $_address;
 	private $_email;
 	private $_password;
-	private $_deleted;
 	private $_blocked;
 	private $_seat;
 	private $_rol;
@@ -118,20 +117,6 @@ class User extends Entity {
 	 */
 	public function setPassword (string $password):void {
 		$this->_password = $password;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isDeleted ():bool {
-		return $this->_deleted;
-	}
-
-	/**
-	 * @param bool $deleted
-	 */
-	public function setDeleted (bool $deleted):void {
-		$this->_deleted = $deleted;
 	}
 
 	/**
