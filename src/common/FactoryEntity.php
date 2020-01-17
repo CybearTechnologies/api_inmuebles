@@ -141,14 +141,16 @@ class FactoryEntity {
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param int    $propertyId
 	 *
 	 * @return PropertyPrice
 	 */
-	static function createPropertyPrice (int $id, $price = 0, $date = "", $final = false, $active = true,
+	static function createPropertyPrice (int $id, $price = 0, $date = "", $final = false, int $propertyId = 0,
+		$active = true,
 		$delete = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
 		string $dateModified = ""):PropertyPrice {
 		return new PropertyPrice($id, $price, $date, $final, $active, $delete, $userCreator, $userModifier,
-			$dateCreated, $dateModified);
+			$dateCreated, $dateModified, $propertyId);
 	}
 
 	/**

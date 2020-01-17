@@ -40,6 +40,7 @@ class DaoPropertyPrice extends Dao {
 	}
 
 	public function createPropertyPrice () {
+		//TODO
 	}
 
 	/**
@@ -48,6 +49,7 @@ class DaoPropertyPrice extends Dao {
 	 * @return PropertyPrice
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createPropertyPrice($dbObject->id, $dbObject->price, $dbObject->date, $dbObject->final);
+		return FactoryEntity::createPropertyPrice($dbObject->id, $dbObject->price, $dbObject->date,
+			$dbObject->final, $dbObject->propertyId);
 	}
 }

@@ -111,11 +111,13 @@ class FactoryDto {
 	 * @param int    $price
 	 * @param string $date
 	 * @param bool   $final
+	 * @param int    $propertyId
 	 *
 	 * @return DtoPropertyPrice
 	 */
-	static function createDtoPropertyPrice (int $id, $price = 0, $date = "", $final = false):DtoPropertyPrice {
-		return new DtoPropertyPrice($id, $price, $date, $final);
+	static function createDtoPropertyPrice (int $id, $price = 0, $date = "", $final = false,
+		int $propertyId = 0):DtoPropertyPrice {
+		return new DtoPropertyPrice($id, $price, $date, $final, $propertyId);
 	}
 
 	/**
