@@ -17,7 +17,6 @@ class DaoLocation extends Dao {
 	}
 
 	/**
-	 *
 	 * @return Location
 	 * @throws DatabaseConnectionException
 	 * @throws LocationNotFoundException
@@ -39,27 +38,27 @@ class DaoLocation extends Dao {
 		}
 	}
 
-    /**
+	/**
 	 * @return Location
-     * @throws DatabaseConnectionException
-     * @throws LocationNotFoundException
-     */
+	 * @throws DatabaseConnectionException
+	 * @throws LocationNotFoundException
+	 */
 	public function getLocationByName () {
-        try {
+		try {
 			$name = $this->_location->getName();
-            $stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
-            $stmt->execute();
-            if ($stmt->rowCount() == 0)
-                Throw new LocationNotFoundException("There are no Location found", 200);
-            else {
-                return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
-            }
-        }
-        catch (PDOException $e) {
-            Throw new DatabaseConnectionException("Database connection problem.", 500);
-        }
-    }
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new LocationNotFoundException("There are no Location found", 200);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $e) {
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
 
 	/**
 	 * @return Location[]
@@ -89,6 +88,6 @@ class DaoLocation extends Dao {
 	 * @return Location
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createLocation($dbObject->id,$dbObject->name,$dbObject->type);
+		return FactoryEntity::createLocation($dbObject->id, $dbObject->name, $dbObject->type);
 	}
 }

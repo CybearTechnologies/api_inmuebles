@@ -3,6 +3,7 @@ class DaoProperty extends Dao {
 	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:type,:location,:user)"; //TODO
 	private const QUERY_GET_ALL = "CALL getAllProperty()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id)";
+	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id)";
 	private $_property;
 
 	/**
@@ -16,6 +17,7 @@ class DaoProperty extends Dao {
 	}
 
 	/**
+	 * @return Property
 	 * @throws DatabaseConnectionException
 	 */
 	public function createProperty () {
@@ -28,6 +30,8 @@ class DaoProperty extends Dao {
 			$stmt->bindParam(":description", $description, PDO::PARAM_STR);
 			$stmt->bindParam(":area", $area, PDO::PARAM_STR);
 			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -72,6 +76,27 @@ class DaoProperty extends Dao {
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
+	 */
+	public function deletePropertyByPropertyId () {
+		try {
+			$id = $this->_property->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyNotFoundException("There are no property found", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

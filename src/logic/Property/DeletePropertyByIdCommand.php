@@ -11,9 +11,10 @@ class DeletePropertyByIdCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->deletePropetyByPropertyId);
+		$this->setData($this->_dao->deletePropertyByPropertyId());
 	}
 
 	/**
