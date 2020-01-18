@@ -1,7 +1,6 @@
 #   GitIgnore for basic api usage
 .DS_Store
 .idea
-sql
 vendor
 core
 houston
