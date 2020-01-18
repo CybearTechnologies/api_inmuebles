@@ -55,6 +55,23 @@ BEGIN
     WHERE ac_name = name_access;
 END$$
 
+DROP PROCEDURE IF EXISTS getaccessbyid;
+DELIMITER $$
+CREATE PROCEDURE getaccessbyid(id_access int)
+BEGIN
+    SELECT ac_id id,
+           ac_name name,
+           ac_abbreviation abbreviation,
+           ac_active active,
+           ac_deleted 'delete',
+           ac_user_created_fk user_created,
+           ac_user_modified_fk user_modified,
+           ac_date_created date_created,
+           ac_date_modified date_modified
+    FROM access
+    WHERE ac_id = id_access;
+END$$
+
 DROP PROCEDURE IF EXISTS getaccessbyabbreviation;
 DELIMITER $$
 CREATE PROCEDURE getaccessbyabbreviation(abbreviation_access varchar(30))
