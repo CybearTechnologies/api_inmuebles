@@ -374,30 +374,30 @@ INSERT INTO user (us_id, us_first_name, us_last_name, us_address, us_email, us_p
 VALUES (1, 'Admin', '', 'N/A', 'admin@test.com', '$2y$10$43DlSVjruhwwlvJJ.sKxjuQt5pe5ceskApHZqtl/S/MQ09uH3z0DW', 1, 5);
 
 ALTER TABLE rol
-    ADD COLUMN ro_user_created_fk  int(10) DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    ADD COLUMN ro_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     ADD COLUMN ro_date_created     datetime          NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     /*ADD COLUMN ro_date_created datetime COMMENT 'Fecha de creación',*/
-    ADD COLUMN ro_user_modified_fk int(10) DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    ADD COLUMN ro_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     ADD COLUMN ro_date_modified    datetime          NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     /*ADD COLUMN ro_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (ro_user_created_fk) REFERENCES user (us_id),
     ADD FOREIGN KEY (ro_user_modified_fk) REFERENCES user (us_id);
 
 ALTER TABLE user
-    ADD COLUMN us_user_created_fk  int(10) DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    ADD COLUMN us_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     ADD COLUMN us_date_created     datetime          NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     /*ADD COLUMN us_date_created datetime COMMENT 'Fecha de creación',*/
-    ADD COLUMN us_user_modified_fk int(10) DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    ADD COLUMN us_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     ADD COLUMN us_date_modified    datetime          NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     /*ADD COLUMN us_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (us_user_created_fk) REFERENCES user (us_id),
     ADD FOREIGN KEY (us_user_modified_fk) REFERENCES user (us_id);
 
 ALTER TABLE location
-    ADD COLUMN lo_user_created_fk  int(10) DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    ADD COLUMN lo_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     ADD COLUMN lo_date_created     datetime          NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     /*ADD COLUMN lo_date_created datetime COMMENT 'Fecha de creación',*/
-    ADD COLUMN lo_user_modified_fk int(10) DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    ADD COLUMN lo_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     ADD COLUMN lo_date_modified    datetime          NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     /*ADD COLUMN lo_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (lo_user_created_fk) REFERENCES user (us_id),
