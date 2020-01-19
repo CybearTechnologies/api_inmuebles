@@ -14,7 +14,7 @@ CREATE TABLE location
     lo_type        varchar(45)          NOT NULL COMMENT 'Tipo',
     lo_active      tinyint(1) DEFAULT 1 NOT NULL COMMENT 'Activo',
     lo_deleted     tinyint(1) DEFAULT 0 NOT NULL COMMENT 'Eliminado',
-    lo_location_fk int                  NOT NULL COMMENT 'ID lugar',
+    lo_location_fk int /*NOT NULL*/ COMMENT 'ID lugar',
     CONSTRAINT FOREIGN KEY (lo_location_fk) REFERENCES location (lo_id)
 );
 
@@ -53,7 +53,7 @@ CREATE TABLE seat
     se_rif              varchar(20)                          NOT NULL COMMENT 'Rif',
     se_location_fk      int(10)                              NOT NULL COMMENT 'ID Lugar',
     se_agency_fk        int(10)                              NOT NULL COMMENT 'ID Inmobiliaria',
-    se_active           tinyint(1)                           NOT NULL COMMENT 'Activo',
+    se_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
     se_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
     se_user_created_fk  int        DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
     se_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
@@ -65,20 +65,25 @@ CREATE TABLE seat
 
 CREATE TABLE user
 (
-    us_id          int AUTO_INCREMENT COMMENT 'ID usuario'
+    us_id               int AUTO_INCREMENT COMMENT 'ID usuario'
         PRIMARY KEY,
-    us_first_name  varchar(45)          NOT NULL COMMENT 'Nombre',
-    us_last_name   varchar(45)          NOT NULL COMMENT 'Apellido',
-    us_address     varchar(200)         NOT NULL COMMENT 'Dirección',
-    us_email       varchar(50)          NOT NULL COMMENT 'Email',
-    us_password    varchar(255)         NOT NULL COMMENT 'Contraseña',
-    us_status      tinyint(1) DEFAULT 0 NOT NULL COMMENT 'Estatus',
-    us_blocked     tinyint(1) DEFAULT 0 NOT NULL COMMENT 'Bloqueado',
-    us_deleted     tinyint(1) DEFAULT 0 NOT NULL COMMENT 'Eliminado',
-    us_seat_fk     int                  NOT NULL COMMENT 'ID Sede',
-    us_rol_fk      int                  NOT NULL COMMENT 'ID Rol',
-    us_plan_fk     int                  NOT NULL COMMENT 'ID Plan',
-    us_location_fk int                  NOT NULL COMMENT 'ID Lugar',
+    us_first_name       varchar(45)                          NOT NULL COMMENT 'Nombre',
+    us_last_name        varchar(45)                          NOT NULL COMMENT 'Apellido',
+    us_address          varchar(200)                         NOT NULL COMMENT 'Dirección',
+    us_email            varchar(50)                          NOT NULL COMMENT 'Email',
+    us_password         varchar(255)                         NOT NULL COMMENT 'Contraseña',
+    us_status           tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Estatus',
+    us_blocked          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Bloqueado',
+    us_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Bloqueado',
+    us_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
+    us_seat_fk          int                                  NOT NULL COMMENT 'ID Sede',
+    us_rol_fk           int                                  NOT NULL COMMENT 'ID Rol',
+    us_plan_fk          int                                  NOT NULL COMMENT 'ID Plan',
+    us_location_fk      int                                  NOT NULL COMMENT 'ID Lugar',
+    us_user_created_fk  int        DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
+    us_user_modified_fk int        DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',
+    us_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
+    us_date_modified    datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de modificacion',
     CONSTRAINT FOREIGN KEY (us_seat_fk) REFERENCES seat (se_id),
     CONSTRAINT FOREIGN KEY (us_rol_fk) REFERENCES rol (ro_id),
     CONSTRAINT FOREIGN KEY (us_plan_fk) REFERENCES plan (pl_id),

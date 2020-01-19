@@ -369,6 +369,124 @@ VALUES ('Administrador');
 INSERT INTO rol(ro_name)
 VALUES ('Corredor');
 
+INSERT INTO extra(ex_name)
+VALUES ('Piso');
+INSERT INTO extra(ex_name)
+VALUES ('Piscina');
+INSERT INTO extra(ex_name)
+VALUES ('Estacionamiento');
+INSERT INTO extra(ex_name)
+VALUES ('Parillera');
+INSERT INTO extra(ex_name)
+VALUES ('Baño');
+INSERT INTO extra(ex_name)
+VALUES ('Habitacion');
+
+INSERT INTO agency(ag_name)
+VALUES ('Century21');
+INSERT INTO agency(ag_name)
+VALUES ('Remax');
+INSERT INTO agency(ag_name)
+VALUES ('Rent a House');
+INSERT INTO agency(ag_name)
+VALUES ('Sinergia');
+
+INSERT INTO plan(pl_name, pl_price)
+VALUES ('Regular', 5);
+INSERT INTO plan(pl_name, pl_price)
+VALUES ('Normal', 10);
+INSERT INTO plan(pl_name, pl_price)
+VALUES ('Premium', 15);
+
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Usuario - Crear', 'us_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Usuario - Consultar', 'us_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Usuario - Modificar', 'us_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Usuario - Eliminar', 'us_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Inmueble - Crear', 'pr_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Inmueble - Consultar', 'pr_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Inmueble - Modificar', 'pr_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Inmueble - Eliminar', 'pr_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Rol - Crear', 'ro_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Rol - Consultar', 'ro_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Rol - Modificar', 'ro_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Rol - Eliminar', 'ro_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Agencia - Crear', 'ag_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Agencia - Consultar', 'ag_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Agencia - Modificar', 'ag_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Agencia - Eliminar', 'ag_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Sede - Crear', 'se_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Sede - Consultar', 'se_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Sede - Modificar', 'se_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Sede - Eliminar', 'se_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Plan - Crear', 'pl_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Plan - Consultar', 'pl_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Plan - Modificar', 'pl_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Plan - Eliminar', 'pl_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Localizacion - Crear', 'lo_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Localizacion - Consultar', 'lo_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Localizacion - Modifcar', 'lo_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Localizacion - Eliminar', 'lo_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Extra - Crear', 'ex_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Extra - Consultar', 'ex_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Extra - Modificar', 'ex_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Extra - Eliminar', 'ex_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Solicitud - Crear', 're_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Solicitud - Consultar', 're_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Solicitud - Modificar', 're_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Solicitud - Eliminar', 're_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Tipo_Propiedad - Crear', 'pt_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Tipo_Propiedad - Consultar', 'pl_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Tipo_Propiedad - Modificar', 'pl_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Tipo_Propiedad - Eliminar', 'pl_d');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Precio_Propiedad - Crear', 'pr_c');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Precio_Propiedad - Consultar', 'pr_r');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Precio_Propiedad - Modificar', 'pr_u');
+INSERT INTO access(ac_name, ac_abbreviation)
+VALUES ('Precio_Propiedad - Eliminar', 'pr_d');
+
 INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk, se_user_created_fk, se_user_modified_fk)
 VALUES ('C21 Los palos grandes', 'J-12306151', 20, 1, 1, 1);
 
@@ -386,3 +504,15 @@ INSERT INTO property(pr_name, pr_area, pr_description, pr_status,
                      pr_floor, pr_type_fk, pr_user_created_fk, pr_location_fk,
                      pr_user_modified_fk)
 VALUES ('Apartamento en los palos grandes', 125.23, 'bonito apartamento', 1, 0, 1, 1, 1, 1);
+INSERT INTO property_type(pt_name)
+VALUES ('Apartamento');
+INSERT INTO property_type(pt_name)
+VALUES ('Casa');
+INSERT INTO property_type(pt_name)
+VALUES ('Terreno');
+INSERT INTO property_type(pt_name)
+VALUES ('Galpon');
+INSERT INTO property_type(pt_name)
+VALUES ('Penthouse');
+INSERT INTO property_type(pt_name)
+VALUES ('Townhouse');
