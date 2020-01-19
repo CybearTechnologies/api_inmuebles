@@ -3,7 +3,6 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-
 DROP PROCEDURE IF EXISTS insertproperty;
 DELIMITER $$
 CREATE PROCEDURE insertproperty(name varchar(45), area double(20, 2), description varchar(500),
@@ -44,10 +43,10 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk user_created,
-           pr_date_created date_created,
-           pr_user_modified_fk user_modifier,
-           pr_date_modified date_modified
+           pr_user_created_fk usercreator,
+           pr_date_created datecreated,
+           pr_user_modified_fk usermodifier,
+           pr_date_modified datemodified
     FROM property;
 END$$
 
@@ -65,23 +64,65 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk user_created,
-           pr_date_created date_created,
-           pr_user_modified_fk user_modifier,
-           pr_date_modified date_modified
+           pr_user_created_fk usercreator,
+           pr_date_created datecreated,
+           pr_user_modified_fk usermodifier,
+           pr_date_modified datemodified
     FROM property
     WHERE id_pro = pr_id;
 END$$
 
 DROP PROCEDURE IF EXISTS deletepropertybyid;
 DELIMITER $$
-CREATE PROCEDURE deletepropertybyid(id int)
+CREATE PROCEDURE deletepropertybyid(id_pro int, id_user int)
 BEGIN
     UPDATE property
-    SET pr_deleted = 1
-    WHERE pr_id = id;
+    SET pr_deleted = 1,
+        pr_user_modified_fk = id_user
+    WHERE pr_id = id_pro;
+    SELECT pr_id id,
+           pr_name name,
+           pr_area area,
+           pr_description description,
+           pr_floor floor,
+           pr_status status,
+           pr_type_fk type,
+           pr_active active,
+           pr_deleted 'delete',
+           pr_location_fk location,
+           pr_user_created_fk usercreator,
+           pr_date_created datecreated,
+           pr_user_modified_fk usermodifier,
+           pr_date_modified datemodified
+    FROM property
+    WHERE id_pro = pr_id;
 END$$
 
+DROP PROCEDURE IF EXISTS inactivepropertybyid;
+DELIMITER $$
+CREATE PROCEDURE inactivepropertybyid(id_pro int, id_user int)
+BEGIN
+    UPDATE property
+    SET pr_active = 0,
+        pr_user_modified_fk = id_user
+    WHERE pr_id = id_pro;
+    SELECT pr_id id,
+           pr_name name,
+           pr_area area,
+           pr_description description,
+           pr_floor floor,
+           pr_status status,
+           pr_type_fk type,
+           pr_active active,
+           pr_deleted 'delete',
+           pr_location_fk location,
+           pr_user_created_fk usercreator,
+           pr_date_created datecreated,
+           pr_user_modified_fk usermodifier,
+           pr_date_modified datemodified
+    FROM property
+    WHERE id_pro = pr_id;
+END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---

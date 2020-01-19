@@ -6,18 +6,18 @@
 
 DROP PROCEDURE IF EXISTS insertextra;
 DELIMITER $$
-CREATE PROCEDURE insertextra(name_extra varchar(45))
+CREATE PROCEDURE insertextra(name_extra varchar(45), id_user int)
 BEGIN
-    INSERT INTO extra (ex_name)
-    VALUES (name_extra);
+    INSERT INTO extra (ex_name, ex_user_created_fk)
+    VALUES (name_extra, id_user);
     SELECT ex_id id,
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk user_created,
-           ex_date_created date_created,
-           ex_user_modified_fk user_modified,
-           ex_date_modified date_modified
+           ex_user_created_fk usercreator,
+           ex_date_created datecreated,
+           ex_user_modified_fk usermodifier,
+           ex_date_modified datemodified
     FROM extra
     WHERE ex_id = last_insert_id();
 END$$
@@ -30,10 +30,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk user_created,
-           ex_date_created date_created,
-           ex_user_modified_fk user_modified,
-           ex_date_modified date_modified
+           ex_user_created_fk usercreator,
+           ex_date_created datecreated,
+           ex_user_modified_fk usermodifier,
+           ex_date_modified datemodified
     FROM extra;
 END$$
 
@@ -45,10 +45,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk user_created,
-           ex_date_created date_created,
-           ex_user_modified_fk user_modified,
-           ex_date_modified date_modified
+           ex_user_created_fk usercreator,
+           ex_date_created datecreated,
+           ex_user_modified_fk usermodifier,
+           ex_date_modified datemodified
     FROM extra
     WHERE ex_id = id_extra;
 END$$
@@ -62,7 +62,11 @@ BEGIN
            ex.ex_active active,
            pe.pe_value value,
            ex.ex_id extra,
-           pe.pe_property_fk property
+           pe.pe_property_fk property,
+           ex.ex_user_created_fk usercreator,
+           ex.ex_date_created datecreated,
+           ex.ex_user_modified_fk usermodifier,
+           ex.ex_date_modified datemodified
     FROM extra ex,
          property_extra pe
     WHERE pe.pe_extra_fk = ex_id
@@ -71,19 +75,59 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteextrabyid;
 DELIMITER $$
-CREATE PROCEDURE deleteextrabyid(id_extra int)
+CREATE PROCEDURE deleteextrabyid(id_extra int, id_user int)
 BEGIN
     UPDATE extra
-    SET ex_deleted = 1
+    SET ex_deleted = 1, ex_user_modified_fk = id_user
     WHERE ex_id = id_extra;
     SELECT ex_id id,
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk user_created,
-           ex_date_created date_created,
-           ex_user_modified_fk user_modified,
-           ex_date_modified date_modified
+           ex_user_created_fk usercreator,
+           ex_date_created datecreated,
+           ex_user_modified_fk usermodifier,
+           ex_date_modified datemodified
+    FROM extra
+    WHERE ex_id = id_extra;
+END$$
+
+DROP PROCEDURE IF EXISTS inactiveextrabyid;
+DELIMITER $$
+CREATE PROCEDURE inactiveextrabyid(id_extra int, id_user int)
+BEGIN
+    UPDATE extra
+    SET ex_active = 0,
+        ex_user_modified_fk = id_user
+    WHERE ex_id = id_extra;
+    SELECT ex_id id,
+           ex_name name,
+           ex_active active,
+           ex_deleted 'delete',
+           ex_user_created_fk usercreator,
+           ex_date_created datecreated,
+           ex_user_modified_fk usermodifier,
+           ex_date_modified datemodified
+    FROM extra
+    WHERE ex_id = id_extra;
+END$$
+
+DROP PROCEDURE IF EXISTS activeextrabyid;
+DELIMITER $$
+CREATE PROCEDURE activeextrabyid(id_extra int, id_user int)
+BEGIN
+    UPDATE extra
+    SET ex_active = 1,
+        ex_user_modified_fk = id_user
+    WHERE ex_id = id_extra;
+    SELECT ex_id id,
+           ex_name name,
+           ex_active active,
+           ex_deleted 'delete',
+           ex_user_created_fk usercreator,
+           ex_date_created datecreated,
+           ex_user_modified_fk usermodifier,
+           ex_date_modified datemodified
     FROM extra
     WHERE ex_id = id_extra;
 END$$
