@@ -51,8 +51,6 @@ CREATE TABLE rol_access
     FOREIGN KEY (ra_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (ra_rol_fk) REFERENCES rol (ro_id),
     FOREIGN KEY (ra_access_fk) REFERENCES access (ac_id)
-
-
 );
 
 CREATE TABLE location
