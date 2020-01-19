@@ -1,16 +1,9 @@
-CREATE TABLE agency
+CREATE TABLE rol
 (
-    ag_id               int AUTO_INCREMENT COMMENT 'ID Inmobiliaria'
-        PRIMARY KEY,
-    ag_name             varchar(45)                          NOT NULL COMMENT 'Nombre',
-    ag_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
-    ag_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
-    ag_user_created_fk  int        DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
-    ag_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
-    ag_user_modified_fk int        DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',
-    ag_date_modified    datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha de modificación',
-    CONSTRAINT FOREIGN KEY (ag_user_created_fk) REFERENCES user (us_id),
-    CONSTRAINT FOREIGN KEY (ag_user_modified_fk) REFERENCES user (us_id)
+    ro_id      int AUTO_INCREMENT COMMENT 'ID rol' PRIMARY KEY,
+    ro_name    varchar(45)           NOT NULL COMMENT 'Nombre',
+    ro_active  tinyint(10) DEFAULT 1 NOT NULL COMMENT 'Activo',
+    ro_deleted tinyint(1)  DEFAULT 0 NOT NULL COMMENT 'Eliminado'
 );
 
 CREATE TABLE location
@@ -35,18 +28,22 @@ CREATE TABLE plan
     pl_user_created_fk  int        DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
     pl_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
     pl_user_modified_fk int        DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',
-    pl_date_modified    datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha de modificación',
-    CONSTRAINT FOREIGN KEY (pl_user_created_fk) REFERENCES user (us_id),
-    CONSTRAINT FOREIGN KEY (pl_user_modified_fk) REFERENCES user (us_id)
+    pl_date_modified    datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha de modificación'
 );
 
-CREATE TABLE rol
+CREATE TABLE agency
 (
-    ro_id      int AUTO_INCREMENT COMMENT 'ID rol' PRIMARY KEY,
-    ro_name    varchar(45)           NOT NULL COMMENT 'Nombre',
-    ro_active  tinyint(10) DEFAULT 1 NOT NULL COMMENT 'Activo',
-    ro_deleted tinyint(1)  DEFAULT 0 NOT NULL COMMENT 'Eliminado'
+    ag_id               int AUTO_INCREMENT COMMENT 'ID Inmobiliaria'
+        PRIMARY KEY,
+    ag_name             varchar(45)                          NOT NULL COMMENT 'Nombre',
+    ag_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
+    ag_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
+    ag_user_created_fk  int        DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
+    ag_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
+    ag_user_modified_fk int        DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',
+    ag_date_modified    datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha de modificación'
 );
+
 
 CREATE TABLE seat
 (
@@ -63,9 +60,7 @@ CREATE TABLE seat
     se_user_modified_fk int        DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',
     se_date_modified    datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'Fecha de modificación',
     CONSTRAINT FOREIGN KEY (se_location_fk) REFERENCES location (lo_id),
-    CONSTRAINT FOREIGN KEY (se_agency_fk) REFERENCES agency (ag_id),
-    CONSTRAINT FOREIGN KEY (se_user_created_fk) REFERENCES user (us_id),
-    CONSTRAINT FOREIGN KEY (se_user_modified_fk) REFERENCES user (us_id)
+    CONSTRAINT FOREIGN KEY (se_agency_fk) REFERENCES agency (ag_id)
 );
 
 CREATE TABLE user
@@ -89,6 +84,36 @@ CREATE TABLE user
     CONSTRAINT FOREIGN KEY (us_plan_fk) REFERENCES plan (pl_id),
     CONSTRAINT FOREIGN KEY (us_location_fk) REFERENCES location (lo_id)
 );
+
+ALTER TABLE plan
+    ADD CONSTRAINT
+        FOREIGN KEY (pl_user_created_fk)
+            REFERENCES user (us_id);
+
+ALTER TABLE plan
+    ADD CONSTRAINT
+        FOREIGN KEY (pl_user_modified_fk)
+            REFERENCES user (us_id);
+
+ALTER TABLE seat
+    ADD CONSTRAINT
+        FOREIGN KEY (se_user_created_fk)
+            REFERENCES user (us_id);
+
+ALTER TABLE seat
+    ADD CONSTRAINT
+        FOREIGN KEY (se_user_modified_fk)
+            REFERENCES user (us_id);
+
+ALTER TABLE agency
+    ADD CONSTRAINT
+        FOREIGN KEY (ag_user_created_fk)
+            REFERENCES user (us_id);
+
+ALTER TABLE agency
+    ADD CONSTRAINT
+        FOREIGN KEY (ag_user_modified_fk)
+            REFERENCES user (us_id);
 
 CREATE TABLE access
 (
