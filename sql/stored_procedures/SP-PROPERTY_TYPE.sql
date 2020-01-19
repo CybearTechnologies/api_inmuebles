@@ -72,11 +72,11 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteproperytype;
 DELIMITER $$
-CREATE PROCEDURE deleteproperytype(id int)
+CREATE PROCEDURE deleteproperytype(id int, user int)
 BEGIN
     UPDATE
         property_type
-    SET pt_deleted = 1
+    SET pt_deleted = 1, pt_user_modified_fk = user
     WHERE pt_id = id;
 END$$
 /**
