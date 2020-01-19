@@ -1,57 +1,20 @@
-CREATE TABLE plan
+CREATE TABLE user
 (
-    pl_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID plan',
-    pl_name             varchar(45)   NOT NULL COMMENT 'Nombre',
-    pl_price            double(10, 2) NOT NULL COMMENT 'Precio',
-    pl_active           tinyint(1)    NOT NULL DEFAULT 1 COMMENT 'Activo',
-    pl_deleted          tinyint(1)    NOT NULL DEFAULT 0 COMMENT 'Eliminado',
-    pl_user_created_fk  int(10)                DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    pl_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
-    pl_user_modified_fk int(10)                DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
-    pl_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    FOREIGN KEY (pl_user_created_fk) REFERENCES user (us_id),
-    FOREIGN KEY (pl_user_modified_fk) REFERENCES user (us_id)
+    us_id          int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID usuario',
+    us_first_name  varchar(45)  NOT NULL COMMENT 'Nombre',
+    us_last_name   varchar(45)  NOT NULL COMMENT 'Apellido',
+    us_address     varchar(200) NOT NULL COMMENT 'Dirección',
+    us_email       varchar(50)  NOT NULL COMMENT 'Email',
+    us_password    varchar(255) NOT NULL COMMENT 'Contraseña',
+    us_active      tinyint(1)   NOT NULL DEFAULT 1 COMMENT 'Activo',
+    us_blocked     tinyint(1)   NOT NULL DEFAULT 0 COMMENT 'Bloqueado',
+    us_deleted     tinyint(1)   NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    us_seat_fk     int(10) COMMENT 'ID Sede',
+    us_rol_fk      int(10)      NOT NULL COMMENT 'ID Rol',
+    us_plan_fk     int(10) COMMENT 'ID Plan',
+    us_location_fk int(10)      NOT NULL COMMENT 'ID Lugar'
 );
 
-CREATE TABLE access
-(
-    ac_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID acceso',
-    ac_name             varchar(45) NOT NULL COMMENT 'Nombre',
-    ac_abbreviation     varchar(5)  NOT NULL COMMENT 'Abreviacion',
-    ac_active           tinyint(1)  NOT NULL DEFAULT 1 COMMENT 'Activo',
-    ac_deleted          tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado',
-    ac_user_created_fk  int(10)              DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    ac_date_created     datetime    NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
-    ac_user_modified_fk int(10)              DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
-    ac_date_modified    datetime    NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    FOREIGN KEY (ac_user_created_fk) REFERENCES user (us_id),
-    FOREIGN KEY (ac_user_modified_fk) REFERENCES user (us_id)
-);
-
-CREATE TABLE rol
-(
-    ro_id      int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID rol',
-    ro_name    varchar(45) NOT NULL COMMENT 'Nombre',
-    ro_active  tinyint(10) NOT NULL DEFAULT 1 COMMENT 'Activo',
-    ro_deleted tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado'
-);
-
-CREATE TABLE rol_access
-(
-    ra_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID rol-acceso',
-    ra_rol_fk           int(10)    NOT NULL COMMENT 'ID rol',
-    ra_access_fk        int(10)    NOT NULL COMMENT 'ID access',
-    ra_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
-    ra_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
-    ra_user_created_fk  int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    ra_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
-    ra_user_modified_fk int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
-    ra_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    FOREIGN KEY (ra_user_created_fk) REFERENCES user (us_id),
-    FOREIGN KEY (ra_user_modified_fk) REFERENCES user (us_id),
-    FOREIGN KEY (ra_rol_fk) REFERENCES rol (ro_id),
-    FOREIGN KEY (ra_access_fk) REFERENCES access (ac_id)
-);
 
 CREATE TABLE location
 (
@@ -97,26 +60,67 @@ CREATE TABLE seat
     FOREIGN KEY (se_agency_fk) REFERENCES agency (ag_id)
 );
 
-CREATE TABLE user
+CREATE TABLE rol
 (
-    us_id          int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID usuario',
-    us_first_name  varchar(45)  NOT NULL COMMENT 'Nombre',
-    us_last_name   varchar(45)  NOT NULL COMMENT 'Apellido',
-    us_address     varchar(200) NOT NULL COMMENT 'Dirección',
-    us_email       varchar(50)  NOT NULL COMMENT 'Email',
-    us_password    varchar(255) NOT NULL COMMENT 'Contraseña',
-    us_active      tinyint(1)   NOT NULL DEFAULT 1 COMMENT 'Activo',
-    us_blocked     tinyint(1)   NOT NULL DEFAULT 0 COMMENT 'Bloqueado',
-    us_deleted     tinyint(1)   NOT NULL DEFAULT 0 COMMENT 'Eliminado',
-    us_seat_fk     int(10) COMMENT 'ID Sede',
-    us_rol_fk      int(10)      NOT NULL COMMENT 'ID Rol',
-    us_plan_fk     int(10) COMMENT 'ID Plan',
-    us_location_fk int(10)      NOT NULL COMMENT 'ID Lugar',
-    FOREIGN KEY (us_seat_fk) REFERENCES seat (se_id),
-    FOREIGN KEY (us_rol_fk) REFERENCES rol (ro_id),
-    FOREIGN KEY (us_plan_fk) REFERENCES plan (pl_id),
-    FOREIGN KEY (us_location_fk) REFERENCES location (lo_id)
+    ro_id      int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID rol',
+    ro_name    varchar(45) NOT NULL COMMENT 'Nombre',
+    ro_active  tinyint(10) NOT NULL DEFAULT 1 COMMENT 'Activo',
+    ro_deleted tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado'
 );
+
+CREATE TABLE plan
+(
+    pl_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID plan',
+    pl_name             varchar(45)   NOT NULL COMMENT 'Nombre',
+    pl_price            double(10, 2) NOT NULL COMMENT 'Precio',
+    pl_active           tinyint(1)    NOT NULL DEFAULT 1 COMMENT 'Activo',
+    pl_deleted          tinyint(1)    NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    pl_user_created_fk  int(10)                DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    pl_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    pl_user_modified_fk int(10)                DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    pl_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    FOREIGN KEY (pl_user_created_fk) REFERENCES user (us_id),
+    FOREIGN KEY (pl_user_modified_fk) REFERENCES user (us_id)
+);
+
+ALTER TABLE user
+    ADD FOREIGN KEY (us_seat_fk) REFERENCES seat (se_id),
+    ADD FOREIGN KEY (us_rol_fk) REFERENCES rol (ro_id),
+    ADD FOREIGN KEY (us_plan_fk) REFERENCES plan (pl_id),
+    ADD FOREIGN KEY (us_location_fk) REFERENCES location (lo_id);
+
+CREATE TABLE access
+(
+    ac_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID acceso',
+    ac_name             varchar(45) NOT NULL COMMENT 'Nombre',
+    ac_abbreviation     varchar(5)  NOT NULL COMMENT 'Abreviacion',
+    ac_active           tinyint(1)  NOT NULL DEFAULT 1 COMMENT 'Activo',
+    ac_deleted          tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    ac_user_created_fk  int(10)              DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    ac_date_created     datetime    NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    ac_user_modified_fk int(10)              DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    ac_date_modified    datetime    NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    FOREIGN KEY (ac_user_created_fk) REFERENCES user (us_id),
+    FOREIGN KEY (ac_user_modified_fk) REFERENCES user (us_id)
+);
+
+CREATE TABLE rol_access
+(
+    ra_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID rol-acceso',
+    ra_rol_fk           int(10)    NOT NULL COMMENT 'ID rol',
+    ra_access_fk        int(10)    NOT NULL COMMENT 'ID access',
+    ra_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
+    ra_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    ra_user_created_fk  int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    ra_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    ra_user_modified_fk int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    ra_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    FOREIGN KEY (ra_user_created_fk) REFERENCES user (us_id),
+    FOREIGN KEY (ra_user_modified_fk) REFERENCES user (us_id),
+    FOREIGN KEY (ra_rol_fk) REFERENCES rol (ro_id),
+    FOREIGN KEY (ra_access_fk) REFERENCES access (ac_id)
+);
+
 
 CREATE TABLE rating
 (
