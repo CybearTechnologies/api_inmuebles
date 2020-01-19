@@ -15,10 +15,10 @@ BEGIN
            ag_name name,
            ag_active active,
            ag_deleted 'delete',
-           ag_user_created_fk user_created,
-           ag_date_created date_created,
-           ag_user_modified_fk user_modified,
-           ag_date_modified date_modified
+           ag_user_created_fk userCreator,
+           ag_date_created dateCreated,
+           ag_user_modified_fk userModifier,
+           ag_date_modified dateModified
     FROM agency
     WHERE ag_id = last_insert_id();
 END$$
@@ -32,10 +32,10 @@ BEGIN
            ag_name name,
            ag_active active,
            ag_deleted 'delete',
-           ag_user_created_fk user_created,
-           ag_date_created date_created,
-           ag_user_modified_fk user_modified,
-           ag_date_modified date_modified
+           ag_user_created_fk userCreator,
+           ag_date_created dateCreated,
+           ag_user_modified_fk userModifier,
+           ag_date_modified dateModified
     FROM agency
     WHERE ag_id = id_agency;
 END$$
@@ -48,10 +48,10 @@ BEGIN
            ag_name name,
            ag_active active,
            ag_deleted 'delete',
-           ag_user_created_fk user_created,
-           ag_date_created date_created,
-           ag_user_modified_fk user_modified,
-           ag_date_modified date_modified
+           ag_user_created_fk userCreator,
+           ag_date_created dateCreated,
+           ag_user_modified_fk userModifier,
+           ag_date_modified dateModified
     FROM agency;
 END$$
 
@@ -63,10 +63,10 @@ BEGIN
            ag_name name,
            ag_active active,
            ag_deleted 'delete',
-           ag_user_created_fk user_created,
-           ag_date_created date_created,
-           ag_user_modified_fk user_modified,
-           ag_date_modified date_modified
+           ag_user_created_fk userCreator,
+           ag_date_created dateCreated,
+           ag_user_modified_fk userModifier,
+           ag_date_modified dateModified
     FROM agency
     WHERE ag_name = name_agency;
 END$$

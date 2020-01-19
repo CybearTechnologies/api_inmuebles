@@ -14,10 +14,10 @@ BEGIN
            ac_abbreviation abbreviation,
            ac_active active,
            ac_deleted 'delete',
-           ac_user_created_fk user_created,
-           ac_user_modified_fk user_modified,
-           ac_date_created date_created,
-           ac_date_modified date_modified
+           ac_user_created_fk userCreator,
+           ac_user_modified_fk userModifier,
+           ac_date_created dateCreated,
+           ac_date_modified dateModified
     FROM access
     WHERE ac_id = last_insert_id();
 END$$
@@ -31,10 +31,10 @@ BEGIN
            ac_abbreviation abbreviation,
            ac_active active,
            ac_deleted 'delete',
-           ac_user_created_fk user_created,
-           ac_user_modified_fk user_modified,
-           ac_date_created date_created,
-           ac_date_modified date_modified
+           ac_user_created_fk userCreator,
+           ac_user_modified_fk userModifier,
+           ac_date_created dateCreated,
+           ac_date_modified dateModified
     FROM access;
 END$$
 
@@ -47,10 +47,10 @@ BEGIN
            ac_abbreviation abbreviation,
            ac_active active,
            ac_deleted 'delete',
-           ac_user_created_fk user_created,
-           ac_user_modified_fk user_modified,
-           ac_date_created date_created,
-           ac_date_modified date_modified
+           ac_user_created_fk userCreator,
+           ac_user_modified_fk userModifier,
+           ac_date_created dateCreated,
+           ac_date_modified dateModified
     FROM access
     WHERE ac_name = name_access;
 END$$
@@ -64,10 +64,10 @@ BEGIN
            ac_abbreviation abbreviation,
            ac_active active,
            ac_deleted 'delete',
-           ac_user_created_fk user_created,
-           ac_user_modified_fk user_modified,
-           ac_date_created date_created,
-           ac_date_modified date_modified
+           ac_user_created_fk userCreator,
+           ac_user_modified_fk userModifier,
+           ac_date_created dateCreated,
+           ac_date_modified dateModified
     FROM access
     WHERE ac_id = id_access;
 END$$
@@ -81,10 +81,10 @@ BEGIN
            ac_abbreviation abbreviation,
            ac_active active,
            ac_deleted 'delete',
-           ac_user_created_fk user_created,
-           ac_user_modified_fk user_modified,
-           ac_date_created date_created,
-           ac_date_modified date_modified
+           ac_user_created_fk userCreator,
+           ac_user_modified_fk userModifier,
+           ac_date_created dateCreated,
+           ac_date_modified dateModified
     FROM access
     WHERE ac_abbreviation = abbreviation_access;
 END$$
