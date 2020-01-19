@@ -4,6 +4,7 @@ CREATE TABLE property_type
         PRIMARY KEY,
     pt_name             varchar(30)                          NOT NULL COMMENT 'Nombre',
     pt_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
+    pt_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
     pt_user_created_fk  int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
     pt_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
     pt_user_modified_fk int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',

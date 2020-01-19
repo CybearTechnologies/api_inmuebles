@@ -10,6 +10,7 @@ CREATE TABLE property
     pr_type_fk          int(10)                              NOT NULL COMMENT 'ID Tipo de propiedad',
     pr_location_fk      int(10)                              NOT NULL COMMENT 'ID lugar',
     pr_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
+    pr_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
     pr_user_created_fk  int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
     pr_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
     pr_user_modified_fk int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',

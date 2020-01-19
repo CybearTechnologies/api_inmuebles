@@ -4,6 +4,7 @@ CREATE TABLE agency
         PRIMARY KEY,
     ag_name             varchar(45)                          NOT NULL COMMENT 'Nombre',
     ag_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
+    ag_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
     ag_user_created_fk  int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
     ag_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
     ag_user_modified_fk int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',

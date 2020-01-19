@@ -4,6 +4,7 @@ CREATE TABLE plan
     pl_name             varchar(45)                          NOT NULL COMMENT 'Nombre',
     pl_price            double(10, 2)                        NOT NULL COMMENT 'Precio',
     pl_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
+    pl_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
     pl_user_created_fk  int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
     pl_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
     pl_user_modified_fk int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',

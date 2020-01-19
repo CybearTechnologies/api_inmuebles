@@ -6,6 +6,7 @@ CREATE TABLE rating
     ra_message          varchar(200)                         NULL COMMENT 'Mensaje',
     ra_user_fk          int(10)                              NOT NULL COMMENT 'ID usuario',
     ra_active           tinyint(1) DEFAULT 1                 NOT NULL COMMENT 'Activo',
+    ra_deleted          tinyint(1) DEFAULT 0                 NOT NULL COMMENT 'Eliminado',
     ra_user_created_fk  int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario creador',
     ra_date_created     datetime   DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT 'Fecha de creación',
     ra_user_modified_fk int(10)    DEFAULT 1                 NOT NULL COMMENT 'Usuario modificador',
