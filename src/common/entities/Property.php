@@ -5,6 +5,8 @@ class Property extends Entity {
 	private $_description;
 	private $_state;
 	private $_floor;
+	private $_type;
+	private $_location;
 
 	/**
 	 * Property constructor.
@@ -15,6 +17,8 @@ class Property extends Entity {
 	 * @param string $description
 	 * @param int    $state
 	 * @param int    $floor
+	 * @param int    $type
+	 * @param int    $location
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -23,14 +27,16 @@ class Property extends Entity {
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $name, float $area, string $description,
-		int $state, int $floor, bool $active, bool $delete, int $userCreator, int $userModifier,
-		string $dateCreated, string $dateModified) {
+		int $state, int $floor, int $type, int $location, bool $active, bool $delete,
+		int $userCreator, int $userModifier, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 		$this->_area = $area;
 		$this->_description = $description;
 		$this->_state = $state;
 		$this->_floor = $floor;
+		$this->_type = $type;
+		$this->_location = $location;
 	}
 
 	/**
@@ -101,5 +107,33 @@ class Property extends Entity {
 	 */
 	public function setFloor ($floor):void {
 		$this->_floor = $floor;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getType ():int {
+		return $this->_type;
+	}
+
+	/**
+	 * @param int $type
+	 */
+	public function setType (int $type):void {
+		$this->_type = $type;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getLocation ():int {
+		return $this->_location;
+	}
+
+	/**
+	 * @param int $location
+	 */
+	public function setLocation (int $location):void {
+		$this->_location = $location;
 	}
 }

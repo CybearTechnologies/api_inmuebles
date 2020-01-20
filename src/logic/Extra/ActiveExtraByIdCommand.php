@@ -1,7 +1,7 @@
 <?php
-class DeleteExtraByIdCommand extends Command {
+class ActiveExtraByIdCommand extends Command {
 	/**
-	 * DeleteExtraByIdCommand constructor.
+	 * ActiveExtraByIdCommand constructor.
 	 *
 	 * @param Extra $entity
 	 */
@@ -14,11 +14,11 @@ class DeleteExtraByIdCommand extends Command {
 	 * @throws ExtraNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->deleteExtraById());
+		$this->setData($this->_dao->activeExtraById());
 	}
 
-	/**
-	 * @return Extra
+	/***
+	 * @return mixed
 	 */
 	public function return () {
 		return $this->getData();

@@ -3,6 +3,7 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
+
 DROP PROCEDURE IF EXISTS insertProperty;
 DELIMITER $$
 CREATE PROCEDURE insertProperty(name varchar(45), area double(20, 2), description varchar(500),
@@ -149,6 +150,7 @@ BEGIN
     FROM property
     WHERE id_pro = pr_id;
 END$$
+
 /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---

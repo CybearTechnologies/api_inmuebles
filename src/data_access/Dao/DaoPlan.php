@@ -6,6 +6,8 @@ class DaoPlan extends Dao {
 	private const QUERY_GET_BY_NAME = "CALL getPlanByName(:name)";
 	private const QUERY_UPDATE = "CALL updatePlan(:id,:name,:price,:user)";
 	private const QUERY_DELETE = "CALL deletePlan(:id,:user)";
+	private const QUERY_ACTIVE = "CALL activePlan(:id,:user)";
+	private const QUERY_INACTIVE = "CALL inactivePlan(:id,:user)";
 	private $_entity;
 
 	/**
@@ -63,6 +65,7 @@ class DaoPlan extends Dao {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
+
 	/**
 	 * @return Plan
 	 * @throws DatabaseConnectionException
@@ -149,6 +152,46 @@ class DaoPlan extends Dao {
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Plan
+	 * @throws DatabaseConnectionException
+	 */
+	public function activePlanById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Plan
+	 * @throws DatabaseConnectionException
+	 */
+	public function inactivePlanById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
 

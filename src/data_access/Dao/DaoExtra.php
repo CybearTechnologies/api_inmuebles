@@ -22,6 +22,27 @@ class DaoExtra extends Dao {
 	/**
 	 * @return Extra
 	 * @throws DatabaseConnectionException
+	 */
+	public function createExtra () {
+		try {
+			$id = $this->_entity->getName();
+			$user = $this->_entity->getUserCreator();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":name", $id, PDO::PARAM_STR);
+			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
+			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Extra
+	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
 	public function getExtraById () {
@@ -35,6 +56,75 @@ class DaoExtra extends Dao {
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Extra
+	 * @throws DatabaseConnectionException
+	 * @throws ExtraNotFoundException
+	 */
+	public function deleteExtraById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_EXTRA_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new ExtraNotFoundException("There are no Extra found", 404);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Extra
+	 * @throws DatabaseConnectionException
+	 * @throws ExtraNotFoundException
+	 */
+	public function inactiveExtraById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE_EXTRA_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new ExtraNotFoundException("There are no Extra found", 404);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Extra
+	 * @throws DatabaseConnectionException
+	 * @throws ExtraNotFoundException
+	 */
+	public function activeExtraById () {
+		try {
+			$id = $this->_entity->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE_EXTRA_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new ExtraNotFoundException("There are no Extra found", 404);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
