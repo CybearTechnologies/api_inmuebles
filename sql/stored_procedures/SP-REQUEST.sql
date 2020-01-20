@@ -3,9 +3,9 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-DROP PROCEDURE IF EXISTS insertrequest;
+DROP PROCEDURE IF EXISTS insertRequest;
 DELIMITER $$
-CREATE PROCEDURE insertrequest(property int, user int)
+CREATE PROCEDURE insertRequest(property int, user int)
 BEGIN
     INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk)
     VALUES (property, user, user);
@@ -21,9 +21,9 @@ BEGIN
     WHERE re_id = last_insert_id();
 END$$
 
-DROP PROCEDURE IF EXISTS getallrequest;
+DROP PROCEDURE IF EXISTS getAllRequest;
 DELIMITER $$
-CREATE PROCEDURE getallrequest()
+CREATE PROCEDURE getAllRequest()
 BEGIN
     SELECT re_id id,
            re_property_fk property,
@@ -36,9 +36,9 @@ BEGIN
     FROM request;
 END$$
 
-DROP PROCEDURE IF EXISTS getrequestbyid;
+DROP PROCEDURE IF EXISTS getRequestById;
 DELIMITER $$
-CREATE PROCEDURE getrequestbyid(id_req int)
+CREATE PROCEDURE getRequestById(id_req int)
 BEGIN
     SELECT re_id id,
            re_property_fk property,
@@ -52,9 +52,9 @@ BEGIN
     WHERE re_id = id_req;
 END$$
 
-DROP PROCEDURE IF EXISTS getrequestbyuserid;
+DROP PROCEDURE IF EXISTS getRequestByUserId;
 DELIMITER $$
-CREATE PROCEDURE getrequestbyuserid(id_user int)
+CREATE PROCEDURE getRequestByUserId(id_user int)
 BEGIN
     SELECT re_id id,
            re_property_fk property,
@@ -68,9 +68,9 @@ BEGIN
     WHERE re_user_created_fk = id_user;
 END$$
 
-DROP PROCEDURE IF EXISTS getrequestbypropertyid;
+DROP PROCEDURE IF EXISTS getRequestByPropertyId;
 DELIMITER $$
-CREATE PROCEDURE getrequestbypropertyid(id_property int)
+CREATE PROCEDURE getRequestByPropertyId(id_property int)
 BEGIN
     SELECT re_id id,
            re_property_fk property,

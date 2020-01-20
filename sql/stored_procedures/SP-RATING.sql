@@ -3,9 +3,9 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-DROP PROCEDURE IF EXISTS insertrating;
+DROP PROCEDURE IF EXISTS insertRating;
 DELIMITER $$
-CREATE PROCEDURE insertrating(score float, message varchar(200), user_target int, user_fk int)
+CREATE PROCEDURE insertRating(score float, message varchar(200), user_target int, user_fk int)
 BEGIN
     INSERT INTO rating(ra_score, ra_message, ra_user_fk, ra_user_created_fk, ra_user_modified_fk)
     VALUES (score, message, user_target, user_fk, user_fk);
@@ -23,9 +23,9 @@ BEGIN
 END$$
 
 
-DROP PROCEDURE IF EXISTS getratingbyid;
+DROP PROCEDURE IF EXISTS getRatingById;
 DELIMITER $$
-CREATE PROCEDURE getratingbyid(id int)
+CREATE PROCEDURE getRatingById(id int)
 BEGIN
     SELECT ra_id id,
            ra_score score,
@@ -40,9 +40,9 @@ BEGIN
     WHERE ra_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS deleterating;
+DROP PROCEDURE IF EXISTS deleteRating;
 DELIMITER $$
-CREATE PROCEDURE deleterating(id int, user int)
+CREATE PROCEDURE deleteRating(id int, user int)
 BEGIN
     UPDATE rating
     SET ra_deleted = 0, ra_user_modified_fk = user
@@ -60,9 +60,9 @@ BEGIN
     WHERE ra_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS getallratingbyuser;
+DROP PROCEDURE IF EXISTS getAllRatingByUser;
 DELIMITER $$
-CREATE PROCEDURE getallratingbyuser(id_user int)
+CREATE PROCEDURE getAllRatingByUser(id_user int)
 BEGIN
     SELECT ra_id id,
            ra_score score,

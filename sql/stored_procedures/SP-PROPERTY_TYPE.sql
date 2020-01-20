@@ -70,9 +70,9 @@ BEGIN
     WHERE pt_id = last_insert_id();
 END$$
 
-DROP PROCEDURE IF EXISTS deleteProperyType;
+DROP PROCEDURE IF EXISTS deletePropertyType;
 DELIMITER $$
-CREATE PROCEDURE deleteProperyType(id_type int, user int)
+CREATE PROCEDURE deletePropertyType(id_type int, user int)
 BEGIN
     UPDATE
         property_type
