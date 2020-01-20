@@ -7,7 +7,8 @@ DROP PROCEDURE IF EXISTS getuserbyid;
 DELIMITER $$
 CREATE PROCEDURE getuserbyid(user_id int)
 BEGIN
-    SELECT us.us_first_name first_name,
+    SELECT us.us_id id,
+           us.us_first_name first_name,
            us.us_last_name last_name,
            us.us_address address,
            us.us_deleted deleted,
@@ -27,7 +28,8 @@ DROP PROCEDURE IF EXISTS getuserbyemail;
 DELIMITER $$
 CREATE PROCEDURE getuserbyemail(user_email varchar(45))
 BEGIN
-    SELECT us.us_first_name first_name,
+    SELECT us.us_id id,
+           us.us_first_name first_name,
            us.us_last_name last_name,
            us.us_address address,
            us.us_deleted deleted,
@@ -48,7 +50,8 @@ DROP PROCEDURE IF EXISTS getallusers;
 DELIMITER $$
 CREATE PROCEDURE getallusers()
 BEGIN
-    SELECT us.us_first_name first_name,
+    SELECT us.us_id id,
+           us.us_first_name first_name,
            us.us_last_name last_name,
            us.us_address address,
            us.us_deleted deleted,
