@@ -67,6 +67,7 @@ class DaoRating extends Dao {
 	 * @return Rating
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRating($dbObject->id, $dbObject->score, $dbObject->message, $dbObject->active);
+		return FactoryEntity::createRating($dbObject->id, $dbObject->score, $dbObject->message, $dbObject->active,
+			$dbObject->delete,$dbObject->userCreator,$dbObject->userModifier,$dbObject->dateCreated,$dbObject->dateMotified);
 	}
 }

@@ -81,8 +81,9 @@ END$$
 
 DROP PROCEDURE IF EXISTS deletePropertyPrice;
 DELIMITER $$
-CREATE PROCEDURE deletePropertyPrice(id int)
-UPDATE property_price set pp_deleted=1;
+CREATE PROCEDURE deletePropertyPrice(id int,user int)
+UPDATE property_price set pp_deleted=1 , pp_user_modified_fk=user
+WHERE pp_id = id;
 BEGIN
     SELECT pp_id id,
            pp_price price,

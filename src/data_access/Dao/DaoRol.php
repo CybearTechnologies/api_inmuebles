@@ -55,16 +55,6 @@ class DaoRol extends Dao {
 	}
 
 	/**
-	 * @param $dbObject
-	 *
-	 * @return mixed
-	 */
-	protected function extract ($dbObject) {
-		return FactoryEntity::createRol($dbObject->id, $dbObject->name, $dbObject->active, $dbObject->userCreator,
-			$dbObject->userModifier, $dbObject->$dbObject->dateCreated, $dbObject->dateModified);
-	}
-
-	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function deleteRolById () {
@@ -98,5 +88,15 @@ class DaoRol extends Dao {
 			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
+	}
+
+	/**
+	 * @param $dbObject
+	 *
+	 * @return mixed
+	 */
+	protected function extract ($dbObject) {
+		return FactoryEntity::createRol($dbObject->id, $dbObject->name, $dbObject->active, $dbObject->userCreator,
+			$dbObject->userModifier, $dbObject->$dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

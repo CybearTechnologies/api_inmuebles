@@ -68,6 +68,7 @@ class DaoPropertyPrice extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createPropertyPrice($dbObject->id, $dbObject->price,
-			$dbObject->date, $dbObject->final);
+			$dbObject->final,$dbObject->active,$dbObject->delete,$dbObject->userCreator,$dbObject->userModifier,
+			$dbObject->dateCreated,$dbObject->dateModified);
 	}
 }

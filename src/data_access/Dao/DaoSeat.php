@@ -85,6 +85,8 @@ class DaoSeat extends Dao {
 	 * @return Seat
 	 */
 	protected function extract ($dbObject):Seat {
-		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif, $dbObject->active);
+		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif, $dbObject->active,
+			$dbObject->delete,$dbObject->userCreator,$dbObject->userModifier,$dbObject->dateCreated,
+			$dbObject->dateModified);
 	}
 }

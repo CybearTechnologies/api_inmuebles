@@ -114,7 +114,6 @@ class FactoryEntity {
 
 	/**
 	 * @param int    $id
-	 * @param string $date
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -124,15 +123,14 @@ class FactoryEntity {
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, $date = "", $active = true, $delete = false, int $userCreator = 0,
+	static function createRequest (int $id, $active = true, $delete = false, int $userCreator = 0,
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Request {
-		return new Request($id, $date, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+		return new Request($id, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param int    $price
-	 * @param string $date
 	 * @param bool   $final
 	 * @param bool   $active
 	 * @param bool   $delete
@@ -144,11 +142,11 @@ class FactoryEntity {
 	 *
 	 * @return PropertyPrice
 	 */
-	static function createPropertyPrice (int $id, $price = 0, $date = "", $final = false, int $propertyId = 0,
+	static function createPropertyPrice (int $id, $price = 0, $final = false, int $propertyId = 0,
 		$active = true,
 		$delete = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
 		string $dateModified = ""):PropertyPrice {
-		return new PropertyPrice($id, $price, $date, $final, $active, $delete, $userCreator, $userModifier,
+		return new PropertyPrice($id, $price, $final, $active, $delete, $userCreator, $userModifier,
 			$dateCreated, $dateModified, $propertyId);
 	}
 

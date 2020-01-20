@@ -47,6 +47,17 @@ BEGIN
     UPDATE rating
     SET ra_deleted = 0, ra_user_modified_fk = user
     WHERE ra_id = id;
+    SELECT ra_id id,
+           ra_score score,
+           ra_message message,
+           ra_active active,
+           ra_deleted 'delete',
+           ra_user_created_fk user_created,
+           ra_user_modified_fk user_modifier,
+           ra_date_created date_created,
+           ra_date_modified date_modified
+    FROM rating
+    WHERE ra_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS getallratingbyuser;

@@ -71,9 +71,10 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteAgency;
 DELIMITER $$
-CREATE PROCEDURE deleteAgency(id int)
+CREATE PROCEDURE deleteAgency(id int, user int)
 BEGIN
-    UPDATE agency SET ag_deleted = 1;
+    UPDATE agency SET ag_deleted = 1,ag_user_modified_fk= user
+    WHERE ag_id = id;
     SELECT ag_id id,
            ag_name name,
            ag_active active,

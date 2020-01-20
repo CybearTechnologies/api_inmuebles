@@ -1,12 +1,10 @@
 <?php
 class Request extends Entity {
-	private $_date;
 
 	/**
 	 * Request constructor.
 	 *
 	 * @param int    $id
-	 * @param string $date
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -14,10 +12,9 @@ class Request extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $date, bool $active, bool $delete, int $userCreator, int $userModifier,
+	public function __construct (int $id, bool $active, bool $delete, int $userCreator, int $userModifier,
 		string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
-		$this->_date = $date;
 	}
 
 	/**

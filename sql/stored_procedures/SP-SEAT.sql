@@ -4,9 +4,9 @@
   ----------------------------------------------------------------------------------------------------------------------
  */
 
-DROP PROCEDURE IF EXISTS insertseat;
+DROP PROCEDURE IF EXISTS insertSeat;
 DELIMITER $$
-CREATE PROCEDURE insertseat(name varchar(100), rif varchar(20), location int, agency int,
+CREATE PROCEDURE insertSeat(name varchar(100), rif varchar(20), location int, agency int,
                             active tinyint, user int)
 BEGIN
     INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk, se_active,
@@ -27,9 +27,9 @@ BEGIN
     WHERE se_id = last_insert_id();
 END$$
 
-DROP PROCEDURE IF EXISTS getallseats;
+DROP PROCEDURE IF EXISTS getAllSeats;
 DELIMITER $$
-CREATE PROCEDURE getallseats()
+CREATE PROCEDURE getAllSeats()
 BEGIN
     SELECT se_id id,
            se_name name,
@@ -45,9 +45,9 @@ BEGIN
     FROM seat;
 END$$
 
-DROP PROCEDURE IF EXISTS getseatbyid;
+DROP PROCEDURE IF EXISTS getSeatById;
 DELIMITER $$
-CREATE PROCEDURE getseatbyid(id_seat int)
+CREATE PROCEDURE getSeatById(id_seat int)
 BEGIN
     SELECT se_id id,
            se_name name,
@@ -64,9 +64,9 @@ BEGIN
     WHERE se_id = id_seat;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteseat;
+DROP PROCEDURE IF EXISTS deleteSeat;
 DELIMITER $$
-CREATE PROCEDURE deleteseat(id int, user int)
+CREATE PROCEDURE deleteSeat(id int, user int)
 BEGIN
 
     UPDATE seat
@@ -89,9 +89,9 @@ BEGIN
     WHERE se_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS getseatsbyagency;
+DROP PROCEDURE IF EXISTS getSeatsByAgency;
 DELIMITER $$
-CREATE PROCEDURE getseatsbyagency(agency_id int)
+CREATE PROCEDURE getSeatsByAgency(agency_id int)
 BEGIN
     SELECT se_id id,
            se_name name,
