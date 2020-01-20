@@ -91,9 +91,9 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteAccess;
 DELIMITER $$
-CREATE PROCEDURE deleteAccess(id int)
+CREATE PROCEDURE deleteAccess(id int, user int)
 BEGIN
-UPDATE access SET ac_deleted=1;
+UPDATE access SET ac_deleted=1, ac_user_modified_fk=user;
 SELECT ac_id id,
            ac_name name,
            ac_abbreviation abbreviation,

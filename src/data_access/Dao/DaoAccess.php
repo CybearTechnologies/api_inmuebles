@@ -3,7 +3,7 @@ class DaoAccess extends Dao {
 	private const QUERY_CREATE_ACCESS = "CALL insertAccess(:name,:abbreviation,:user)";
 	private const QUERY_GET_ALL = "CALL getAllAccess()";
 	private const QUERY_GET_BY_ID = "CALL getAccessByid(:id)";
-	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById()";
+	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById(:id,:user)";
 	private const QUERY_GET_BY_NAME = "CALL getAccessByName(:name)";
 	private const QUERY_GET_BY_ABBREVIATION = "CALL getAccessByAbbreviation(:abbreviation)";
 	private $_entity;
@@ -115,8 +115,10 @@ class DaoAccess extends Dao {
 	public function deleteAccessById () {
 		try {
 			$id = $this->_entity->getId();
+			$user = $this->_entity->getUserModifier();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
 		}
 		catch (PDOException $exception) {
