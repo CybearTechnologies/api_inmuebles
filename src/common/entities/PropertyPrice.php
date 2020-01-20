@@ -45,20 +45,6 @@ class PropertyPrice extends Entity {
 	}
 
 	/**
-	 * @return mixed
-	 */
-	public function getDate () {
-		return $this->_date;
-	}
-
-	/**
-	 * @param mixed $date
-	 */
-	public function setDate ($date):void {
-		$this->_date = $date;
-	}
-
-	/**
 	 * @return bool
 	 */
 	public function isFinal ():bool {
@@ -85,4 +71,6 @@ class PropertyPrice extends Entity {
 	public function setPropertyId (int $propertyId):void {
 		$this->_propertyId = $propertyId;
 	}
+
+
 }
