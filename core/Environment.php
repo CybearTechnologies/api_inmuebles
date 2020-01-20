@@ -10,10 +10,10 @@ class Environment {
 	private const BASE_URL = "http://localhost/";
 	private const SITE_KEY = "";
 	//	Database connections settings
-	private const HOST = "us-cdbr-iron-east-05.cleardb.net";
-	private const DATABASE = "heroku_8b5b7c6dd73131f";
-	private const USERNAME = "ba31c5a2501267";
-	private const PASSWORD = "5aa02d44";
+	private const HOST = "localhost";
+	private const DATABASE = "inmobiliaria";
+	private const USERNAME = "root";
+	private const PASSWORD = "";
 
 	/**
 	 * @return PDO

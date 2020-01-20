@@ -3,8 +3,6 @@
   ---                                               AGENCY                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-
-
 DROP PROCEDURE IF EXISTS insertAgency;
 DELIMITER $$
 CREATE PROCEDURE insertAgency(name varchar(45), user int)

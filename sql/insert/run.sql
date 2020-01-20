@@ -838,3 +838,9 @@ ALTER TABLE property_extra
 ALTER TABLE origin
     ALTER COLUMN or_user_created_fk DROP DEFAULT,
     ALTER COLUMN or_user_modified_fk DROP DEFAULT;
+
+
+INSERT INTO agency(ag_name) VALUES ('Century21');
+INSERT INTO agency(ag_name) VALUES ('Remax');
+INSERT INTO agency(ag_name) VALUES ('Rent a House');
+INSERT INTO agency(ag_name) VALUES ('Sinergia');
