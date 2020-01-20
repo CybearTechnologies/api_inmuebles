@@ -375,30 +375,30 @@ VALUES (1, 'Admin', '', 'N/A', 'admin@test.com', '$2y$10$43DlSVjruhwwlvJJ.sKxjuQ
 
 ALTER TABLE rol
     ADD COLUMN ro_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    ADD COLUMN ro_date_created     datetime          NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    ADD COLUMN ro_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     /*ADD COLUMN ro_date_created datetime COMMENT 'Fecha de creación',*/
     ADD COLUMN ro_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
-    ADD COLUMN ro_date_modified    datetime          NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    ADD COLUMN ro_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     /*ADD COLUMN ro_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (ro_user_created_fk) REFERENCES user (us_id),
     ADD FOREIGN KEY (ro_user_modified_fk) REFERENCES user (us_id);
 
 ALTER TABLE user
     ADD COLUMN us_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    ADD COLUMN us_date_created     datetime          NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    ADD COLUMN us_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     /*ADD COLUMN us_date_created datetime COMMENT 'Fecha de creación',*/
     ADD COLUMN us_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
-    ADD COLUMN us_date_modified    datetime          NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    ADD COLUMN us_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     /*ADD COLUMN us_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (us_user_created_fk) REFERENCES user (us_id),
     ADD FOREIGN KEY (us_user_modified_fk) REFERENCES user (us_id);
 
 ALTER TABLE location
     ADD COLUMN lo_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    ADD COLUMN lo_date_created     datetime          NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    ADD COLUMN lo_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     /*ADD COLUMN lo_date_created datetime COMMENT 'Fecha de creación',*/
     ADD COLUMN lo_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
-    ADD COLUMN lo_date_modified    datetime          NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    ADD COLUMN lo_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     /*ADD COLUMN lo_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (lo_user_created_fk) REFERENCES user (us_id),
     ADD FOREIGN KEY (lo_user_modified_fk) REFERENCES user (us_id);
@@ -775,6 +775,15 @@ VALUES ('Precio_Propiedad - Modificar', 'pr_u');
 INSERT INTO access(ac_name, ac_abbreviation)
 VALUES ('Precio_Propiedad - Eliminar', 'pr_d');
 
+INSERT INTO agency(ag_name)
+VALUES ('Century21');
+INSERT INTO agency(ag_name)
+VALUES ('Remax');
+INSERT INTO agency(ag_name)
+VALUES ('Rent a House');
+INSERT INTO agency(ag_name)
+VALUES ('Sinergia');
+
 ALTER TABLE location
     ALTER COLUMN lo_user_created_fk DROP DEFAULT,
     ALTER COLUMN lo_user_modified_fk DROP DEFAULT;
@@ -838,9 +847,3 @@ ALTER TABLE property_extra
 ALTER TABLE origin
     ALTER COLUMN or_user_created_fk DROP DEFAULT,
     ALTER COLUMN or_user_modified_fk DROP DEFAULT;
-
-
-INSERT INTO agency(ag_name) VALUES ('Century21');
-INSERT INTO agency(ag_name) VALUES ('Remax');
-INSERT INTO agency(ag_name) VALUES ('Rent a House');
-INSERT INTO agency(ag_name) VALUES ('Sinergia');

@@ -3,7 +3,6 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-
 DROP PROCEDURE IF EXISTS insertExtra;
 DELIMITER $$
 CREATE PROCEDURE insertExtra(name_extra varchar(45), id_user int)
@@ -14,10 +13,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk usercreator,
-           ex_date_created datecreated,
-           ex_user_modified_fk usermodifier,
-           ex_date_modified datemodified
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
     FROM extra
     WHERE ex_id = last_insert_id();
 END$$
@@ -30,10 +29,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk usercreator,
-           ex_date_created datecreated,
-           ex_user_modified_fk usermodifier,
-           ex_date_modified datemodified
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
     FROM extra;
 END$$
 
@@ -45,10 +44,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk usercreator,
-           ex_date_created datecreated,
-           ex_user_modified_fk usermodifier,
-           ex_date_modified datemodified
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
     FROM extra
     WHERE ex_id = id_extra;
 END$$
@@ -62,11 +61,12 @@ BEGIN
            ex.ex_active active,
            pe.pe_value value,
            ex.ex_id extra,
+           ex.ex_deleted 'delete',
            pe.pe_property_fk property,
-           ex.ex_user_created_fk usercreator,
-           ex.ex_date_created datecreated,
-           ex.ex_user_modified_fk usermodifier,
-           ex.ex_date_modified datemodified
+           ex.ex_user_created_fk userCreator,
+           ex.ex_date_created dateCreated,
+           ex.ex_user_modified_fk userModifier,
+           ex.ex_date_modified dateModified
     FROM extra ex,
          property_extra pe
     WHERE pe.pe_extra_fk = ex_id
@@ -84,10 +84,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk usercreator,
-           ex_date_created datecreated,
-           ex_user_modified_fk usermodifier,
-           ex_date_modified datemodified
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
     FROM extra
     WHERE ex_id = id_extra;
 END$$
@@ -104,10 +104,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk usercreator,
-           ex_date_created datecreated,
-           ex_user_modified_fk usermodifier,
-           ex_date_modified datemodified
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
     FROM extra
     WHERE ex_id = id_extra;
 END$$
@@ -124,10 +124,10 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
-           ex_user_created_fk usercreator,
-           ex_date_created datecreated,
-           ex_user_modified_fk usermodifier,
-           ex_date_modified datemodified
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
     FROM extra
     WHERE ex_id = id_extra;
 END$$
