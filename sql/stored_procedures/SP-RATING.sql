@@ -5,10 +5,10 @@
  */
 DROP PROCEDURE IF EXISTS insertrating;
 DELIMITER $$
-CREATE PROCEDURE insertrating(score float, message varchar(200), usertarget int, userfk int)
+CREATE PROCEDURE insertrating(score float, message varchar(200), user_target int, user_fk int)
 BEGIN
     INSERT INTO rating(ra_score, ra_message, ra_user_fk, ra_user_created_fk, ra_user_modified_fk)
-    VALUES (score, message, usertarget, userfk, userfk);
+    VALUES (score, message, user_target, user_fk, user_fk);
     SELECT ra_id id,
            ra_score score,
            ra_message message,

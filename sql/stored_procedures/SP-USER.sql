@@ -20,10 +20,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
     FROM user us
     WHERE us_id = user_id;
 END$$
@@ -45,10 +45,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
     FROM user us
     WHERE lower(us.us_email) = user_email;
 END$$
@@ -91,7 +91,7 @@ DELIMITER $$
 CREATE PROCEDURE deleteuser(id int, user int)
 BEGIN
     UPDATE user
-    SET us_deleted = 1,us_user_modified_fk = user
+    SET us_deleted = 1, us_user_modified_fk = user
     WHERE us_id = id;
     SELECT us.us_id id,
            us.us_first_name first_name,
@@ -106,12 +106,12 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
     FROM user us
-    WHERE us_id = user;
+    WHERE us.us_id = user;
 
 END$$
 

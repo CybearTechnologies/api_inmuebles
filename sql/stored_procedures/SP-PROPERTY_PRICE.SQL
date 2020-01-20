@@ -25,7 +25,6 @@ BEGIN
     WHERE pp_id = last_insert_id();
 END$$
 
-
 DROP PROCEDURE IF EXISTS getAllPropertyPrice;
 DELIMITER $$
 CREATE PROCEDURE getAllPropertyPrice()
@@ -82,9 +81,10 @@ END$$
 DROP PROCEDURE IF EXISTS deletePropertyPrice;
 DELIMITER $$
 CREATE PROCEDURE deletePropertyPrice(id int,user int)
-UPDATE property_price set pp_deleted=1 , pp_user_modified_fk=user
-WHERE pp_id = id;
 BEGIN
+    UPDATE property_price
+    SET pp_deleted = 1, pp_user_modified_fk=user
+    WHERE pp_id = id;
     SELECT pp_id id,
            pp_price price,
            pp_final final,

@@ -3,7 +3,6 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-
 DROP PROCEDURE IF EXISTS insertrequest;
 DELIMITER $$
 CREATE PROCEDURE insertrequest(property int, user int)
