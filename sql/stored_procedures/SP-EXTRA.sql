@@ -39,7 +39,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS getExtraById;
 DELIMITER $$
-CREATE PROCEDURE getExtraByid(id_extra int)
+CREATE PROCEDURE getExtraById(id_extra int)
 BEGIN
     SELECT ex_id id,
            ex_name name,

@@ -1,9 +1,6 @@
 <?php
 class DaoOrigin extends Dao {
-	//TODO insertOrigin
-	//TODO usar SP y probarlos
-	private const QUERY_GET_BY_PUBLIC_KEY = "SELECT or_id id, or_name 'name', or_private_key private_key, or_public_key 
-										 	public_key, or_activated active FROM origin WHERE or_public_key=:key;";
+	private const QUERY_GET_BY_PUBLIC_KEY = "CALL getOriginByPublicKey(:key)";
 	private $_entity;
 
 	/**
@@ -45,7 +42,8 @@ class DaoOrigin extends Dao {
 	 * @return Origin
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createOrigin($dbObject->id, $dbObject->name, $dbObject->private_key, $dbObject->public_key,
+		return FactoryEntity::createOrigin($dbObject->id, $dbObject->name, $dbObject->private_key,
+			$dbObject->public_key,
 			$dbObject->active);
 	}
 }

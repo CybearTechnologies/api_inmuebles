@@ -1,11 +1,15 @@
 <?php
 class DaoProperty extends Dao {
-	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:type,:location,:user)"; //TODO
+	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,:user)"; //TODO
 	private const QUERY_GET_ALL = "CALL getAllProperty()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id)";
-	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id)";
+	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id,:user)";
+	private const QUERY_INACTIVE_PROPERTY_BY_ID = "inactivePropertyById(:id,:user)";
+	private const QUERY_ACTIVE_PROPERTY_BY_ID = "activePropertyById(:id,:user)";
 	private $_property;
 
+/*name varchar(45), area double(20, 2), description varchar(500),
+floor tinyint, type int, location int, user int*/
 	/**
 	 * DaoProperty constructor.
 	 *

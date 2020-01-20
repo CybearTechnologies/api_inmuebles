@@ -123,6 +123,32 @@ BEGIN
     FROM property
     WHERE id_pro = pr_id;
 END$$
+
+DROP PROCEDURE IF EXISTS activePropertyById;
+DELIMITER $$
+CREATE PROCEDURE activePropertyById(id_pro int, id_user int)
+BEGIN
+    UPDATE property
+    SET pr_active = 1,
+        pr_user_modified_fk = id_user
+    WHERE pr_id = id_pro;
+    SELECT pr_id id,
+           pr_name name,
+           pr_area area,
+           pr_description description,
+           pr_floor floor,
+           pr_status status,
+           pr_type_fk type,
+           pr_active active,
+           pr_deleted 'delete',
+           pr_location_fk location,
+           pr_user_created_fk usercreator,
+           pr_date_created datecreated,
+           pr_user_modified_fk usermodifier,
+           pr_date_modified datemodified
+    FROM property
+    WHERE id_pro = pr_id;
+END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---

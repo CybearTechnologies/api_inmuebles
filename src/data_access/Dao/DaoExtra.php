@@ -1,9 +1,12 @@
 <?php
 class DaoExtra extends Dao {
-	private const QUERY_CREATE = "CALL insertExtra(:name,:user)"; //TODO
+	private const QUERY_CREATE = "CALL insertExtra(:name,:user)";
 	private const QUERY_GET_ALL = "CALL getAllExtras()";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
-	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyID(:id)";
+	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyId(:id)";
+	private const QUERY_DELETE_EXTRA_BY_ID = "CALL deleteExtraById(:id,:user)";
+	private const QUERY_ACTIVE_EXTRA_BY_ID = "activeExtraById(:id,:user)";
+	private const QUERY_INACTIVE_EXTRA_BY_ID = "inactiveExtraById(:id,:user)";
 	private $_entity;
 
 	/**
@@ -80,12 +83,14 @@ class DaoExtra extends Dao {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
+
 	/**
 	 * @param $dbObject
 	 *
 	 * @return Extra
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createExtra($dbObject->id, $dbObject->name);
+		return FactoryEntity::createExtra($dbObject->id, $dbObject->name, $dbObject->active, $dbObject->delete,
+			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified);
 	}
 }
