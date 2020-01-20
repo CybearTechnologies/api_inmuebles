@@ -4,9 +4,9 @@
   ----------------------------------------------------------------------------------------------------------------------
  */
 
-DROP PROCEDURE IF EXISTS insertextra;
+DROP PROCEDURE IF EXISTS insertExtra;
 DELIMITER $$
-CREATE PROCEDURE insertextra(name_extra varchar(45), id_user int)
+CREATE PROCEDURE insertExtra(name_extra varchar(45), id_user int)
 BEGIN
     INSERT INTO extra (ex_name, ex_user_created_fk)
     VALUES (name_extra, id_user);
@@ -22,9 +22,9 @@ BEGIN
     WHERE ex_id = last_insert_id();
 END$$
 
-DROP PROCEDURE IF EXISTS getallextras;
+DROP PROCEDURE IF EXISTS getAllExtras;
 DELIMITER $$
-CREATE PROCEDURE getallextras()
+CREATE PROCEDURE getAllExtras()
 BEGIN
     SELECT ex_id id,
            ex_name name,
@@ -37,9 +37,9 @@ BEGIN
     FROM extra;
 END$$
 
-DROP PROCEDURE IF EXISTS getextrabyid;
+DROP PROCEDURE IF EXISTS getExtraById;
 DELIMITER $$
-CREATE PROCEDURE getextrabyid(id_extra int)
+CREATE PROCEDURE getExtraById(id_extra int)
 BEGIN
     SELECT ex_id id,
            ex_name name,
@@ -53,9 +53,9 @@ BEGIN
     WHERE ex_id = id_extra;
 END$$
 
-DROP PROCEDURE IF EXISTS getallextrabypropertyid;
+DROP PROCEDURE IF EXISTS getAllExtraByPropertyId;
 DELIMITER $$
-CREATE PROCEDURE getallextrabypropertyid(id_pr int)
+CREATE PROCEDURE getAllExtraByPropertyId(id_pr int)
 BEGIN
     SELECT pe.pe_id id,
            ex.ex_name name,
@@ -73,9 +73,9 @@ BEGIN
       AND pe.pe_property_fk = id_pr;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteextrabyid;
+DROP PROCEDURE IF EXISTS deleteExtraById;
 DELIMITER $$
-CREATE PROCEDURE deleteextrabyid(id_extra int, id_user int)
+CREATE PROCEDURE deleteExtraById(id_extra int, id_user int)
 BEGIN
     UPDATE extra
     SET ex_deleted = 1, ex_user_modified_fk = id_user
@@ -92,9 +92,9 @@ BEGIN
     WHERE ex_id = id_extra;
 END$$
 
-DROP PROCEDURE IF EXISTS inactiveextrabyid;
+DROP PROCEDURE IF EXISTS inactiveExtraById;
 DELIMITER $$
-CREATE PROCEDURE inactiveextrabyid(id_extra int, id_user int)
+CREATE PROCEDURE inactiveExtraById(id_extra int, id_user int)
 BEGIN
     UPDATE extra
     SET ex_active = 0,
@@ -112,9 +112,9 @@ BEGIN
     WHERE ex_id = id_extra;
 END$$
 
-DROP PROCEDURE IF EXISTS activeextrabyid;
+DROP PROCEDURE IF EXISTS activeExtraById;
 DELIMITER $$
-CREATE PROCEDURE activeextrabyid(id_extra int, id_user int)
+CREATE PROCEDURE activeExtraById(id_extra int, id_user int)
 BEGIN
     UPDATE extra
     SET ex_active = 1,

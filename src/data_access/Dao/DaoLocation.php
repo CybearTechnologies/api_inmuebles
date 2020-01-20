@@ -1,9 +1,9 @@
 <?php
 class DaoLocation extends Dao {
-	//TODO usar SP y probarlos
-	private const QUERY_GET_BY_NAME = "CALL getlocationsbyname(:name)";
-	private const QUERY_GET_BY_TYPE = "CALL getlocationsbytype(:type)";
-	private const QUERY_GET_BY_ID = "CALL getlocationsbyid(:id)";
+	private const QUERY_GET_BY_NAME = "CALL getLocationsByName(:name)";
+	private const QUERY_GET_BY_TYPE = "CALL getLocationsByType(:type)";
+	private const QUERY_GET_BY_ID = "CALL getLocationsById(:id)";
+	private const QUERY_GET_ALL_LOCATIONS = "CALL getAllLocations()";
 	private $_location;
 
 	/**
@@ -88,6 +88,8 @@ class DaoLocation extends Dao {
 	 * @return Location
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createLocation($dbObject->id, $dbObject->name, $dbObject->type);
+		return FactoryEntity::createLocation($dbObject->id, $dbObject->name, $dbObject->type, $dbObject->active,
+			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
+			$dbObject->dateModified);
 	}
 }

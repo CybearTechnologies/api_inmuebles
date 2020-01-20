@@ -3,9 +3,9 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-DROP PROCEDURE IF EXISTS insertplan;
+DROP PROCEDURE IF EXISTS insertPlan;
 DELIMITER $$
-CREATE PROCEDURE insertplan(name varchar(45), price double(10, 2), user int)
+CREATE PROCEDURE insertPlan(name varchar(45), price double(10, 2), user int)
 BEGIN
     INSERT INTO plan (pl_name, pl_price, pl_user_created_fk, pl_user_modified_fk)
     VALUES (name, price, user, user);
@@ -22,9 +22,9 @@ BEGIN
     WHERE pl_id = LAST_INSERT_ID();
 END$$
 
-DROP PROCEDURE IF EXISTS updateplan;
+DROP PROCEDURE IF EXISTS updatePlan;
 DELIMITER $$
-CREATE PROCEDURE updateplan(id_plan int, name varchar(45), price double(10, 2), user int)
+CREATE PROCEDURE updatePlan(id_plan int, name varchar(45), price double(10, 2), user int)
 BEGIN
     UPDATE plan
     SET pl_name = name,
@@ -44,9 +44,9 @@ BEGIN
     WHERE pl_id = id_plan;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteplan;
+DROP PROCEDURE IF EXISTS deletePlan;
 DELIMITER $$
-CREATE PROCEDURE deleteplan(id_plan int, id_user int)
+CREATE PROCEDURE deletePlan(id_plan int, id_user int)
 BEGIN
     UPDATE plan
     SET pl_deleted = 1, pl_user_modified_fk = id_user
@@ -64,9 +64,9 @@ BEGIN
     WHERE pl_id = id_plan;
 END$$
 
-DROP PROCEDURE IF EXISTS inactiveplan;
+DROP PROCEDURE IF EXISTS inactivePlan;
 DELIMITER $$
-CREATE PROCEDURE inactiveplan(id_plan int, id_user int)
+CREATE PROCEDURE inactivePlan(id_plan int, id_user int)
 BEGIN
     UPDATE plan
     SET pl_active = 0,
@@ -85,9 +85,9 @@ BEGIN
     WHERE pl_id = id_plan;
 END$$
 
-DROP PROCEDURE IF EXISTS activeplan;
+DROP PROCEDURE IF EXISTS activePlan;
 DELIMITER $$
-CREATE PROCEDURE activeplan(id_plan int, id_user int)
+CREATE PROCEDURE activePlan(id_plan int, id_user int)
 BEGIN
     UPDATE plan
     SET pl_active = 1,
@@ -106,9 +106,9 @@ BEGIN
     WHERE pl_id = id_plan;
 END$$
 
-DROP PROCEDURE IF EXISTS getallplans;
+DROP PROCEDURE IF EXISTS getAllPlans;
 DELIMITER $$
-CREATE PROCEDURE getallplans()
+CREATE PROCEDURE getAllPlans()
 BEGIN
     SELECT pl_id id,
            pl_name name,
@@ -122,9 +122,9 @@ BEGIN
     FROM plan;
 END$$
 
-DROP PROCEDURE IF EXISTS getplanbyid;
+DROP PROCEDURE IF EXISTS getPlanById;
 DELIMITER $$
-CREATE PROCEDURE getplanbyid(plan_id int)
+CREATE PROCEDURE getPlanById(plan_id int)
 BEGIN
     SELECT pl_id id,
            pl_name name,
@@ -139,9 +139,9 @@ BEGIN
     WHERE pl_id = plan_id;
 END$$
 
-DROP PROCEDURE IF EXISTS getplanbyname;
+DROP PROCEDURE IF EXISTS getPlanByName;
 DELIMITER $$
-CREATE PROCEDURE getplanbyname(plan_name varchar(45))
+CREATE PROCEDURE getPlanByName(plan_name varchar(45))
 BEGIN
     SELECT pl_id id,
            pl_name name,

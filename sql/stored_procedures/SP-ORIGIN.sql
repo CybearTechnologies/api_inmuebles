@@ -3,9 +3,9 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-DROP PROCEDURE IF EXISTS insertorigin;
+DROP PROCEDURE IF EXISTS insertOrigin;
 DELIMITER $$
-CREATE PROCEDURE insertorigin(name varchar(50), private varchar(512), public varchar(256),
+CREATE PROCEDURE insertOrigin(name varchar(50), private varchar(512), public varchar(256),
                               user int)
 BEGIN
     INSERT INTO origin(or_name, or_private_key, or_public_key, or_user_created_fk,
@@ -25,9 +25,9 @@ BEGIN
     WHERE or_id = last_insert_id();
 END$$
 
-DROP PROCEDURE IF EXISTS getoriginbypublickey;
+DROP PROCEDURE IF EXISTS getOriginByPublicKey;
 DELIMITER $$
-CREATE PROCEDURE getoriginbypublickey(public varchar(256))
+CREATE PROCEDURE getOriginByPublicKey(public varchar(256))
 BEGIN
     SELECT or_id id,
            or_name name,
@@ -43,9 +43,9 @@ BEGIN
     WHERE or_public_key = public;
 END$$
 
-DROP PROCEDURE IF EXISTS getoriginbyid;
+DROP PROCEDURE IF EXISTS getOriginById;
 DELIMITER $$
-CREATE PROCEDURE getoriginbyid(origin_id int)
+CREATE PROCEDURE getOriginById(origin_id int)
 BEGIN
     SELECT or_id id,
            or_name name,
@@ -61,9 +61,9 @@ BEGIN
     WHERE or_id = origin_id;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteoriginbyid;
+DROP PROCEDURE IF EXISTS deleteOriginById;
 DELIMITER $$
-CREATE PROCEDURE deleteoriginbyid(id_origin int, id_user int)
+CREATE PROCEDURE deleteOriginById(id_origin int, id_user int)
 BEGIN
     UPDATE origin
     SET or_deleted = 1,
@@ -83,9 +83,9 @@ BEGIN
     WHERE or_id = id_origin;
 END$$
 
-DROP PROCEDURE IF EXISTS inactiveoriginbyid;
+DROP PROCEDURE IF EXISTS inactiveOriginById;
 DELIMITER $$
-CREATE PROCEDURE inactiveoriginbyid(id_origin int, id_user int)
+CREATE PROCEDURE inactiveOriginById(id_origin int, id_user int)
 BEGIN
     UPDATE origin
     SET or_active = 0,
@@ -105,9 +105,9 @@ BEGIN
     WHERE or_id = id_origin;
 END$$
 
-DROP PROCEDURE IF EXISTS activeoriginbyid;
+DROP PROCEDURE IF EXISTS activeOriginById;
 DELIMITER $$
-CREATE PROCEDURE activeoriginbyid(id_origin int, id_user int)
+CREATE PROCEDURE activeOriginById(id_origin int, id_user int)
 BEGIN
     UPDATE origin
     SET or_active = 0,

@@ -4,9 +4,9 @@
   ----------------------------------------------------------------------------------------------------------------------
  */
 
-DROP PROCEDURE IF EXISTS getlocationsbyid;
+DROP PROCEDURE IF EXISTS getLocationsById;
 DELIMITER $$
-CREATE PROCEDURE getlocationsbyid(id_location int)
+CREATE PROCEDURE getLocationsById(id_location int)
 BEGIN
     SELECT lo_id id,
            lo_name name,
@@ -16,9 +16,9 @@ BEGIN
     WHERE lo_id = id_location;
 END$$
 
-DROP PROCEDURE IF EXISTS getlocationsbytype;
+DROP PROCEDURE IF EXISTS getLocationsByType;
 DELIMITER $$
-CREATE PROCEDURE getlocationsbytype(type_loc varchar(30))
+CREATE PROCEDURE getLocationsByType(type_loc varchar(30))
 BEGIN
     SELECT lo_id id,
            lo_name name,
@@ -27,9 +27,9 @@ BEGIN
     WHERE lower(lo_type) = type_loc;
 END$$
 
-DROP PROCEDURE IF EXISTS getlocationsbyname;
+DROP PROCEDURE IF EXISTS getLocationsByName;
 DELIMITER $$
-CREATE PROCEDURE getlocationsbyname(name_loc varchar(30))
+CREATE PROCEDURE getLocationsByName(name_loc varchar(30))
 BEGIN
     SELECT lo_id id,
            lo_name name,
@@ -38,9 +38,9 @@ BEGIN
     WHERE lower(lo_name) = name_loc;
 END$$
 
-DROP PROCEDURE IF EXISTS getalllocations;
+DROP PROCEDURE IF EXISTS getAllLocations;
 DELIMITER $$
-CREATE PROCEDURE getalllocations()
+CREATE PROCEDURE getAllLocations()
 BEGIN
     SELECT lo_id id,
            lo_name name,
