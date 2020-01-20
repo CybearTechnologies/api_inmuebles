@@ -8,8 +8,6 @@ class DaoProperty extends Dao {
 	private const QUERY_ACTIVE_PROPERTY_BY_ID = "activePropertyById(:id,:user)";
 	private $_property;
 
-/*name varchar(45), area double(20, 2), description varchar(500),
-floor tinyint, type int, location int, user int*/
 	/**
 	 * DaoProperty constructor.
 	 *
