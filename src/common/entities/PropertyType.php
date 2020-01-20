@@ -1,7 +1,6 @@
 <?php
 class PropertyType extends Entity {
 	private $_name;
-	private $_user;
 
 	/**
 	 * PropertyType constructor.
@@ -16,11 +15,10 @@ class PropertyType extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, bool $active, bool $delete, int $user, int $userCreator,
+	public function __construct (int $id, string $name, bool $active, bool $delete, int $userCreator,
 		int $userModifier, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
-		$this->_user = $user;
 	}
 
 	/**

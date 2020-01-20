@@ -1,10 +1,10 @@
 <?php
 class DaoPropertyPrice extends Dao {
 	//insertpropertyprice(price double(20,2), final tinyint,property int,user int)
-	private const QUERY_CREATE = "CALL insertpropertyprice(:price,:final,:property,:user)";
-	private const QUERY_GET_ALL = "";
-	private const QUERY_GET_BY_ID = "CALL getpropertypricebyid(:id)";
-	private const QUERY_GET_PRICE_BY_PROPERTY_ID = "CALL getAllPricesByProperty(:id)";
+	private const QUERY_CREATE = "CALL insertPropertyPrice(:price,:final,:property,:user)";
+	private const QUERY_GET_ALL = "CALL getAllPropertyPrice()";
+	private const QUERY_GET_BY_ID = "CALL getPropertyPricebyId(:id)";
+	private const QUERY_GET_PRICE_BY_PROPERTY_ID = "CALL getPropertyPriceByPropertyId(:id)";
 	private $_entity;
 
 	/**
@@ -24,7 +24,7 @@ class DaoPropertyPrice extends Dao {
 	 */
 	public function getPriceByPropertyId () {
 		try {
-			$id = $this->_entity->get;
+			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_PRICE_BY_PROPERTY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -39,6 +39,11 @@ class DaoPropertyPrice extends Dao {
 		}
 	}
 
+	/**
+	 * @return PropertyPrice
+	 * @throws DatabaseConnectionException
+	 * @throws InvalidPropertyPriceException
+	 */
 	public function getPropertyPriceById () {
 		try {
 			$id = $this->_entity->getId();
@@ -62,6 +67,7 @@ class DaoPropertyPrice extends Dao {
 	 * @return PropertyPrice
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createPropertyPrice($dbObject->id, $dbObject->price, $dbObject->date, $dbObject->final);
+		return FactoryEntity::createPropertyPrice($dbObject->id, $dbObject->price,
+			$dbObject->date, $dbObject->final);
 	}
 }

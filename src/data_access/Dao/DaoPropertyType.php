@@ -4,7 +4,7 @@ class DaoPropertyType extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllPropertyType()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyTypeById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPropertyTypeByName(:name)";
-	private const QUERY_DELETE_PROPERTY_TYPE = "CALL deletePropertyTypeById(:id)";
+	private const QUERY_DELETE_PROPERTY_TYPE = "CALL deletePropertyTypeById(:id,:user)";
 	private $_propertyType;
 
 	/**
@@ -68,8 +68,10 @@ class DaoPropertyType extends Dao {
 	public function deletePropertyById ():void {
 		try {
 			$id = $this->_propertyType->getId();
+			$user = $this->_propertyType->getUserModifier();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_PROPERTY_TYPE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
 		}
 		catch (PDOException $exception) {
@@ -127,6 +129,7 @@ class DaoPropertyType extends Dao {
 	 * @return PropertyType
 	 */
 	protected function extract ($DBObject) {
-		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->active);
+		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->active, $DBObject->deleted,
+			$DBObject->userCreator,$DBObject->userModifier);
 	}
 }

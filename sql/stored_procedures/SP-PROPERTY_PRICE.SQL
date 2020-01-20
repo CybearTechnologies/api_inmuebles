@@ -4,9 +4,9 @@
   ----------------------------------------------------------------------------------------------------------------------
  */
 
-DROP PROCEDURE IF EXISTS insertpropertyprice;
+DROP PROCEDURE IF EXISTS insertPropertyPrice;
 DELIMITER $$
-CREATE PROCEDURE insertpropertyprice(price double(20, 2), final tinyint, property int, user int)
+CREATE PROCEDURE insertPropertyPrice(price double(20, 2), final tinyint, property int, user int)
 BEGIN
     INSERT INTO property_price(pp_price, pp_final, pp_property_fk, pp_user_created_fk,
                                pp_user_modified_fk)
@@ -26,9 +26,9 @@ BEGIN
 END$$
 
 
-DROP PROCEDURE IF EXISTS getallpropertyprice;
+DROP PROCEDURE IF EXISTS getAllPropertyPrice;
 DELIMITER $$
-CREATE PROCEDURE getallpropertyprice()
+CREATE PROCEDURE getAllPropertyPrice()
 BEGIN
     SELECT pp_id id,
            pp_price price,
@@ -43,9 +43,9 @@ BEGIN
     FROM property_price;
 END$$
 
-DROP PROCEDURE IF EXISTS getpropertypricebyid;
+DROP PROCEDURE IF EXISTS getPropertyPricebyId;
 DELIMITER $$
-CREATE PROCEDURE getpropertypricebyid(id_property_price int)
+CREATE PROCEDURE getPropertyPricebyId(id_property_price int)
 BEGIN
     SELECT pp_id id,
            pp_price price,
@@ -61,9 +61,9 @@ BEGIN
     WHERE pp_id = id_property_price;
 END$$
 
-DROP PROCEDURE IF EXISTS getpropertypricebypropertyid;
+DROP PROCEDURE IF EXISTS getPropertyPriceByPropertyId;
 DELIMITER $$
-CREATE PROCEDURE getpropertypricebypropertyid(id_property int)
+CREATE PROCEDURE getPropertyPriceByPropertyId(id_property int)
 BEGIN
     SELECT pp_id id,
            pp_price price,
@@ -77,6 +77,25 @@ BEGIN
            pp_date_modified datemodified
     FROM property_price
     WHERE pp_property_fk = id_property;
+END$$
+
+DROP PROCEDURE IF EXISTS deletePropertyPrice;
+DELIMITER $$
+CREATE PROCEDURE deletePropertyPrice(id int)
+UPDATE property_price set pp_deleted=1;
+BEGIN
+    SELECT pp_id id,
+           pp_price price,
+           pp_final final,
+           pp_active active,
+           pp_deleted 'delete',
+           pp_property_fk property,
+           pp_user_created_fk user_creator,
+           pp_date_created datecreated,
+           pp_user_modified_fk usermodifier,
+           pp_date_modified datemodified
+    FROM property_price
+    WHERE pp_id = id;
 END$$
 
 /**

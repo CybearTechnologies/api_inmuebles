@@ -10,7 +10,6 @@ class FactoryEntity {
 	 * @param string $name
 	 * @param bool   $active
 	 * @param bool   $delete
-	 * @param int    $user
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -18,9 +17,9 @@ class FactoryEntity {
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType (int $id, $name = "", $active = true, $delete = false, int $user = 1,
+	static function createPropertyType (int $id, $name = "", $active = true, $delete = false,
 		int $userCreator = 1, int $userModifier = 1, string $dateCreated = "", string $dateModified = ""):PropertyType {
-		return new PropertyType($id, $name, $active, $delete, $user, $userCreator, $userModifier, $dateCreated,
+		return new PropertyType($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated,
 			$dateModified);
 	}
 
