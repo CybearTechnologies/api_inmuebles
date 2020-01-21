@@ -81,8 +81,8 @@ class DaoUser extends Dao {
 	 */
 	protected function extract ($dbObject):User {
 		return FactoryEntity::createUser($dbObject->id, $dbObject->first_name, $dbObject->last_name, $dbObject->address,
-			$dbObject->email, $dbObject->password, $dbObject->user_created, $dbObject->user_modified, $dbObject->active,
+			$dbObject->email, $dbObject->password, $dbObject->userCreator, $dbObject->userModifier, $dbObject->active,
 			$dbObject->blocked, $dbObject->deleted, $dbObject->seat, $dbObject->rol, $dbObject->plan,
-			$dbObject->location, $dbObject->date_created, $dbObject->date_modified);
+			$dbObject->location, $dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

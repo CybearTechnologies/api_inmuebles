@@ -126,6 +126,7 @@ class DaoAccess extends Dao {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
+
 	/**
 	 * @return Access[]
 	 * @throws DatabaseConnectionException

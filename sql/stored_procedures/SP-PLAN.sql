@@ -13,7 +13,7 @@ BEGIN
            pl_name name,
            pl_price price,
            pl_active active,
-           pl_deleted,
+           pl_deleted 'delete',
            pl_user_created_fk userCreator,
            pl_user_modified_fk userModifier,
            pl_date_created dateCreated,

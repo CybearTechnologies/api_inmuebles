@@ -12,7 +12,7 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk userCreated,
+           pt_user_created_fk userCreator,
            pt_user_modified_fk userModifier,
            pt_date_created dateCreated,
            pt_date_modified dateModified
@@ -29,9 +29,9 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk userCreated,
+           pt_user_created_fk userCreator,
            pt_user_modified_fk userModifier,
-           pt_date_created dateCreated,
+           pt_date_created dateCreator,
            pt_date_modified dateModified
     FROM property_type;
 END$$
@@ -44,7 +44,7 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk userCreated,
+           pt_user_created_fk userCreator,
            pt_user_modified_fk userModifier,
            pt_date_created dateCreated,
            pt_date_modified dateModified
@@ -62,7 +62,7 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk userCreated,
+           pt_user_created_fk userCreator,
            pt_user_modified_fk userModifier,
            pt_date_created dateCreated,
            pt_date_modified dateModified

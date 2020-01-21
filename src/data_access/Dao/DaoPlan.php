@@ -202,7 +202,7 @@ class DaoPlan extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createPlan($dbObject->id, $dbObject->name, $dbObject->price, $dbObject->active,
-			$dbObject->delete, $dbObject->user_created, $dbObject->user_modified, $dbObject->date_created,
-			$dbObject->date_modified);
+			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
+			$dbObject->dateModified);
 	}
 }

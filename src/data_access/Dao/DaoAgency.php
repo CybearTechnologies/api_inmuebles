@@ -37,8 +37,8 @@ class DaoAgency extends Dao {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
+
 	/**
-	 *
 	 * @return Agency
 	 * @throws DatabaseConnectionException
 	 * @throws AgencyNotFoundException

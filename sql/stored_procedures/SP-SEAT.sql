@@ -19,7 +19,7 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk userCreated,
+           se_user_created_fk userCreator,
            se_user_modified_fk userModifier,
            se_date_created dateCreated,
            se_date_modified dateModified
@@ -38,7 +38,7 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk userCreated,
+           se_user_created_fk userCreator,
            se_user_modified_fk userModifier,
            se_date_created dateCreated,
            se_date_modified dateModified
@@ -56,7 +56,7 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk userCreated,
+           se_user_created_fk userCreator,
            se_user_modified_fk userModifier,
            se_date_created dateCreated,
            se_date_modified dateModified
@@ -81,7 +81,7 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk userCreated,
+           se_user_created_fk userCreator,
            se_user_modified_fk userModifier,
            se_date_created dateCreated,
            se_date_modified dateModified
@@ -100,7 +100,7 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk userCreated,
+           se_user_created_fk userCreator,
            se_user_modified_fk userModifier,
            se_date_created dateCreated,
            se_date_modified dateModified
