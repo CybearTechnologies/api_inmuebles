@@ -12,6 +12,11 @@ BEGIN
            lo_name name,
            lo_type type,
            lo_active active,
+           lo_deleted 'delete',
+           lo_date_created dateCreated,
+           lo_date_modified dateModified,
+           lo_user_created_fk userCreator,
+           lo_user_modified_fk userModifier,
            lo_location_fk location
     FROM location
     WHERE lo_id = id_location;
@@ -25,6 +30,11 @@ BEGIN
            lo_name name,
            lo_active active,
            lo_type type,
+           lo_deleted 'delete',
+           lo_date_created dateCreated,
+           lo_date_modified dateModified,
+           lo_user_created_fk userCreator,
+           lo_user_modified_fk userModifier,
            lo_location_fk location
     FROM location
     WHERE lower(lo_type) = type_loc;
@@ -38,6 +48,11 @@ BEGIN
            lo_name name,
            lo_active active,
            lo_type type,
+           lo_deleted 'delete',
+           lo_date_created dateCreated,
+           lo_date_modified dateModified,
+           lo_user_created_fk userCreator,
+           lo_user_modified_fk userModifier,
            lo_location_fk location
     FROM location
     WHERE lower(lo_name) = name_loc;
@@ -51,6 +66,11 @@ BEGIN
            lo_name name,
            lo_type type,
            lo_active active,
+           lo_deleted 'delete',
+           lo_date_created dateCreated,
+           lo_date_modified dateModified,
+           lo_user_created_fk userCreator,
+           lo_user_modified_fk userModifier,
            lo_location_fk location
     FROM location;
 END$$
