@@ -14,10 +14,10 @@ BEGIN
            ra_message message,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk user_created,
-           ra_user_modified_fk user_modifier,
-           ra_date_created date_created,
-           ra_date_modified date_modified
+           ra_user_created_fk userCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_created dateCreated,
+           ra_date_modified dateModified
     FROM rating
     WHERE ra_id = last_insert_id();
 END$$
@@ -32,10 +32,10 @@ BEGIN
            ra_message message,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk user_created,
-           ra_user_modified_fk user_modifier,
-           ra_date_created date_created,
-           ra_date_modified date_modified
+           ra_user_created_fk userCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_created dateCreated,
+           ra_date_modified dateModified
     FROM rating
     WHERE ra_id = id;
 END$$
@@ -52,10 +52,10 @@ BEGIN
            ra_message message,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk user_created,
-           ra_user_modified_fk user_modifier,
-           ra_date_created date_created,
-           ra_date_modified date_modified
+           ra_user_created_fk userCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_created dateCreated,
+           ra_date_modified dateModified
     FROM rating
     WHERE ra_id = id;
 END$$
@@ -69,10 +69,10 @@ BEGIN
            ra_message message,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk user_created,
-           ra_user_modified_fk user_modifier,
-           ra_date_created date_created,
-           ra_date_modified date_modified
+           ra_user_created_fk userCreator,
+           ra_user_modified_fk userModifier,
+           ra_date_created dateCreated,
+           ra_date_modified dateModified
     FROM rating
     WHERE ra_user_fk = id_user;
 END$$

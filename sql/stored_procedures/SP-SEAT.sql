@@ -19,10 +19,10 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk user_created,
-           se_user_modified_fk user_modifier,
-           se_date_created date_created,
-           se_date_modified date_modified
+           se_user_created_fk userCreated,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
     FROM seat
     WHERE se_id = last_insert_id();
 END$$
@@ -38,10 +38,10 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk user_created,
-           se_user_modified_fk user_modifier,
-           se_date_created date_created,
-           se_date_modified date_modified
+           se_user_created_fk userCreated,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
     FROM seat;
 END$$
 
@@ -56,10 +56,10 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk user_created,
-           se_user_modified_fk user_modifier,
-           se_date_created date_created,
-           se_date_modified date_modified
+           se_user_created_fk userCreated,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
     FROM seat
     WHERE se_id = id_seat;
 END$$
@@ -81,10 +81,10 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk user_created,
-           se_user_modified_fk user_modifier,
-           se_date_created date_created,
-           se_date_modified date_modified
+           se_user_created_fk userCreated,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
     FROM seat
     WHERE se_id = id;
 END$$
@@ -100,10 +100,10 @@ BEGIN
            se_agency_fk agency,
            se_active active,
            se_deleted 'delete',
-           se_user_created_fk user_created,
-           se_user_modified_fk user_modifier,
-           se_date_created date_created,
-           se_date_modified date_modified
+           se_user_created_fk userCreated,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
     FROM seat se,
          agency ag
     WHERE ag.ag_id = agency_id

@@ -35,10 +35,10 @@ BEGIN
            or_public_key publickkey,
            or_active active,
            or_deleted 'delete',
-           or_user_created_fk usercreator,
-           or_date_created datecreated,
-           or_user_modified_fk usermodifier,
-           or_date_modified datemodified
+           or_user_created_fk userCreator,
+           or_date_created dateCreated,
+           or_user_modified_fk userModifier,
+           or_date_modified dateModified
     FROM origin
     WHERE or_public_key = public;
 END$$
@@ -53,10 +53,10 @@ BEGIN
            or_public_key publickkey,
            or_active active,
            or_deleted 'delete',
-           or_user_created_fk usercreator,
-           or_date_created datecreated,
-           or_user_modified_fk usermodifier,
-           or_date_modified datemodified
+           or_user_created_fk userCreator,
+           or_date_created dateCreated,
+           or_user_modified_fk userModifier,
+           or_date_modified dateModified
     FROM origin
     WHERE or_id = origin_id;
 END$$
@@ -75,10 +75,10 @@ BEGIN
            or_public_key publickkey,
            or_active active,
            or_deleted 'delete',
-           or_user_created_fk usercreator,
-           or_date_created datecreated,
-           or_user_modified_fk usermodifier,
-           or_date_modified datemodified
+           or_user_created_fk userCreator,
+           or_date_created dateCreated,
+           or_user_modified_fk userModifier,
+           or_date_modified dateModified
     FROM origin
     WHERE or_id = id_origin;
 END$$
@@ -97,10 +97,10 @@ BEGIN
            or_public_key publickkey,
            or_active active,
            or_deleted 'delete',
-           or_user_created_fk usercreator,
-           or_date_created datecreated,
-           or_user_modified_fk usermodifier,
-           or_date_modified datemodified
+           or_user_created_fk userCreator,
+           or_date_created dateCreated,
+           or_user_modified_fk userModifier,
+           or_date_modified dateModified
     FROM origin
     WHERE or_id = id_origin;
 END$$
@@ -119,10 +119,10 @@ BEGIN
            or_public_key publickkey,
            or_active active,
            or_deleted 'delete',
-           or_user_created_fk usercreator,
-           or_date_created datecreated,
-           or_user_modified_fk usermodifier,
-           or_date_modified datemodified
+           or_user_created_fk userCreator,
+           or_date_created dateCreated,
+           or_user_modified_fk userModifier,
+           or_date_modified dateModified
     FROM origin
     WHERE or_id = id_origin;
 END$$

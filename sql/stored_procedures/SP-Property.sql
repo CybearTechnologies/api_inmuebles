@@ -22,10 +22,10 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk usercreator,
-           pr_date_created datecreated,
-           pr_user_modified_fk usermodifier,
-           pr_date_modified datemodified
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
     FROM property
     WHERE pr_id = last_insert_id();
 END$$
@@ -44,10 +44,10 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk usercreator,
-           pr_date_created datecreated,
-           pr_user_modified_fk usermodifier,
-           pr_date_modified datemodified
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
     FROM property;
 END$$
 
@@ -65,10 +65,10 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk usercreator,
-           pr_date_created datecreated,
-           pr_user_modified_fk usermodifier,
-           pr_date_modified datemodified
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
     FROM property
     WHERE id_pro = pr_id;
 END$$
@@ -91,10 +91,10 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk usercreator,
-           pr_date_created datecreated,
-           pr_user_modified_fk usermodifier,
-           pr_date_modified datemodified
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
     FROM property
     WHERE id_pro = pr_id;
 END$$
@@ -117,10 +117,10 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk usercreator,
-           pr_date_created datecreated,
-           pr_user_modified_fk usermodifier,
-           pr_date_modified datemodified
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
     FROM property
     WHERE id_pro = pr_id;
 END$$
@@ -143,10 +143,10 @@ BEGIN
            pr_active active,
            pr_deleted 'delete',
            pr_location_fk location,
-           pr_user_created_fk usercreator,
-           pr_date_created datecreated,
-           pr_user_modified_fk usermodifier,
-           pr_date_modified datemodified
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
     FROM property
     WHERE id_pro = pr_id;
 END$$

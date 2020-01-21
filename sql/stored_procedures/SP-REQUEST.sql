@@ -13,10 +13,10 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           re_user_created_fk user_created,
-           re_user_modified_fk user_modifier,
-           re_date_created date_created,
-           re_date_modified date_modified
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
     FROM request
     WHERE re_id = last_insert_id();
 END$$
@@ -29,10 +29,10 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           re_user_created_fk user_created,
-           re_user_modified_fk user_modifier,
-           re_date_created date_created,
-           re_date_modified date_modified
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
     FROM request;
 END$$
 
@@ -44,10 +44,10 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           re_user_created_fk user_created,
-           re_user_modified_fk user_modifier,
-           re_date_created date_created,
-           re_date_modified date_modified
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
     FROM request
     WHERE re_id = id_req;
 END$$
@@ -60,10 +60,10 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           re_user_created_fk user_created,
-           re_user_modified_fk user_modifier,
-           re_date_created date_created,
-           re_date_modified date_modified
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
     FROM request
     WHERE re_user_created_fk = id_user;
 END$$
@@ -76,10 +76,10 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           re_user_created_fk user_created,
-           re_user_modified_fk user_modifier,
-           re_date_created date_created,
-           re_date_modified date_modified
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
     FROM request
     WHERE re_property_fk = id_property;
 END$$
@@ -94,10 +94,10 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           re_user_created_fk user_created,
-           re_user_modified_fk user_modifier,
-           re_date_created date_created,
-           re_date_modified date_modified
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
     FROM request
     WHERE re_id = id;
 END$$

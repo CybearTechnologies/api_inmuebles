@@ -13,10 +13,10 @@ BEGIN
            ro_name name,
            ro_active active,
            ro_deleted 'delete',
-           ro_user_created_fk user_created,
-           ro_date_created date_created,
-           ro_user_modified_fk user_modifier,
-           ro_date_modified date_modified
+           ro_user_created_fk userCreator,
+           ro_date_created dateCreated,
+           ro_user_modified_fk userModifier,
+           ro_date_modified dateModified
     FROM rol
     WHERE ro_id = last_insert_id();
 END$$
@@ -30,10 +30,10 @@ BEGIN
            ro_name name,
            ro_active active,
            ro_deleted 'delete',
-           ro_user_created_fk usercreator,
-           ro_date_created datecreated,
-           ro_user_modified_fk usermodifier,
-           ro_date_modified datemodified
+           ro_user_created_fk userCreator,
+           ro_date_created dateCreated,
+           ro_user_modified_fk userModifier,
+           ro_date_modified dateModified
     FROM rol
     WHERE ro_id = id;
 END$$
@@ -50,10 +50,10 @@ BEGIN
            ro_name name,
            ro_active active,
            ro_deleted 'delete',
-           ro_user_created_fk usercreator,
-           ro_date_created datecreated,
-           ro_user_modified_fk usermodifier,
-           ro_date_modified datemodified
+           ro_user_created_fk userCreator,
+           ro_date_created dateCreated,
+           ro_user_modified_fk userModifier,
+           ro_date_modified dateModified
     FROM rol
     WHERE ro_id = id;
 END$$
@@ -66,10 +66,10 @@ BEGIN
            ro_name name,
            ro_active active,
            ro_deleted 'delete',
-           ro_user_created_fk usercreator,
-           ro_date_created datecreated,
-           ro_user_modified_fk usermodifier,
-           ro_date_modified datemodified
+           ro_user_created_fk userCreator,
+           ro_date_created dateCreated,
+           ro_user_modified_fk userModifier,
+           ro_date_modified dateModified
     FROM rol;
 END$$
 

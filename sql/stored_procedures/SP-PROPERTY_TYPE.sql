@@ -12,10 +12,10 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk user_created,
-           pt_user_modified_fk user_modifier,
-           pt_date_created date_created,
-           pt_date_modified date_modified
+           pt_user_created_fk userCreated,
+           pt_user_modified_fk userModifier,
+           pt_date_created dateCreated,
+           pt_date_modified dateModified
     FROM property_type
     WHERE pt_id = id_type;
 END$$
@@ -29,10 +29,10 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk user_created,
-           pt_user_modified_fk user_modifier,
-           pt_date_created date_created,
-           pt_date_modified date_modified
+           pt_user_created_fk userCreated,
+           pt_user_modified_fk userModifier,
+           pt_date_created dateCreated,
+           pt_date_modified dateModified
     FROM property_type;
 END$$
 
@@ -44,10 +44,10 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk user_created,
-           pt_user_modified_fk user_modifier,
-           pt_date_created date_created,
-           pt_date_modified date_modified
+           pt_user_created_fk userCreated,
+           pt_user_modified_fk userModifier,
+           pt_date_created dateCreated,
+           pt_date_modified dateModified
     FROM property_type
     WHERE lower(pt_name) = name_pt;
 END$$
@@ -62,10 +62,10 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk user_created,
-           pt_date_created date_created,
-           pt_user_modified_fk user_modifier,
-           pt_date_modified date_modified
+           pt_user_created_fk userCreated,
+           pt_user_modified_fk userModifier,
+           pt_date_created dateCreated,
+           pt_date_modified dateModified
     FROM property_type
     WHERE pt_id = last_insert_id();
 END$$
@@ -82,10 +82,10 @@ BEGIN
            pt_name name,
            pt_active active,
            pt_deleted 'delete',
-           pt_user_created_fk user_created,
-           pt_user_modified_fk user_modifier,
-           pt_date_created date_created,
-           pt_date_modified date_modified
+           pt_user_created_fk userCreator,
+           pt_user_modified_fk userModifier,
+           pt_date_created dateCreated,
+           pt_date_modified dateModified
     FROM property_type
     WHERE pt_id = id_type;
 END$$
