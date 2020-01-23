@@ -67,27 +67,27 @@ class DaoPropertyPrice extends Dao {
 	 * @throws InvalidPropertyPriceException
 	 */
 	public function createPropertyPrice () {
-	try {
-		$price = $this->_entity->getPrice();
-		$final = $this->_entity->isFinal();
-		$property=$this->_entity->getPropertyId();
-		$user = $this->_entity->getUserCreator();
-		$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-		$stmt->bindParam(":price", $price, PDO::PARAM_STR);
-		$stmt->bindParam(":final", $final, PDO::PARAM_BOOL);
-		$stmt->bindParam(":property", $property, PDO::PARAM_INT);
-		$stmt->bindParam(":user", $user, PDO::PARAM_INT);
-		$stmt->execute();
-		if ($stmt->rowCount() == 0)
-			Throw new InvalidPropertyPriceException("There are no price for this property found", 200);
-		else
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		try {
+			$price = $this->_entity->getPrice();
+			$final = $this->_entity->isFinal();
+			$property = $this->_entity->getPropertyId();
+			$user = $this->_entity->getUserCreator();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
+			$stmt->bindParam(":final", $final, PDO::PARAM_BOOL);
+			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new InvalidPropertyPriceException("There are no price for this property found", 200);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
 	}
-	catch (PDOException $exception) {
-		Logger::exception($exception, Logger::ERROR);
-		Throw new DatabaseConnectionException("Database connection problem.", 500);
-	}
-}
 
 	/**
 	 * @return PropertyPrice[]
@@ -114,7 +114,7 @@ class DaoPropertyPrice extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws InvalidPropertyPriceException
 	 */
-	public function deletePropertyPrice(){
+	public function deletePropertyPrice () {
 		try {
 			$id = $this->_entity->getId();
 			$user = $this->_entity->getUserModifier();
@@ -140,7 +140,7 @@ class DaoPropertyPrice extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createPropertyPrice($dbObject->id, $dbObject->price,
-			$dbObject->final,$dbObject->active,$dbObject->delete,$dbObject->userCreator,$dbObject->userModifier,
-			$dbObject->dateCreated,$dbObject->dateModified);
+			$dbObject->final, $dbObject->active, $dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
+			$dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

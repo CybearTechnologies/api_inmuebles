@@ -110,7 +110,7 @@ class DaoRequest extends Dao {
 	 * @return Request
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRequest($dbObject->id, $dbObject->active,$dbObject->delete,$dbObject->userCreator,
-			$dbObject->userModifier,$dbObject->dateCreated,$dbObject->dateModified);
+		return FactoryEntity::createRequest($dbObject->id, $dbObject->active, $dbObject->delete, $dbObject->userCreator,
+			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

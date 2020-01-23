@@ -130,6 +130,6 @@ class DaoPropertyType extends Dao {
 	 */
 	protected function extract ($DBObject) {
 		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->active, $DBObject->delete,
-			$DBObject->userCreator,$DBObject->userModifier,$DBObject->dateCreated,$DBObject->dateModified);
+			$DBObject->userCreator, $DBObject->userModifier, $DBObject->dateCreated, $DBObject->dateModified);
 	}
 }

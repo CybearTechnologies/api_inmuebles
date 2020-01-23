@@ -17,10 +17,10 @@ BEGIN
            pp_active active,
            pp_deleted 'delete',
            pp_property_fk property,
-           pp_user_created_fk usercreator,
-           pp_date_created datecreated,
-           pp_user_modified_fk usermodifier,
-           pp_date_modified datemodified
+           pp_user_created_fk userCreator,
+           pp_date_created dateCreated,
+           pp_user_modified_fk userModifier,
+           pp_date_modified dateModified
     FROM property_price
     WHERE pp_id = last_insert_id();
 END$$
@@ -35,10 +35,10 @@ BEGIN
            pp_active active,
            pp_deleted 'delete',
            pp_property_fk property,
-           pp_user_created_fk user_creator,
-           pp_date_created datecreated,
-           pp_user_modified_fk usermodifier,
-           pp_date_modified datemodified
+           pp_user_created_fk userCreator,
+           pp_date_created dateCreated,
+           pp_user_modified_fk userModifier,
+           pp_date_modified dateModified
     FROM property_price;
 END$$
 
@@ -52,10 +52,10 @@ BEGIN
            pp_active active,
            pp_deleted 'delete',
            pp_property_fk property,
-           pp_user_created_fk user_creator,
-           pp_date_created datecreated,
-           pp_user_modified_fk usermodifier,
-           pp_date_modified datemodified
+           pp_user_created_fk userCreator,
+           pp_date_created dateCreated,
+           pp_user_modified_fk userModifier,
+           pp_date_modified dateModified
     FROM property_price
     WHERE pp_id = id_property_price;
 END$$
@@ -70,10 +70,10 @@ BEGIN
            pp_active active,
            pp_deleted 'delete',
            pp_property_fk property,
-           pp_user_created_fk user_creator,
-           pp_date_created datecreated,
-           pp_user_modified_fk usermodifier,
-           pp_date_modified datemodified
+           pp_user_created_fk userCreator,
+           pp_date_created dateCreated,
+           pp_user_modified_fk userModifier,
+           pp_date_modified dateModified
     FROM property_price
     WHERE pp_property_fk = id_property;
 END$$
@@ -91,10 +91,10 @@ BEGIN
            pp_active active,
            pp_deleted 'delete',
            pp_property_fk property,
-           pp_user_created_fk user_creator,
-           pp_date_created datecreated,
-           pp_user_modified_fk usermodifier,
-           pp_date_modified datemodified
+           pp_user_created_fk userCreator,
+           pp_date_created dateCreated,
+           pp_user_modified_fk userModifier,
+           pp_date_modified dateModified
     FROM property_price
     WHERE pp_id = id;
 END$$

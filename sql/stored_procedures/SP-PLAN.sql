@@ -13,11 +13,11 @@ BEGIN
            pl_name name,
            pl_price price,
            pl_active active,
-           pl_deleted,
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_deleted 'delete',
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan
     WHERE pl_id = LAST_INSERT_ID();
 END$$
@@ -36,10 +36,10 @@ BEGIN
            pl_price price,
            pl_active active,
            pl_deleted 'delete',
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan
     WHERE pl_id = id_plan;
 END$$
@@ -56,10 +56,10 @@ BEGIN
            pl_price price,
            pl_active active,
            pl_deleted 'delete',
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan
     WHERE pl_id = id_plan;
 END$$
@@ -77,10 +77,10 @@ BEGIN
            pl_price price,
            pl_active active,
            pl_deleted 'delete',
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan
     WHERE pl_id = id_plan;
 END$$
@@ -98,10 +98,10 @@ BEGIN
            pl_price price,
            pl_active active,
            pl_deleted 'delete',
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan
     WHERE pl_id = id_plan;
 END$$
@@ -115,10 +115,10 @@ BEGIN
            pl_price price,
            pl_active active,
            pl_deleted 'delete',
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan;
 END$$
 
@@ -131,10 +131,10 @@ BEGIN
            pl_price price,
            pl_active active,
            pl_deleted 'delete',
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan
     WHERE pl_id = plan_id;
 END$$
@@ -148,10 +148,10 @@ BEGIN
            pl_price price,
            pl_active active,
            pl_deleted 'delete',
-           pl_user_created_fk usercreated,
-           pl_user_modified_fk usermodified,
-           pl_date_created datecreated,
-           pl_date_modified datemodified
+           pl_user_created_fk userCreator,
+           pl_user_modified_fk userModifier,
+           pl_date_created dateCreated,
+           pl_date_modified dateModified
     FROM plan
     WHERE lower(pl_name) = plan_name;
 END$$
