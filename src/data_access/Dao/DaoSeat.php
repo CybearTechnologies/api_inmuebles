@@ -2,8 +2,8 @@
 class DaoSeat extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllSeats()";
 	private const QUERY_GET_BY_ID = "CALL getSeatById(:id)";
-	private const QUERY_GET_BY_AGENCY = "CALL getAllSeatsByAgency(:id)";
 	private const QUERY_GET_SEATS_BY_AGENCY = "CALL getSeatsByAgency(:id)";
+	private const QUERY_DELETE = "CALL deleteSeat(:id,:user)";
 	private $_entity;
 
 	/**
@@ -52,6 +52,27 @@ class DaoSeat extends Dao {
 				Throw new SeatNotFoundException("There are no seats found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+
+	/**
+	 * @return Seat
+	 * @throws DatabaseConnectionException
+	 */
+	public function deleteSeat () {
+		try {
+			$id = $this->_entity->getId();
+			$user = $this->_entity->getUserModifier();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
