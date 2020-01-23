@@ -11,20 +11,20 @@ class Property extends Entity {
 	/**
 	 * Property constructor.
 	 *
-	 * @param int    $id
-	 * @param string $name
-	 * @param float  $area
-	 * @param string $description
-	 * @param int    $state
-	 * @param int    $floor
-	 * @param int    $type
-	 * @param int    $location
-	 * @param bool   $active
-	 * @param bool   $delete
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
+	 * @param int     $id
+	 * @param string  $name
+	 * @param float   $area
+	 * @param string  $description
+	 * @param int     $state
+	 * @param int     $floor
+	 * @param int     $type
+	 * @param int     $location
+	 * @param bool    $active
+	 * @param bool    $delete
+	 * @param int     $userCreator
+	 * @param int     $userModifier
+	 * @param string  $dateCreated
+	 * @param string  $dateModified
 	 */
 	public function __construct (int $id, string $name, float $area, string $description,
 		int $state, int $floor, int $type, int $location, bool $active, bool $delete,

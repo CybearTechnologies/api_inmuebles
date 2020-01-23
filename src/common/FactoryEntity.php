@@ -131,7 +131,7 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param int    $price
-	 * @param bool   $final
+	 * @param float  $final
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -142,12 +142,18 @@ class FactoryEntity {
 	 *
 	 * @return PropertyPrice
 	 */
-	static function createPropertyPrice (int $id, $price = 0, $final = false, int $propertyId = 0,
+	static function createPropertyPrice (
+		int $id,
+		$price = 0,
+		$final = 0.0,
+		int $propertyId = 0,
 		$active = true,
-		$delete = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+		$delete = false,
+		int $userCreator = 0,
+		int $userModifier = 0,
+		string $dateCreated = "",
 		string $dateModified = ""):PropertyPrice {
-		return new PropertyPrice($id, $price, $final, $active, $delete, $userCreator, $userModifier,
-			$dateCreated, $dateModified, $propertyId);
+		return new PropertyPrice($id,$price,$final,$propertyId,$active,$delete,$userCreator,$userModifier,$dateCreated,$dateModified);
 	}
 
 	/**

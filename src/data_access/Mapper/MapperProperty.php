@@ -16,8 +16,6 @@ class MapperProperty extends Mapper {
 	 * @return DtoProperty
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoProperty($entity->getId(), $entity->getName(), $entity->getArea(),
-			$entity->getDescription(), Tools::formatDate($entity->getPublishDate()), $entity->getState(),
-			$entity->getFloor());
+		return FactoryDto::createDtoProperty($entity->getId(),$entity->getName(),$entity->getArea(),$entity->getDescription(),$entity->getDateCreated(),$entity->getState(),$entity->getFloor());
 	}
 }

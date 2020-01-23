@@ -12,7 +12,7 @@ class PropertyPrice extends Entity {
 	 *
 	 * @param int    $id
 	 * @param float  $price
-	 * @param bool   $final
+	 * @param float   $final
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -21,7 +21,7 @@ class PropertyPrice extends Entity {
 	 * @param string $dateModified
 	 * @param int    $propertyId
 	 */
-	public function __construct (int $id, float $price, bool $final, int $propertyId, bool $active, bool $delete,
+	public function __construct (int $id, float $price, float $final, int $propertyId, bool $active, bool $delete,
 		int $userCreator, int $userModifier,
 		string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
@@ -45,20 +45,6 @@ class PropertyPrice extends Entity {
 	}
 
 	/**
-	 * @return bool
-	 */
-	public function isFinal ():bool {
-		return $this->_final;
-	}
-
-	/**
-	 * @param bool $final
-	 */
-	public function setFinal (bool $final):void {
-		$this->_final = $final;
-	}
-
-	/**
 	 * @return int
 	 */
 	public function getPropertyId ():int {
@@ -72,5 +58,17 @@ class PropertyPrice extends Entity {
 		$this->_propertyId = $propertyId;
 	}
 
+	/**
+	 * @return float
+	 */
+	public function getFinal ():float {
+		return $this->_final;
+	}
 
+	/**
+	 * @param float $final
+	 */
+	public function setFinal (float $final):void {
+		$this->_final = $final;
+	}
 }

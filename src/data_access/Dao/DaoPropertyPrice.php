@@ -69,12 +69,12 @@ class DaoPropertyPrice extends Dao {
 	public function createPropertyPrice () {
 		try {
 			$price = $this->_entity->getPrice();
-			$final = $this->_entity->isFinal();
+			$final = $this->_entity->getFinal();
 			$property = $this->_entity->getPropertyId();
 			$user = $this->_entity->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
-			$stmt->bindParam(":final", $final, PDO::PARAM_BOOL);
+			$stmt->bindParam(":final", $final, PDO::PARAM_STR);
 			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
@@ -139,8 +139,6 @@ class DaoPropertyPrice extends Dao {
 	 * @return PropertyPrice
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createPropertyPrice($dbObject->id, $dbObject->price,
-			$dbObject->final, $dbObject->active, $dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
-			$dbObject->dateCreated, $dbObject->dateModified);
+		return FactoryEntity::createPropertyPrice($dbObject->id,$dbObject->price,$dbObject->final,$dbObject->property,$dbObject->active,$dbObject->delete,$dbObject->userCreator,$dbObject->userModifier,$dbObject->dateCreated,$dbObject->dateModified);
 	}
 }
