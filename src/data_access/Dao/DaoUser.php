@@ -2,6 +2,7 @@
 class DaoUser extends Dao {
 	private const QUERY_GET_USER_BY_USERNAME = "CALL getUserByEmail(:email)";
 	private const QUERY_GET_USER_BY_ID = "CALL getUserById(:id)";
+	private const QUERY_DELETE_USER = "CALL deleteUser(:id,:user)";
 	private $_entity;
 
 	/**
@@ -67,6 +68,28 @@ class DaoUser extends Dao {
 					Throw new MultipleUserException("The user {$id} appear more than one time.", 500);
 					break;
 			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return User
+	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
+	 * @throws UserNotFoundException
+	 */
+	public function DeleteUser () {
+		try {
+			$id = $this->_entity->getId();
+			$user= $this->_entity->getUserModifier();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_USER);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
