@@ -5,8 +5,8 @@
  */
 DROP PROCEDURE IF EXIST createUser();
 DELIMITER
-CREATE PROCEDURE getUserById(:firstName,:lastName,:address,:email,:password,:seat,:rol,:plan,:location,:userCreator,
-    :userModifier,:dateModified,:dateCreated)
+CREATE PROCEDURE getUserById(firstName,lastName,address,email,password,seat,rol,plan,location,userCreator,
+    userModifier,dateModified,dateCreated)
 BEGIN
     INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
     us_plan_fk, us_location_fk, us_user_created_fk,us_user_modified_fk,us_date_modified,us_date_created)
