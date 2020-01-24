@@ -5,6 +5,7 @@ class DaoRequest extends Dao {
 	private const QUERY_GET_BY_ID = "CALL getRequestById(:id)";
 	private const QUERY_GET_BY_USER_ID = "CALL getAllRequestByUserId(:id)";
 	private const QUERY_GET_REQUEST_BY_PROPERTY_ID = "CALL getAllRequestByProperty(:id)";
+	private const QUERY_DELETE = "CALL deleteRequest(:id,:user)";
 	private $_entity;
 
 	/**
@@ -97,6 +98,27 @@ class DaoRequest extends Dao {
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Request
+	 * @throws DatabaseConnectionException
+	 */
+	public function deleteRequest () {
+		try {
+			$id = $this->_entity->getId();
+			$user = $this->_entity->getUserModifier();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
