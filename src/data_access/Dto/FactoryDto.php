@@ -100,10 +100,34 @@ class FactoryDto {
 	 *
 	 * @return DtoProperty
 	 */
-	static function createDtoProperty (int $id, $name = "", $area = 0, $description = '', $publishDate = '',
+	//int $id,int $userCreator,int $userModifier,int $dateCreated,int $dateModified,bool $active, bool $delete, string $name, float $area, string $description,
+	//		int $state, int $floor, $extras, $request, $user, $price
+	/**
+	 * @param int                      $id
+	 * @param string                   $userCreator
+	 * @param string                   $userModifier
+	 * @param string                   $dateCreated
+	 * @param string                   $dateModified
+	 * @param int                      $active
+	 * @param int                      $delete
+	 * @param string                   $name
+	 * @param float                    $area
+	 * @param string                   $description
+	 * @param string                   $publishDate
+	 * @param int                      $state
+	 * @param int                      $floor
+	 * @param array|DtoExtra[]         $extras
+	 * @param array|DtoRequest[]       $request
+	 * @param DtoUser|null             $user
+	 * @param array|DtoPropertyPrice[] $propertyPrice
+	 *
+	 * @return DtoProperty
+	 */
+	static function createDtoProperty (int $id, $userCreator = "", $userModifier = "", $dateCreated = "",
+		$dateModified = "", $active = 0, $delete = 0, $name = "", $area = 0.0, $description = "",
 		$state = 0, $floor = 0, $extras = [], $request = [], $user = null, $propertyPrice = []):DtoProperty {
-		return new DtoProperty($id, $name, $area, $description, $publishDate, $state, $floor, $extras,
-			$request, $user, $propertyPrice);
+		return new DtoProperty($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+			$area, $description, $state, $floor, $extras, $request, $user, $propertyPrice);
 	}
 
 	/**

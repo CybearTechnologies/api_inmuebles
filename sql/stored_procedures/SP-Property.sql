@@ -51,6 +51,8 @@ BEGIN
     FROM property;
 END$$
 
+
+
 DROP PROCEDURE IF EXISTS getPropertyById;
 DELIMITER $$
 CREATE PROCEDURE getPropertyById(id_pro int)
