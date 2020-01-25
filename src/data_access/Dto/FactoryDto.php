@@ -42,13 +42,19 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
-	 * @param string $name
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param string $name
 	 *
 	 * @return DtoExtra
 	 */
-	static function createDtoExtra (int $id, $name = "", $active = true):DtoExtra {
-		return new DtoExtra($id, $name, $active);
+	static function createDtoExtra (int $id, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete, string $name):DtoExtra {
+		return new DtoExtra($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name);
 	}
 
 	/**
@@ -113,7 +119,6 @@ class FactoryDto {
 	 * @param string                   $name
 	 * @param float                    $area
 	 * @param string                   $description
-	 * @param string                   $publishDate
 	 * @param int                      $state
 	 * @param int                      $floor
 	 * @param array|DtoExtra[]         $extras
@@ -125,23 +130,30 @@ class FactoryDto {
 	 */
 	static function createDtoProperty (int $id, $userCreator = "", $userModifier = "", $dateCreated = "",
 		$dateModified = "", $active = 0, $delete = 0, $name = "", $area = 0.0, $description = "",
-		$state = 0, $floor = 0, $extras = [], $request = [], $user = null, $propertyPrice = []):DtoProperty {
+		$state = 0, $floor = 0, $extras = [], $request = [], $propertyPrice = []):DtoProperty {
 		return new DtoProperty($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
-			$area, $description, $state, $floor, $extras, $request, $user, $propertyPrice);
+			$area, $description, $state, $floor, $extras, $request, $propertyPrice);
 	}
 
 	/**
 	 * @param int    $id
-	 * @param int    $price
-	 * @param string $date
-	 * @param bool   $final
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param float  $price
+	 * @param float  $final
 	 * @param int    $propertyId
 	 *
 	 * @return DtoPropertyPrice
 	 */
-	static function createDtoPropertyPrice (int $id, $price = 0, $date = "", $final = false,
-		int $propertyId = 0):DtoPropertyPrice {
-		return new DtoPropertyPrice($id, $price, $date, $final, $propertyId);
+	static function createDtoPropertyPrice (int $id, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete, float $price, float $final,
+		int $propertyId):DtoPropertyPrice {
+		return new DtoPropertyPrice($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
+			$price, $final, $propertyId);
 	}
 
 	/**
@@ -158,16 +170,22 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
-	 * @param string $name
-	 * @param string $abbreviation
+	 * @param int    $userCreator
+	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param string $name
+	 * @param string $abbreviation
 	 *
 	 * @return DtoAccess
 	 */
-	static function createDtoAccess (int $id, $name = "", $abbreviation = "", $dateCreated = "",
-		$dateModified = ""):DtoAccess {
-		return new DtoAccess($id, $name, $abbreviation, $dateCreated, $dateModified);
+	static function createDtoAccess (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+		string $dateModified = "", bool $active = false, bool $delete = false, string $name = "",
+		string $abbreviation = ""):DtoAccess {
+		return new DtoAccess($id, $userCreator, $userModifier, $dateCreated,
+			$dateModified, $active, $delete, $name, $abbreviation);
 	}
 
 	/**

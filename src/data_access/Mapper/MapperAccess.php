@@ -16,7 +16,8 @@ class MapperAccess extends Mapper {
 	 * @return DtoAccess
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoAccess($entity->getId(), $entity->getName(), $entity->getAbbreviation(),
-			$entity->getDateCreated(), $entity->getDateModified());
+		return FactoryDto::createDtoAccess($entity->getId(), $entity->getUserCreator(), $entity->getUserModifier(),
+			$entity->getDateCreated(), $entity->getDateModified(), $entity->isActive(), $entity->isDelete(),
+			$entity->getName(), $entity->getAbbreviation());
 	}
 }

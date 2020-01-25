@@ -15,6 +15,8 @@ class MapperExtra extends Mapper {
 	 * @return DtoExtra
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoExtra($entity->getId(), $entity->getName(), $entity->isActive());
+		return FactoryDto::createDtoExtra($entity->getId(), $entity->getUserCreator(), $entity->getUserModifier(),
+			$entity->getDateCreated(), $entity->getDateModified(), $entity->isActive(), $entity->isDelete(),
+			$entity->getName());
 	}
 }

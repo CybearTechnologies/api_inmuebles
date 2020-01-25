@@ -9,13 +9,18 @@ class DtoAccess extends Dto {
 	 * DtoAccess constructor.
 	 *
 	 * @param int    $id
-	 * @param string $name
-	 * @param string $abbreviation
+	 * @param int    $userCreator
+	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param string $name
+	 * @param string $abbreviation
 	 */
-	public function __construct (int $id, string $name, string $abbreviation, string $dateCreated,
-		string $dateModified) {
+	public function __construct (int $id, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete, string $name, string $abbreviation) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->id = $id;
 		$this->name = $name;
 		$this->abbreviation = $abbreviation;
