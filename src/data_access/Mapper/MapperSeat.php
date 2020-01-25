@@ -15,6 +15,8 @@ class MapperSeat extends Mapper {
 	 * @return DtoSeat
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoSeat($entity->getId(), $entity->getName(), $entity->getRif(), $entity->isActive());
+		return FactoryDto::createDtoSeat($entity->getId(), $entity->getUserCreator(), $entity->getUserModifier(),
+			$entity->getDateCreated(), $entity->getDateModified(), $entity->isActive(), $entity->isDelete(),
+			$entity->getName(), $entity->getRif());
 	}
 }

@@ -7,37 +7,61 @@
 class FactoryDto {
 	/**
 	 * @param int    $id
-	 * @param string $name
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param string $name
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType (int $id, $name = '', $active = true):DtoPropertyType {
-		return new DtoPropertyType($id, $name, $active);
+	static function createDtoPropertyType (int $id, int $userCreator = 0, int $userModifier = 0,
+		string $dateCreated = "", string $dateModified = "", bool $active = false, bool $delete = false,
+		string $name = ""):DtoPropertyType {
+		return new DtoPropertyType($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
+			$name);
 	}
 
 	/**
 	 * @param int    $id
-	 * @param string $name
-	 * @param int    $price
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param string $name
+	 * @param float  $price
 	 *
 	 * @return DtoPlan
 	 */
-	static function createDtoPlan (int $id, $name = "", $price = 0, $active = true):DtoPlan {
-		return new DtoPlan($id, $name, $price, $active);
+	static function createDtoPlan (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+		string $dateModified = "", bool $active = true, bool $delete = false, string $name = "",
+		float $price = 0.0):DtoPlan {
+		return new DtoPlan($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+			$price);
 	}
 
 	/**
 	 * @param int    $id
-	 * @param string $name
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param string $name
 	 * @param null   $seats
 	 *
 	 * @return DtoAgency
 	 */
-	static function createDtoAgency (int $id, $name = "", $active = true, $seats = null):DtoAgency {
-		return new DtoAgency($id, $name, $active, $seats);
+	static function createDtoAgency (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+		string $dateModified = "", bool $active = true, bool $delete = false, string $name = "",
+		$seats = null):DtoAgency {
+		return new DtoAgency($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+			$seats);
 	}
 
 	/**
@@ -59,25 +83,41 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 * @param string $name
 	 * @param string $type
 	 *
 	 * @return DtoLocation
 	 */
-	static function createDtoLocation (int $id, $name = "", $type = ""):DtoLocation {
-		return new DtoLocation($id, $name, $type);
+	static function createDtoLocation (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+		string $dateModified = "", bool $active = false, bool $delete = false, string $name = "",
+		string $type = ""):DtoLocation {
+		return new DtoLocation($id,$userCreator,$userModifier,$dateCreated,$dateModified,$active,$delete,$name,$type);
 	}
 
 	/**
 	 * @param int    $id
+	 * @param string $userCreator
+	 * @param string $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 * @param string $name
 	 * @param string $rif
-	 * @param bool   $active
 	 *
 	 * @return DtoSeat
 	 */
-	static function createDtoSeat (int $id, $name = "", $rif = "", $active = true):DtoSeat {
-		return new DtoSeat($id, $name, $rif, $active);
+	static function createDtoSeat (int $id, string $userCreator = "", string $userModifier = "",
+		string $dateCreated = "", string $dateModified = "", bool $active = true, bool $delete = false,
+		string $name = "", string $rif = ""):DtoSeat {
+		return new DtoSeat($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+			$rif);
 	}
 
 	/**

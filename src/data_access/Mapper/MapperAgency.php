@@ -15,6 +15,7 @@ class MapperAgency extends Mapper {
 	 * @return DtoAgency
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoAgency($entity->getId(), $entity->getName(), $entity->isActive());
+		return FactoryDto::createDtoAgency($entity->getId(), $entity->getUserCreator(), $entity->getUserModifier(),
+			$entity->getDateCreated(), $entity->getDateModified(),$entity->isActive(),$entity->isDelete(),$entity->getName());
 	}
 }
