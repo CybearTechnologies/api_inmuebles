@@ -5,10 +5,21 @@
  */
 DROP PROCEDURE IF EXISTS insertRequest;
 DELIMITER $$
-CREATE PROCEDURE insertRequest(property int, user int)
+CREATE PROCEDURE insertRequest(property int, user int,dateCreated datetime,dateModified datetime)
 BEGIN
-    INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk)
-    VALUES (property, user, user);
+    IF IsNull(dateCreated) AND IsNull(dateModified) THEN
+        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk)
+        VALUES (property, user, user);
+    ELSEIF IsNull(dateCreated) THEN
+        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk,re_date_modified)
+        VALUES (property, user, user,dateModified);
+    ELSEIF IsNull(dateModified) THEN
+        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk, re_date_created)
+        VALUES (property, user, user,dateCreated);
+    ELSE
+        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk, re_date_created,re_date_modified)
+        VALUES (property, user, user,dateCreated,dateModified);
+    END IF;
     SELECT re_id id,
            re_property_fk property,
            re_active active,
@@ -19,7 +30,8 @@ BEGIN
            re_date_modified dateModified
     FROM request
     WHERE re_id = last_insert_id();
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getAllRequest;
 DELIMITER $$

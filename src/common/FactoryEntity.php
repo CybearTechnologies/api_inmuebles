@@ -116,6 +116,7 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param bool   $active
 	 * @param bool   $delete
+	 * @param int    $property
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -123,9 +124,9 @@ class FactoryEntity {
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, $active = true, $delete = false, int $userCreator = 0,
+	static function createRequest (int $id, $active = true, $delete = false, int $property=0 ,int $userCreator = 0,
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Request {
-		return new Request($id, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+		return new Request($id, $active, $delete, $property,$userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**

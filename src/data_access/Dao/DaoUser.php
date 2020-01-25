@@ -57,7 +57,8 @@ class DaoUser extends Dao {
 			if($dateModified!="")
 				$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_INT);
 			else
-				$stmt->bindParam(":dateModified", $nullDate, PDO::PARAM_INT);
+				$stmt->bindParam(":dateModified", $nullDate
+					, PDO::PARAM_INT);
 			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->execute();
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
