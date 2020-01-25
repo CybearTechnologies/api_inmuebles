@@ -203,11 +203,22 @@ class FactoryEntity {
 	 *
 	 * @return User
 	 */
-	static function createUser (int $id, string $firstName = "", string $lastName = "", string $address = "",
+	static function createUser (int $id,
+		string $firstName = "",
+		string $lastName = "",
+		string $address = "",
 		string $email = "",
-		string $password = "", int $userCreator = 1, int $userModifier = 1, bool $active = true, bool $blocked = false,
+		string $password = "",
+		int $userCreator = 1,
+		int $userModifier = 1,
+		bool $active = true,
+		bool $blocked = false,
 		bool $deleted = false,
-		int $seat = 1, int $rol = 1, int $plan = 1, int $location = 1, string $dateCreated = "",
+		int $seat = 1,
+		int $rol = 1,
+		int $plan = 1,
+		int $location = 1,
+		string $dateCreated = "",
 		string $dateModified = ""):User {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
 			$blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);

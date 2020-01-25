@@ -23,8 +23,8 @@ class DaoUser extends Dao {
 	 */
 	public function createUser () {
 		try {
-			$firstName= $this->_entity->getFirstName();
-			$lastName=$this->_entity->getLastName();
+			$firstName = $this->_entity->getFirstName();
+			$lastName = $this->_entity->getLastName();
 			$address = $this->_entity->getAddress();
 			$email = $this->_entity->getEmail();
 			$password = $this->_entity->getPassword();
@@ -36,7 +36,7 @@ class DaoUser extends Dao {
 			$userModifier = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			$dateCreated = $this->_entity->getDateCreated();
-			$nullDate=null;
+			$nullDate = null;
 			$username = strtolower($this->_entity->getEmail());
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_USER);
 			$stmt->bindParam(":firstName", $firstName, PDO::PARAM_STR);
@@ -50,19 +50,19 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
 			$stmt->bindParam(":userCreator", $userCreator, PDO::PARAM_INT);
 			$stmt->bindParam(":userModifier", $userModifier, PDO::PARAM_INT);
-			if($dateCreated!="")
+			if ($dateCreated != "")
 				$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_INT);
 			else
 				$stmt->bindParam(":dateCreated", $nullDate, PDO::PARAM_STR);
-			if($dateModified!="")
+			if ($dateModified != "")
 				$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_INT);
 			else
 				$stmt->bindParam(":dateModified", $nullDate
 					, PDO::PARAM_INT);
 			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->execute();
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -139,11 +139,12 @@ class DaoUser extends Dao {
 	public function DeleteUser () {
 		try {
 			$id = $this->_entity->getId();
-			$user= $this->_entity->getUserModifier();
+			$user = $this->_entity->getUserModifier();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_USER);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -160,7 +161,7 @@ class DaoUser extends Dao {
 	protected function extract ($dbObject):User {
 		return FactoryEntity::createUser($dbObject->id, $dbObject->first_name, $dbObject->last_name, $dbObject->address,
 			$dbObject->email, $dbObject->password, $dbObject->userCreator, $dbObject->userModifier, $dbObject->active,
-			$dbObject->blocked, $dbObject->deleted, $dbObject->seat, $dbObject->rol, $dbObject->plan,
+			$dbObject->blocked, $dbObject->delete, $dbObject->seat, $dbObject->rol, $dbObject->plan,
 			$dbObject->location, $dbObject->dateCreated, $dbObject->dateModified);
 	}
 }
