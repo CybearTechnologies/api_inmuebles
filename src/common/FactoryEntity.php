@@ -98,6 +98,7 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $rif
+	 * @param int    $location
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -107,9 +108,9 @@ class FactoryEntity {
 	 *
 	 * @return Seat
 	 */
-	static function createSeat (int $id, $name = "", $rif = "", $active = true, $delete = false, int $userCreator = 0,
+	static function createSeat (int $id, $name = "", $rif = "", $location=0,$agency =0,$active = true, $delete = false, int $userCreator = 0,
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Seat {
-		return new Seat($id, $name, $rif, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+		return new Seat($id, $name, $rif, $location,$agency,$active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -124,9 +125,9 @@ class FactoryEntity {
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, $active = true, $delete = false, int $property=0 ,int $userCreator = 0,
+	static function createRequest (int $id, int $property=0, $active = true, $delete = false ,int $userCreator = 0,
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Request {
-		return new Request($id, $active, $delete, $property,$userCreator, $userModifier, $dateCreated, $dateModified);
+		return new Request($id, $property, $active, $delete,$userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**

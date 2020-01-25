@@ -7,11 +7,17 @@
 DROP PROCEDURE IF EXISTS insertSeat;
 DELIMITER $$
 CREATE PROCEDURE insertSeat(name varchar(100), rif varchar(20), location int, agency int,
-                            active tinyint, user int)
+                            user int,dateCreated datetime)
 BEGIN
-    INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk, se_active,
+    IF IsNull(dateCreated) THEN
+        INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk,
                      se_user_created_fk, se_user_modified_fk)
-    VALUES (name, rif, location, agency, active, user, user);
+        VALUES (name, rif, location, agency, user, user);
+    ELSE
+        INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk,
+                         se_user_created_fk, se_user_modified_fk,se_date_created,se_date_modified)
+        VALUES (name, rif, location, agency, user, user,dateCreated,dateCreated);
+    END IF;
     SELECT se_id id,
            se_name name,
            se_rif rif,
@@ -25,6 +31,35 @@ BEGIN
            se_date_modified dateModified
     FROM seat
     WHERE se_id = last_insert_id();
+END$$
+
+DROP PROCEDURE IF EXISTS updateSeat;
+DELIMITER $$
+CREATE PROCEDURE updateSeat(id int,name varchar(100), rif varchar(20), location int, agency int,
+                            user int,dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE seat set se_name=name, se_rif=rif, se_location_fk=location,se_agency_fk=agency,
+                        se_user_modified_fk=user
+        WHERE se_id = id;
+    ELSE
+        UPDATE seat set se_name=name, se_rif=rif, se_location_fk=location,se_agency_fk=agency,
+                        se_user_modified_fk=user, se_date_modified=dateModified
+        WHERE se_id = id;
+    END IF;
+    SELECT se_id id,
+           se_name name,
+           se_rif rif,
+           se_location_fk location,
+           se_agency_fk agency,
+           se_active active,
+           se_deleted 'delete',
+           se_user_created_fk userCreator,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
+    FROM seat
+    WHERE se_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllSeats;

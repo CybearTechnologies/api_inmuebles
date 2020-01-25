@@ -5,20 +5,15 @@
  */
 DROP PROCEDURE IF EXISTS insertRequest;
 DELIMITER $$
-CREATE PROCEDURE insertRequest(property int, user int,dateCreated datetime,dateModified datetime)
+CREATE PROCEDURE insertRequest(property int, user int,dateCreated datetime)
 BEGIN
-    IF IsNull(dateCreated) AND IsNull(dateModified) THEN
+    IF IsNull(dateCreated)THEN
         INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk)
         VALUES (property, user, user);
-    ELSEIF IsNull(dateCreated) THEN
-        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk,re_date_modified)
-        VALUES (property, user, user,dateModified);
-    ELSEIF IsNull(dateModified) THEN
-        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk, re_date_created)
-        VALUES (property, user, user,dateCreated);
     ELSE
-        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk, re_date_created,re_date_modified)
-        VALUES (property, user, user,dateCreated,dateModified);
+        INSERT INTO request(re_property_fk, re_user_created_fk, re_user_modified_fk,
+                            re_date_created,re_date_modified)
+        VALUES (property, user, user,dateCreated,dateCreated);
     END IF;
     SELECT re_id id,
            re_property_fk property,
@@ -30,6 +25,30 @@ BEGIN
            re_date_modified dateModified
     FROM request
     WHERE re_id = last_insert_id();
+END $$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS updateRequest;
+DELIMITER $$
+CREATE PROCEDURE updateRequest(id int,property int, user int,dateModified datetime)
+BEGIN
+    IF IsNull(dateModified)THEN
+        UPDATE request set re_property_fk = property, re_user_modified_fk = user
+        WHERE re_id = id;
+    ELSE
+        UPDATE request set re_property_fk = property, re_user_modified_fk = user, re_date_modified = dateModified
+        WHERE re_id = id;
+    END IF;
+    SELECT re_id id,
+           re_property_fk property,
+           re_active active,
+           re_deleted 'delete',
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
+    FROM request
+    WHERE re_id = id;
 END $$
 DELIMITER ;
 

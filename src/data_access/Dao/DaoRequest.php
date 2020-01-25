@@ -1,11 +1,12 @@
 <?php
 class DaoRequest extends Dao {
-	private const QUERY_CREATE = "CALL insertRequest(:property,:user,:dateCreated,:dateModified)"; //TODO
+	private const QUERY_CREATE = "CALL insertRequest(:property,:user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllRequest()";
 	private const QUERY_GET_BY_ID = "CALL getRequestById(:id)";
 	private const QUERY_GET_BY_USER_ID = "CALL getAllRequestByUserId(:id)";
 	private const QUERY_GET_REQUEST_BY_PROPERTY_ID = "CALL getAllRequestByProperty(:id)";
 	private const QUERY_DELETE = "CALL deleteRequest(:id,:user)";
+	private const QUERY_UPDATE = "CALL updateRequest(:id,:property,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -49,12 +50,10 @@ class DaoRequest extends Dao {
 			$property = $this->_entity->getProperty();
 			$user = $this->_entity->getUserCreator();
 			$dateCreated= $this->_entity->getDateCreated();
-			$dateModified = $this->_entity->getDateModified();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
-			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
@@ -64,6 +63,29 @@ class DaoRequest extends Dao {
 		}
 	}
 
+	/**
+	 * @return Request
+	 * @throws DatabaseConnectionException
+	 */
+	public function updateRequest () {
+		try {
+			$id = $this->_entity->getId();
+			$property = $this->_entity->getProperty();
+			$user = $this->_entity->getUserModifier();
+			$dateModified = $this->_entity->getDateModified();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
 
 	/**
 	 * @return Request[]
@@ -138,7 +160,7 @@ class DaoRequest extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$user = $this->_entity->getUserModifier();
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
@@ -157,7 +179,7 @@ class DaoRequest extends Dao {
 	 * @return Request
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRequest($dbObject->id, $dbObject->active, $dbObject->delete, $dbObject->userCreator,
+		return FactoryEntity::createRequest($dbObject->id,$dbObject->property,$dbObject->active, $dbObject->delete, $dbObject->userCreator,
 			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

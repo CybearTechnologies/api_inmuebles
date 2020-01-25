@@ -4,6 +4,7 @@ class DaoSeat extends Dao {
 	private const QUERY_GET_BY_ID = "CALL getSeatById(:id)";
 	private const QUERY_GET_SEATS_BY_AGENCY = "CALL getSeatsByAgency(:id)";
 	private const QUERY_DELETE = "CALL deleteSeat(:id,:user)";
+	private const QUERY_CREATE = "CALL insertSeat(:name,:rif,:location,:agency,:user,:dateCreated)";
 	private $_entity;
 
 	/**
@@ -14,6 +15,33 @@ class DaoSeat extends Dao {
 	public function __construct ($entity) {
 		parent::__construct();
 		$this->_entity = $entity;
+	}
+
+	/**
+	 * @return Seat
+	 * @throws DatabaseConnectionException
+	 */public function createSeat () {
+		try {
+			$name = $this->_entity->getName();
+			$rif = $this->_entity->getRif();
+			$location = $this->_entity->getLocation();
+			$agency = $this->_entity->getAgency();
+			$user = $this->_entity->getUserCreator();
+			$dateCreated = $this->_entity->getDateCreated();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);
+			$stmt->bindParam(":location", $location, PDO::PARAM_STR);
+			$stmt->bindParam(":agency", $agency, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
 	}
 
 	/**
@@ -106,8 +134,8 @@ class DaoSeat extends Dao {
 	 * @return Seat
 	 */
 	protected function extract ($dbObject):Seat {
-		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif, $dbObject->active,
-			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
-			$dbObject->dateModified);
+		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif,$dbObject->location,
+			$dbObject->agency,$dbObject->active, $dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
+			$dbObject->dateCreated, $dbObject->dateModified);
 	}
 }
