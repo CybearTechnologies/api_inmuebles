@@ -12,32 +12,32 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAccessByIdCommand($access);
 			try {
 				$command->execute();
-				$return = new ErrorResponse(true, $mapper->fromEntityToDto($command->return()));
-				ErrorResponse::setResponse();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
 			}
 			catch (AccessNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ACCESS_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ACCESS_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {
 			$command = FactoryCommand::createGetAllAccessCommand();
 			try {
 				$command->execute();
-				$return = new ErrorResponse(true, $mapper->fromEntityArrayToDtoArray($command->return()));
-				ErrorResponse::setResponse();
+				$return = new ErrorResponse($mapper->fromEntityArrayToDtoArray($command->return()));
+				Tools::setResponse();
 			}
 			catch (AccessNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ACCESS_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ACCESS_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		echo json_encode($return);
@@ -49,11 +49,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$command = FactoryCommand::createCreateAccessCommand($mapper->fromDtoToEntity($post));
 				$command->execute();
 				$return = new ErrorResponse();
-				ErrorResponse::setResponse();
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (AccessAlreadyExistException $e) {
 			}
 		}
 		break;

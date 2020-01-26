@@ -15,11 +15,11 @@ class DtoPropertyPrice extends Dto {
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param float  $price
-	 * @param float  $final
+	 * @param bool  $final
 	 * @param int    $propertyId
 	 */
 	public function __construct (int $id, int $userCreator, int $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete, float $price, float $final, int $propertyId) {
+		string $dateModified, bool $active, bool $delete, float $price, bool $final, int $propertyId) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->id = $id;
 		$this->price = $price;

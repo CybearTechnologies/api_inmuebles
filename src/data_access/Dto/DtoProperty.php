@@ -9,6 +9,8 @@ class DtoProperty extends Dto {
 	public $extras;
 	public $request;
 	public $price;
+	public $type;
+	public $location;
 
 	/**
 	 * DtoProperty constructor.
@@ -25,14 +27,17 @@ class DtoProperty extends Dto {
 	 * @param string             $description
 	 * @param int                $state
 	 * @param int                $floor
+	 * @param int                $type
+	 * @param int                $location
 	 * @param DtoExtra[]         $extras
 	 * @param DtoRequest[]       $request
 	 * @param DtoPropertyPrice[] $price
 	 */
-
-	public function __construct (int $id,int $userCreator,int $userModifier,string $dateCreated,string $dateModified,bool $active, bool $delete, string $name, float $area, string $description,
-		int $state, int $floor, $extras, $request, $price) {
-		parent::__construct($id,$userCreator,$userModifier,$dateCreated,$dateModified,$active,$delete);
+	public function __construct (int $id, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete, string $name, float $area, string $description,
+		int $state, int $floor, int $type, int $location, $extras, $request, $price) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+		$this->id = $id;
 		$this->name = $name;
 		$this->area = $area;
 		$this->description = $description;
@@ -41,5 +46,7 @@ class DtoProperty extends Dto {
 		$this->extras = $extras;
 		$this->request = $request;
 		$this->price = $price;
+		$this->type = $type;
+		$this->location = $location;
 	}
 }

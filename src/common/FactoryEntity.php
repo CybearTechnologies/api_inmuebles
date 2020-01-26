@@ -138,7 +138,7 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param int    $price
-	 * @param float  $final
+	 * @param bool  $final
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -152,7 +152,7 @@ class FactoryEntity {
 	static function createPropertyPrice (
 		int $id,
 		$price = 0,
-		$final = 0.0,
+		$final = false,
 		int $propertyId = 0,
 		$active = true,
 		$delete = false,

@@ -5,7 +5,7 @@ $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperProperty();
 $mapperExtra = FactoryMapper::createMapperExtra();
-$mapperPropertyPrice = FactoryMapper::createMapperProperty();
+$mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
 $property = FactoryEntity::createProperty(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
@@ -54,6 +54,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllPropertyCommand();
 			try {
 				$command->execute();
+				/**
+				 * @var DtoProperty[] $dtoPropertyArray
+				 */
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());
 				Tools::setResponse();
 			}
