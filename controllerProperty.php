@@ -54,6 +54,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllPropertyCommand();
 			try {
 				$command->execute();
+				/**
+				 * @var DtoProperty[] $dtoPropertyArray
+				 */
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());
 				Tools::setResponse();
 			}

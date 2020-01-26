@@ -12,7 +12,7 @@ class PropertyPrice extends Entity {
 	 *
 	 * @param int    $id
 	 * @param float  $price
-	 * @param float   $final
+	 * @param bool   $final
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -21,7 +21,7 @@ class PropertyPrice extends Entity {
 	 * @param string $dateModified
 	 * @param int    $propertyId
 	 */
-	public function __construct (int $id, float $price, float $final, int $propertyId, bool $active, bool $delete,
+	public function __construct (int $id, float $price, bool $final, int $propertyId, bool $active, bool $delete,
 		int $userCreator, int $userModifier,
 		string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);

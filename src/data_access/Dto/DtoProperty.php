@@ -37,6 +37,7 @@ class DtoProperty extends Dto {
 		string $dateModified, bool $active, bool $delete, string $name, float $area, string $description,
 		int $state, int $floor, int $type, int $location, $extras, $request, $price) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+		$this->id = $id;
 		$this->name = $name;
 		$this->area = $area;
 		$this->description = $description;

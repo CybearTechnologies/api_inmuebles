@@ -25,16 +25,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				else
 					unset($dto->seats);
-				$return = new ErrorResponse(true, $dto);
-				ErrorResponse::setResponse();
+				$return = $dto;
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_AGENCY_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -42,16 +42,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllAgenciesCommand();
 			try {
 				$command->execute();
-				$return = new ErrorResponse(true, $mapper->fromEntityArrayToDTOArray($command->return()));
-				ErrorResponse::setResponse();
+				$return = $mapper->fromEntityArrayToDTOArray($command->return());
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (AgencyNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_AGENCIES_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_AGENCIES_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}

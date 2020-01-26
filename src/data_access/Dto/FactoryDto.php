@@ -97,7 +97,8 @@ class FactoryDto {
 	static function createDtoLocation (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
 		string $dateModified = "", bool $active = false, bool $delete = false, string $name = "",
 		string $type = ""):DtoLocation {
-		return new DtoLocation($id,$userCreator,$userModifier,$dateCreated,$dateModified,$active,$delete,$name,$type);
+		return new DtoLocation($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+			$type);
 	}
 
 	/**
@@ -171,8 +172,10 @@ class FactoryDto {
 	 */
 	static function createDtoProperty (int $id, $userCreator = "", $userModifier = "", $dateCreated = "",
 		$dateModified = "", $active = 0, $delete = 0, $name = "", $area = 0.0, $description = "",
-		$state = 0, $floor = 0,$type = 0,$location = 0, $extras = [], $request = [], $propertyPrice = []):DtoProperty {
-		return new DtoProperty($id,$userCreator,$userModifier,$dateCreated,$dateModified,$active,$delete,$name,$area,$description,$state,$floor,$type,$location,$extras,$request,$propertyPrice);
+		$state = 0, $floor = 0, $type = 0, $location = 0, $extras = [], $request = [],
+		$propertyPrice = []):DtoProperty {
+		return new DtoProperty($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+			$area, $description, $state, $floor, $type, $location, $extras, $request, $propertyPrice);
 	}
 
 	/**
@@ -184,13 +187,13 @@ class FactoryDto {
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param float  $price
-	 * @param float  $final
+	 * @param bool   $final
 	 * @param int    $propertyId
 	 *
 	 * @return DtoPropertyPrice
 	 */
 	static function createDtoPropertyPrice (int $id, int $userCreator, int $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete, float $price, float $final,
+		string $dateModified, bool $active, bool $delete, float $price, bool $final,
 		int $propertyId):DtoPropertyPrice {
 		return new DtoPropertyPrice($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
 			$price, $final, $propertyId);
