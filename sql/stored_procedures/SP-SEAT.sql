@@ -9,15 +9,15 @@ DELIMITER $$
 CREATE PROCEDURE insertSeat(name varchar(100), rif varchar(20), location int, agency int,
                             user int,dateCreated datetime)
 BEGIN
-    IF IsNull(dateCreated) THEN
-        INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk,
-                     se_user_created_fk, se_user_modified_fk)
-        VALUES (name, rif, location, agency, user, user);
-    ELSE
-        INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk,
-                         se_user_created_fk, se_user_modified_fk,se_date_created,se_date_modified)
-        VALUES (name, rif, location, agency, user, user,dateCreated,dateCreated);
-    END IF;
+        IF IsNull(dateCreated) THEN
+            INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk,
+                         se_user_created_fk, se_user_modified_fk)
+            VALUES (name, rif, location, agency, user, user);
+        ELSE
+            INSERT INTO seat(se_name, se_rif, se_location_fk, se_agency_fk,
+                             se_user_created_fk, se_user_modified_fk,se_date_created,se_date_modified)
+            VALUES (name, rif, location, agency, user, user,dateCreated,dateCreated);
+        END IF;
     SELECT se_id id,
            se_name name,
            se_rif rif,

@@ -67,12 +67,17 @@ class FactoryEntity {
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param float  $value
+	 * @param string $icon
 	 *
 	 * @return Extra
 	 */
-	static function createExtra (int $id, $name = "", $active = true, $delete = false, int $userCreator = 0,
-		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Extra {
-		return new Extra($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+	static function createExtra (int $id, $name = "", string $icon="",$active = true, $delete = false,
+								 int $userCreator = 0, int $userModifier = 0,
+		 						 string $dateCreated = "", string $dateModified = "",
+								 float $value=0):Extra {
+		return new Extra($id, $name, $icon ,$active, $delete, $userCreator, $userModifier, $dateCreated,
+						 $dateModified,$value);
 	}
 
 	/**
@@ -229,6 +234,7 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param float  $score
 	 * @param string $message
+	 * @param int    $user
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -238,9 +244,9 @@ class FactoryEntity {
 	 *
 	 * @return Rating
 	 */
-	static function createRating (int $id, $score = 0.0, $message = "", $active = true, $delete = false,
+	static function createRating (int $id, $score = 0.0, $message = "", $user=0,$active = true, $delete = false,
 		int $userCreator = 0, int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Rating {
-		return new Rating($id, $score, $message, $active, $delete, $userCreator, $userModifier, $dateCreated,
+		return new Rating($id, $score, $message, $user,$active, $delete, $userCreator, $userModifier, $dateCreated,
 			$dateModified);
 	}
 

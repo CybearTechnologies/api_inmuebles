@@ -5,6 +5,7 @@ class DaoSeat extends Dao {
 	private const QUERY_GET_SEATS_BY_AGENCY = "CALL getSeatsByAgency(:id)";
 	private const QUERY_DELETE = "CALL deleteSeat(:id,:user)";
 	private const QUERY_CREATE = "CALL insertSeat(:name,:rif,:location,:agency,:user,:dateCreated)";
+	private const QUERY_UPDATE = "CALL updateSeat(:id,:name,:rif,:location,:agency,:user,dateModified)";
 	private $_entity;
 
 	/**
@@ -20,15 +21,49 @@ class DaoSeat extends Dao {
 	/**
 	 * @return Seat
 	 * @throws DatabaseConnectionException
-	 */public function createSeat () {
+	 */
+	public function createSeat () {
 		try {
 			$name = $this->_entity->getName();
 			$rif = $this->_entity->getRif();
 			$location = $this->_entity->getLocation();
 			$agency = $this->_entity->getAgency();
 			$user = $this->_entity->getUserCreator();
-			$dateCreated = $this->_entity->getDateCreated();
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
+			if($dateCreated="")
+				$dateCreated = null;
+			else
+				$dateCreated = $this->_entity->getDateCreated();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);
+			$stmt->bindParam(":location", $location, PDO::PARAM_STR);
+			$stmt->bindParam(":agency", $agency, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Seat
+	 * @throws DatabaseConnectionException
+	 */
+	public function updateSeat () {
+		try {
+			$id = $this->_entity->getId();
+			$name = $this->_entity->getName();
+			$rif = $this->_entity->getRif();
+			$location = $this->_entity->getLocation();
+			$agency = $this->_entity->getAgency();
+			$user = $this->_entity->getUserModifier();
+			$dateCreated = $this->_entity->getDateModified();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_STR);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);
 			$stmt->bindParam(":location", $location, PDO::PARAM_STR);

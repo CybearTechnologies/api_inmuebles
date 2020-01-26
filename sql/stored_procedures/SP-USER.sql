@@ -3,15 +3,16 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-DROP PROCEDURE IF EXIST createUser();
-DELIMITER
-CREATE PROCEDURE getUserById(firstName,lastName,address,email,password,seat,rol,plan,location,userCreator,
-    userModifier,dateModified,dateCreated)
+DROP PROCEDURE IF EXISTS createUser;
+DELIMITER $$
+CREATE PROCEDURE createUser(firstName varchar,lastName varchar,address varchar,email varchar,
+                            password varchar,seat int,rol int,plan int,location int,userCreator int,
+                            dateCreated datetime)
 BEGIN
     INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
     us_plan_fk, us_location_fk, us_user_created_fk,us_user_modified_fk,us_date_modified,us_date_created)
-    VALUES (firstName,lastName,address,email,password,seat,rol,plan,location,userCreator,userModifier,
-    dateModified,dateCreated);
+    VALUES (firstName,lastName,address,email,password,seat,rol,plan,location,userCreator,userCreator,
+            dateCreated,dateCreated);
     SELECT us.us_id id,
            us.us_first_name first_name,
            us.us_last_name last_name,

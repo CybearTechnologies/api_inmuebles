@@ -180,7 +180,9 @@ class DaoExtra extends Dao {
 	 * @return Extra
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createExtra($dbObject->id, $dbObject->name, $dbObject->active, $dbObject->delete,
-			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified);
+		return FactoryEntity::createExtra($dbObject->id, $dbObject->name,
+			is_null($dbObject->icon) ? "" : $dbObject->icon, $dbObject->active,
+			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
+			$dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

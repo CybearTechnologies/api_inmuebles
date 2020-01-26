@@ -5,15 +5,21 @@
  */
 DROP PROCEDURE IF EXISTS insertRating;
 DELIMITER $$
-CREATE PROCEDURE insertRating(score float, message varchar(200), user_target int, user_fk int,dateCreated DATE,
-dateModified DATE )
+CREATE PROCEDURE insertRating(score float, message varchar(200), user_target int, userCreated int,
+                              dateCreated DATE)
 BEGIN
-    INSERT INTO rating(ra_score, ra_message, ra_user_fk, ra_user_created_fk, ra_user_modified_fk,ra_date_created,
-    ra_date_modified)
-    VALUES (score, message, user_target, user_fk, user_fk, dateCreated,dateModified);
+    IF IsNull(dateCreated) THEN
+        INSERT INTO rating(ra_score, ra_message, ra_user_fk, ra_user_created_fk, ra_user_modified_fk)
+        VALUES (score, message, user_target, userCreated, userCreated);
+    ELSE
+        INSERT INTO rating(ra_score, ra_message, ra_user_fk, ra_user_created_fk, ra_user_modified_fk,ra_date_created,
+                           ra_date_modified)
+        VALUES (score, message, user_target, userCreated, userCreated, dateCreated,dateCreated);
+    END IF;
     SELECT ra_id id,
            ra_score score,
            ra_message message,
+           ra_user_fk userTarget,
            ra_active active,
            ra_deleted 'delete',
            ra_user_created_fk userCreated,
@@ -23,7 +29,36 @@ BEGIN
     FROM rating
     WHERE ra_id = last_insert_id();
 END$$
+DELIMITER ;
 
+DROP PROCEDURE IF EXISTS updateRating;
+DELIMITER $$
+CREATE PROCEDURE updateRating(id int,score float, message varchar(200), user_target int, userModifier int,
+                              dateModified DATE)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE rating SET ra_score = score, ra_message = message, ra_user_fk = user_target,
+                          ra_user_modified_fk = userModifier
+        WHERE ra_id = id;
+    ELSE
+        UPDATE rating SET ra_score = score, ra_message = message, ra_user_fk = user_target,
+                          ra_user_modified_fk = userModifier, ra_date_modified = dateModified
+        WHERE ra_id = id;
+    END IF;
+    SELECT ra_id id,
+           ra_score score,
+           ra_message message,
+           ra_user_fk userTarget,
+           ra_active active,
+           ra_deleted 'delete',
+           ra_user_created_fk userCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_created dateCreated,
+           ra_date_modified dateModified
+    FROM rating
+    WHERE ra_id = last_insert_id();
+END$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getRatingById;
 DELIMITER $$
@@ -32,6 +67,7 @@ BEGIN
     SELECT ra_id id,
            ra_score score,
            ra_message message,
+           ra_user_fk userTarget,
            ra_active active,
            ra_deleted 'delete',
            ra_user_created_fk userCreated,
@@ -51,6 +87,7 @@ BEGIN
     WHERE ra_id = id;
     SELECT ra_id id,
            ra_score score,
+           ra_user_fk userTarget,
            ra_message message,
            ra_active active,
            ra_deleted 'delete',
@@ -69,6 +106,7 @@ BEGIN
     SELECT ra_id id,
            ra_score score,
            ra_message message,
+           ra_user_fk userTarget,
            ra_active active,
            ra_deleted 'delete',
            ra_user_created_fk userCreator,
@@ -86,6 +124,7 @@ BEGIN
     SELECT ra_id id,
            ra_score score,
            ra_message message,
+           ra_user_fk userTarget,
            ra_active active,
            ra_deleted 'delete',
            ra_user_created_fk userCreator,

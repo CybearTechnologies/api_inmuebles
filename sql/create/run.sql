@@ -212,6 +212,7 @@ CREATE TABLE extra
 (
     ex_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Extra',
     ex_name             varchar(450) NOT NULL COMMENT 'Nombre',
+    ex_icon             varchar(255) NOT NULL  COMMENT 'Icono',
     ex_active           tinyint(1)   NOT NULL DEFAULT 1 COMMENT 'Activo',
     ex_deleted          tinyint(1)   NOT NULL DEFAULT 0 COMMENT 'Eliminado',
     ex_user_created_fk  int(10)               DEFAULT 1 NOT NULL COMMENT 'Usuario creador',

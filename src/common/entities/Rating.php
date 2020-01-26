@@ -2,6 +2,7 @@
 class Rating extends Entity {
     private $_score;
     private $_message;
+    private $_userTarget;
 
 	/**
 	 * Rating constructor.
@@ -9,6 +10,7 @@ class Rating extends Entity {
 	 * @param int    $id
 	 * @param float  $score
 	 * @param string $message
+	 * @param int    $user
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -16,11 +18,12 @@ class Rating extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, float $score, string $message, bool $active, bool $delete, int $userCreator,
+	public function __construct (int $id, float $score, string $message, int $user,bool $active, bool $delete, int $userCreator,
 		int $userModifier, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_score = $score;
 		$this->_message = $message;
+		$this->_userTarget = $user;
     }
 
 	/**
@@ -50,4 +53,21 @@ class Rating extends Entity {
 	public function setMessage (string $message):void {
 		$this->_message = $message;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getUserTarget ():int {
+		return $this->_userTarget;
+	}
+
+	/**
+	 * @param int $userTarget
+	 */
+	public function setUserTarget (int $userTarget):void {
+		$this->_userTarget = $userTarget;
+	}
+
+
+
 }
