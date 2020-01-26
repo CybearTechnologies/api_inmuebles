@@ -161,18 +161,18 @@ class FactoryDto {
 	 * @param string                   $description
 	 * @param int                      $state
 	 * @param int                      $floor
+	 * @param int                      $type
+	 * @param int                      $location
 	 * @param array|DtoExtra[]         $extras
 	 * @param array|DtoRequest[]       $request
-	 * @param DtoUser|null             $user
 	 * @param array|DtoPropertyPrice[] $propertyPrice
 	 *
 	 * @return DtoProperty
 	 */
 	static function createDtoProperty (int $id, $userCreator = "", $userModifier = "", $dateCreated = "",
 		$dateModified = "", $active = 0, $delete = 0, $name = "", $area = 0.0, $description = "",
-		$state = 0, $floor = 0, $extras = [], $request = [], $propertyPrice = []):DtoProperty {
-		return new DtoProperty($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
-			$area, $description, $state, $floor, $extras, $request, $propertyPrice);
+		$state = 0, $floor = 0,$type = 0,$location = 0, $extras = [], $request = [], $propertyPrice = []):DtoProperty {
+		return new DtoProperty($id,$userCreator,$userModifier,$dateCreated,$dateModified,$active,$delete,$name,$area,$description,$state,$floor,$type,$location,$extras,$request,$propertyPrice);
 	}
 
 	/**

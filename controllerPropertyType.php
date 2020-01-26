@@ -12,32 +12,32 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetPropertyTypeByIdCommand($propertyType);
 			try {
 				$command->execute();
-				$return = new ErrorResponse(true, $mapper->fromEntityToDTO($command->return()));
-				ErrorResponse::setResponse();
+				$return = new ErrorResponse($mapper->fromEntityToDTO($command->return()));
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (PropertyTypeNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_PROPERTY_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {
 			$command = FactoryCommand::createGetAllPropertyTypeCommand();
 			try {
 				$command->execute();
-				$return = new ErrorResponse(true, $mapper->fromEntityArrayToDTOArray($command->return()));
-				ErrorResponse::setResponse();
+				$return = new ErrorResponse($mapper->fromEntityArrayToDTOArray($command->return()));
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (PropertyTypeNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_PROPERTY_TYPES_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPES_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		echo json_encode($return);
@@ -49,22 +49,22 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$command = FactoryCommand::createPropertyTypeCommand($mapper->fromDTOToEntity($post));
 				$command->execute();
 				$return = new ErrorResponse();
-				ErrorResponse::setResponse();
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (PropertyTypeNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_PROPERTY_TYPE_NOT_FOUND"));
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_NOT_FOUND"));
 			}
 			catch (PropetyTypeAlreadyExistException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
 			}
 		}
 		else {
-			$return = new ErrorResponse(false, [], Values::getText("ERROR_DATA_INCOMPLETE"));
-			ErrorResponse::setResponse(500);
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(500);
 		}
 		echo json_encode($return);
 		break;
