@@ -56,4 +56,18 @@ class Validate {
 	static function passwordHash (string $password) {
 		return password_hash($password, PASSWORD_DEFAULT, self::OPTIONS);
 	}
+
+	/**
+	 * @param $property
+	 *
+	 * @return bool
+	 */
+	static function property($property) {
+		return isset($property->name) && !empty($property->name)
+			&& isset($property->area) && is_numeric($property->area)
+			&& isset($property->description) && !empty($property->description)
+			&& isset($property->floor) && is_numeric($property->area)
+			&& isset($property->type) && is_numeric($property->type)
+			&& isset($property->price) && is_array($property->price);
+	}
 }

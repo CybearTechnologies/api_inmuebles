@@ -5,7 +5,7 @@ $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperProperty();
 $mapperExtra = FactoryMapper::createMapperExtra();
-$mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
+$mapperPropertyPrice = FactoryMapper::createMapperProperty();
 $property = FactoryEntity::createProperty(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
@@ -67,5 +67,28 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			echo json_encode($return);
 		}
+		break;
+	case "POST":
+		$post = json_decode(file_get_contents('php://input'));
+		if (isset($post->property) && Validate::property($post->property)) {
+			$command = FactoryCommand::createCreatePropertyCommand($mapper->fromDTOToEntity($post));
+			try {
+				$command->execute();
+				$post->property->id = $command->return()->getId();
+				$command = FactoryCommand::createCreatePropertyPriceByPropertyCommand($command->return());
+				$command->execute();
+				$return = new Result(true, $post);
+				Result::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
+				Result::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new Result(false, [], Values::getText("ERROR_DATA_INCOMPLETE"));
+			Result::setResponse(500);
+		}
+		echo json_encode($return);
 		break;
 }
