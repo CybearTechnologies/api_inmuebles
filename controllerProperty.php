@@ -37,16 +37,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				else
 					unset($dto->seats);
-				$return = new Result(true, $dto);
-				Result::setResponse();
+				$return = $dto;
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (PropertyNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_PROPERTY_NOT_FOUND"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -54,16 +54,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllPropertyCommand();
 			try {
 				$command->execute();
-				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
-				Result::setResponse();
+				$return = $mapper->fromEntityArrayToDTOArray($command->return());
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (PropertyNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_PROPERTIES_NOT_FOUND"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTIES_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -77,17 +77,17 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$post->property->id = $command->return()->getId();
 				$command = FactoryCommand::createCreatePropertyPriceByPropertyCommand($command->return());
 				$command->execute();
-				$return = new Result(true, $post);
-				Result::setResponse();
+				$return = $post;
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {
-			$return = new Result(false, [], Values::getText("ERROR_DATA_INCOMPLETE"));
-			Result::setResponse(500);
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(500);
 		}
 		echo json_encode($return);
 		break;

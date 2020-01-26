@@ -98,4 +98,11 @@ class Tools {
 			$string = str_replace($key[$i], $i, $string);
 		return $string;
 	}
+
+	/**
+	 * @param int $responseCode
+	 */
+	public static function setResponse ($responseCode = 200) {
+		http_response_code($responseCode);
+	}
 }

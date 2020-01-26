@@ -13,16 +13,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetRatingByIdCommand($rating);
 			try {
 				$command->execute();
-				$return = new Result(true, $mapper->fromEntityToDTO($command->return()));
-				Result::setResponse();
+				$return = new ErrorResponse(true, $mapper->fromEntityToDTO($command->return()));
+				ErrorResponse::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
+				ErrorResponse::setResponse($exception->getCode());
 			}
 			catch (RatingNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_RATING_NOT_FOUND"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(false, [], Values::getText("ERROR_RATING_NOT_FOUND"));
+				ErrorResponse::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
@@ -31,16 +31,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllRatingByUserCommand($user);
 			try {
 				$command->execute();
-				$return = new Result(true, $mapper->fromEntityArrayToDTOArray($command->return()));
-				Result::setResponse();
+				$return = new ErrorResponse(true, $mapper->fromEntityArrayToDTOArray($command->return()));
+				ErrorResponse::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_DATABASE"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
+				ErrorResponse::setResponse($exception->getCode());
 			}
 			catch (RatingNotFoundException $exception) {
-				$return = new Result(false, [], Values::getText("ERROR_RATING_NOT_FOUND"));
-				Result::setResponse($exception->getCode());
+				$return = new ErrorResponse(false, [], Values::getText("ERROR_RATING_NOT_FOUND"));
+				ErrorResponse::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
