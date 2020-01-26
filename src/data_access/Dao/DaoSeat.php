@@ -29,10 +29,9 @@ class DaoSeat extends Dao {
 			$location = $this->_entity->getLocation();
 			$agency = $this->_entity->getAgency();
 			$user = $this->_entity->getUserCreator();
-			if($dateCreated="")
+			$dateCreated = $this->_entity->getDateCreated();
+			if($this->_entity->getDateCreated()=="")
 				$dateCreated = null;
-			else
-				$dateCreated = $this->_entity->getDateCreated();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);

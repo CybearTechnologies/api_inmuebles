@@ -7,11 +7,17 @@
 DROP PROCEDURE IF EXISTS insertProperty;
 DELIMITER $$
 CREATE PROCEDURE insertProperty(name varchar(45), area double(20, 2), description varchar(500),
-                                floor tinyint, type int, location int, user int)
+                                floor tinyint, type int, location int, user int, dateCreated datetime)
 BEGIN
-    INSERT INTO property(pr_name, pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
-                         pr_user_created_fk, pr_user_modified_fk)
-    VALUES (name, area, description, floor, type, location, user, user);
+    IF IsNull(dateCreated) THEN
+        INSERT INTO property(pr_name, pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
+                             pr_user_created_fk, pr_user_modified_fk)
+        VALUES (name, area, description, floor, type, location, user, user);
+    ELSE
+        INSERT INTO property(pr_name, pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
+                             pr_user_created_fk, pr_user_modified_fk,pr_date_created,pr_date_modified)
+        VALUES (name, area, description, floor, type, location, user, user,dateCreated,dateCreated);
+    END IF;
     SELECT pr_id id,
            pr_name name,
            pr_area area,

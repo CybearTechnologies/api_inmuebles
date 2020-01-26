@@ -1,6 +1,7 @@
 <?php
 class DaoProperty extends Dao {
-	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,:user)"; //TODO
+	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,
+								  :user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllProperty()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id,:user)";
@@ -29,12 +30,20 @@ class DaoProperty extends Dao {
 			$area = $this->_property->getArea();
 			$floor = $this->_property->getFloor();
 			$type = $this->_property->getType();
+			$dateCreated = $this->_property->getDateCreated();
+			if($this->_property->getDateCreated()=="")
+				$dateCreated=null;
+			$location = $this->_property->getLocation();
+			$user = $this->_property->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":description", $description, PDO::PARAM_STR);
 			$stmt->bindParam(":area", $area, PDO::PARAM_STR);
 			$stmt->bindParam(":floor", $floor, PDO::PARAM_INT);
 			$stmt->bindParam(":type", $type, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
