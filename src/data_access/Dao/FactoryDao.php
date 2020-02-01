@@ -69,7 +69,7 @@ class FactoryDao {
 	}
 
 	/**
-	 * @param PropertyPrice|Property $entity
+	 * @param PropertyPrice $entity
 	 *
 	 * @return DaoPropertyPrice
 	 */

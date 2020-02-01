@@ -72,12 +72,12 @@ class FactoryEntity {
 	 *
 	 * @return Extra
 	 */
-	static function createExtra (int $id, $name = "", string $icon="",$active = true, $delete = false,
-								 int $userCreator = 0, int $userModifier = 0,
-		 						 string $dateCreated = "", string $dateModified = "",
-								 float $value=0):Extra {
-		return new Extra($id, $name, $icon ,$active, $delete, $userCreator, $userModifier, $dateCreated,
-						 $dateModified,$value);
+	static function createExtra (int $id, $name = "", string $icon = "", $active = true, $delete = false,
+		int $userCreator = 0, int $userModifier = 0,
+		string $dateCreated = "", string $dateModified = "",
+		float $value = 0):Extra {
+		return new Extra($id, $name, $icon, $active, $delete, $userCreator, $userModifier, $dateCreated,
+			$dateModified, $value);
 	}
 
 	/**
@@ -113,9 +113,11 @@ class FactoryEntity {
 	 *
 	 * @return Seat
 	 */
-	static function createSeat (int $id, $name = "", $rif = "", $location=0,$agency =0,$active = true, $delete = false, int $userCreator = 0,
+	static function createSeat (int $id, $name = "", $rif = "", $location = 0, $agency = 0, $active = true,
+		$delete = false, int $userCreator = 0,
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Seat {
-		return new Seat($id, $name, $rif, $location,$agency,$active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+		return new Seat($id, $name, $rif, $location, $agency, $active, $delete, $userCreator, $userModifier,
+			$dateCreated, $dateModified);
 	}
 
 	/**
@@ -130,15 +132,15 @@ class FactoryEntity {
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, int $property=0, $active = true, $delete = false ,int $userCreator = 0,
+	static function createRequest (int $id, int $property = 0, $active = true, $delete = false, int $userCreator = 0,
 		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Request {
-		return new Request($id, $property, $active, $delete,$userCreator, $userModifier, $dateCreated, $dateModified);
+		return new Request($id, $property, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param int    $price
-	 * @param bool  $final
+	 * @param bool   $final
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -160,7 +162,8 @@ class FactoryEntity {
 		int $userModifier = 0,
 		string $dateCreated = "",
 		string $dateModified = ""):PropertyPrice {
-		return new PropertyPrice($id,$price,$final,$propertyId,$active,$delete,$userCreator,$userModifier,$dateCreated,$dateModified);
+		return new PropertyPrice($id, $price, $final, $propertyId, $active, $delete, $userCreator, $userModifier,
+			$dateCreated, $dateModified);
 	}
 
 	/**
@@ -244,9 +247,9 @@ class FactoryEntity {
 	 *
 	 * @return Rating
 	 */
-	static function createRating (int $id, $score = 0.0, $message = "", $user=0,$active = true, $delete = false,
+	static function createRating (int $id, $score = 0.0, $message = "", $user = 0, $active = true, $delete = false,
 		int $userCreator = 0, int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Rating {
-		return new Rating($id, $score, $message, $user,$active, $delete, $userCreator, $userModifier, $dateCreated,
+		return new Rating($id, $score, $message, $user, $active, $delete, $userCreator, $userModifier, $dateCreated,
 			$dateModified);
 	}
 
@@ -299,5 +302,25 @@ class FactoryEntity {
 	static function createOrigin (int $id, string $name = '', string $privateKey = '', string $publicKey = '',
 		bool $active = true):Origin {
 		return new Origin($id, $name, $privateKey, $publicKey, $active);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $value
+	 * @param int    $propertyId
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return PropertyExtra
+	 */
+	static function createPropertyExtra (int $id, int $value = 0, int $propertyId = 0, bool $active = true,
+		bool $delete = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+		string $dateModified = ""):PropertyExtra {
+		return new PropertyExtra($id, $value, $propertyId, $active, $delete, $userCreator, $userModifier, $dateCreated,
+			$dateModified);
 	}
 }

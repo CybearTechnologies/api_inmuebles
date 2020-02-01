@@ -31,8 +31,8 @@ class DaoProperty extends Dao {
 			$floor = $this->_property->getFloor();
 			$type = $this->_property->getType();
 			$dateCreated = $this->_property->getDateCreated();
-			if($this->_property->getDateCreated()=="")
-				$dateCreated=null;
+			if ($this->_property->getDateCreated() == "")
+				$dateCreated = null;
 			$location = $this->_property->getLocation();
 			$user = $this->_property->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
@@ -172,9 +172,9 @@ class DaoProperty extends Dao {
 	 * @return Property
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createProperty($dbObject->id,$dbObject->name,
-			$dbObject->area,$dbObject->description,$dbObject->status,$dbObject->floor,$dbObject->type,
-			$dbObject->location,$dbObject->active, $dbObject->delete,$dbObject->userCreator,$dbObject->userModifier,
-			$dbObject->dateCreated,$dbObject->dateModified);
+		return FactoryEntity::createProperty($dbObject->id, $dbObject->name,
+			$dbObject->area, $dbObject->description, $dbObject->status, $dbObject->floor, $dbObject->type,
+			$dbObject->location, $dbObject->active, $dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
+			$dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

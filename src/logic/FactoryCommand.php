@@ -322,12 +322,12 @@ class FactoryCommand {
 	 * PropertyPrice
 	 */
 	/**
-	 * @param Property $property
+	 * @param PropertyPrice[] $property
 	 *
-	 * @return CreatePropertyPriceByPropertyCommand
+	 * @return CreatePropertyPrice
 	 */
-	static function createCreatePropertyPriceByPropertyCommand ($property):CreatePropertyPriceByPropertyCommand {
-		return new CreatePropertyPriceByPropertyCommand($property);
+	static function createCreatePropertyPriceByPropertyCommand ($property):CreatePropertyPrice {
+		return new CreatePropertyPrice($property);
 	}
 
 	/**

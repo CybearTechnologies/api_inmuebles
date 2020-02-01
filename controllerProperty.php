@@ -73,19 +73,27 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));
-		if (isset($post->property) && Validate::property($post->property)) {
-			$command = FactoryCommand::createCreatePropertyCommand($mapper->fromDTOToEntity($post));
+		if (isset($post->property) /*&& Validate::property($post->property)*/) {
+			$command = FactoryCommand::createCreatePropertyCommand($mapper->fromDTOToEntity($post->property));
 			try {
 				$command->execute();
 				$post->property->id = $command->return()->getId();
-				$command = FactoryCommand::createCreatePropertyPriceByPropertyCommand($command->return());
+				$propertyPrice = $mapperPropertyPrice->fromDtoArrayToEntityArray($post->property->price);
+				/** @var PropertyPrice[] $propertyPrice */
+				$command = FactoryCommand::createCreatePropertyPriceByPropertyCommand($propertyPrice);
 				$command->execute();
+				if (isset($post->property->extras)) {
+					$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);
+
+				}
 				$return = $post;
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse($exception->getCode());
+			}
+			catch (InvalidPropertyPriceException $e) {
 			}
 		}
 		else {
