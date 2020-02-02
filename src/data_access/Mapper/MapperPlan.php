@@ -6,7 +6,7 @@ class MapperPlan extends Mapper {
 	 * @return Plan
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createPlan($dto->id, $dto->name, $dto->price, $dto->active);
+		return FactoryEntity::createPlan($dto->id, $dto->name, $dto->price);
 	}
 
 	/**

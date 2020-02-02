@@ -36,8 +36,9 @@ class FactoryEntity {
 	 *
 	 * @return Plan
 	 */
-	static function createPlan (int $id, string $name = "", float $price = 0, bool $active = true, bool $delete = false,
-		int $userCreator = 1, int $userModifier = 1, string $dateCreated = "", string $dateModified = ""):Plan {
+	static function createPlan (int $id, string $name = " ", float $price = 0.0, int $userCreator = 0,
+		int $userModifier = 0, bool $active = true, bool $delete = false, string $dateCreated = "",
+		string $dateModified = ""):Plan {
 		return new Plan($id, $name, $price, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
@@ -53,8 +54,8 @@ class FactoryEntity {
 	 *
 	 * @return Agency
 	 */
-	static function createAgency (int $id, $name = "", $active = true, $delete = false, int $userCreator = 0,
-		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Agency {
+	static function createAgency (int $id, $name = "", int $userCreator = 0, int $userModifier = 0,
+		string $dateCreated = "", string $dateModified = "", $active = true, $delete = false):Agency {
 		return new Agency($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
@@ -151,17 +152,8 @@ class FactoryEntity {
 	 *
 	 * @return PropertyPrice
 	 */
-	static function createPropertyPrice (
-		int $id,
-		$price = 0,
-		$final = false,
-		int $propertyId = 0,
-		$active = true,
-		$delete = false,
-		int $userCreator = 0,
-		int $userModifier = 0,
-		string $dateCreated = "",
-		string $dateModified = ""):PropertyPrice {
+	static function createPropertyPrice (int $id,$price = 0, $final = false ,int $propertyId = 0, $active = true,	$delete = false,
+		int $userCreator = 0,int $userModifier = 0,	string $dateCreated = "",string $dateModified = ""):PropertyPrice {
 		return new PropertyPrice($id, $price, $final, $propertyId, $active, $delete, $userCreator, $userModifier,
 			$dateCreated, $dateModified);
 	}
