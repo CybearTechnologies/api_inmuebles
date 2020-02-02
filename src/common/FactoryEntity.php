@@ -152,8 +152,9 @@ class FactoryEntity {
 	 *
 	 * @return PropertyPrice
 	 */
-	static function createPropertyPrice (int $id,$price = 0, $final = false ,int $propertyId = 0, $active = true,	$delete = false,
-		int $userCreator = 0,int $userModifier = 0,	string $dateCreated = "",string $dateModified = ""):PropertyPrice {
+	static function createPropertyPrice (int $id, $price = 0, int $propertyId = 0, $final = false, $active = true,
+		$delete = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
+		string $dateModified = ""):PropertyPrice {
 		return new PropertyPrice($id, $price, $final, $propertyId, $active, $delete, $userCreator, $userModifier,
 			$dateCreated, $dateModified);
 	}
