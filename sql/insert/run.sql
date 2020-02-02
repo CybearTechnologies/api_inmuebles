@@ -657,18 +657,18 @@ VALUES ('Penthouse');
 INSERT INTO property_type(pt_name)
 VALUES ('Townhouse');
 
-INSERT INTO extra(ex_name)
-VALUES ('Piso');
-INSERT INTO extra(ex_name)
-VALUES ('Piscina');
-INSERT INTO extra(ex_name)
-VALUES ('Estacionamiento');
-INSERT INTO extra(ex_name)
-VALUES ('Parillera');
-INSERT INTO extra(ex_name)
-VALUES ('Baño');
-INSERT INTO extra(ex_name)
-VALUES ('Habitacion');
+INSERT INTO extra(ex_name, ex_icon)
+VALUES ('Piso', 'icono-piso');
+INSERT INTO extra(ex_name, ex_icon)
+VALUES ('Piscina', 'icono-pixina');
+INSERT INTO extra(ex_name, ex_icon)
+VALUES ('Estacionamiento', ex_icon);
+INSERT INTO extra(ex_name, ex_icon)
+VALUES ('Parillera', 'icono-parrillera');
+INSERT INTO extra(ex_name, ex_icon)
+VALUES ('Baño', 'icono-baño');
+INSERT INTO extra(ex_name, ex_icon)
+VALUES ('Habitacion', 'icono-habitacion');
 
 INSERT INTO agency(ag_name)
 VALUES ('Century21');
