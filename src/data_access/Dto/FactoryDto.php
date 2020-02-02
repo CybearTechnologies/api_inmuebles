@@ -275,4 +275,25 @@ class FactoryDto {
 		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier,
 			$active, $blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $value
+	 * @param int    $propertyId
+	 * @param int    $extraId
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 *
+	 * @return DtoPropertyExtra
+	 */
+	static function createDtoPropertyExtra (int $id, int $value, int $propertyId, int $extraId, bool $active,
+		bool $delete,
+		int $userCreator, int $userModifier, string $dateCreated, string $dateModified):DtoPropertyExtra {
+		return new DtoPropertyExtra($id, $value, $propertyId, $extraId, $active, $delete, $userCreator, $userModifier,
+			$dateCreated, $dateModified);
+	}
 }

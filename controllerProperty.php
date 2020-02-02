@@ -4,7 +4,7 @@ Tools::headers();
 $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperProperty();
-$mapperExtra = FactoryMapper::createMapperExtra();
+$mapperExtra = FactoryMapper::createMapperPropertyExtra();
 $mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
 $property = FactoryEntity::createProperty(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
@@ -84,7 +84,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$command->execute();
 				if (isset($post->property->extras)) {
 					$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);
-
 				}
 				$return = $post;
 				Tools::setResponse();

@@ -88,4 +88,11 @@ class FactoryMapper {
 	static function createMapperUser ():MapperUser {
 		return new MapperUser();
 	}
+
+	/**
+	 * @return MapperPropertyExtra
+	 */
+	static function createMapperPropertyExtra ():MapperPropertyExtra {
+		return new MapperPropertyExtra();
+	}
 }

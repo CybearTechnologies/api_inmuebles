@@ -1,6 +1,7 @@
 <?php
 class PropertyExtra extends Entity {
 	private $_amount;
+	private $_extraId;
 	private $_propertyId;
 
 	/**
@@ -9,6 +10,7 @@ class PropertyExtra extends Entity {
 	 * @param int    $id
 	 * @param int    $value
 	 * @param int    $propertyId
+	 * @param int    $extraId
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -16,11 +18,12 @@ class PropertyExtra extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, int $value, int $propertyId, bool $active, bool $delete,
+	public function __construct (int $id, int $value, int $propertyId, int $extraId, bool $active, bool $delete,
 		int $userCreator, int $userModifier, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_amount = $value;
 		$this->_propertyId = $propertyId;
+		$this->_extraId = $extraId;
 	}
 
 	/**
@@ -49,5 +52,19 @@ class PropertyExtra extends Entity {
 	 */
 	public function setPropertyId (int $propertyId):void {
 		$this->_propertyId = $propertyId;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getExtraId ():int {
+		return $this->_extraId;
+	}
+
+	/**
+	 * @param int $extraId
+	 */
+	public function setExtraId (int $extraId):void {
+		$this->_extraId = $extraId;
 	}
 }
