@@ -7,21 +7,24 @@
 class FactoryDto {
 	/**
 	 * @param int    $id
+	 * @param string $name
+	 * @param string $image
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
-	 * @param string $name
 	 *
 	 * @return DtoPropertyType
 	 */
-	static function createDtoPropertyType (int $id, int $userCreator = 0, int $userModifier = 0,
-		string $dateCreated = "", string $dateModified = "", bool $active = false, bool $delete = false,
-		string $name = ""):DtoPropertyType {
-		return new DtoPropertyType($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
-			$name);
+	static function createDtoPropertyType (int $id, string $name = Values::DEFAULT_STRING,
+		string $image = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):DtoPropertyType {
+		return new DtoPropertyType($id, $name, $image, $userCreator, $userModifier, $dateCreated, $dateModified,
+			$active, $delete);
 	}
 
 	/**

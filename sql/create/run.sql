@@ -143,6 +143,7 @@ CREATE TABLE property_type
 (
     pt_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Tipo de propiedad',
     pt_name             varchar(30) NOT NULL COMMENT 'Nombre',
+    pt_image             varchar(255) NOT NULL COMMENT 'Imagen',
     pt_active           tinyint(1)  NOT NULL DEFAULT 1 COMMENT 'Activo',
     pt_deleted          tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado',
     pt_user_created_fk  int(10)              DEFAULT 1 NOT NULL COMMENT 'Usuario creador',

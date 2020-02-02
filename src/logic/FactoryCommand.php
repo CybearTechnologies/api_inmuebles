@@ -50,6 +50,51 @@ class FactoryCommand {
 	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
 		return new GetAllExtrasByPropertyIdCommand($property);
 	}
+	//------------------------------------------------------------
+	//-----------------------PROPERTY TYPE------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandCreatePropertyType
+	 */
+	static function createCommandCreatePropertyType ($propertyType):CommandCreatePropertyType {
+		return new CommandCreatePropertyType($propertyType);
+	}
+
+	/**
+	 * @return CommandGetAllPropertyType
+	 */
+	static function createCommandGetAllPropertyType ():CommandGetAllPropertyType {
+		return new CommandGetAllPropertyType();
+	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandGetPropertyTypeById
+	 */
+	static function createCommandGetPropertyTypeById ($propertyType):CommandGetPropertyTypeById {
+		return new CommandGetPropertyTypeById($propertyType);
+	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandGetPropertyTypeByName
+	 */
+	static function createCommandGetPropertyTypeByName ($propertyType):CommandGetPropertyTypeByName {
+		return new CommandGetPropertyTypeByName($propertyType);
+	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandDeletePropertyType
+	 */
+	static function createCommandDeletePropertyType ($propertyType):CommandDeletePropertyType {
+		return new CommandDeletePropertyType($propertyType);
+	}
 
 	/**
 	 *ACCESS
@@ -226,53 +271,6 @@ class FactoryCommand {
 	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
 		return new DeletePlanByIdCommand($plan);
 	}
-
-	/**
-	 * PROPERTY TYPE
-	 */
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return CreatePropertyTypeCommand
-	 */
-	static function createPropertyTypeCommand ($propertyType):CreatePropertyTypeCommand {
-		return new CreatePropertyTypeCommand($propertyType);
-	}
-
-	/**
-	 * @return GetAllPropertyTypeCommand
-	 */
-	static function createGetAllPropertyTypeCommand ():GetAllPropertyTypeCommand {
-		return new GetAllPropertyTypeCommand();
-	}
-
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return GetPropertyTypeByIdCommand
-	 */
-	static function createGetPropertyTypeByIdCommand ($propertyType):GetPropertyTypeByIdCommand {
-		return new GetPropertyTypeByIdCommand($propertyType);
-	}
-
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return DeletePropertyTypeCommand
-	 */
-	static function createDeletePropertyTypeCommand ($propertyType):DeletePropertyTypeCommand {
-		return new DeletePropertyTypeCommand($propertyType);
-	}
-
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return GetPropertyTypeByNameCommand
-	 */
-	static function createGetPropertyTypeByNameCommand ($propertyType):GetPropertyTypeByNameCommand {
-		return new GetPropertyTypeByNameCommand($propertyType);
-	}
-
 	/**
 	 * PROPERTY
 	 */

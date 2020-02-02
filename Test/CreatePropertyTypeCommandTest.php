@@ -10,7 +10,7 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoPropertyType.php';
-require_once __DIR__ . './../src/logic/PropertyType/CreatePropertyTypeCommand.php';
+require_once __DIR__ . './../src/logic/PropertyType/CommandCreatePropertyType.php';
 class CreatePropertyTypeCommandTest extends TestCase {
 	private $_command;
 	private $_propertyType;

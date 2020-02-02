@@ -1,14 +1,15 @@
 <?php
-class CreatePropertyTypeCommand extends Command {
+class CommandCreatePropertyType extends Command {
 	private $_command;
+
 	/**
-	 * CreatePropertyTypeCommand constructor.
+	 * CommandCreatePropertyType constructor.
 	 *
 	 * @param PropertyType $propertyType
 	 */
 	public function __construct (PropertyType $propertyType) {
 		$this->_dao = FactoryDao::createDaoPropertyType($propertyType);
-		$this->_command = FactoryCommand::createGetPropertyTypeByNameCommand($propertyType);
+		$this->_command = FactoryCommand::createCommandGetPropertyTypeByName($propertyType);
 	}
 
 	/**

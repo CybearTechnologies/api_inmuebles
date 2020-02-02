@@ -14,7 +14,6 @@
 #   CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
 #	USER
-
 RewriteRule ^user/([0-9]+)$ controllerUser.php?id=$1 [NC,L]
 RewriteRule ^user/(.*?)$ controllerUser.php?email=$1 [NC,L]
 #	ACCESS
@@ -26,7 +25,7 @@ RewriteRule ^login$ controllerLogin.php [NC,L]
 RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
 RewriteRule ^property$ controllerProperty.php [NC,L]
 #   TIPO DE INMUBELE
-RewriteRule ^property-type$ controllerPropertyType.php [NC,L]
+RewriteRule ^property-type/?$ controllerPropertyType.php [NC,L]
 RewriteRule ^property-type/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
 #	PLAN
 RewriteRule ^plan$ controllerPlan.php [NC,L]
@@ -36,7 +35,7 @@ RewriteRule ^agency$ controllerAgencies.php [NC,L]
 RewriteRule ^agency/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
 RewriteRule ^agency/seats/([0-9]+)$ controllerAgencies.php?seats=true&id=$1 [NC,L]
 #	EXTRA
-RewriteRule ^extra?/$ controllerExtra.php [NC,L]
+RewriteRule ^extra/?$ controllerExtra.php [NC,L]
 RewriteRule ^extra/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
 #   LOCATION
 RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]

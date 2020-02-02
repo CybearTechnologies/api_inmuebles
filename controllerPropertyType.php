@@ -8,7 +8,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$propertyType = FactoryEntity::createPropertyType($get->id);
-			$command = FactoryCommand::createGetPropertyTypeByIdCommand($propertyType);
+			$command = FactoryCommand::createCommandGetPropertyTypeById($propertyType);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDTO($command->return());
@@ -24,7 +24,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 		}
 		else {
-			$command = FactoryCommand::createGetAllPropertyTypeCommand();
+			$command = FactoryCommand::createCommandGetAllPropertyType();
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());
@@ -43,9 +43,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));
-		if (isset($post->name)) {
+		if (Validate::propertyType($post)) {
 			try {
-				$command = FactoryCommand::createPropertyTypeCommand($mapper->fromDTOToEntity($post));
+				$command = FactoryCommand::createCommandCreatePropertyType($mapper->fromDTOToEntity($post));
 				$command->execute();
 				$return = $mapper->fromEntityToDTO($command->return());
 				Tools::setResponse();
@@ -56,15 +56,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (PropetyTypeAlreadyExistException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
-			Tools::setResponse(500);
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
 		}
 		echo json_encode($return);
 		break;
 	default:
-		$http_response_header(404);
+		Tools::setResponse(404);
 		break;
 }

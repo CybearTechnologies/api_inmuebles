@@ -10,10 +10,10 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoPropertyType.php';
-require_once __DIR__ . './../src/logic/PropertyType/GetPropertyTypeByIdCommand.php';
+require_once __DIR__ . './../src/logic/PropertyType/CommandGetPropertyTypeById.php';
 /**
  * Class GetPropertyTypeByIdCommandTest
- * @covers GetPropertyTypeByIdCommand
+ * @covers CommandGetPropertyTypeById
  */
 class GetPropertyTypeByIdCommandTest extends TestCase {
 	private $_command;

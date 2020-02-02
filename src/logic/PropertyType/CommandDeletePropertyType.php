@@ -1,7 +1,7 @@
 <?php
-class GetPropertyTypeByNameCommand extends Command {
+class CommandDeletePropertyType extends Command {
 	/**
-	 * GetPropertyTypeByNameCommand constructor.
+	 * CommandDeletePropertyType constructor.
 	 *
 	 * @param PropertyType $propertyType
 	 */
@@ -10,17 +10,16 @@ class GetPropertyTypeByNameCommand extends Command {
 	}
 
 	/**
-	 * @throws PropertyTypeNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertyByName());
+		$this->setData($this->_dao->deletePropertyById());
 	}
 
 	/**
 	 * @return PropertyType
 	 */
-	public function return ():PropertyType {
+	public function return () {
 		return $this->getData();
 	}
 }
