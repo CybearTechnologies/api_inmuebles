@@ -10,10 +10,10 @@ require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../../src/data_access/Dao/DaoAgency.php';
-require_once __DIR__ . './../../src/logic/Agency/DeleteAgencyByIdCommand.php';
+require_once __DIR__ . './../../src/logic/Agency/CommandDeleteAgencyById.php';
 /**
  * Class DeleteAgencyByIdCommandTest
- * @covers DeleteAgencyByIdCommand
+ * @covers CommandDeleteAgencyById
  */
 class DeleteAgencyByIdCommandTest extends TestCase {
 	private $_command;

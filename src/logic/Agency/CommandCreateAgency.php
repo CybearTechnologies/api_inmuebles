@@ -1,8 +1,8 @@
 <?php
-class CreateAgencyCommand extends Command {
+class CommandCreateAgency extends Command {
 	private $_command;
 	/**
-	 * CreateAgencyCommand constructor.
+	 * CommandCreateAgency constructor.
 	 *
 	 * @param Agency $agency
 	 */

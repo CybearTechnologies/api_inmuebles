@@ -1,7 +1,7 @@
 <?php
-class GetAllAgenciesCommand extends Command {
+class CommandGetAllAgencies extends Command {
 	/**
-	 * GetAllAgenciesCommand constructor.
+	 * CommandGetAllAgencies constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoAgency();

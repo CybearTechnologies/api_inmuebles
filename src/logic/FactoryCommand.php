@@ -6,49 +6,51 @@
  */
 class FactoryCommand {
 	//------------------------------------------------------------
-	//----------------------------EXTRA---------------------------
+	//----------------------------AGENCY---------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Extra $extra
+	 * @param Agency $agency
 	 *
-	 * @return CommandCreateExtra
+	 * @return CommandCreateAgency
 	 */
-	static function createCommandCreateExtra ($extra):CommandCreateExtra {
-		return new CommandCreateExtra($extra);
+	static function createCreateAgencyCommand ($agency):CommandCreateAgency {
+		return new CommandCreateAgency($agency);
 	}
 
 	/**
-	 * @return CommandGetAllExtra
+	 * @return CommandGetAllAgencies
 	 */
-	static function createCommandGetAllExtra ():CommandGetAllExtra {
-		return new CommandGetAllExtra();
+	static function createGetAllAgenciesCommand ():CommandGetAllAgencies {
+		return new CommandGetAllAgencies();
 	}
 
 	/**
-	 * @param Extra $extra
+	 * @param Agency $agency
 	 *
-	 * @return CommandGetExtraById
+	 * @return CommandGetAgencyById
 	 */
-	static function createCommandGetExtraById ($extra):CommandGetExtraById {
-		return new CommandGetExtraById($extra);
+	static function createGetAgencyByIdCommand ($agency):CommandGetAgencyById {
+		return new CommandGetAgencyById($agency);
 	}
 
 	/**
-	 * @param Extra $extra
+	 * @param Agency $agency
 	 *
-	 * @return DeleteExtraByIdCommand
+	 * @return CommandDeleteAgencyById
 	 */
-	static function createDeleteExtraByIdCommand ($extra):DeleteExtraByIdCommand {
-		return new DeleteExtraByIdCommand($extra);
+	static function createDeleteAgencyByIdCommand ($agency):CommandDeleteAgencyById {
+		return new CommandDeleteAgencyById($agency);
 	}
-
+	//------------------------------------------------------------
+	//----------------------------PLAN---------------------------
+	//------------------------------------------------------------
 	/**
-	 * @param Property $property
+	 * @param Plan $plan
 	 *
-	 * @return GetAllExtrasByPropertyIdCommand
+	 * @return CreatePlanCommand
 	 */
-	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
-		return new GetAllExtrasByPropertyIdCommand($property);
+	static function createCreatePlanCommand ($plan):CreatePlanCommand {
+		return new CreatePlanCommand($plan);
 	}
 	//------------------------------------------------------------
 	//-----------------------PROPERTY TYPE------------------------
@@ -94,6 +96,114 @@ class FactoryCommand {
 	 */
 	static function createCommandDeletePropertyType ($propertyType):CommandDeletePropertyType {
 		return new CommandDeletePropertyType($propertyType);
+	}
+
+	/**
+	 * @return GetAllPlanCommand
+	 */
+	static function createGetAllPlanCommand ():GetAllPlanCommand {
+		return new GetAllPlanCommand();
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return GetPlanByIdCommand
+	 */
+	static function createGetPlanByIdCommand ($plan):GetPlanByIdCommand {
+		return new GetPlanByIdCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return GetPlanByNameCommand
+	 */
+	static function createGetPlanByNameCommand ($plan):GetPlanByNameCommand {
+		return new GetPlanByNameCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return UpdatePlanCommand
+	 */
+	static function createUpdatePlanCommand ($plan):UpdatePlanCommand {
+		return new UpdatePlanCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return DeletePlanByIdCommand
+	 */
+	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
+		return new DeletePlanByIdCommand($plan);
+	}
+	//------------------------------------------------------------
+	//----------------------------LOCATION---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Location $location
+	 *
+	 * @return GetLocationByIdCommand
+	 */
+	static function createGetLocationByIdCommand ($location):GetLocationByIdCommand {
+		return new GetLocationByIdCommand($location);
+	}
+
+	/**
+	 * @param Location $location
+	 *
+	 * @return GetLocationsByTypeCommand
+	 */
+	static function createGetLocationsByTypeCommand ($location):GetLocationsByTypeCommand {
+		return new GetLocationsByTypeCommand($location);
+	}
+	//------------------------------------------------------------
+	//----------------------------EXTRA---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return CommandCreateExtra
+	 */
+	static function createCommandCreateExtra ($extra):CommandCreateExtra {
+		return new CommandCreateExtra($extra);
+	}
+
+	/**
+	 * @return CommandGetAllExtra
+	 */
+	static function createCommandGetAllExtra ():CommandGetAllExtra {
+		return new CommandGetAllExtra();
+	}
+
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return CommandGetExtraById
+	 */
+	static function createCommandGetExtraById ($extra):CommandGetExtraById {
+		return new CommandGetExtraById($extra);
+	}
+
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return DeleteExtraByIdCommand
+	 */
+	static function createDeleteExtraByIdCommand ($extra):DeleteExtraByIdCommand {
+		return new DeleteExtraByIdCommand($extra);
+	}
+
+	/**
+	 * @param Property $property
+	 *
+	 * @return GetAllExtrasByPropertyIdCommand
+	 */
+	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
+		return new GetAllExtrasByPropertyIdCommand($property);
 	}
 
 	/**
@@ -151,125 +261,12 @@ class FactoryCommand {
 	}
 
 	/**
-	 * AGENCY
-	 */
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return CreateAgencyCommand
-	 */
-	static function createCreateAgencyCommand ($agency):CreateAgencyCommand {
-		return new CreateAgencyCommand($agency);
-	}
-
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return DeleteAgencyByIdCommand
-	 */
-	static function createDeleteAgencyByIdCommand ($agency):DeleteAgencyByIdCommand {
-		return new DeleteAgencyByIdCommand($agency);
-	}
-
-	/**
-	 * @return GetAllAgenciesCommand
-	 */
-	static function createGetAllAgenciesCommand ():GetAllAgenciesCommand {
-		return new GetAllAgenciesCommand();
-	}
-
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return GetAgencyByIdCommand
-	 */
-	static function createGetAgencyByIdCommand ($agency):GetAgencyByIdCommand {
-		return new GetAgencyByIdCommand($agency);
-	}
-
-	/**
 	 * @param Agency $agency
 	 *
 	 * @return GetAllSeatsByAgencyCommand
 	 */
 	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
 		return new GetAllSeatsByAgencyCommand($agency);
-	}
-
-	/**
-	 * LOCATION
-	 */
-	/**
-	 * @param Location $location
-	 *
-	 * @return GetLocationByIdCommand
-	 */
-	static function createGetLocationByIdCommand ($location):GetLocationByIdCommand {
-		return new GetLocationByIdCommand($location);
-	}
-
-	/**
-	 * @param Location $location
-	 *
-	 * @return GetLocationsByTypeCommand
-	 */
-	static function createGetLocationsByTypeCommand ($location):GetLocationsByTypeCommand {
-		return new GetLocationsByTypeCommand($location);
-	}
-
-	/**
-	 * PLANS
-	 */
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return CreatePlanCommand
-	 */
-	static function createCreatePlanCommand ($plan):CreatePlanCommand {
-		return new CreatePlanCommand($plan);
-	}
-
-	/**
-	 * @return GetAllPlanCommand
-	 */
-	static function createGetAllPlanCommand ():GetAllPlanCommand {
-		return new GetAllPlanCommand();
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return GetPlanByIdCommand
-	 */
-	static function createGetPlanByIdCommand ($plan):GetPlanByIdCommand {
-		return new GetPlanByIdCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return GetPlanByNameCommand
-	 */
-	static function createGetPlanByNameCommand ($plan):GetPlanByNameCommand {
-		return new GetPlanByNameCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return UpdatePlanCommand
-	 */
-	static function createUpdatePlanCommand ($plan):UpdatePlanCommand {
-		return new UpdatePlanCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return DeletePlanByIdCommand
-	 */
-	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
-		return new DeletePlanByIdCommand($plan);
 	}
 	/**
 	 * PROPERTY
@@ -478,10 +475,10 @@ class FactoryCommand {
 	/**
 	 * @param Agency $agency
 	 *
-	 * @return GetAgencyByNameCommand
+	 * @return CommandGetAgencyByName
 	 */
-	public static function createGetAgencyByNameCommand ($agency):GetAgencyByNameCommand {
-		return new GetAgencyByNameCommand($agency);
+	public static function createGetAgencyByNameCommand ($agency):CommandGetAgencyByName {
+		return new CommandGetAgencyByName($agency);
 	}
 
 	/**

@@ -1,11 +1,11 @@
 <?php
-class GetAgencyByIdCommand extends Command {
+class CommandGetAgencyByName extends Command {
 	/**
-	 * GetAgencyByIdCommand constructor.
+	 * CommandGetAgencyByName constructor.
 	 *
 	 * @param Agency $agency
 	 */
-	public function __construct ($agency) {
+	public function __construct (Agency $agency) {
 		$this->_dao = FactoryDao::createDaoAgency($agency);
 	}
 
@@ -14,13 +14,13 @@ class GetAgencyByIdCommand extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAgencyById());
+		$this->setData($this->_dao->getAgencyByName());
 	}
 
 	/**
 	 * @return Agency
 	 */
-	public function return () {
+	public function return ():Agency {
 		return $this->getData();
 	}
 }
