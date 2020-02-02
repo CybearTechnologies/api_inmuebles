@@ -6,6 +6,51 @@
  */
 class FactoryCommand {
 	//------------------------------------------------------------
+	//----------------------------SEAT---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Seat $seat
+	 *
+	 * @return CommandCreateSeat
+	 */
+	static function createCommandCreateSeat (Seat $seat):CommandCreateSeat {
+		return new CommandCreateSeat($seat);
+	}
+
+	/**
+	 * @return CommandGetAllSeats
+	 */
+	static function createCommandGetAllSeats ():CommandGetAllSeats {
+		return new CommandGetAllSeats();
+	}
+
+	/**
+	 * @param Seat $seat
+	 *
+	 * @return CommandGetSeatById
+	 */
+	static function createCommandGetSeatById ($seat):CommandGetSeatById {
+		return new CommandGetSeatById($seat);
+	}
+
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return CommandGetAllSeatsByAgency
+	 */
+	static function createCommandGetAllSeatsByAgency ($agency):CommandGetAllSeatsByAgency {
+		return new CommandGetAllSeatsByAgency($agency);
+	}
+
+	/**
+	 * @param $seat
+	 *
+	 * @return CommandDeleteSeatById
+	 */
+	static function createDeleteSeatByIdCommand ($seat):CommandDeleteSeatById {
+		return new CommandDeleteSeatById($seat);
+	}
+	//------------------------------------------------------------
 	//----------------------------AGENCY---------------------------
 	//------------------------------------------------------------
 	/**
@@ -216,15 +261,6 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Agency $agency
-	 *
-	 * @return GetAllSeatsByAgencyCommand
-	 */
-	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
-		return new GetAllSeatsByAgencyCommand($agency);
-	}
-
-	/**
 	 * PROPERTY TYPE
 	 */
 	/**
@@ -352,42 +388,8 @@ class FactoryCommand {
 	static function createGetPropertyPriceByPropertyIdCommand ($property):GetPropertyPriceByPropertyIdCommand {
 		return new GetPropertyPriceByPropertyIdCommand($property);
 	}
-	/**
-	 * SEATS
-	 */
-	/**
-	 * @param Seat $seat
-	 *
-	 * @return CreateSeatCommand
-	 */
-	static function createCreateSeatCommand (Seat $seat):CreateSeatCommand {
-		return new CreateSeatCommand($seat);
-	}
 
-	/**
-	 * @param $seat
-	 *
-	 * @return DeleteSeatByIdCommand
-	 */
-	static function createDeleteSeatByIdCommand ($seat):DeleteSeatByIdCommand {
-		return new DeleteSeatByIdCommand($seat);
-	}
 
-	/**
-	 * @return GetAllSeatsCommand
-	 */
-	static function createGetAllSeatCommand ():GetAllSeatsCommand {
-		return new GetAllSeatsCommand();
-	}
-
-	/**
-	 * @param Seat $seat
-	 *
-	 * @return GetSeatByIdCommand
-	 */
-	static function createGetSeatByIdCommand ($seat):GetSeatByIdCommand {
-		return new GetSeatByIdCommand($seat);
-	}
 
 	/**
 	 * REQUEST

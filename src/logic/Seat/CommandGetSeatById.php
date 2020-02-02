@@ -1,8 +1,7 @@
 <?php
-class GetSeatByIdCommand extends Command {
-
+class CommandGetSeatById extends Command {
 	/**
-	 * GetSeatByIdCommand constructor.
+	 * CommandGetSeatById constructor.
 	 *
 	 * @param Seat $seat
 	 */

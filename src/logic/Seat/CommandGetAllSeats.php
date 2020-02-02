@@ -1,8 +1,7 @@
 <?php
-class GetAllSeatsCommand extends Command {
-
+class CommandGetAllSeats extends Command {
 	/**
-	 * GetAllSeatsCommand constructor.
+	 * CommandGetAllSeats constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoSeat();

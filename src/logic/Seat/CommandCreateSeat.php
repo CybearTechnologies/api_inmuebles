@@ -1,9 +1,9 @@
 <?php
-class CreateSeatCommand extends Command {
+class CommandCreateSeat extends Command {
 	private $_dao;
 
 	/**
-	 * CreateSeatCommand constructor.
+	 * CommandCreateSeat constructor.
 	 *
 	 * @param Seat $entity
 	 */

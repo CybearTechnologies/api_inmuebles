@@ -1,8 +1,7 @@
 <?php
-class GetAllSeatsByAgencyCommand extends Command {
-
+class CommandGetAllSeatsByAgency extends Command {
 	/**
-	 * GetAllSeatsByAgencyCommand constructor.
+	 * CommandGetAllSeatsByAgency constructor.
 	 *
 	 * @param Agency $agency
 	 */

@@ -10,17 +10,17 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoSeat.php';
-require_once __DIR__ . './../src/logic/Seat/GetAllSeatsCommand.php';
+require_once __DIR__ . './../src/logic/Seat/CommandGetAllSeats.php';
 /**
  * Class GetAllSeatsCommandTest
- * @covers GetAllSeatsCommand
+ * @covers CommandGetAllSeats
  */
 class GetAllSeatsCommandTest extends TestCase {
 	private $_command;
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllSeatCommand();
+		$this->_command = FactoryCommand::createCommandGetAllSeats();
 	}
 
 	public function testReturn () {

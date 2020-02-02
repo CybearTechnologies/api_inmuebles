@@ -112,22 +112,26 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
-	 * @param string $userCreator
-	 * @param string $userModifier
+	 * @param string $name
+	 * @param string $rif
+	 * @param int    $location
+	 * @param int    $agency
+	 * @param int    $userCreator
+	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
-	 * @param string $name
-	 * @param string $rif
 	 *
 	 * @return DtoSeat
 	 */
-	static function createDtoSeat (int $id, string $userCreator = "", string $userModifier = "",
-		string $dateCreated = "", string $dateModified = "", bool $active = true, bool $delete = false,
-		string $name = "", string $rif = ""):DtoSeat {
-		return new DtoSeat($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
-			$rif);
+	static function createDtoSeat (int $id, string $name = Values::DEFAULT_STRING, string $rif = Values::DEFAULT_STRING,
+		int $location = Values::DEFAULT_INT, int $agency = Values::DEFAULT_INT,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoSeat {
+		return new DtoSeat($id, $name, $rif, $location, $agency, $userCreator, $userModifier, $dateCreated,
+			$dateModified, $active, $delete);
 	}
 
 	/**

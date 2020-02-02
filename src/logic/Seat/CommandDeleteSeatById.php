@@ -1,9 +1,9 @@
 <?php
-class DeleteSeatByIdCommand extends Command {
+class CommandDeleteSeatById extends Command {
 	private $_dao;
 
 	/**
-	 * DeleteSeatByIdCommand constructor.
+	 * CommandDeleteSeatById constructor.
 	 *
 	 * @param Seat $entity
 	 */
