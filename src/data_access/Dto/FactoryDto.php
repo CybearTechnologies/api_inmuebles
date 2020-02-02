@@ -37,11 +37,11 @@ class FactoryDto {
 	 *
 	 * @return DtoPlan
 	 */
-	static function createDtoPlan (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
-		string $dateModified = "", bool $active = true, bool $delete = false, string $name = "",
-		float $price = 0.0):DtoPlan {
-		return new DtoPlan($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
-			$price);
+	static function createDtoPlan (int $id, string $name = Values::DEFAULT_STRING, float $price = Values::DEFAULT_FLOAT,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoPlan {
+		return new DtoPlan($id,$name,$price,$userCreator,$userModifier,$dateCreated,$dateModified,$active,$delete);
 	}
 
 	/**

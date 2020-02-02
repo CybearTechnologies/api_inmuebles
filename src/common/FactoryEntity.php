@@ -36,10 +36,11 @@ class FactoryEntity {
 	 *
 	 * @return Plan
 	 */
-	static function createPlan (int $id, string $name = " ", float $price = 0.0, int $userCreator = 0,
-		int $userModifier = 0, bool $active = true, bool $delete = false, string $dateCreated = "",
-		string $dateModified = ""):Plan {
-		return new Plan($id, $name, $price, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+	static function createPlan (int $id, string $name = Values::DEFAULT_STRING, float $price = Values::DEFAULT_FLOAT,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Plan {
+		return new Plan($id, $name, $price, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**

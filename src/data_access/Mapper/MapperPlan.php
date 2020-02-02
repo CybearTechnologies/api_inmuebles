@@ -15,8 +15,8 @@ class MapperPlan extends Mapper {
 	 * @return Dto
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoPlan($entity->getId(), $entity->getUserCreator(), $entity->getUserModifier(),
-			$entity->getDateCreated(), $entity->getDateModified(), $entity->isActive(), $entity->isDelete()
-			, $entity->getName(), $entity->getPrice());
+		return FactoryDto::createDtoPlan($entity->getId(), $entity->getName(), $entity->getPrice(),
+			$entity->getUserCreator(), $entity->getUserModifier(), $entity->getDateCreated(),
+			$entity->getDateModified(), $entity->isActive(), $entity->isDelete());
 	}
 }
