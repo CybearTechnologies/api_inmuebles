@@ -15,6 +15,7 @@ class Values {
 		'ERROR_AGENCIES_NOT_FOUND' => array ('text' => 'Agencias no encontradas', 'value' => 404),
 		'ERROR_SEAT_NOT_FOUND' => array ('text' => 'Sede no encontrada', 'value' => 404),
 		'ERROR_SEATS_NOT_FOUND' => array ('text' => 'Sedes no encontradas', 'value' => 404),
+		'ERROR_SEAT_ALREADY_EXIST' => array ('text' => 'Sede ya se encuentra registrada', 'value' => 200),
 		'ERROR_EXTRA_NOT_FOUND' => array ('text' => 'Extra no encontrado', 'value' => 404),
 		'ERROR_EXTRAS_NOT_FOUND' => array ('text' => 'Extras no encontrados', 'value' => 404),
 		'ERROR_LOCATION_NOT_FOUND' => array ('text' => 'Ubicacion no encontrada', 'value' => 404),

@@ -35,9 +35,9 @@ class DaoSeat extends Dao {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);
-			$stmt->bindParam(":location", $location, PDO::PARAM_STR);
-			$stmt->bindParam(":agency", $agency, PDO::PARAM_STR);
-			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
+			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
+			$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 

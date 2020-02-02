@@ -90,4 +90,14 @@ class Validate {
 			&& isset($property->type) && is_numeric($property->type)
 			&& isset($property->price) && is_array($property->price);
 	}
+
+	/**
+	 * @param $seat
+	 *
+	 * @return bool
+	 */
+	static function seat ($seat) {
+		return isset($seat->name) && !empty($seat->name)
+			&& isset($seat->rif) && !empty($seat->rif);
+	}
 }

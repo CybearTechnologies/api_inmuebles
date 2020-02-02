@@ -1,6 +1,6 @@
 <?php
 class CommandCreateSeat extends Command {
-	private $_dao;
+	private $_command;
 
 	/**
 	 * CommandCreateSeat constructor.
@@ -9,13 +9,21 @@ class CommandCreateSeat extends Command {
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoSeat($entity);
+		$this->_command = FactoryCommand::createCommandGetSeatById($entity);
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws SeatAlreadyExistException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createSeat());
+		try {
+			$this->_command->execute();
+			Throw new SeatAlreadyExistException("Seat already exist");
+		}
+		catch (SeatNotFoundException $e) {
+			$this->setData($this->_dao->createSeat());
+		}
 	}
 
 	/**

@@ -43,4 +43,28 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		break;
+	case 'POST':
+		$post = json_decode(file_get_contents('php://input'));
+		if (Validate::seat($post)) {
+			$command = FactoryCommand::createCommandCreateSeat($mapper->fromDtoToEntity($post));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (SeatAlreadyExistException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_SEAT_ALREADY_EXIST"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
+		break;
 }
