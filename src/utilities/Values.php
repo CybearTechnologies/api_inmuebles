@@ -61,4 +61,6 @@ class Values {
 	const DEFAULT_FLOAT = 0.0;
 	const DEFAULT_FOREIGN = -1;
 	const DEFAULT_DATE = "";
+	const DEFAULT_ACTIVE = true;
+	const DEFAULT_DELETE = false;
 }
