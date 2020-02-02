@@ -97,6 +97,51 @@ class FactoryCommand {
 	static function createCreatePlanCommand ($plan):CreatePlanCommand {
 		return new CreatePlanCommand($plan);
 	}
+	//------------------------------------------------------------
+	//-----------------------PROPERTY TYPE------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandCreatePropertyType
+	 */
+	static function createCommandCreatePropertyType ($propertyType):CommandCreatePropertyType {
+		return new CommandCreatePropertyType($propertyType);
+	}
+
+	/**
+	 * @return CommandGetAllPropertyType
+	 */
+	static function createCommandGetAllPropertyType ():CommandGetAllPropertyType {
+		return new CommandGetAllPropertyType();
+	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandGetPropertyTypeById
+	 */
+	static function createCommandGetPropertyTypeById ($propertyType):CommandGetPropertyTypeById {
+		return new CommandGetPropertyTypeById($propertyType);
+	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandGetPropertyTypeByName
+	 */
+	static function createCommandGetPropertyTypeByName ($propertyType):CommandGetPropertyTypeByName {
+		return new CommandGetPropertyTypeByName($propertyType);
+	}
+
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return CommandDeletePropertyType
+	 */
+	static function createCommandDeletePropertyType ($propertyType):CommandDeletePropertyType {
+		return new CommandDeletePropertyType($propertyType);
+	}
 
 	/**
 	 * @return GetAllPlanCommand
@@ -260,6 +305,14 @@ class FactoryCommand {
 		return new GetAllAccessCommand();
 	}
 
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return GetAllSeatsByAgencyCommand
+	 */
+	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
+		return new GetAllSeatsByAgencyCommand($agency);
+	}
 	/**
 	 * PROPERTY TYPE
 	 */

@@ -644,18 +644,18 @@ BEGIN
    END IF;
 END $$*/
 
-INSERT INTO property_type(pt_name)
-VALUES ('Apartamento');
-INSERT INTO property_type(pt_name)
-VALUES ('Casa');
-INSERT INTO property_type(pt_name)
-VALUES ('Terreno');
-INSERT INTO property_type(pt_name)
-VALUES ('Galpon');
-INSERT INTO property_type(pt_name)
-VALUES ('Penthouse');
-INSERT INTO property_type(pt_name)
-VALUES ('Townhouse');
+INSERT INTO property_type(pt_name, pt_image)
+VALUES ('Apartamento','Apartamento.jpg');
+INSERT INTO property_type(pt_name, pt_image)
+VALUES ('Casa','Casa.jpg');
+INSERT INTO property_type(pt_name, pt_image)
+VALUES ('Terreno','Terreno.jpg');
+INSERT INTO property_type(pt_name, pt_image)
+VALUES ('Galpon','Galpon.jpg');
+INSERT INTO property_type(pt_name, pt_image)
+VALUES ('Penthouse','Penthouse.jpg');
+INSERT INTO property_type(pt_name, pt_image)
+VALUES ('Townhouse','Townhouse.jpg');
 
 INSERT INTO extra(ex_name, ex_icon)
 VALUES ('Piso', 'icono-piso');

@@ -1,6 +1,6 @@
 <?php
 class DaoPropertyType extends Dao {
-	private const QUERY_CREATE = "CALL insertPropertyType(:name, :user);";
+	private const QUERY_CREATE = "CALL insertPropertyType(:name, :image, :user);";
 	private const QUERY_GET_ALL = "CALL getAllPropertyType()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyTypeById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPropertyTypeByName(:name)";
@@ -24,9 +24,11 @@ class DaoPropertyType extends Dao {
 	public function createPropertyType () {
 		try {
 			$name = $this->_propertyType->getName();
+			$image = $this->_propertyType->getImage();
 			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":image", $image, PDO::PARAM_STR);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
 
@@ -35,6 +37,26 @@ class DaoPropertyType extends Dao {
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
 			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return PropertyType[]
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyTypeNotFoundException
+	 */
+	public function getAllPropertyTypes () {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyTypeNotFoundException("There are no property type found", 404);
+			else
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
 
@@ -50,29 +72,9 @@ class DaoPropertyType extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PropertyTypeNotFoundException("There are no property type found", 200);
-			else {
+				Throw new PropertyTypeNotFoundException("There are no property type found", 404);
+			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
-			}
-		}
-		catch (PDOException $exception) {
-			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database Connection problem.", 500);
-		}
-	}
-
-	/**
-	 * @return void
-	 * @throws DatabaseConnectionException
-	 */
-	public function deletePropertyById ():void {
-		try {
-			$id = $this->_propertyType->getId();
-			$user = $this->_propertyType->getUserModifier();
-			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_PROPERTY_TYPE);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
-			$stmt->execute();
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -92,10 +94,9 @@ class DaoPropertyType extends Dao {
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PropertyTypeNotFoundException("There are no property type called ,$name, found", 200);
-			else {
+				Throw new PropertyTypeNotFoundException("There are no property type called ,$name, found", 404);
+			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
-			}
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -104,22 +105,23 @@ class DaoPropertyType extends Dao {
 	}
 
 	/**
-	 * @return PropertyType[]
+	 * @return PropertyType
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyTypeNotFoundException
 	 */
-	public function getAllPropertyTypes () {
+	public function deletePropertyById ():PropertyType {
 		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
+			$id = $this->_propertyType->getId();
+			$user = 1; // TODO: replace for logged user
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_PROPERTY_TYPE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new PropertyTypeNotFoundException("There are no property type found", 200);
-			else
-				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
+			Throw new DatabaseConnectionException("Database Connection problem.", 500);
 		}
 	}
 
@@ -129,8 +131,8 @@ class DaoPropertyType extends Dao {
 	 * @return PropertyType
 	 */
 	protected function extract ($DBObject) {
-		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->userCreator,
-			$DBObject->userModifier,
-			$DBObject->active, $DBObject->delete, $DBObject->dateCreated, $DBObject->dateModified);
+		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->image,
+			$DBObject->userCreator, $DBObject->userModifier, $DBObject->dateCreated, $DBObject->dateModified,
+			$DBObject->active, $DBObject->delete);
 	}
 }

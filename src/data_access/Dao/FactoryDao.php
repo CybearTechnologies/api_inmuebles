@@ -6,7 +6,7 @@
  */
 class FactoryDao {
 	/**
-	 * @param PropertyType|null $propertyType
+	 * @param PropertyType $propertyType
 	 *
 	 * @return DaoPropertyType
 	 */

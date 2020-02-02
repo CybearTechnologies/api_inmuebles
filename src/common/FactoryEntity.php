@@ -8,19 +8,23 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $name
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param string $image
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return PropertyType
 	 */
-	static function createPropertyType (int $id, string $name = "", int $userCreator = 1, int $userModifier = 1,
-		$active = true, $delete = false, string $dateCreated = "", string $dateModified = ""):PropertyType {
-		return new PropertyType($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated,
-			$dateModified);
+	static function createPropertyType (int $id, string $name = Values::DEFAULT_STRING,
+		string $image = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):PropertyType {
+		return new PropertyType($id, $name, $image, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**

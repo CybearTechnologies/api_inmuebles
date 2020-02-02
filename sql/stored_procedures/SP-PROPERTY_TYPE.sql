@@ -6,10 +6,11 @@
 
 DROP PROCEDURE IF EXISTS getPropertyTypebyId;
 DELIMITER $$
-CREATE PROCEDURE getPropertyTypebyId(id_type int)
+CREATE PROCEDURE getPropertyTypebyId(id int)
 BEGIN
     SELECT pt_id id,
            pt_name name,
+           pt_image image,
            pt_active active,
            pt_deleted 'delete',
            pt_user_created_fk userCreator,
@@ -17,7 +18,7 @@ BEGIN
            pt_date_created dateCreated,
            pt_date_modified dateModified
     FROM property_type
-    WHERE pt_id = id_type;
+    WHERE pt_id = id;
 END$$
 
 
@@ -27,6 +28,7 @@ CREATE PROCEDURE getAllPropertyType()
 BEGIN
     SELECT pt_id id,
            pt_name name,
+           pt_image image,
            pt_active active,
            pt_deleted 'delete',
            pt_user_created_fk userCreator,
@@ -38,10 +40,11 @@ END$$
 
 DROP PROCEDURE IF EXISTS getPropertyTypeByName;
 DELIMITER $$
-CREATE PROCEDURE getPropertyTypeByName(name_pt varchar(30))
+CREATE PROCEDURE getPropertyTypeByName(name varchar(30))
 BEGIN
     SELECT pt_id id,
            pt_name name,
+           pt_image image,
            pt_active active,
            pt_deleted 'delete',
            pt_user_created_fk userCreator,
@@ -49,17 +52,18 @@ BEGIN
            pt_date_created dateCreated,
            pt_date_modified dateModified
     FROM property_type
-    WHERE lower(pt_name) = name_pt;
+    WHERE lower(pt_name) = name;
 END$$
 
 DROP PROCEDURE IF EXISTS insertPropertyType;
 DELIMITER $$
-CREATE PROCEDURE insertPropertyType(name varchar(30), user int)
+CREATE PROCEDURE insertPropertyType(name varchar(30), image varchar(30), user int)
 BEGIN
-    INSERT INTO property_type(pt_name, pt_user_created_fk, pt_user_modified_fk)
-    VALUES (name, user, user);
+    INSERT INTO property_type(pt_name, pt_image, pt_user_created_fk, pt_user_modified_fk)
+    VALUES (name, image, user, user);
     SELECT pt_id id,
            pt_name name,
+           pt_image image,
            pt_active active,
            pt_deleted 'delete',
            pt_user_created_fk userCreator,
@@ -72,14 +76,15 @@ END$$
 
 DROP PROCEDURE IF EXISTS deletePropertyType;
 DELIMITER $$
-CREATE PROCEDURE deletePropertyType(id_type int, user int)
+CREATE PROCEDURE deletePropertyType(id int, user int)
 BEGIN
     UPDATE
         property_type
-    SET pt_deleted = 1, pt_user_modified_fk = user
-    WHERE pt_id = id_type;
+    SET pt_deleted = true, pt_user_modified_fk = user
+    WHERE pt_id = id;
     SELECT pt_id id,
            pt_name name,
+           pt_image image,
            pt_active active,
            pt_deleted 'delete',
            pt_user_created_fk userCreator,
@@ -87,7 +92,7 @@ BEGIN
            pt_date_created dateCreated,
            pt_date_modified dateModified
     FROM property_type
-    WHERE pt_id = id_type;
+    WHERE pt_id = id;
 END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------
