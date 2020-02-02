@@ -9,7 +9,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$access->setId($get->id);
-			$command = FactoryCommand::createGetAccessByIdCommand($access);
+			$command = FactoryCommand::createCommandGetAccessById($access);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
@@ -25,7 +25,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 		}
 		else {
-			$command = FactoryCommand::createGetAllAccessCommand();
+			$command = FactoryCommand::createCommandGetAllAccess();
 			try {
 				$command->execute();
 				$return = new ErrorResponse($mapper->fromEntityArrayToDtoArray($command->return()));
@@ -46,7 +46,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		$post = json_decode(file_get_contents('php://input'));
 		if (isset($get->name) && isset($get->abbreviation) && isset($get->user)) {
 			try {
-				$command = FactoryCommand::createCreateAccessCommand($mapper->fromDtoToEntity($post));
+				$command = FactoryCommand::createCommandCreateAccess($mapper->fromDtoToEntity($post));
 				$command->execute();
 				$return = new ErrorResponse();
 				Tools::setResponse();

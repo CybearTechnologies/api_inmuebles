@@ -270,10 +270,12 @@ class FactoryEntity {
 	 *
 	 * @return Access
 	 */
-	static function createAccess (int $id, $name = "", $abbreviation = "", $active = true, $delete = false,
-		int $userCreator = 1, int $userModifier = 1, $dateCreated = "", $dateModified = ""):Access {
-		return new Access($id, $name, $abbreviation, $active, $delete, $userCreator, $userModifier, $dateCreated,
-			$dateModified);
+	static function createAccess (int $id, $name = Values::DEFAULT_STRING, $abbreviation = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_INT, int $userModifier = Values::DEFAULT_INT,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Access {
+		return new Access($id, $name, $abbreviation, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**

@@ -6,6 +6,60 @@
  */
 class FactoryCommand {
 	//------------------------------------------------------------
+	//----------------------------ACCESS---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Access $access
+	 *
+	 * @return CommandCreateAccess
+	 */
+	static function createCommandCreateAccess ($access):CommandCreateAccess {
+		return new CommandCreateAccess($access);
+	}
+
+	/**
+	 * @return CommandGetAllAccess
+	 */
+	static function createCommandGetAllAccess ():CommandGetAllAccess {
+		return new CommandGetAllAccess();
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return CommandGetAccessById
+	 */
+	static function createCommandGetAccessById ($access):CommandGetAccessById {
+		return new CommandGetAccessById($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return CommandGetAccessByAbbreviation
+	 */
+	static function createCommandGetAccessByAbbreviation ($access):CommandGetAccessByAbbreviation {
+		return new CommandGetAccessByAbbreviation($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return CommandGetAccessByName
+	 */
+	static function createCommandGetAccessByName ($access):CommandGetAccessByName {
+		return new CommandGetAccessByName($access);
+	}
+
+	/**
+	 * @param Access $access
+	 *
+	 * @return CommandDeleteAccessById
+	 */
+	static function createCommandDeleteAccessById ($access):CommandDeleteAccessById {
+		return new CommandDeleteAccessById($access);
+	}
+	//------------------------------------------------------------
 	//----------------------------SEAT---------------------------
 	//------------------------------------------------------------
 	/**
@@ -47,7 +101,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandDeleteSeatById
 	 */
-	static function createDeleteSeatByIdCommand ($seat):CommandDeleteSeatById {
+	static function createCommandDeleteSeatById ($seat):CommandDeleteSeatById {
 		return new CommandDeleteSeatById($seat);
 	}
 	//------------------------------------------------------------
@@ -58,14 +112,14 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreateAgency
 	 */
-	static function createCreateAgencyCommand ($agency):CommandCreateAgency {
+	static function createCommandCreateAgency ($agency):CommandCreateAgency {
 		return new CommandCreateAgency($agency);
 	}
 
 	/**
 	 * @return CommandGetAllAgencies
 	 */
-	static function createGetAllAgenciesCommand ():CommandGetAllAgencies {
+	static function createCommandGetAllAgencies ():CommandGetAllAgencies {
 		return new CommandGetAllAgencies();
 	}
 
@@ -74,7 +128,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandGetAgencyById
 	 */
-	static function createGetAgencyByIdCommand ($agency):CommandGetAgencyById {
+	static function createCommandGetAgencyById ($agency):CommandGetAgencyById {
 		return new CommandGetAgencyById($agency);
 	}
 
@@ -83,7 +137,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandDeleteAgencyById
 	 */
-	static function createDeleteAgencyByIdCommand ($agency):CommandDeleteAgencyById {
+	static function createCommandDeleteAgencyById ($agency):CommandDeleteAgencyById {
 		return new CommandDeleteAgencyById($agency);
 	}
 	//------------------------------------------------------------
@@ -249,114 +303,6 @@ class FactoryCommand {
 	 */
 	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
 		return new GetAllExtrasByPropertyIdCommand($property);
-	}
-
-	/**
-	 *ACCESS
-	 *
-	 * @param Access $access
-	 *
-	 * @return CreateAccessCommand
-	 */
-	static function createCreateAccessCommand ($access):CreateAccessCommand {
-		return new CreateAccessCommand($access);
-	}
-
-	/**
-	 * @param Access $access
-	 *
-	 * @return GetAccessByAbbreviationCommand
-	 */
-	static function createGetAccessByAbbreviationCommand ($access):GetAccessByAbbreviationCommand {
-		return new GetAccessByAbbreviationCommand($access);
-	}
-
-	/**
-	 * @param Access $access
-	 *
-	 * @return DeleteAccessByIdCommand
-	 */
-	static function createDeleteAccessByIdCommand ($access):DeleteAccessByIdCommand {
-		return new DeleteAccessByIdCommand($access);
-	}
-
-	/**
-	 * @param Access $access
-	 *
-	 * @return GetAccessByIdCommand
-	 */
-	static function createGetAccessByIdCommand ($access):GetAccessByIdCommand {
-		return new GetAccessByIdCommand($access);
-	}
-
-	/**
-	 * @param Access $access
-	 *
-	 * @return GetAccessByNameCommand
-	 */
-	static function createGetAccessByNameCommand ($access):GetAccessByNameCommand {
-		return new GetAccessByNameCommand($access);
-	}
-
-	/**
-	 * @return GetAllAccessCommand
-	 */
-	static function createGetAllAccessCommand ():GetAllAccessCommand {
-		return new GetAllAccessCommand();
-	}
-
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return GetAllSeatsByAgencyCommand
-	 */
-	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
-		return new GetAllSeatsByAgencyCommand($agency);
-	}
-	/**
-	 * PROPERTY TYPE
-	 */
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return CreatePropertyTypeCommand
-	 */
-	static function createPropertyTypeCommand ($propertyType):CreatePropertyTypeCommand {
-		return new CreatePropertyTypeCommand($propertyType);
-	}
-
-	/**
-	 * @return GetAllPropertyTypeCommand
-	 */
-	static function createGetAllPropertyTypeCommand ():GetAllPropertyTypeCommand {
-		return new GetAllPropertyTypeCommand();
-	}
-
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return GetPropertyTypeByIdCommand
-	 */
-	static function createGetPropertyTypeByIdCommand ($propertyType):GetPropertyTypeByIdCommand {
-		return new GetPropertyTypeByIdCommand($propertyType);
-	}
-
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return DeletePropertyTypeCommand
-	 */
-	static function createDeletePropertyTypeCommand ($propertyType):DeletePropertyTypeCommand {
-		return new DeletePropertyTypeCommand($propertyType);
-	}
-
-	/**
-	 * @param PropertyType $propertyType
-	 *
-	 * @return GetPropertyTypeByNameCommand
-	 */
-	static function createGetPropertyTypeByNameCommand ($propertyType):GetPropertyTypeByNameCommand {
-		return new GetPropertyTypeByNameCommand($propertyType);
 	}
 
 	/**

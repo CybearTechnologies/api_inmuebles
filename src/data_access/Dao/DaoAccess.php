@@ -152,8 +152,8 @@ class DaoAccess extends Dao {
 	 * @return Access
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createAccess($dbObject->id, $dbObject->name, $dbObject->abbreviation, $dbObject->active,
-			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
-			$dbObject->dateModified);
+		return FactoryEntity::createAccess($dbObject->id, $dbObject->name, $dbObject->abbreviation,
+			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+			$dbObject->active, $dbObject->delete);
 	}
 }

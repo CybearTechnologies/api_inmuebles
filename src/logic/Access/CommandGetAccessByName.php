@@ -1,7 +1,7 @@
 <?php
-class GetAccessByAbbreviationCommand extends Command {
+class CommandGetAccessByName extends Command {
 	/**
-	 * GetAccessByAbbreviationCommand constructor.
+	 * CommandGetAccessByName constructor.
 	 *
 	 * @param Access $access
 	 */
@@ -10,11 +10,11 @@ class GetAccessByAbbreviationCommand extends Command {
 	}
 
 	/**
-	 * @throws AccessNotFoundException
 	 * @throws DatabaseConnectionException
+	 * @throws AccessNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAccessByAbbreviation());
+		$this->setData($this->_dao->getAccessByName());
 	}
 
 	/**

@@ -9,7 +9,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$agency = FactoryEntity::createAgency($get->id);
-			$command = FactoryCommand::createGetAgencyByIdCommand($agency);
+			$command = FactoryCommand::createCommandGetAgencyById($agency);
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
@@ -39,7 +39,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createGetAllAgenciesCommand();
+			$command = FactoryCommand::createCommandGetAllAgencies();
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());

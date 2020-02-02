@@ -240,11 +240,13 @@ class FactoryDto {
 	 *
 	 * @return DtoAccess
 	 */
-	static function createDtoAccess (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
-		string $dateModified = "", bool $active = false, bool $delete = false, string $name = "",
-		string $abbreviation = ""):DtoAccess {
-		return new DtoAccess($id, $userCreator, $userModifier, $dateCreated,
-			$dateModified, $active, $delete, $name, $abbreviation);
+	static function createDtoAccess (int $id, string $name = Values::DEFAULT_STRING,
+		string $abbreviation = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoAccess {
+		return new DtoAccess($id, $name, $abbreviation, $userCreator, $userModifier, $dateCreated, $dateModified,
+			$active, $delete);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
-class GetAccessByIdCommand extends Command {
+class CommandGetAccessById extends Command {
 	/**
-	 * GetAccessByIdCommand constructor.
+	 * CommandGetAccessById constructor.
 	 *
 	 * @param Access $entity
 	 */

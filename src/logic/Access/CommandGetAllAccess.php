@@ -1,7 +1,7 @@
 <?php
-class GetAllAccessCommand extends Command {
+class CommandGetAllAccess extends Command {
 	/**
-	 * GetAllAccessCommand constructor.
+	 * CommandGetAllAccess constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoAccess();

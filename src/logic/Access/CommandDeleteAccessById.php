@@ -1,7 +1,7 @@
 <?php
-class DeleteAccessByIdCommand extends Command {
+class CommandDeleteAccessById extends Command {
 	/**
-	 * DeleteAccessByIdCommand constructor.
+	 * CommandDeleteAccessById constructor.
 	 *
 	 * @param Access $entity
 	 */
