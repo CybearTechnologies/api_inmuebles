@@ -12,7 +12,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetPropertyTypeByIdCommand($propertyType);
 			try {
 				$command->execute();
-				$return = new ErrorResponse($mapper->fromEntityToDTO($command->return()));
+				$return = $mapper->fromEntityToDTO($command->return());
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
