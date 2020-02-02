@@ -28,7 +28,7 @@ class DaoPlan extends Dao {
 		try {
 			$name = $this->_entity->getName();
 			$price = $this->_entity->getPrice();
-			$user = $this->_entity->getUserCreator();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
@@ -118,7 +118,7 @@ class DaoPlan extends Dao {
 			$id = $this->_entity->getId();
 			$name = $this->_entity->getName();
 			$price = $this->_entity->getPrice();
-			$user = $this->_entity->getUserCreator();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
@@ -141,7 +141,7 @@ class DaoPlan extends Dao {
 	public function deletePlanById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
@@ -162,6 +162,7 @@ class DaoPlan extends Dao {
 	public function activePlanById () {
 		try {
 			$id = $this->_entity->getId();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
@@ -182,6 +183,7 @@ class DaoPlan extends Dao {
 	public function inactivePlanById () {
 		try {
 			$id = $this->_entity->getId();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);

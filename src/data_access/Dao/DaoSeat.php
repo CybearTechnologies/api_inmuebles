@@ -28,7 +28,7 @@ class DaoSeat extends Dao {
 			$rif = $this->_entity->getRif();
 			$location = $this->_entity->getLocation();
 			$agency = $this->_entity->getAgency();
-			$user = $this->_entity->getUserCreator();
+			$user = 1; // TODO: replace for logged user
 			$dateCreated = $this->_entity->getDateCreated();
 			if ($this->_entity->getDateCreated() == "")
 				$dateCreated = null;
@@ -60,7 +60,7 @@ class DaoSeat extends Dao {
 			$rif = $this->_entity->getRif();
 			$location = $this->_entity->getLocation();
 			$agency = $this->_entity->getAgency();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; // TODO: replace for logged user
 			$dateCreated = $this->_entity->getDateModified();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_STR);
@@ -130,7 +130,7 @@ class DaoSeat extends Dao {
 	public function deleteSeat () {
 		try {
 			$id = $this->_entity->getId();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);

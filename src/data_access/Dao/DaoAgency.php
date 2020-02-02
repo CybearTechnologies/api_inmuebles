@@ -24,7 +24,7 @@ class DaoAgency extends Dao {
 	public function createAgency () {
 		try {
 			$id = $this->_entity->getName();
-			$user = $this->_entity->getUserCreator();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_AGENCY);
 			$stmt->bindParam(":name", $id, PDO::PARAM_STR);
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
@@ -86,7 +86,7 @@ class DaoAgency extends Dao {
 	public function deleteAgencyById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);

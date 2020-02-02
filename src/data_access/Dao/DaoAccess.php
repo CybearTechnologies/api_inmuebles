@@ -25,7 +25,7 @@ class DaoAccess extends Dao {
 		try {
 			$name = $this->_entity->getName();
 			$abbreviation = $this->_entity->getAbbreviation();
-			$user = $this->_entity->getUserCreator();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ACCESS);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":abbreviation", $abbreviation, PDO::PARAM_STR);
