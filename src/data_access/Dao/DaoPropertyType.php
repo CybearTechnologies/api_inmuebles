@@ -25,8 +25,10 @@ class DaoPropertyType extends Dao {
 	public function createPropertyType () {
 		try {
 			$name = $this->_propertyType->getName();
+			$user = $this->_propertyType->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":user",$user,PDO::PARAM_INT);
 			$stmt->execute();
 			$this->_propertyType->setId($this->getDatabase()->lastInsertId());
 
