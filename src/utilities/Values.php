@@ -55,4 +55,10 @@ class Values {
 	public static function getValue ($key) {
 		return isset(self::VALUES[$key]) ? self::VALUES[$key]['value'] : null;
 	}
+
+	const DEFAULT_STRING = "";
+	const DEFAULT_INT = 0;
+	const DEFAULT_FLOAT = 0.0;
+	const DEFAULT_FOREIGN = -1;
+	const DEFAULT_DATE = "";
 }
