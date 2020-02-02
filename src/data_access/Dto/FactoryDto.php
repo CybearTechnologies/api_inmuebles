@@ -41,27 +41,29 @@ class FactoryDto {
 		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoPlan {
-		return new DtoPlan($id,$name,$price,$userCreator,$userModifier,$dateCreated,$dateModified,$active,$delete);
+		return new DtoPlan($id, $name, $price, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
-	 * @param string $name
-	 * @param null   $seats
+	 * @param int            $id
+	 * @param string         $name
+	 * @param DtoSeat[]|null $seats
+	 * @param int            $userCreator
+	 * @param string         $userModifier
+	 * @param string         $dateCreated
+	 * @param string         $dateModified
+	 * @param bool           $active
+	 * @param bool           $delete
 	 *
 	 * @return DtoAgency
 	 */
-	static function createDtoAgency (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
-		string $dateModified = "", bool $active = true, bool $delete = false, string $name = "",
-		$seats = null):DtoAgency {
-		return new DtoAgency($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
-			$seats);
+	static function createDtoAgency (int $id, string $name = Values::DEFAULT_STRING, $seats = Values::DEFAULT_ARRAY,
+		int $userCreator = Values::DEFAULT_INT, string $userModifier = Values::DEFAULT_STRING,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoAgency {
+		return new DtoAgency($id, $name, $seats, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**

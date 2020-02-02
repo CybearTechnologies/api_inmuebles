@@ -1,7 +1,7 @@
 <?php
-class DeleteAgencyByIdCommand extends Command {
+class CommandDeleteAgencyById extends Command {
 	/**
-	 * DeleteAgencyByIdCommand constructor.
+	 * CommandDeleteAgencyById constructor.
 	 *
 	 * @param Agency $entity
 	 */

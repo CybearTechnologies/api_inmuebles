@@ -6,6 +6,42 @@
  */
 class FactoryCommand {
 	//------------------------------------------------------------
+	//----------------------------AGENCY---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return CommandCreateAgency
+	 */
+	static function createCreateAgencyCommand ($agency):CommandCreateAgency {
+		return new CommandCreateAgency($agency);
+	}
+
+	/**
+	 * @return CommandGetAllAgencies
+	 */
+	static function createGetAllAgenciesCommand ():CommandGetAllAgencies {
+		return new CommandGetAllAgencies();
+	}
+
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return CommandGetAgencyById
+	 */
+	static function createGetAgencyByIdCommand ($agency):CommandGetAgencyById {
+		return new CommandGetAgencyById($agency);
+	}
+
+	/**
+	 * @param Agency $agency
+	 *
+	 * @return CommandDeleteAgencyById
+	 */
+	static function createDeleteAgencyByIdCommand ($agency):CommandDeleteAgencyById {
+		return new CommandDeleteAgencyById($agency);
+	}
+	//------------------------------------------------------------
 	//----------------------------PLAN---------------------------
 	//------------------------------------------------------------
 	/**
@@ -177,43 +213,6 @@ class FactoryCommand {
 	 */
 	static function createGetAllAccessCommand ():GetAllAccessCommand {
 		return new GetAllAccessCommand();
-	}
-
-	/**
-	 * AGENCY
-	 */
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return CreateAgencyCommand
-	 */
-	static function createCreateAgencyCommand ($agency):CreateAgencyCommand {
-		return new CreateAgencyCommand($agency);
-	}
-
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return DeleteAgencyByIdCommand
-	 */
-	static function createDeleteAgencyByIdCommand ($agency):DeleteAgencyByIdCommand {
-		return new DeleteAgencyByIdCommand($agency);
-	}
-
-	/**
-	 * @return GetAllAgenciesCommand
-	 */
-	static function createGetAllAgenciesCommand ():GetAllAgenciesCommand {
-		return new GetAllAgenciesCommand();
-	}
-
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return GetAgencyByIdCommand
-	 */
-	static function createGetAgencyByIdCommand ($agency):GetAgencyByIdCommand {
-		return new GetAgencyByIdCommand($agency);
 	}
 
 	/**
@@ -478,10 +477,10 @@ class FactoryCommand {
 	/**
 	 * @param Agency $agency
 	 *
-	 * @return GetAgencyByNameCommand
+	 * @return CommandGetAgencyByName
 	 */
-	public static function createGetAgencyByNameCommand ($agency):GetAgencyByNameCommand {
-		return new GetAgencyByNameCommand($agency);
+	public static function createGetAgencyByNameCommand ($agency):CommandGetAgencyByName {
+		return new CommandGetAgencyByName($agency);
 	}
 
 	/**
