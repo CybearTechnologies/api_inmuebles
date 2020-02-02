@@ -7,8 +7,8 @@ DROP PROCEDURE IF EXISTS insertExtra;
 DELIMITER $$
 CREATE PROCEDURE insertExtra(name varchar(45),icon varchar(45), user int)
 BEGIN
-    INSERT INTO extra (ex_name, ex_user_created_fk,ex_icon)
-    VALUES (name,icon,user);
+    INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk)
+    VALUES (name, icon, user, user);
     SELECT ex_id id,
            ex_name name,
            ex_active active,

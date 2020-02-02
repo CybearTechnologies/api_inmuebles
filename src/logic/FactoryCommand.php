@@ -5,6 +5,52 @@
  * Time: 12:29 PM
  */
 class FactoryCommand {
+	//------------------------------------------------------------
+	//----------------------------EXTRA---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return CommandCreateExtra
+	 */
+	static function createCommandCreateExtra ($extra):CommandCreateExtra {
+		return new CommandCreateExtra($extra);
+	}
+
+	/**
+	 * @return CommandGetAllExtra
+	 */
+	static function createCommandGetAllExtra ():CommandGetAllExtra {
+		return new CommandGetAllExtra();
+	}
+
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return CommandGetExtraById
+	 */
+	static function createCommandGetExtraById ($extra):CommandGetExtraById {
+		return new CommandGetExtraById($extra);
+	}
+
+	/**
+	 * @param Extra $extra
+	 *
+	 * @return DeleteExtraByIdCommand
+	 */
+	static function createDeleteExtraByIdCommand ($extra):DeleteExtraByIdCommand {
+		return new DeleteExtraByIdCommand($extra);
+	}
+
+	/**
+	 * @param Property $property
+	 *
+	 * @return GetAllExtrasByPropertyIdCommand
+	 */
+	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
+		return new GetAllExtrasByPropertyIdCommand($property);
+	}
+
 	/**
 	 *ACCESS
 	 *
@@ -103,51 +149,6 @@ class FactoryCommand {
 	 */
 	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
 		return new GetAllSeatsByAgencyCommand($agency);
-	}
-	/**
-	 * EXTRA
-	 */
-	/**
-	 * @param Extra $extra
-	 *
-	 * @return CreateExtraCommand
-	 */
-	static function createCreateExtraCommand ($extra):CreateExtraCommand {
-		return new CreateExtraCommand($extra);
-	}
-
-	/**
-	 * @param Extra $extra
-	 *
-	 * @return DeleteExtraByIdCommand
-	 */
-	static function createDeleteExtraByIdCommand ($extra):DeleteExtraByIdCommand {
-		return new DeleteExtraByIdCommand($extra);
-	}
-
-	/**
-	 * @param Property $property
-	 *
-	 * @return GetAllExtrasByPropertyIdCommand
-	 */
-	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
-		return new GetAllExtrasByPropertyIdCommand($property);
-	}
-
-	/**
-	 * @return GetAllExtraCommand
-	 */
-	static function createGetAllExtraCommand ():GetAllExtraCommand {
-		return new GetAllExtraCommand();
-	}
-
-	/**
-	 * @param Extra $extra
-	 *
-	 * @return GetExtraByIdCommand
-	 */
-	static function createGetExtraByIdCommand ($extra):GetExtraByIdCommand {
-		return new GetExtraByIdCommand($extra);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
-class GetAllExtraCommand extends Command {
+class CommandGetAllExtra extends Command {
 	/**
-	 * GetAllExtraCommand constructor.
+	 * CommandGetAllExtra constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoExtra();;

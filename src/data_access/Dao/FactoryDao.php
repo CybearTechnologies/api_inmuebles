@@ -33,7 +33,7 @@ class FactoryDao {
 	}
 
 	/**
-	 * @param Extra|Entity $entity
+	 * @param Extra $entity
 	 *
 	 * @return DaoExtra
 	 */

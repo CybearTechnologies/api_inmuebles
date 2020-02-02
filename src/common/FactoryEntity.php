@@ -69,17 +69,15 @@ class FactoryEntity {
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
-	 * @param float  $value
 	 * @param string $icon
 	 *
 	 * @return Extra
 	 */
-	static function createExtra (int $id, $name = "", string $icon = "", $active = true, $delete = false,
-		int $userCreator = 0, int $userModifier = 0,
-		string $dateCreated = "", string $dateModified = "",
-		float $value = 0):Extra {
-		return new Extra($id, $name, $icon, $active, $delete, $userCreator, $userModifier, $dateCreated,
-			$dateModified, $value);
+	static function createExtra (int $id, string $name = Values::DEFAULT_STRING, string $icon = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Extra {
+		return new Extra($id, $name, $icon, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
-class CreateExtraCommand extends Command {
+class CommandCreateExtra extends Command {
 	/**
-	 * CreateExtraCommand constructor.
+	 * CommandCreateExtra constructor.
 	 *
 	 * @param Extra $entity
 	 */

@@ -1,7 +1,7 @@
 <?php
-class GetExtraByIdCommand extends Command {
+class CommandGetExtraById extends Command {
 	/**
-	 * GetExtraByIdCommand constructor.
+	 * CommandGetExtraById constructor.
 	 *
 	 * @param Extra $extra
 	 */
@@ -18,7 +18,7 @@ class GetExtraByIdCommand extends Command {
 	}
 
 	/**
-	 * @return mixed
+	 * @return Extra
 	 */
 	public function return () {
 		return $this->getData();
