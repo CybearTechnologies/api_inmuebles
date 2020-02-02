@@ -21,7 +21,7 @@ class GetPropertyTypeByIdCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", 1);
+		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", 1, 1);
 		$this->_command = FactoryCommand::createGetPropertyTypeByIdCommand($this->_propertyType);
 	}
 

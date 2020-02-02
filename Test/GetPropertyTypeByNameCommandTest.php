@@ -30,7 +30,7 @@ class GetPropertyTypeByNameCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", true);
+		$this->_propertyType = FactoryEntity::createPropertyType(1, "Apartamento", 1, 1);
 		$this->_command = FactoryCommand::createGetPropertyTypeByNameCommand($this->_propertyType);
 	}
 }

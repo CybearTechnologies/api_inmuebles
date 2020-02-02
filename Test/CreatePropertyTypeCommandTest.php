@@ -17,7 +17,7 @@ class CreatePropertyTypeCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_propertyType = FactoryEntity::createPropertyType(-1, "fefwtw", true);
+		$this->_propertyType = FactoryEntity::createPropertyType(-1, "fefwtw", 1, 1);
 		$this->_command = FactoryCommand::createPropertyTypeCommand($this->_propertyType);
 	}
 
