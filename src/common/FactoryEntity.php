@@ -82,22 +82,25 @@ class FactoryEntity {
 	}
 
 	/**
-	 * @param        $id
+	 * @param int    $id
 	 * @param string $name
 	 * @param string $type
-	 * @param bool   $active
-	 * @param bool   $delete
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return Location
 	 */
-	static function createLocation ($id, $name = "", $type = "", $active = true, $delete = false, int $userCreator = 0,
-		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Location {
-		return new Location($id, $name, $type, $active, $delete, $userCreator, $userModifier, $dateCreated,
-			$dateModified);
+	static function createLocation (int $id, string $name = Values::DEFAULT_STRING,
+		string $type = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):Location {
+		return new Location($id, $name, $type, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**

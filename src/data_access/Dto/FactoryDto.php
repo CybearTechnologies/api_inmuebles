@@ -83,22 +83,24 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
+	 * @param string $name
+	 * @param string $type
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
-	 * @param string $name
-	 * @param string $type
 	 *
 	 * @return DtoLocation
 	 */
-	static function createDtoLocation (int $id, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
-		string $dateModified = "", bool $active = false, bool $delete = false, string $name = "",
-		string $type = ""):DtoLocation {
-		return new DtoLocation($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
-			$type);
+	static function createDtoLocation (int $id, string $name = Values::DEFAULT_STRING,
+		string $type = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):DtoLocation {
+		return new DtoLocation($id, $name, $type, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**

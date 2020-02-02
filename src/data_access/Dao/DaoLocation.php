@@ -88,8 +88,8 @@ class DaoLocation extends Dao {
 	 * @return Location
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createLocation($dbObject->id, $dbObject->name, $dbObject->type, $dbObject->active,
-			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
-			$dbObject->dateModified);
+		return FactoryEntity::createLocation($dbObject->id, $dbObject->name, $dbObject->type, $dbObject->userCreator,
+			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified, $dbObject->active,
+			$dbObject->delete);
 	}
 }
