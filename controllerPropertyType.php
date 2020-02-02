@@ -28,7 +28,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllPropertyTypeCommand();
 			try {
 				$command->execute();
-				$return = new ErrorResponse($mapper->fromEntityArrayToDTOArray($command->return()));
+				$return = $mapper->fromEntityArrayToDTOArray($command->return());
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
