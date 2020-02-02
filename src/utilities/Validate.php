@@ -58,11 +58,21 @@ class Validate {
 	}
 
 	/**
+	 * @param $extra
+	 *
+	 * @return bool
+	 */
+	static function extra ($extra) {
+		return isset($extra->name) && !empty($extra->name)
+			&& isset($extra->icon) && !empty($extra->icon);
+	}
+
+	/**
 	 * @param $property
 	 *
 	 * @return bool
 	 */
-	static function property($property) {
+	static function property ($property) {
 		return isset($property->name) && !empty($property->name)
 			&& isset($property->area) && is_numeric($property->area)
 			&& isset($property->description) && !empty($property->description)

@@ -10,10 +10,10 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoExtra.php';
-require_once __DIR__ . './../src/logic/Extra/GetAllExtraCommand.php';
+require_once __DIR__ . './../src/logic/Extra/CommandGetAllExtra.php';
 /**
  * Class GetExtraByIdCommandTest
- * @covers GetExtraByIdCommand
+ * @covers CommandGetExtraById
  */
 class GetExtraByIdCommandTest extends TestCase {
 	private $_command;

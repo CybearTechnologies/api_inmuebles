@@ -1,7 +1,6 @@
 <?php
 class Extra extends Entity {
 	private $_name;
-	private $_value;
 	private $_icon;
 
 	/**
@@ -10,21 +9,17 @@ class Extra extends Entity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $icon
-	 * @param bool   $active
-	 * @param bool   $delete
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
-	 * @param float  $value
+	 * @param bool   $active
+	 * @param bool   $delete
 	 */
-	public function __construct (int $id, string $name, string $icon,bool $active, bool $delete, int $userCreator,
-								 int $userModifier, string $dateCreated, string $dateModified,
-								 float $value) {
-		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified,
-							$active, $delete);
+	public function __construct (int $id, string $name, string $icon, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified, bool $active, bool $delete) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
-		$this->_value = $value;
 		$this->_icon = $icon;
 	}
 
@@ -43,28 +38,14 @@ class Extra extends Entity {
 	}
 
 	/**
-	 * @return float
-	 */
-	public function getValue ():float {
-		return $this->_value;
-	}
-
-	/**
-	 * @param float $value
-	 */
-	public function setValue (float $value):void {
-		$this->_value = $value;
-	}
-
-	/**
-	 * @return mixed
+	 * @return string
 	 */
 	public function getIcon () {
 		return $this->_icon;
 	}
 
 	/**
-	 * @param mixed $icon
+	 * @param string $icon
 	 */
 	public function setIcon ($icon):void {
 		$this->_icon = $icon;

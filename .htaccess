@@ -23,8 +23,8 @@ RewriteRule ^access$ controllerAccess.php [NC,L]
 #	LOGIN
 RewriteRule ^login$ controllerLogin.php [NC,L]
 #	INMUEBLE
-RewriteRule ^property/([0-9]+)$ controllerProperty.php?extras=true&price=true&id=$1 [NC,L]
-RewriteRule ^property$ controllerProperty.php?extras=true [NC,L]
+RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
+RewriteRule ^property$ controllerProperty.php [NC,L]
 #   TIPO DE INMUBELE
 RewriteRule ^property-type$ controllerPropertyType.php [NC,L]
 RewriteRule ^property-type/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
@@ -36,7 +36,7 @@ RewriteRule ^agency$ controllerAgencies.php [NC,L]
 RewriteRule ^agency/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
 RewriteRule ^agency/seats/([0-9]+)$ controllerAgencies.php?seats=true&id=$1 [NC,L]
 #	EXTRA
-RewriteRule ^extra$ controllerExtra.php [NC,L]
+RewriteRule ^extra?/$ controllerExtra.php [NC,L]
 RewriteRule ^extra/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
 #   LOCATION
 RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]

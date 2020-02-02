@@ -1,6 +1,6 @@
 <?php
 class DaoExtra extends Dao {
-	private const QUERY_CREATE = "CALL insertExtra(:name,:user)";
+	private const QUERY_CREATE = "CALL insertExtra(:name, :icon, :user)";
 	private const QUERY_GET_ALL = "CALL getAllExtras()";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
 	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyId(:id)";
@@ -12,7 +12,7 @@ class DaoExtra extends Dao {
 	/**
 	 * DaoExtra constructor.
 	 *
-	 * @param Extra|Property $entity
+	 * @param Extra $entity
 	 */
 	public function __construct ($entity) {
 		parent::__construct();
@@ -25,14 +25,36 @@ class DaoExtra extends Dao {
 	 */
 	public function createExtra () {
 		try {
-			$id = $this->_entity->getName();
-			$user = $this->_entity->getUserCreator();
+			$name = $this->_entity->getName();
+			$icon = $this->_entity->getIcon();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-			$stmt->bindParam(":name", $id, PDO::PARAM_STR);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":icon", $icon, PDO::PARAM_STR);
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Extra[]
+	 * @throws DatabaseConnectionException
+	 * @throws ExtraNotFoundException
+	 */
+	public function getAllExtra () {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new ExtraNotFoundException("There are no Extra found", 404);
+			else
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -53,9 +75,8 @@ class DaoExtra extends Dao {
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new ExtraNotFoundException("There are no Extra found", 404);
-			else {
+			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
-			}
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -137,26 +158,6 @@ class DaoExtra extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function getAllExtra () {
-		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
-			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new ExtraNotFoundException("There are no Extra found", 404);
-			else
-				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
-		}
-		catch (PDOException $exception) {
-			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
-		}
-	}
-
-	/**
-	 * @return Extra[]
-	 * @throws DatabaseConnectionException
-	 * @throws ExtraNotFoundException
-	 */
 	public function getAllPropertyExtra () {
 		try {
 			$id = $this->_entity->getId();
@@ -180,9 +181,8 @@ class DaoExtra extends Dao {
 	 * @return Extra
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createExtra($dbObject->id, $dbObject->name,
-			is_null($dbObject->icon) ? "" : $dbObject->icon, $dbObject->active,
-			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
-			$dbObject->dateCreated, $dbObject->dateModified);
+		return FactoryEntity::createExtra($dbObject->id, $dbObject->name, $dbObject->icon ?: "",
+			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+			$dbObject->active, $dbObject->delete);
 	}
 }
