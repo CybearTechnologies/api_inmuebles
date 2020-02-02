@@ -4,11 +4,10 @@ Tools::headers();
 $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperPropertyType();
-$propertyType = FactoryEntity::createPropertyType(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$propertyType->setId($get->id);
+			$propertyType = FactoryEntity::createPropertyType($get->id);
 			$command = FactoryCommand::createGetPropertyTypeByIdCommand($propertyType);
 			try {
 				$command->execute();
@@ -48,15 +47,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command = FactoryCommand::createPropertyTypeCommand($mapper->fromDTOToEntity($post));
 				$command->execute();
-				$return = new ErrorResponse();
+				$return = $mapper->fromEntityToDTO($command->return());
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse($exception->getCode());
-			}
-			catch (PropertyTypeNotFoundException $exception) {
-				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_NOT_FOUND"));
 			}
 			catch (PropetyTypeAlreadyExistException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));

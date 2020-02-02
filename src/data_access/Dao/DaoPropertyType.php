@@ -1,6 +1,6 @@
 <?php
 class DaoPropertyType extends Dao {
-	private const QUERY_CREATE = "CALL insertPropertyType(pt_name,pt_user_created_fk) VALUES (:name,:user);";
+	private const QUERY_CREATE = "CALL insertPropertyType(:name, :user);";
 	private const QUERY_GET_ALL = "CALL getAllPropertyType()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyTypeById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPropertyTypeByName(:name)";
@@ -20,19 +20,17 @@ class DaoPropertyType extends Dao {
 	/**
 	 * @return PropertyType
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyTypeNotFoundException
 	 */
 	public function createPropertyType () {
 		try {
 			$name = $this->_propertyType->getName();
-			$user = $this->_propertyType->getUserCreator();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
-			$stmt->bindParam(":user",$user,PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
-			$this->_propertyType->setId($this->getDatabase()->lastInsertId());
 
-			return $this->getPropertyTypeById();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -131,7 +129,8 @@ class DaoPropertyType extends Dao {
 	 * @return PropertyType
 	 */
 	protected function extract ($DBObject) {
-		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->active, $DBObject->delete,
-			$DBObject->userCreator, $DBObject->userModifier, $DBObject->dateCreated, $DBObject->dateModified);
+		return FactoryEntity::createPropertyType($DBObject->id, $DBObject->name, $DBObject->userCreator,
+			$DBObject->userModifier,
+			$DBObject->active, $DBObject->delete, $DBObject->dateCreated, $DBObject->dateModified);
 	}
 }

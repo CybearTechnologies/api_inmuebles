@@ -13,13 +13,12 @@ class CreatePropertyTypeCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyTypeNotFoundException
 	 * @throws PropetyTypeAlreadyExistException
 	 */
 	public function execute ():void {
 		try {
 			$this->_command->execute();
-			Throw new PropetyTypeAlreadyExistException("Este tipo de propiedad ya existe");
+			Throw new PropetyTypeAlreadyExistException("Property already exist");
 		}
 		catch (PropertyTypeNotFoundException $exception) {
 			$this->setData($this->_dao->createPropertyType());
