@@ -1,5 +1,5 @@
 <?php
-class CreatePlanCommand extends Command {
+class CommandCreatePlan extends Command {
 	private $_command;
 
 	/**
@@ -8,7 +8,7 @@ class CreatePlanCommand extends Command {
 	 * @param Plan $entity
 	 */
 	public function __construct ($entity) {
-		$this->_command = FactoryCommand::createGetPlanByNameCommand($entity);
+		$this->_command = FactoryCommand::createCommandGetPlanByName($entity);
 		$this->_dao = FactoryDao::createDaoPlan($entity);
 	}
 

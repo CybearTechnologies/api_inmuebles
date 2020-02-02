@@ -1,7 +1,7 @@
 <?php
-class GetAllPlanCommand extends Command {
+class CommandGetAllPlan extends Command {
 	/**
-	 * GetAllPlanCommand constructor.
+	 * CommandGetAllPlan constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoPlan();

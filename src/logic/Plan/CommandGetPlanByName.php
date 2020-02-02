@@ -1,7 +1,7 @@
 <?php
-class GetPlanByNameCommand extends Command {
+class CommandGetPlanByName extends Command {
 	/**
-	 * GetPlanByNameCommand constructor.
+	 * CommandGetPlanByName constructor.
 	 *
 	 * @param Plan $plan
 	 */

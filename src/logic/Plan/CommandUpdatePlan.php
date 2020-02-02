@@ -1,7 +1,7 @@
 <?php
-class UpdatePlanCommand extends Command {
+class CommandUpdatePlan extends Command {
 	/**
-	 * UpdatePlanCommand constructor.
+	 * CommandUpdatePlan constructor.
 	 *
 	 * @param Plan $plan
 	 */

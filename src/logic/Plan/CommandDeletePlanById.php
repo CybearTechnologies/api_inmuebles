@@ -1,7 +1,7 @@
 <?php
-class DeletePlanByIdCommand extends Command {
+class CommandDeletePlanById extends Command {
 	/**
-	 * DeletePlanByIdCommand constructor.
+	 * CommandDeletePlanById constructor.
 	 *
 	 * @param Plan $entity
 	 */

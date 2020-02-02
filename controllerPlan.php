@@ -9,7 +9,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$plan->setId($get->id);
-			$command = FactoryCommand::createGetPlanByIdCommand($plan);
+			$command = FactoryCommand::createCommandGetPlanById($plan);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDTO($command->return());
@@ -26,7 +26,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createGetAllPlanCommand();
+			$command = FactoryCommand::createCommandGetAllPlan();
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());

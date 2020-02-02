@@ -1,7 +1,7 @@
 <?php
-class InactivePlanCommand extends Command {
+class CommandInactivePlan extends Command {
 	/**
-	 * InactivePlanCommand constructor.
+	 * CommandInactivePlan constructor.
 	 *
 	 * @param Plan $entity
 	 */
