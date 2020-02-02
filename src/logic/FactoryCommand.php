@@ -6,6 +6,60 @@
  */
 class FactoryCommand {
 	//------------------------------------------------------------
+	//----------------------------PLAN---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return CreatePlanCommand
+	 */
+	static function createCreatePlanCommand ($plan):CreatePlanCommand {
+		return new CreatePlanCommand($plan);
+	}
+
+	/**
+	 * @return GetAllPlanCommand
+	 */
+	static function createGetAllPlanCommand ():GetAllPlanCommand {
+		return new GetAllPlanCommand();
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return GetPlanByIdCommand
+	 */
+	static function createGetPlanByIdCommand ($plan):GetPlanByIdCommand {
+		return new GetPlanByIdCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return GetPlanByNameCommand
+	 */
+	static function createGetPlanByNameCommand ($plan):GetPlanByNameCommand {
+		return new GetPlanByNameCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return UpdatePlanCommand
+	 */
+	static function createUpdatePlanCommand ($plan):UpdatePlanCommand {
+		return new UpdatePlanCommand($plan);
+	}
+
+	/**
+	 * @param Plan $plan
+	 *
+	 * @return DeletePlanByIdCommand
+	 */
+	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
+		return new DeletePlanByIdCommand($plan);
+	}
+	//------------------------------------------------------------
 	//----------------------------LOCATION---------------------------
 	//------------------------------------------------------------
 	/**
@@ -169,61 +223,6 @@ class FactoryCommand {
 	 */
 	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
 		return new GetAllSeatsByAgencyCommand($agency);
-	}
-
-	/**
-	 * PLANS
-	 */
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return CreatePlanCommand
-	 */
-	static function createCreatePlanCommand ($plan):CreatePlanCommand {
-		return new CreatePlanCommand($plan);
-	}
-
-	/**
-	 * @return GetAllPlanCommand
-	 */
-	static function createGetAllPlanCommand ():GetAllPlanCommand {
-		return new GetAllPlanCommand();
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return GetPlanByIdCommand
-	 */
-	static function createGetPlanByIdCommand ($plan):GetPlanByIdCommand {
-		return new GetPlanByIdCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return GetPlanByNameCommand
-	 */
-	static function createGetPlanByNameCommand ($plan):GetPlanByNameCommand {
-		return new GetPlanByNameCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return UpdatePlanCommand
-	 */
-	static function createUpdatePlanCommand ($plan):UpdatePlanCommand {
-		return new UpdatePlanCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return DeletePlanByIdCommand
-	 */
-	static function createDeletePlanByIdCommand ($plan):DeletePlanByIdCommand {
-		return new DeletePlanByIdCommand($plan);
 	}
 
 	/**
