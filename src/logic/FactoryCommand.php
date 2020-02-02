@@ -6,6 +6,26 @@
  */
 class FactoryCommand {
 	//------------------------------------------------------------
+	//----------------------------LOCATION---------------------------
+	//------------------------------------------------------------
+	/**
+	 * @param Location $location
+	 *
+	 * @return GetLocationByIdCommand
+	 */
+	static function createGetLocationByIdCommand ($location):GetLocationByIdCommand {
+		return new GetLocationByIdCommand($location);
+	}
+
+	/**
+	 * @param Location $location
+	 *
+	 * @return GetLocationsByTypeCommand
+	 */
+	static function createGetLocationsByTypeCommand ($location):GetLocationsByTypeCommand {
+		return new GetLocationsByTypeCommand($location);
+	}
+	//------------------------------------------------------------
 	//----------------------------EXTRA---------------------------
 	//------------------------------------------------------------
 	/**
@@ -149,27 +169,6 @@ class FactoryCommand {
 	 */
 	static function createGetAllSeatsByAgencyCommand ($agency):GetAllSeatsByAgencyCommand {
 		return new GetAllSeatsByAgencyCommand($agency);
-	}
-
-	/**
-	 * LOCATION
-	 */
-	/**
-	 * @param Location $location
-	 *
-	 * @return GetLocationByIdCommand
-	 */
-	static function createGetLocationByIdCommand ($location):GetLocationByIdCommand {
-		return new GetLocationByIdCommand($location);
-	}
-
-	/**
-	 * @param Location $location
-	 *
-	 * @return GetLocationsByTypeCommand
-	 */
-	static function createGetLocationsByTypeCommand ($location):GetLocationsByTypeCommand {
-		return new GetLocationsByTypeCommand($location);
 	}
 
 	/**
