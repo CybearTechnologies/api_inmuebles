@@ -5,14 +5,15 @@
  */
 DROP PROCEDURE IF EXISTS insertExtra;
 DELIMITER $$
-CREATE PROCEDURE insertExtra(name_extra varchar(45), id_user int)
+CREATE PROCEDURE insertExtra(name varchar(45),icon varchar(45), user int)
 BEGIN
-    INSERT INTO extra (ex_name, ex_user_created_fk)
-    VALUES (name_extra, id_user);
+    INSERT INTO extra (ex_name, ex_user_created_fk,ex_icon)
+    VALUES (name,icon,user);
     SELECT ex_id id,
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
+           ex_icon icon,
            ex_user_created_fk userCreator,
            ex_date_created dateCreated,
            ex_user_modified_fk userModifier,
@@ -29,6 +30,7 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
+           ex_icon icon,
            ex_user_created_fk userCreator,
            ex_date_created dateCreated,
            ex_user_modified_fk userModifier,
@@ -44,6 +46,7 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
+           ex_icon icon,
            ex_user_created_fk userCreator,
            ex_date_created dateCreated,
            ex_user_modified_fk userModifier,
@@ -62,6 +65,7 @@ BEGIN
            pe.pe_value value,
            ex.ex_id extra,
            ex.ex_deleted 'delete',
+           ex_icon icon,
            pe.pe_property_fk property,
            ex.ex_user_created_fk userCreator,
            ex.ex_date_created dateCreated,
@@ -84,6 +88,7 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
+           ex_icon icon,
            ex_user_created_fk userCreator,
            ex_date_created dateCreated,
            ex_user_modified_fk userModifier,
@@ -104,6 +109,7 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
+           ex_icon icon,
            ex_user_created_fk userCreator,
            ex_date_created dateCreated,
            ex_user_modified_fk userModifier,
@@ -124,6 +130,7 @@ BEGIN
            ex_name name,
            ex_active active,
            ex_deleted 'delete',
+           ex_icon icon,
            ex_user_created_fk userCreator,
            ex_date_created dateCreated,
            ex_user_modified_fk userModifier,
