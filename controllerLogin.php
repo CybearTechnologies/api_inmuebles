@@ -19,45 +19,49 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$post->user));
 					$command->execute();
 					$user = $command->return();
-					if (!$user->isBlocked() && !$user->isDeleted()) {
-						if (Validate::verifyPassword($password, $user->getPassword())){
+					if (!$user->isBlocked() && !$user->isDelete()) {
+						if (Validate::verifyPassword($password, $user->getPassword())) {
 							$token = Tools::encryptSha256($origin->getPrivateKey());
-							$return = new ErrorResponse(true, $origin->getPublicKey());
-							ErrorResponse::setResponse();
+							$return = $user;
+							Tools::setResponse();
 						}
-						else{
-							$return = new ErrorResponse(false, [], Values::getText('ERROR_USER_WRONG_PASSWORD'));
-							ErrorResponse::setResponse(Values::getValue('ERROR_USER_WRONG_PASSWORD'));
+						else {
+							$return = new ErrorResponse(Values::getText('ERROR_USER_WRONG_PASSWORD'));
+							Tools::setResponse(Values::getValue('ERROR_USER_WRONG_PASSWORD'));
 						}
 					}
-					else{
-						$return = new ErrorResponse(false, [], Values::getText('ERROR_USER_BLOCK_DELETED'));
-						ErrorResponse::setResponse(Values::getValue('ERROR_USER_BLOCK_DELETED'));
+					else {
+						$return = new ErrorResponse(Values::getText('ERROR_USER_BLOCK_DELETED'));
+						Tools::setResponse(Values::getValue('ERROR_USER_BLOCK_DELETED'));
 					}
 				}
 				catch (UserNotFoundException $exception) {
-					$return = new ErrorResponse(false, [], Values::getText('ERROR_USER_NOT_FOUND'));
-					ErrorResponse::setResponse($exception->getCode());
+					$return = new ErrorResponse(Values::getText('ERROR_USER_NOT_FOUND'));
+					Tools::setResponse($exception->getCode());
+				}
+				catch (MultipleUserException $exception) {
+					$return = new ErrorResponse('ERROR_USER_NOT_FOUND');
+					Tools::setResponse($exception->getCode());
 				}
 			}
 			catch (DatabaseConnectionException $exception) {
 				Logger::exception($exception, Logger::WARNING);
-				$return = new ErrorResponse(false, [], Values::getText('ERROR_ORIGIN_NOT_FOUND'));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText('ERROR_ORIGIN_NOT_FOUND'));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (OriginNotFoundException $exception) {
 				Logger::exception($exception, Logger::ERROR);
-				$return = new ErrorResponse(false, [], Values::getText('ERROR_ORIGIN_NOT_FOUND'));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText('ERROR_ORIGIN_NOT_FOUND'));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {
-			$return = new ErrorResponse(false, [], Values::getText('ERROR_INCOMPLETE_DATA'));
-			ErrorResponse::setResponse(Values::getValue('ERROR_INCOMPLETE_DATA'));
+			$return = new ErrorResponse(Values::getText('ERROR_INCOMPLETE_DATA'));
+			Tools::setResponse(Values::getValue('ERROR_INCOMPLETE_DATA'));
 		}
 		echo json_encode($return);
 		break;
 	default:
-		ErrorResponse::setResponse(404);
+		Tools::setResponse(404);
 		break;
 }
