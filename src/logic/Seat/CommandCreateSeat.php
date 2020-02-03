@@ -9,7 +9,7 @@ class CommandCreateSeat extends Command {
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoSeat($entity);
-		$this->_command = FactoryCommand::createCommandGetSeatById($entity);
+		$this->_command = FactoryCommand::createCommandGetSeatByName($entity);
 	}
 
 	/**

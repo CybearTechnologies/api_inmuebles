@@ -99,6 +99,15 @@ class FactoryCommand {
 	/**
 	 * @param $seat
 	 *
+	 * @return CommandGetSeatByName
+	 */
+	static function createCommandGetSeatByName ($seat):CommandGetSeatByName {
+		return new CommandGetSeatByName($seat);
+	}
+
+	/**
+	 * @param $seat
+	 *
 	 * @return CommandDeleteSeatById
 	 */
 	static function createCommandDeleteSeatById ($seat):CommandDeleteSeatById {
