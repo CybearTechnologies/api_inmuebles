@@ -270,9 +270,11 @@ class FactoryDto {
 	 *
 	 * @return DtoRol
 	 */
-	static function createDtoRol (int $id, string $name, bool $active, bool $delete, $userCreator, $userModifier,
-		string $dateCreated = "", string $dateModified = ""):DtoRol {
-		return new DtoRol($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+	static function createDtoRol (int $id, string $name = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoRol {
+		return new DtoRol($id, $name, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**

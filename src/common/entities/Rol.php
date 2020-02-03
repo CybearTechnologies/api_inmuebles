@@ -14,8 +14,8 @@ class Rol extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, bool $active, bool $delete, int $userCreator, int $userModifier,
-		string $dateCreated, string $dateModified) {
+	public function __construct (int $id, string $name, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 	}

@@ -6,8 +6,7 @@ class MapperRol extends Mapper {
 	 * @return Rol
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createRol($dto->id, $dto->name, $dto->active, $dto->delete, $dto->userCreator->id,
-			$dto->userModifier->id, $dto->dateCreated, $dto->dateModified);
+		return FactoryEntity::createRol($dto->id, $dto->name);
 	}
 
 	/**
@@ -16,7 +15,8 @@ class MapperRol extends Mapper {
 	 * @return DtoRol
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoRol($entity->getId(), $entity->getName(), $entity->getName(),
-			$entity->getUserCreator(), $entity->getUserModifier());
+		return FactoryDto::createDtoRol($entity->getId(), $entity->getName(), $entity->getUserCreator(),
+			$entity->getUserModifier(), $entity->getDateCreated(), $entity->getDateModified(), $entity->isActive(),
+			$entity->isDelete());
 	}
 }

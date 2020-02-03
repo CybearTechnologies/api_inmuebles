@@ -292,10 +292,11 @@ class FactoryEntity {
 	 *
 	 * @return Rol
 	 */
-	static function createRol (int $id, $name = "", $active = true, $delete = false, $userCreator = 0,
-		$userModifier = 0,
-		$dateCreated = "", $dateModified = ""):Rol {
-		return new Rol($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+	static function createRol (int $id, $name = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):Rol {
+		return new Rol($id, $name, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**
