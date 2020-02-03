@@ -52,7 +52,7 @@ class DaoPlan extends Dao {
 		try {
 			$name = strtolower($this->_entity->getName());
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
-			$stmt->bindParam(":name", $name, PDO::PARAM_INT);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PlanNotFoundException("No plan found", 200);

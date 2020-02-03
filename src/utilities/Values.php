@@ -25,6 +25,7 @@ class Values {
 		'ERROR_LOGIN_USER_WRONG_PASSWORD' => array ('text' => 'Usuario o contraseña incorrecto', 'value' => 500),
 		'ERROR_PLAN_NOT_FOUND' => array ('text' => 'Plan no encontrado', 'value' => 404),
 		'ERROR_PLANS_NOT_FOUND' => array ('text' => 'Planes no encontrados', 'value' => 404),
+		'ERROR_PLAN_ALREADY_EXIST' => array ('text' => 'Plan ya existe', 'value' => 200),
 		'ERROR_RATING_NOT_FOUND' => array ('text' => 'Puntuaje no encontrado', 'value' => 404),
 		'ERROR_RATINGS_NOT_FOUND' => array ('text' => 'Puntuajes no encontrados', 'value' => 404),
 		'ERROR_PROPERTY_NOT_FOUND' => array ('text' => 'Propiedad no encontrada', 'value' => 404),

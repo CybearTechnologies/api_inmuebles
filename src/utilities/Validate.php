@@ -100,4 +100,15 @@ class Validate {
 		return isset($seat->name) && !empty($seat->name)
 			&& isset($seat->rif) && !empty($seat->rif);
 	}
+
+	/**
+	 * @param $plan
+	 *
+	 * @return bool
+	 */
+	static function plan ($plan) {
+		return isset($plan->name) && !empty($plan->name)
+			&& isset($plan->price) && !empty($plan->price)
+			&& is_numeric($plan->price) && isset($plan->id);
+	}
 }
