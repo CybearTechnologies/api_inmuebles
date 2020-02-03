@@ -49,12 +49,13 @@ class DaoRequest extends Dao {
 		try {
 			$property = $this->_entity->getProperty();
 			$user = $this->_entity->getUserCreator();
-			$dateCreated= $this->_entity->getDateCreated();
+			$dateCreated = $this->_entity->getDateCreated();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -79,6 +80,7 @@ class DaoRequest extends Dao {
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -164,8 +166,8 @@ class DaoRequest extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -179,7 +181,8 @@ class DaoRequest extends Dao {
 	 * @return Request
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRequest($dbObject->id,$dbObject->property,$dbObject->active, $dbObject->delete, $dbObject->userCreator,
-			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified);
+		return FactoryEntity::createRequest($dbObject->id, $dbObject->property, $dbObject->userCreator,
+			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified, $dbObject->active,
+			$dbObject->delete);
 	}
 }

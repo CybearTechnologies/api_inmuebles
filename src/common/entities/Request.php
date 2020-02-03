@@ -1,6 +1,5 @@
 <?php
 class Request extends Entity {
-
 	private $_property;
 
 	/**
@@ -15,10 +14,10 @@ class Request extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id,int $property,bool $active, bool $delete, int $userCreator, int $userModifier,
-		string $dateCreated, string $dateModified) {
+	public function __construct (int $id, int $property, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
-		$this->_property=$property;
+		$this->_property = $property;
 	}
 
 	/**
@@ -34,6 +33,4 @@ class Request extends Entity {
 	public function setProperty (int $property):void {
 		$this->_property = $property;
 	}
-
-
 }

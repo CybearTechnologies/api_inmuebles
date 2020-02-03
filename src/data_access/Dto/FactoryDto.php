@@ -139,13 +139,22 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
-	 * @param string $date
+	 * @param int    $property
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return DtoRequest
 	 */
-	static function createDtoRequest (int $id, $date = "", $active = true):DtoRequest {
-		return new DtoRequest($id, $date, $active);
+	static function createDtoRequest (int $id, int $property = Values::DEFAULT_INT,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoRequest {
+		return new DtoRequest($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**
