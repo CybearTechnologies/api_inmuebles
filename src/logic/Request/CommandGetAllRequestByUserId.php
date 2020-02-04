@@ -1,7 +1,7 @@
 <?php
-class GetAllRequestByUserIdCommand extends Command {
+class CommandGetAllRequestByUserId extends Command {
 	/**
-	 * GetAllRequestByUserIdCommand constructor.
+	 * CommandGetAllRequestByUserId constructor.
 	 *
 	 * @param User $user
 	 */

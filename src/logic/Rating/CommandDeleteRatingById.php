@@ -1,9 +1,9 @@
 <?php
-class CreateRatingByUserIdCommand extends Command {
+class CommandDeleteRatingById extends Command {
 	/**
-	 * CreateRatingByUserIdCommand constructor.
+	 * CommandDeleteRatingById constructor.
 	 *
-	 * @param User $entity
+	 * @param Rating $entity
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoRating($entity);
@@ -14,7 +14,8 @@ class CreateRatingByUserIdCommand extends Command {
 	 * @throws RatingNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createRatingByUserId());
+		//TODO falta este metodo
+		$this->setData($this->_dao->deleteRatingById());
 	}
 
 	/**

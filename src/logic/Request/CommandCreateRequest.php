@@ -1,7 +1,7 @@
 <?php
-class CreateRequestCommand extends Command {
+class CommandCreateRequest extends Command {
 	/**
-	 * CreateRequestCommand constructor.
+	 * CommandCreateRequest constructor.
 	 *
 	 * @param Request $entity
 	 */

@@ -1,7 +1,7 @@
 <?php
-class GetLocationByIdCommand extends Command {
+class CommandGetLocationById extends Command {
 	/**
-	 * GetLocationByIdCommand constructor.
+	 * CommandGetLocationById constructor.
 	 *
 	 * @param Location $location
 	 */

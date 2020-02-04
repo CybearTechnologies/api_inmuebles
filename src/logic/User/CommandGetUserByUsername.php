@@ -1,9 +1,9 @@
 <?php
-class GetUserByUsernameCommand extends Command {
+class CommandGetUserByUsername extends Command {
 	private $_entity;
 
 	/**
-	 * GetUserByUsernameCommand constructor.
+	 * CommandGetUserByUsername constructor.
 	 *
 	 * @param User $entity
 	 */

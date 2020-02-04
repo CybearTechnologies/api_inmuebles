@@ -1,7 +1,7 @@
 <?php
-class GetLocationsByTypeCommand extends Command {
+class CommandGetLocationsByType extends Command {
     /**
-     * GetLocationsByTypeCommand constructor.
+     * CommandGetLocationsByType constructor.
      *
 	 * @param Location $location
      */

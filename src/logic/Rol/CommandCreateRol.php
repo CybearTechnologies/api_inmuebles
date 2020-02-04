@@ -1,7 +1,7 @@
 <?php
-class DeleteRolCommand extends Command {
+class CommandCreateRol extends Command {
 	/**
-	 * DeleteRolCommand constructor.
+	 * CommandCreateRol constructor.
 	 *
 	 * @param Rol $entity
 	 */
@@ -13,7 +13,7 @@ class DeleteRolCommand extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->deleteRolById());
+		$this->setData($this->_dao->createRol());
 	}
 
 	/**

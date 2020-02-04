@@ -1,7 +1,7 @@
 <?php
-class GetAllRolesCommand extends Command {
+class CommandGetAllRoles extends Command {
 	/**
-	 * GetAllRolesCommand constructor.
+	 * CommandGetAllRoles constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoRol();

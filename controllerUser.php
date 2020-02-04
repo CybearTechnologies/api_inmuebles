@@ -9,7 +9,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->email) && is_string($get->email)) {
 			$user->setEmail($get->email);
-			$command = FactoryCommand::createGetUserByUsernameCommand($user);
+			$command = FactoryCommand::createCommandGetUserByUsername($user);
 			try {
 				$command->execute();
 				$return = new ErrorResponse(true, $mapper->fromEntityToDTO($command->return()));
@@ -31,7 +31,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		elseif (isset($get->id) && is_numeric($get->id)) {
 			$user->setId($get->id);
-			$command = FactoryCommand::createGetUserByIdCommand($user);
+			$command = FactoryCommand::createCommandGetUserById($user);
 			try {
 				$command->execute();
 				$return = new ErrorResponse(true, $mapper->fromEntityToDTO($command->return()));

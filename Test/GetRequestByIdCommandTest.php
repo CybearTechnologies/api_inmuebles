@@ -10,10 +10,10 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoRequest.php';
-require_once __DIR__ . './../src/logic/Request/GetRequestByIdCommand.php';
+require_once __DIR__ . './../src/logic/Request/CommandGetRequestById.php';
 /**
  * Class GetRequestByIdCommandTest
- * @covers GetRequestByIdCommand
+ * @covers CommandGetRequestById
  */
 class GetRequestByIdCommandTest extends TestCase {
 	private $_command;
@@ -22,7 +22,7 @@ class GetRequestByIdCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_request = FactoryEntity::createRequest(1, "2019-11-24 00:00:00", 1);
-		$this->_command = FactoryCommand::createGetRequestByIdCommand($this->_request);
+		$this->_command = FactoryCommand::createCommandGetRequestById($this->_request);
 	}
 
 	public function testReturn () {

@@ -1,7 +1,7 @@
 <?php
-class CreateRolCommand extends Command {
+class CommandGetRolById extends Command {
 	/**
-	 * CreateRolCommand constructor.
+	 * CommandGetRolById constructor.
 	 *
 	 * @param Rol $entity
 	 */
@@ -11,9 +11,10 @@ class CreateRolCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws RolNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createRol());
+		$this->setData($this->_dao->getRolById());
 	}
 
 	/**

@@ -1,7 +1,7 @@
 <?php
-class GetRatingByIdCommand extends Command {
+class CommandGetRatingById extends Command {
 	/**
-	 * GetRatingByIdCommand constructor.
+	 * CommandGetRatingById constructor.
 	 *
 	 * @param Rating $rating
 	 */

@@ -1,7 +1,7 @@
 <?php
-class GetAllRatingByUserCommand extends Command {
+class CommandGetAllRatingByUser extends Command {
 	/**
-	 * GetAllRatingByUserCommand constructor.
+	 * CommandGetAllRatingByUser constructor.
 	 *
 	 * @param User $user
 	 */

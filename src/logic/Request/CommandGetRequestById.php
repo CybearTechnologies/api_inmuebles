@@ -1,7 +1,7 @@
 <?php
-class GetRequestByIdCommand extends Command {
+class CommandGetRequestById extends Command {
 	/**
-	 * GetRequestByIdCommand constructor.
+	 * CommandGetRequestById constructor.
 	 *
 	 * @param Request $request
 	 */

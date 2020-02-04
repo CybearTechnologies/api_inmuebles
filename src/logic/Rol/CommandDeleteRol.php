@@ -1,7 +1,7 @@
 <?php
-class GetRolByIdCommand extends Command {
+class CommandDeleteRol extends Command {
 	/**
-	 * GetRolByIdCommand constructor.
+	 * CommandDeleteRol constructor.
 	 *
 	 * @param Rol $entity
 	 */
@@ -11,10 +11,9 @@ class GetRolByIdCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws RolNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getRolById());
+		$this->setData($this->_dao->deleteRolById());
 	}
 
 	/**

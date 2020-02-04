@@ -1,7 +1,7 @@
 <?php
-class DeleteRequestByIdCommand extends Command {
+class CommandDeleteRequestById extends Command {
 	/**
-	 * DeleteRequestByIdCommand constructor.
+	 * CommandDeleteRequestById constructor.
 	 *
 	 * @param Request $entity
 	 */
@@ -13,6 +13,7 @@ class DeleteRequestByIdCommand extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
+		//TODO	falta este metodo en el dao
 		$this->setData($this->_dao->deleteRequestById());
 	}
 

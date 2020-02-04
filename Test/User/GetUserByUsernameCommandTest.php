@@ -10,7 +10,7 @@ require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../../src/data_access/Dao/DaoUser.php';
-require_once __DIR__ . './../../src/logic/User/GetUserByUsernameCommand.php';
+require_once __DIR__ . './../../src/logic/User/CommandGetUserByUsername.php';
 class GetUserByUsernameCommandTest extends TestCase {
 	private $_command;
 	private $_user;
@@ -35,6 +35,6 @@ class GetUserByUsernameCommandTest extends TestCase {
 		parent::setUp();
 		$this->_user = FactoryEntity::createUser(2, "Ramiro", "Vargas", "La candelaria", "ramiroavch@gmail.com",
 			"123456", 1, 1, 1, 0, 0, 1, 1, 1, 1, "2019-11-24 20:40:37", "2019-11-24 20:40:37");
-		$this->_command = FactoryCommand::createGetUserByUsernameCommand($this->_user);
+		$this->_command = FactoryCommand::createCommandGetUserByUsername($this->_user);
 	}
 }

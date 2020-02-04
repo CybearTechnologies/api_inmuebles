@@ -15,7 +15,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
 				//	Try to get the user
 				try {
-					$command = FactoryCommand::createGetUserByUsernameCommand(FactoryEntity::createUser(-1, '', '', '',
+					$command = FactoryCommand::createCommandGetUserByUsername(FactoryEntity::createUser(-1, '', '', '',
 						$post->user));
 					$command->execute();
 					$user = $command->return();

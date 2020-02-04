@@ -1,7 +1,7 @@
 <?php
-class GetAllRequestCommand extends Command {
+class CommandGetAllRequest extends Command {
 	/**
-	 * GetAllRequestCommand constructor.
+	 * CommandGetAllRequest constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoRequest();
