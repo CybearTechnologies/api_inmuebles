@@ -12,6 +12,7 @@ class Values {
 		'ERROR_DATA_INCOMPLETE' => array ('text' => 'Datos incompletos', 'value' => 500),
 		'ERROR_DATABASE' => array ('text' => 'Error de conexión', 'value' => 500),
 		'ERROR_AGENCY_NOT_FOUND' => array ('text' => 'Agencia no encontrada', 'value' => 404),
+		'ERROR_AGENCY_ALREADY_EXIST' => array ('text' => 'Agencia ya existente', 'value' => 404),
 		'ERROR_AGENCIES_NOT_FOUND' => array ('text' => 'Agencias no encontradas', 'value' => 404),
 		'ERROR_SEAT_NOT_FOUND' => array ('text' => 'Sede no encontrada', 'value' => 404),
 		'ERROR_SEATS_NOT_FOUND' => array ('text' => 'Sedes no encontradas', 'value' => 404),
@@ -33,6 +34,8 @@ class Values {
 		'ERROR_PROPERTY_TYPE_NOT_FOUND' => array ('text' => 'El tipo de propiedad no se encontrada registrada', 'value' => 404),
 		'ERROR_PROPERTY_TYPES_NOT_FOUND' => array ('text' => 'No se encontraron tipos de propiedades', 'value' => 404),
 		'ERROR_PROPERTY_TYPE_ALREADY_EXIST' => array ('text' => 'Tipo de propiedad ya existe', 'value' => 200),
+		'ERROR_ACCESS_NOT_FOUND' => array ('text' => 'Acceso no encontrado', 'value' => 404),
+		'ERROR_ACCESS_ALREADY_EXIST' => array ('text' => 'Este acceso ya existe', 'value' => 200),
 		'ERROR_USER_NOT_FOUND' => array ('text' => 'Usuario no encontrado', 'value' => 404),
 	);
 

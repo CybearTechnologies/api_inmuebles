@@ -67,4 +67,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
+	default:
+		Tools::setResponse(404);
+		break;
 }

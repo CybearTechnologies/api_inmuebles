@@ -1,7 +1,6 @@
 <?php
 
-class MapperRating extends Mapper
-{
+class MapperRating extends Mapper{
     /**
      * @param DtoRating $dto
      *
