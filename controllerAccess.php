@@ -46,6 +46,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		$post = json_decode(file_get_contents('php://input'));
 		if (isset($post->name) && isset($post->abbreviation) && isset($post->user)) {
 			try {
+				//todo arreglar- permite agregar aun asi el nombre o el abbr se repitan.
 				$command = FactoryCommand::createCommandCreateAccess($mapper->fromDtoToEntity($post));
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
