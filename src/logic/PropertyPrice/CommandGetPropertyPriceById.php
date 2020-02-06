@@ -1,9 +1,9 @@
 <?php
-class CreatePropertyPrice extends Command {
+class CommandGetPropertyPriceById extends Command {
 	/**
-	 * CreatePropertyPriceByProperty constructor.
+	 * CommandGetPropertyPriceById constructor.
 	 *
-	 * @param PropertyPrice[] $entity
+	 * @param PropertyPrice $entity
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoPropertyPrice($entity);
@@ -14,7 +14,7 @@ class CreatePropertyPrice extends Command {
 	 * @throws InvalidPropertyPriceException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createPropertyPrice());
+		$this->setData($this->_dao->getPropertyPriceById());
 	}
 
 	/**

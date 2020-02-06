@@ -62,6 +62,25 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
+	case "DELETE":
+		if (isset($get->id) && is_numeric($get->id)) {
+			$command = FactoryCommand::createCommandDeleteExtraById($mapper->fromDTOToEntity($post));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(500);
+		}
+		echo json_encode($return);
+		break;
 	default:
 		Tools::setResponse(404);
 		break;

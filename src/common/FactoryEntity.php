@@ -153,23 +153,25 @@ class FactoryEntity {
 
 	/**
 	 * @param int    $id
-	 * @param int    $price
+	 * @param float  $price
 	 * @param bool   $final
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int    $property
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
-	 * @param int    $propertyId
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return PropertyPrice
 	 */
-	static function createPropertyPrice (int $id, $price = 0, int $propertyId = 0, $final = false, $active = true,
-		$delete = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
-		string $dateModified = ""):PropertyPrice {
-		return new PropertyPrice($id, $price, $final, $propertyId, $active, $delete, $userCreator, $userModifier,
-			$dateCreated, $dateModified);
+	static function createPropertyPrice (int $id, float $price = Values::DEFAULT_FLOAT,
+		bool $final = false, int $property = Values::DEFAULT_FOREIGN, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, $active = Values::DEFAULT_ACTIVE,
+		$delete = Values::DEFAULT_DELETE):PropertyPrice {
+		return new PropertyPrice($id, $price, $final, $property, $userCreator, $userModifier, $dateCreated,
+			$dateModified, $active, $delete);
 	}
 
 	/**

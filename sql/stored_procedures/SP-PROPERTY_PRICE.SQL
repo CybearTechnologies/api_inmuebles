@@ -42,9 +42,9 @@ BEGIN
     FROM property_price;
 END$$
 
-DROP PROCEDURE IF EXISTS getPropertyPricebyId;
+DROP PROCEDURE IF EXISTS getPropertyPriceById;
 DELIMITER $$
-CREATE PROCEDURE getPropertyPricebyId(id_property_price int)
+CREATE PROCEDURE getPropertyPriceById(id_property_price int)
 BEGIN
     SELECT pp_id id,
            pp_price price,

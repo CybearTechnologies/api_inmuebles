@@ -1,7 +1,7 @@
 <?php
-class DeletePropertyPriceByIdCommand extends Command {
+class CommandCreatePropertyPrice extends Command {
 	/**
-	 * DeletePropertyPriceCommand constructor.
+	 * CommandCreatePropertyPrice constructor.
 	 *
 	 * @param PropertyPrice $entity
 	 */
@@ -11,14 +11,13 @@ class DeletePropertyPriceByIdCommand extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws InvalidPropertyPriceException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->deletePropertyPriceById());
+		$this->setData($this->_dao->createPropertyPrice());
 	}
 
 	/**
-	 * @return PropertyPrice[]
+	 * @return PropertyPrice
 	 */
 	public function return () {
 		return $this->getData();
