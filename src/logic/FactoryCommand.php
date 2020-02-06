@@ -41,8 +41,9 @@ class FactoryCommand {
 	static function createDeleteAgencyByIdCommand ($agency):CommandDeleteAgencyById {
 		return new CommandDeleteAgencyById($agency);
 	}
+
 	//------------------------------------------------------------
-	//----------------------------PLAN---------------------------
+	//----------------------------PLAN----------------------------
 	//------------------------------------------------------------
 	/**
 	 * @param Plan $plan
@@ -52,6 +53,7 @@ class FactoryCommand {
 	static function createCreatePlanCommand ($plan):CreatePlanCommand {
 		return new CreatePlanCommand($plan);
 	}
+
 	//------------------------------------------------------------
 	//-----------------------PROPERTY TYPE------------------------
 	//------------------------------------------------------------
@@ -96,6 +98,36 @@ class FactoryCommand {
 	 */
 	static function createCommandDeletePropertyType ($propertyType):CommandDeletePropertyType {
 		return new CommandDeletePropertyType($propertyType);
+	}
+
+	//------------------------------------------------------------
+	//-----------------------PROPERTY PRICE-----------------------
+	//------------------------------------------------------------
+	/**
+	 * @param PropertyPrice $propertyPrice
+	 *
+	 * @return CommandCreatePropertyPrice
+	 */
+	static function createCommandCreatePropertyPrice ($propertyPrice):CommandCreatePropertyPrice {
+		return new CommandCreatePropertyPrice($propertyPrice);
+	}
+
+	/**
+	 * @param int $property
+	 *
+	 * @return CommandGetPropertyPriceByPropertyId
+	 */
+	static function createCommandGetPropertyPriceByPropertyId ($property):CommandGetPropertyPriceByPropertyId {
+		return new CommandGetPropertyPriceByPropertyId($property);
+	}
+
+	/**
+	 * @param PropertyPrice $propertyPrice
+	 *
+	 * @return CommandGetPropertyPriceById
+	 */
+	static function createCommandGetPropertyPriceById ($propertyPrice):CommandGetPropertyPriceById {
+		return new CommandGetPropertyPriceById($propertyPrice);
 	}
 
 	/**
@@ -312,43 +344,6 @@ class FactoryCommand {
 	 */
 	static function createGetAllRequestByPropertyIdCommand ($property):GetAllRequestByPropertyIdCommand {
 		return new GetAllRequestByPropertyIdCommand($property);
-	}
-
-	/**
-	 * PropertyPrice
-	 */
-	/**
-	 * @param PropertyPrice[] $property
-	 *
-	 * @return CreatePropertyPrice
-	 */
-	static function createCreatePropertyPriceByPropertyCommand ($property):CreatePropertyPrice {
-		return new CreatePropertyPrice($property);
-	}
-
-	/**
-	 * @param PropertyPrice $propertyPrice
-	 *
-	 * @return DeletePropertyPriceByIdCommand
-	 */
-	static function createDeletePropertyPriceByIdCommand ($propertyPrice):DeletePropertyPriceByIdCommand {
-		return new DeletePropertyPriceByIdCommand($propertyPrice);
-	}
-
-	/**
-	 * @return GetAllPropertyPriceCommand
-	 */
-	static function createGetAllPropertyPriceCommand ():GetAllPropertyPriceCommand {
-		return new GetAllPropertyPriceCommand();
-	}
-
-	/**
-	 * @param Property $property
-	 *
-	 * @return GetPropertyPriceByPropertyIdCommand
-	 */
-	static function createGetPropertyPriceByPropertyIdCommand ($property):GetPropertyPriceByPropertyIdCommand {
-		return new GetPropertyPriceByPropertyIdCommand($property);
 	}
 	/**
 	 * SEATS

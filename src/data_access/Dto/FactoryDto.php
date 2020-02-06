@@ -29,6 +29,29 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
+	 * @param float  $price
+	 * @param bool   $final
+	 * @param int    $property
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return DtoPropertyPrice
+	 */
+	static function createDtoPropertyPrice (int $id, float $price = Values::DEFAULT_FLOAT,
+		bool $final = false, int $property = Values::DEFAULT_FOREIGN, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, $active = Values::DEFAULT_ACTIVE,
+		$delete = Values::DEFAULT_DELETE):DtoPropertyPrice {
+		return new DtoPropertyPrice($id, $price, $final, $property, $userCreator, $userModifier, $dateCreated,
+			$dateModified, $active, $delete);
+	}
+
+	/**
+	 * @param int    $id
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -188,27 +211,6 @@ class FactoryDto {
 		$propertyPrice = []):DtoProperty {
 		return new DtoProperty($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
 			$area, $description, $state, $floor, $type, $location, $extras, $request, $propertyPrice);
-	}
-
-	/**
-	 * @param int    $id
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
-	 * @param float  $price
-	 * @param bool   $final
-	 * @param int    $propertyId
-	 *
-	 * @return DtoPropertyPrice
-	 */
-	static function createDtoPropertyPrice (int $id, int $userCreator, int $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete, float $price, bool $final,
-		int $propertyId):DtoPropertyPrice {
-		return new DtoPropertyPrice($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
-			$price, $final, $propertyId);
 	}
 
 	/**
