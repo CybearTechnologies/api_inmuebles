@@ -87,19 +87,17 @@ class DaoExtra extends Dao {
 	/**
 	 * @return Extra
 	 * @throws DatabaseConnectionException
-	 * @throws ExtraNotFoundException
 	 */
 	public function deleteExtraById () {
 		try {
 			$id = $this->_entity->getId();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_EXTRA_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new ExtraNotFoundException("There are no Extra found", 404);
-			else
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -110,19 +108,17 @@ class DaoExtra extends Dao {
 	/**
 	 * @return Extra
 	 * @throws DatabaseConnectionException
-	 * @throws ExtraNotFoundException
 	 */
 	public function inactiveExtraById () {
 		try {
 			$id = $this->_entity->getId();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE_EXTRA_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new ExtraNotFoundException("There are no Extra found", 404);
-			else
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

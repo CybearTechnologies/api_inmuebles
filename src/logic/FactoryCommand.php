@@ -443,10 +443,10 @@ class FactoryCommand {
 	/**
 	 * @param Extra $extra
 	 *
-	 * @return DeleteExtraByIdCommand
+	 * @return CommandDeleteExtraById
 	 */
-	static function createDeleteExtraByIdCommand ($extra):DeleteExtraByIdCommand {
-		return new DeleteExtraByIdCommand($extra);
+	static function createCommandDeleteExtraById ($extra):CommandDeleteExtraById {
+		return new CommandDeleteExtraById($extra);
 	}
 
 	/**
