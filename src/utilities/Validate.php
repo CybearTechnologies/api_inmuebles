@@ -57,6 +57,10 @@ class Validate {
 		return password_hash($password, PASSWORD_DEFAULT, self::OPTIONS);
 	}
 
+	static function id ($get) {
+		return isset($get->id) && is_numeric($get->id);
+	}
+
 	/**
 	 * @param $extra
 	 *

@@ -64,7 +64,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "DELETE":
 		if (isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createCommandDeleteExtraById($mapper->fromDTOToEntity($post));
+			$extra = FactoryEntity::createExtra($get->id);
+			$command = FactoryCommand::createCommandDeleteExtraById($extra);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());

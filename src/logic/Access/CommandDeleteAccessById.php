@@ -11,6 +11,7 @@ class CommandDeleteAccessById extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws AccessNotFoundException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->deleteAccessById());

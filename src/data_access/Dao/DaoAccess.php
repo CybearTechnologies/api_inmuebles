@@ -111,15 +111,20 @@ class DaoAccess extends Dao {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws AccessNotFoundException
 	 */
 	public function deleteAccessById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; //TODO change dis user for user logggggg
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AccessNotFoundException("There are no Access found", 404);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

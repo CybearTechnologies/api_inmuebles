@@ -89,9 +89,9 @@ BEGIN
     WHERE ac_abbreviation = abbreviation_access;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteAccess;
+DROP PROCEDURE IF EXISTS deleteAccessById;
 DELIMITER $$
-CREATE PROCEDURE deleteAccess(id int, user int)
+CREATE PROCEDURE deleteAccessById(id int, user int)
 BEGIN
 UPDATE access SET ac_deleted=1, ac_user_modified_fk=user
 WHERE ac_id=id;
