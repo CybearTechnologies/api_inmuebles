@@ -10,17 +10,17 @@ require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../../src/data_access/Dao/DaoPlan.php';
-require_once __DIR__ . './../../src/logic/Plan/GetAllPlanCommand.php';
+require_once __DIR__ . './../../src/logic/Plan/CommandGetAllPlan.php';
 /**
  * Class GetAllPlanCommandTest
- * @covers GetAllPlanCommand
+ * @covers CommandGetAllPlan
  */
 class GetAllPlanCommandTest extends TestCase {
 	private $_command;
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllPlanCommand();
+		$this->_command = FactoryCommand::createCommandGetAllPlan();
 	}
 
 	public function testReturn () {

@@ -113,20 +113,23 @@ class FactoryEntity {
 	 * @param string $name
 	 * @param string $rif
 	 * @param int    $location
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int    $agency
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return Seat
 	 */
-	static function createSeat (int $id, $name = "", $rif = "", $location = 0, $agency = 0, $active = true,
-		$delete = false, int $userCreator = 0,
-		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Seat {
-		return new Seat($id, $name, $rif, $location, $agency, $active, $delete, $userCreator, $userModifier,
-			$dateCreated, $dateModified);
+	static function createSeat (int $id, string $name = Values::DEFAULT_STRING, string $rif = Values::DEFAULT_STRING,
+		int $location = Values::DEFAULT_INT, int $agency = Values::DEFAULT_INT,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Seat {
+		return new Seat($id, $name, $rif, $location, $agency, $userCreator, $userModifier, $dateCreated, $dateModified,
+			$active, $delete);
 	}
 
 	/**
@@ -141,9 +144,11 @@ class FactoryEntity {
 	 *
 	 * @return Request
 	 */
-	static function createRequest (int $id, int $property = 0, $active = true, $delete = false, int $userCreator = 0,
-		int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Request {
-		return new Request($id, $property, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+	static function createRequest (int $id, int $property = Values::DEFAULT_INT,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Request {
+		return new Request($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**
@@ -269,10 +274,12 @@ class FactoryEntity {
 	 *
 	 * @return Access
 	 */
-	static function createAccess (int $id, $name = "", $abbreviation = "", $active = true, $delete = false,
-		int $userCreator = 1, int $userModifier = 1, $dateCreated = "", $dateModified = ""):Access {
-		return new Access($id, $name, $abbreviation, $active, $delete, $userCreator, $userModifier, $dateCreated,
-			$dateModified);
+	static function createAccess (int $id, $name = Values::DEFAULT_STRING, $abbreviation = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_INT, int $userModifier = Values::DEFAULT_INT,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Access {
+		return new Access($id, $name, $abbreviation, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**
@@ -287,10 +294,11 @@ class FactoryEntity {
 	 *
 	 * @return Rol
 	 */
-	static function createRol (int $id, $name = "", $active = true, $delete = false, $userCreator = 0,
-		$userModifier = 0,
-		$dateCreated = "", $dateModified = ""):Rol {
-		return new Rol($id, $name, $active, $delete, $userCreator, $userModifier, $dateCreated, $dateModified);
+	static function createRol (int $id, $name = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):Rol {
+		return new Rol($id, $name, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**

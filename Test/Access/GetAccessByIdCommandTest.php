@@ -10,7 +10,7 @@ require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../../src/data_access/Dao/DaoAccess.php';
-require_once __DIR__ . './../../src/logic/Access/GetAccessByIdCommand.php';
+require_once __DIR__ . './../../src/logic/Access/CommandGetAccessById.php';
 class GetAccessByIdCommandTest extends TestCase {
 	private $_command;
 	private $_access;
@@ -19,7 +19,7 @@ class GetAccessByIdCommandTest extends TestCase {
 		parent::setUp();
 		$this->_access = FactoryEntity::createAccess(1, "Usuario - Crear", "us_c",
 			1, 0, 1, 1, "2020-01-19 20:04:49", "2020-01-19 20:04:49");
-		$this->_command = FactoryCommand::createGetAccessByIdCommand($this->_access);
+		$this->_command = FactoryCommand::createCommandGetAccessById($this->_access);
 	}
 
 	public function testExecute () {

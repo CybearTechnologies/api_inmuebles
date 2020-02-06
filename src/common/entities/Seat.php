@@ -20,15 +20,15 @@ class Seat extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, string $rif,int $location,int $agency ,
-								bool $active, bool $delete, int $userCreator, int $userModifier, string $dateCreated,
-								string $dateModified) {
+	public function __construct (int $id, string $name, string $rif, int $location, int $agency,
+		int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
-							$delete);
+			$delete);
 		$this->_name = $name;
 		$this->_rif = $rif;
 		$this->_location = $location;
-		$this->_agency=$agency;
+		$this->_agency = $agency;
 	}
 
 	/**
@@ -86,8 +86,4 @@ class Seat extends Entity {
 	public function setAgency ($agency):void {
 		$this->_agency = $agency;
 	}
-
-
-
-
 }

@@ -23,7 +23,7 @@ class DeleteAgencyByIdCommandTest extends TestCase {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
-			$this->_command = FactoryCommand::createDeleteAgencyByIdCommand($this->_command->return());
+			$this->_command = FactoryCommand::createCommandDeleteAgencyById($this->_command->return());
 			$this->_command->execute();
 			$this->_agency = $this->_command->return();
 			$this->assertEquals(true, $this->_agency->isDelete());
@@ -39,7 +39,7 @@ class DeleteAgencyByIdCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_agency = FactoryEntity::createAgency(1, "Keviniano", 1, 0, 1, 1);
-		$this->_command = FactoryCommand::createCreateAgencyCommand($this->_agency);
+		$this->_command = FactoryCommand::createCommandCreateAgency($this->_agency);
 	}
 
 	protected function tearDown ():void {

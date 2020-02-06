@@ -9,14 +9,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$access->setId($get->id);
-			$command = FactoryCommand::createGetAccessByIdCommand($access);
+			$command = FactoryCommand::createCommandGetAccessById($access);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
 				Tools::setResponse();
 			}
 			catch (AccessNotFoundException $exception) {
-				$return = new ErrorResponse(Values::getText("ACCESS_NOT_FOUND"));
+				$return = new ErrorResponse(Values::getText("ERROR_ACCESS_NOT_FOUND"));
 				Tools::setResponse($exception->getCode());
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -25,7 +25,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 		}
 		else {
-			$command = FactoryCommand::createGetAllAccessCommand();
+			$command = FactoryCommand::createCommandGetAllAccess();
 			try {
 				$command->execute();
 				$return = new ErrorResponse($mapper->fromEntityArrayToDtoArray($command->return()));
@@ -44,22 +44,30 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));
-		if (isset($get->name) && isset($get->abbreviation) && isset($get->user)) {
+		if (isset($post->name) && isset($post->abbreviation) && isset($post->user)) {
 			try {
-				$command = FactoryCommand::createCreateAccessCommand($mapper->fromDtoToEntity($post));
+				//todo arreglar- permite agregar aun asi el nombre o el abbr se repitan.
+				$command = FactoryCommand::createCommandCreateAccess($mapper->fromDtoToEntity($post));
 				$command->execute();
-				$return = new ErrorResponse();
+				$return = $mapper->fromEntityToDto($command->return());
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse($exception->getCode());
 			}
-			catch (AccessAlreadyExistException $e) {
+			catch (AccessAlreadyExistException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_ACCESS_ALREADY_EXIST"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
 		break;
 	default:
-		$http_response_header(404);
+		Tools::setResponse(404);
 		break;
 }

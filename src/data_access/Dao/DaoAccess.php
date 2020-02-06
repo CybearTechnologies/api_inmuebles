@@ -25,7 +25,7 @@ class DaoAccess extends Dao {
 		try {
 			$name = $this->_entity->getName();
 			$abbreviation = $this->_entity->getAbbreviation();
-			$user = $this->_entity->getUserCreator();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ACCESS);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":abbreviation", $abbreviation, PDO::PARAM_STR);
@@ -152,8 +152,8 @@ class DaoAccess extends Dao {
 	 * @return Access
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createAccess($dbObject->id, $dbObject->name, $dbObject->abbreviation, $dbObject->active,
-			$dbObject->delete, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
-			$dbObject->dateModified);
+		return FactoryEntity::createAccess($dbObject->id, $dbObject->name, $dbObject->abbreviation,
+			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+			$dbObject->active, $dbObject->delete);
 	}
 }

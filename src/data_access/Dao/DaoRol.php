@@ -96,7 +96,7 @@ class DaoRol extends Dao {
 	 * @return mixed
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRol($dbObject->id, $dbObject->name, $dbObject->active, $dbObject->userCreator,
-			$dbObject->userModifier, $dbObject->$dbObject->dateCreated, $dbObject->dateModified);
+		return FactoryEntity::createRol($dbObject->id, $dbObject->name, $dbObject->userCreator, $dbObject->userModifier,
+			$dbObject->dateCreated, $dbObject->dateModified, $dbObject->active, $dbObject->delete);
 	}
 }

@@ -2,6 +2,7 @@
 class DaoSeat extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllSeats()";
 	private const QUERY_GET_BY_ID = "CALL getSeatById(:id)";
+	private const QUERY_GET_BY_NAME = "CALL getSeatByName(:name)";
 	private const QUERY_GET_SEATS_BY_AGENCY = "CALL getSeatsByAgency(:id)";
 	private const QUERY_DELETE = "CALL deleteSeat(:id,:user)";
 	private const QUERY_CREATE = "CALL insertSeat(:name,:rif,:location,:agency,:user,:dateCreated)";
@@ -28,18 +29,19 @@ class DaoSeat extends Dao {
 			$rif = $this->_entity->getRif();
 			$location = $this->_entity->getLocation();
 			$agency = $this->_entity->getAgency();
-			$user = $this->_entity->getUserCreator();
+			$user = 2; // TODO: replace for logged user
 			$dateCreated = $this->_entity->getDateCreated();
-			if($this->_entity->getDateCreated()=="")
+			if ($this->_entity->getDateCreated() == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);
-			$stmt->bindParam(":location", $location, PDO::PARAM_STR);
-			$stmt->bindParam(":agency", $agency, PDO::PARAM_STR);
-			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
+			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
+			$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -59,7 +61,7 @@ class DaoSeat extends Dao {
 			$rif = $this->_entity->getRif();
 			$location = $this->_entity->getLocation();
 			$agency = $this->_entity->getAgency();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; // TODO: replace for logged user
 			$dateCreated = $this->_entity->getDateModified();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_STR);
@@ -70,6 +72,7 @@ class DaoSeat extends Dao {
 			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -121,6 +124,27 @@ class DaoSeat extends Dao {
 		}
 	}
 
+	/**
+	 * @return Seat
+	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
+	 */
+	public function getSeatByName () {
+		try {
+			$name = strtolower($this->_entity->getName());
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_NAME);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SeatNotFoundException("There are no seats found", 404);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
 
 	/**
 	 * @return Seat
@@ -129,11 +153,12 @@ class DaoSeat extends Dao {
 	public function deleteSeat () {
 		try {
 			$id = $this->_entity->getId();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -168,8 +193,8 @@ class DaoSeat extends Dao {
 	 * @return Seat
 	 */
 	protected function extract ($dbObject):Seat {
-		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif,$dbObject->location,
-			$dbObject->agency,$dbObject->active, $dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
-			$dbObject->dateCreated, $dbObject->dateModified);
+		return FactoryEntity::createSeat($dbObject->id, $dbObject->name, $dbObject->rif, $dbObject->location,
+			$dbObject->agency, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
+			$dbObject->dateModified, $dbObject->active, $dbObject->delete);
 	}
 }

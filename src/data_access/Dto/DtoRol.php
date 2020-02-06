@@ -1,34 +1,22 @@
 <?php
 class DtoRol extends Dto {
 	public $name;
-	public $active;
-	public $delete;
-	public $dateCreated;
-	public $dateModified;
-	public $userCreator;
-	public $userModifier;
 
 	/**
 	 * DtoRol constructor.
 	 *
-	 * @param int     $id
-	 * @param string  $name
-	 * @param bool    $active
-	 * @param bool    $delete
-	 * @param DtoUser $userCreator
-	 * @param DtoUser $userModifier
-	 * @param string  $dateCreated
-	 * @param string  $dateModified
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 */
-	public function __construct (int $id, string $name, bool $active, bool $delete, $userCreator, $userModifier,
-		string $dateCreated, string $dateModified) {
-		$this->id = $id;
+	public function __construct (int $id, string $name, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->name = $name;
-		$this->active = $active;
-		$this->delete = $delete;
-		$this->userCreator = $userCreator;
-		$this->userModifier = $userModifier;
-		$this->dateCreated = $dateCreated;
-		$this->dateModified = $dateModified;
 	}
 }

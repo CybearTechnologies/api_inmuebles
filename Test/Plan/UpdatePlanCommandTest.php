@@ -10,10 +10,10 @@ require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../../src/data_access/Dao/DaoPlan.php';
-require_once __DIR__ . './../../src/logic/Plan/GetAllPlanCommand.php';
+require_once __DIR__ . './../../src/logic/Plan/CommandGetAllPlan.php';
 /**
  * Class UpdatePlanCommandTest
- * @covers GetPlanByIdCommand
+ * @covers CommandGetPlanById
  */
 class UpdatePlanCommandTest extends TestCase {
 	private $_command;
@@ -44,6 +44,6 @@ class UpdatePlanCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_plan = FactoryEntity::createPlan(-1, '65ruy7iyui', 4849.0);
-		$this->_command = FactoryCommand::createCreatePlanCommand($this->_plan);
+		$this->_command = FactoryCommand::createCommandCreatePlan($this->_plan);
 	}
 }

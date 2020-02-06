@@ -32,8 +32,8 @@ class DaoUser extends Dao {
 			$rol = $this->_entity->getRol();
 			$plan = $this->_entity->getPlan();
 			$location = $this->_entity->getLocation();
-			$userCreator = $this->_entity->getUserCreator();
-			$userModifier = $this->_entity->getUserModifier();
+			$userCreator = 1; // TODO: replace for logged user
+			$userModifier = 1;// TODO: replace for logged user
 			$dateModified = $this->_entity->getDateModified();
 			$dateCreated = $this->_entity->getDateCreated();
 			$nullDate = null;
@@ -133,13 +133,11 @@ class DaoUser extends Dao {
 	/**
 	 * @return User
 	 * @throws DatabaseConnectionException
-	 * @throws MultipleUserException
-	 * @throws UserNotFoundException
 	 */
 	public function DeleteUser () {
 		try {
 			$id = $this->_entity->getId();
-			$user = $this->_entity->getUserModifier();
+			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_USER);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);

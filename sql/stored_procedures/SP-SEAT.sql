@@ -99,6 +99,25 @@ BEGIN
     WHERE se_id = id_seat;
 END$$
 
+DROP PROCEDURE IF EXISTS getSeatByName;
+DELIMITER $$
+CREATE PROCEDURE getSeatByName(name varchar(100))
+BEGIN
+    SELECT se_id id,
+           se_name name,
+           se_rif rif,
+           se_location_fk location,
+           se_agency_fk agency,
+           se_active active,
+           se_deleted 'delete',
+           se_user_created_fk userCreator,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
+    FROM seat
+    WHERE lower(se_name) = name;
+END$$
+
 DROP PROCEDURE IF EXISTS deleteSeat;
 DELIMITER $$
 CREATE PROCEDURE deleteSeat(id int, user int)

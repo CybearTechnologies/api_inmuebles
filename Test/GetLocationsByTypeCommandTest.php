@@ -10,10 +10,10 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoLocation.php';
-require_once __DIR__ . './../src/logic/Location/GetLocationByIdCommand.php';
+require_once __DIR__ . './../src/logic/Location/CommandGetLocationById.php';
 /**
  * Class GetLocationsByTypeCommandTest
- * @covers GetLocationsByTypeCommand
+ * @covers CommandGetLocationsByType
  */
 class GetLocationsByTypeCommandTest extends TestCase {
 	private $_command;
@@ -22,14 +22,14 @@ class GetLocationsByTypeCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_location = FactoryEntity::createLocation(-1, '', 'Estado');
-		$this->_command = FactoryCommand::createGetLocationsByTypeCommand($this->_location);
+		$this->_command = FactoryCommand::createCommandGetLocationsByType($this->_location);
 	}
 
 	public function testReturn () {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
-			$this->_command = FactoryCommand::createGetLocationsByTypeCommand($this->_location);
+			$this->_command = FactoryCommand::createCommandGetLocationsByType($this->_location);
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
 		}

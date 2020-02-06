@@ -90,4 +90,37 @@ class Validate {
 			&& isset($property->type) && is_numeric($property->type)
 			&& isset($property->price) && is_array($property->price);
 	}
+
+	/**
+	 * @param $seat
+	 *
+	 * @return bool
+	 */
+	static function seat ($seat) {
+		return isset($seat->name) && !empty($seat->name)
+			&& isset($seat->rif) && !empty($seat->rif)
+			&& isset($seat->location) && is_numeric($seat->location)
+			&& isset($seat->agency) && is_numeric($seat->agency);
+	}
+
+	/**
+	 * @param $plan
+	 *
+	 * @return bool
+	 */
+	static function plan ($plan) {
+		return isset($plan->name) && !empty($plan->name)
+			&& isset($plan->price) && !empty($plan->price)
+			&& is_numeric($plan->price) && isset($plan->id);
+	}
+
+	/**
+	 * @param $agency
+	 *
+	 * @return bool
+	 */
+	static function agency ($agency) {
+		return isset($agency->id)
+			&& isset($agency->name) && !empty($agency->name);
+	}
 }

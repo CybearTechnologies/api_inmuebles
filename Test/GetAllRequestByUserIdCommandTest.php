@@ -10,17 +10,17 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoRequest.php';
-require_once __DIR__ . './../src/logic/Request/GetAllRequestByUserIdCommand.php';
+require_once __DIR__ . './../src/logic/Request/CommandGetAllRequestByUserId.php';
 /**
  * Class GetAllRequestByUserIdCommandTest
- * @covers GetAllRequestByPropertyIdCommand
+ * @covers CommandGetAllRequestByPropertyId
  */
 class GetAllRequestByUserIdCommandTest extends TestCase {
 	private $_command;
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllRequestByUserIdCommand(FactoryEntity::createUser(1));
+		$this->_command = FactoryCommand::createCommandGetAllRequestByUserId(FactoryEntity::createUser(1));
 	}
 
 	public function testReturn () {

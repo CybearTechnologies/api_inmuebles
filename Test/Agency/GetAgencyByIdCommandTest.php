@@ -22,7 +22,7 @@ class GetAgencyByIdCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_agency = FactoryEntity::createAgency(1, "Century21", 1, 0, 1, 1);
-		$this->_command = FactoryCommand::createGetAgencyByIdCommand($this->_agency);
+		$this->_command = FactoryCommand::createCommandGetAgencyById($this->_agency);
 	}
 
 	public function testReturn () {

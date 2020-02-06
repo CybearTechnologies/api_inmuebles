@@ -20,7 +20,7 @@ class GetAllAgenciesCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllAgenciesCommand();
+		$this->_command = FactoryCommand::createCommandGetAllAgencies();
 	}
 
 	public function testReturn () {

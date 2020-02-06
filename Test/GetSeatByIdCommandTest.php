@@ -10,10 +10,10 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoSeat.php';
-require_once __DIR__ . './../src/logic/Seat/GetSeatByIdCommand.php';
+require_once __DIR__ . './../src/logic/Seat/CommandGetSeatById.php';
 /**
  * Class GetSeatByIdCommandTest
- * @covers GetSeatByIdCommand
+ * @covers CommandGetSeatById
  */
 class GetSeatByIdCommandTest extends TestCase {
 	private $_command;
@@ -22,7 +22,7 @@ class GetSeatByIdCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_seat = FactoryEntity::createSeat(1, "C21 Los palos grandes", "J-12306151", 1);
-		$this->_command = FactoryCommand::createGetSeatByIdCommand($this->_seat);
+		$this->_command = FactoryCommand::createCommandGetSeatById($this->_seat);
 	}
 
 	public function testReturn () {

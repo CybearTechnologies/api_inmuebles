@@ -10,10 +10,10 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoRating.php';
-require_once __DIR__ . './../src/logic/Rating/GetAllRatingByUserCommand.php';
+require_once __DIR__ . './../src/logic/Rating/CommandGetAllRatingByUser.php';
 /**
  * Class GetAllRatingByUserCommandTest
- * @covers GetAllRatingByUserCommand
+ * @covers CommandGetAllRatingByUser
  */
 class GetAllRatingByUserCommandTest extends TestCase {
 	private $_command;

@@ -12,9 +12,11 @@ class Values {
 		'ERROR_DATA_INCOMPLETE' => array ('text' => 'Datos incompletos', 'value' => 500),
 		'ERROR_DATABASE' => array ('text' => 'Error de conexión', 'value' => 500),
 		'ERROR_AGENCY_NOT_FOUND' => array ('text' => 'Agencia no encontrada', 'value' => 404),
+		'ERROR_AGENCY_ALREADY_EXIST' => array ('text' => 'Agencia ya existente', 'value' => 404),
 		'ERROR_AGENCIES_NOT_FOUND' => array ('text' => 'Agencias no encontradas', 'value' => 404),
 		'ERROR_SEAT_NOT_FOUND' => array ('text' => 'Sede no encontrada', 'value' => 404),
 		'ERROR_SEATS_NOT_FOUND' => array ('text' => 'Sedes no encontradas', 'value' => 404),
+		'ERROR_SEAT_ALREADY_EXIST' => array ('text' => 'Sede ya se encuentra registrada', 'value' => 200),
 		'ERROR_EXTRA_NOT_FOUND' => array ('text' => 'Extra no encontrado', 'value' => 404),
 		'ERROR_EXTRAS_NOT_FOUND' => array ('text' => 'Extras no encontrados', 'value' => 404),
 		'ERROR_LOCATION_NOT_FOUND' => array ('text' => 'Ubicacion no encontrada', 'value' => 404),
@@ -24,6 +26,7 @@ class Values {
 		'ERROR_LOGIN_USER_WRONG_PASSWORD' => array ('text' => 'Usuario o contraseña incorrecto', 'value' => 500),
 		'ERROR_PLAN_NOT_FOUND' => array ('text' => 'Plan no encontrado', 'value' => 404),
 		'ERROR_PLANS_NOT_FOUND' => array ('text' => 'Planes no encontrados', 'value' => 404),
+		'ERROR_PLAN_ALREADY_EXIST' => array ('text' => 'Plan ya existe', 'value' => 200),
 		'ERROR_RATING_NOT_FOUND' => array ('text' => 'Puntuaje no encontrado', 'value' => 404),
 		'ERROR_RATINGS_NOT_FOUND' => array ('text' => 'Puntuajes no encontrados', 'value' => 404),
 		'ERROR_PROPERTY_NOT_FOUND' => array ('text' => 'Propiedad no encontrada', 'value' => 404),
@@ -31,6 +34,8 @@ class Values {
 		'ERROR_PROPERTY_TYPE_NOT_FOUND' => array ('text' => 'El tipo de propiedad no se encontrada registrada', 'value' => 404),
 		'ERROR_PROPERTY_TYPES_NOT_FOUND' => array ('text' => 'No se encontraron tipos de propiedades', 'value' => 404),
 		'ERROR_PROPERTY_TYPE_ALREADY_EXIST' => array ('text' => 'Tipo de propiedad ya existe', 'value' => 200),
+		'ERROR_ACCESS_NOT_FOUND' => array ('text' => 'Acceso no encontrado', 'value' => 404),
+		'ERROR_ACCESS_ALREADY_EXIST' => array ('text' => 'Este acceso ya existe', 'value' => 200),
 		'ERROR_USER_NOT_FOUND' => array ('text' => 'Usuario no encontrado', 'value' => 404),
 	);
 

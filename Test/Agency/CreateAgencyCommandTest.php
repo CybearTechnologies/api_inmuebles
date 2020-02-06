@@ -20,7 +20,7 @@ class CreateAgencyCommandTest extends TestCase {
 	 */
 	public function setUp ():void {
 		$this->_agency = FactoryEntity::createAgency(-1, "Sensation", 1, 0, 1, 1);
-		$this->_command = FactoryCommand::createCreateAgencyCommand($this->_agency);
+		$this->_command = FactoryCommand::createCommandCreateAgency($this->_agency);
 	}
 
 	public function testExecute () {

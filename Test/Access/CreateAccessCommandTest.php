@@ -10,7 +10,7 @@ require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../../src/data_access/Dao/DaoAccess.php';
-require_once __DIR__ . './../../src/logic/Access/CreateAccessCommand.php';
+require_once __DIR__ . './../../src/logic/Access/CommandCreateAccess.php';
 class CreateAccessCommandTest extends TestCase {
 	private $_command;
 	private $_access;
@@ -32,7 +32,7 @@ class CreateAccessCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_access = FactoryEntity::createAccess(-1, "Acceder a Google", "AC-GO");
-		$this->_command = FactoryCommand::createCreateAccessCommand($this->_access);
+		$this->_command = FactoryCommand::createCommandCreateAccess($this->_access);
 	}
 
 	protected function tearDown ():void {

@@ -9,7 +9,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$plan->setId($get->id);
-			$command = FactoryCommand::createGetPlanByIdCommand($plan);
+			$command = FactoryCommand::createCommandGetPlanById($plan);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDTO($command->return());
@@ -26,7 +26,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createGetAllPlanCommand();
+			$command = FactoryCommand::createCommandGetAllPlan();
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());
@@ -42,5 +42,31 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			echo json_encode($return);
 		}
+		break;
+	case "POST":
+		$post = json_decode(file_get_contents('php://input'));
+		if (Validate::plan($post)) {
+			$command = FactoryCommand::createCommandCreatePlan($mapper->fromDtoToEntity($post));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (PlanAlreadyExistException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_PLAN_ALREADY_EXIST"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
+		break;
+	default:
 		break;
 }

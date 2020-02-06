@@ -9,16 +9,15 @@ class Access extends Entity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $abbreviation
-	 * @param bool   $active
-	 * @param bool   $delete
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 */
-	public function __construct (int $id, string $name, string $abbreviation, bool $active, bool $delete,
-		int $userCreator,
-		int $userModifier, string $dateCreated, string $dateModified) {
+	public function __construct (int $id, string $name, string $abbreviation, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 		$this->_abbreviation = $abbreviation;

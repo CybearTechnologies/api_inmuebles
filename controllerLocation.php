@@ -9,7 +9,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$location->setId($get->id);
-			$command = FactoryCommand::createGetLocationByIdCommand($location);
+			$command = FactoryCommand::createCommandGetLocationById($location);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDTO($command->return());
@@ -27,7 +27,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		elseif (isset($get->type)) {
 			$location->setType($get->type);
-			$command = FactoryCommand::createGetLocationsByTypeCommand($location);
+			$command = FactoryCommand::createCommandGetLocationsByType($location);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());

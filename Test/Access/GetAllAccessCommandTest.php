@@ -10,10 +10,10 @@ require_once __DIR__ . './../../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../../src/data_access/Dao/DaoAccess.php';
-require_once __DIR__ . './../../src/logic/Access/GetAllAccessCommand.php';
+require_once __DIR__ . './../../src/logic/Access/CommandGetAllAccess.php';
 /**
  * Class GetAllAccessCommandTest
- * @covers GetAllAccessCommand
+ * @covers CommandGetAllAccess
  */
 class GetAllAccessCommandTest extends TestCase {
 	private $_command;
@@ -33,6 +33,6 @@ class GetAllAccessCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllAccessCommand();
+		$this->_command = FactoryCommand::createCommandGetAllAccess();
 	}
 }
