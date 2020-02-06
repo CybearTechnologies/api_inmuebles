@@ -412,50 +412,6 @@ class FactoryCommand {
 		return new CommandGetPropertyPriceById($propertyPrice);
 	}
 
-	/**
-	 * @return GetAllPlanCommand
-	 */
-	static function createGetAllPlanCommand ():GetAllPlanCommand {
-		return new GetAllPlanCommand();
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return GetPlanByIdCommand
-	 */
-	static function createGetPlanByIdCommand ($plan):GetPlanByIdCommand {
-		return new GetPlanByIdCommand($plan);
-	}
-
-	/**
-	 * @param Plan $plan
-	 *
-	 * @return GetPlanByNameCommand
-	 */
-	static function createGetPlanByNameCommand ($plan):GetPlanByNameCommand {
-		return new GetPlanByNameCommand($plan);
-	}
-	//------------------------------------------------------------
-	//----------------------------LOCATION---------------------------
-	//------------------------------------------------------------
-	/**
-	 * @param Location $location
-	 *
-	 * @return GetLocationByIdCommand
-	 */
-	static function createGetLocationByIdCommand ($location):GetLocationByIdCommand {
-		return new GetLocationByIdCommand($location);
-	}
-
-	/**
-	 * @param Location $location
-	 *
-	 * @return GetLocationsByTypeCommand
-	 */
-	static function createGetLocationsByTypeCommand ($location):GetLocationsByTypeCommand {
-		return new GetLocationsByTypeCommand($location);
-	}
 	//------------------------------------------------------------
 	//----------------------------EXTRA---------------------------
 	//------------------------------------------------------------
@@ -539,44 +495,6 @@ class FactoryCommand {
 		return new GetPropertyByIdCommand($property);
 	}
 
-
-
-	/**
-	 * PropertyPrice
-	 */
-	/**
-	 * @param PropertyPrice[] $property
-	 *
-	 * @return CreatePropertyPrice
-	 */
-	static function createCreatePropertyPriceByPropertyCommand ($property):CreatePropertyPrice {
-		return new CreatePropertyPrice($property);
-	}
-
-	/**
-	 * @param PropertyPrice $propertyPrice
-	 *
-	 * @return DeletePropertyPriceByIdCommand
-	 */
-	static function createDeletePropertyPriceByIdCommand ($propertyPrice):DeletePropertyPriceByIdCommand {
-		return new DeletePropertyPriceByIdCommand($propertyPrice);
-	}
-
-	/**
-	 * @return GetAllPropertyPriceCommand
-	 */
-	static function createGetAllPropertyPriceCommand ():GetAllPropertyPriceCommand {
-		return new GetAllPropertyPriceCommand();
-	}
-
-	/**
-	 * @param Property $property
-	 *
-	 * @return GetPropertyPriceByPropertyIdCommand
-	 */
-	static function createGetPropertyPriceByPropertyIdCommand ($property):GetPropertyPriceByPropertyIdCommand {
-		return new GetPropertyPriceByPropertyIdCommand($property);
-	}
 
 	/**
 	 * RATING
