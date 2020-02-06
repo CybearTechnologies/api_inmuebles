@@ -228,12 +228,23 @@ class FactoryDto {
 	 * @param int    $id
 	 * @param float  $score
 	 * @param string $message
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return DtoRating
 	 */
-	static function createDtoRating (int $id, $score = 0.0, $message = "", $active = true):DtoRating {
-		return new DtoRating($id, $score, $message, $active);
+	static function createDtoRating (int $id, $score = Values::DEFAULT_FLOAT, $message = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):DtoRating {
+		return new DtoRating($id, $score, $message, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**

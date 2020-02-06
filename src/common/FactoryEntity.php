@@ -253,10 +253,13 @@ class FactoryEntity {
 	 *
 	 * @return Rating
 	 */
-	static function createRating (int $id, $score = 0.0, $message = "", $user = 0, $active = true, $delete = false,
-		int $userCreator = 0, int $userModifier = 0, string $dateCreated = "", string $dateModified = ""):Rating {
-		return new Rating($id, $score, $message, $user, $active, $delete, $userCreator, $userModifier, $dateCreated,
-			$dateModified);
+	static function createRating (int $id, $score = Values::DEFAULT_FLOAT, $message = Values::DEFAULT_STRING,
+		$user = Values::DEFAULT_FOREIGN, int $userCreator = Values::DEFAULT_INT,
+		int $userModifier = Values::DEFAULT_INT, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):Rating {
+		return new Rating($id, $score, $message, $user, $userCreator, $userModifier, $dateCreated, $dateModified,
+			$active, $delete);
 	}
 
 	/**

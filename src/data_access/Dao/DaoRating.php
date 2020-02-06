@@ -23,7 +23,7 @@ class DaoRating extends Dao {
 	 */
 	public function createRating () {
 		try {
-			$score =$this->_entity->getScore();
+			$score = $this->_entity->getScore();
 			$message = $this->_entity->getMessage();
 			$user = $this->_entity->getUserTarget();
 			$userCreator = $this->_entity->getUserCreator();
@@ -32,6 +32,7 @@ class DaoRating extends Dao {
 			$stmt->bindParam(":score", $score, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -98,6 +99,7 @@ class DaoRating extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -127,7 +129,6 @@ class DaoRating extends Dao {
 		}
 	}
 
-
 	/**
 	 * @param $dbObject
 	 *
@@ -135,7 +136,7 @@ class DaoRating extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createRating($dbObject->id, $dbObject->score, $dbObject->message,
-			$dbObject->userTarget,$dbObject->active, $dbObject->delete, $dbObject->userCreator,
-			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateMotified);
+			$dbObject->userTarget, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
+			$dbObject->dateModified, $dbObject->active, $dbObject->delete);
 	}
 }

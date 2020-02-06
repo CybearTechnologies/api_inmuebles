@@ -22,7 +22,7 @@ BEGIN
            ra_user_fk userTarget,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk userCreated,
+           ra_user_created_fk userCreator,
            ra_user_modified_fk userModifier,
            ra_date_created dateCreated,
            ra_date_modified dateModified
@@ -51,7 +51,7 @@ BEGIN
            ra_user_fk userTarget,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk userCreated,
+           ra_user_created_fk userCreator,
            ra_user_modified_fk userModifier,
            ra_date_created dateCreated,
            ra_date_modified dateModified
@@ -70,7 +70,7 @@ BEGIN
            ra_user_fk userTarget,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk userCreated,
+           ra_user_created_fk userCreator,
            ra_user_modified_fk userModifier,
            ra_date_created dateCreated,
            ra_date_modified dateModified
@@ -91,7 +91,7 @@ BEGIN
            ra_message message,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk userCreated,
+           ra_user_created_fk userCreator,
            ra_user_modified_fk userModifier,
            ra_date_created dateCreated,
            ra_date_modified dateModified

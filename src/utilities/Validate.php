@@ -123,4 +123,14 @@ class Validate {
 		return isset($agency->id)
 			&& isset($agency->name) && !empty($agency->name);
 	}
+
+	/**
+	 * @param $rating
+	 *
+	 * @return bool
+	 */
+	static function Rating ($rating) {
+		return isset($rating->id) && is_numeric($rating->id)
+			&& isset($rating->score);
+	}
 }

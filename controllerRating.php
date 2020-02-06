@@ -31,7 +31,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createGetAllRatingByUserCommand($user);
 			try {
 				$command->execute();
-				$return = new $mapper->fromEntityArrayToDtoArray($command->return());
+				$return = $mapper->fromEntityArrayToDtoArray($command->return());
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -44,5 +44,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			echo json_encode($return);
 		}
+		break;
+	case "POST":
+		break;
+	default:
 		break;
 }

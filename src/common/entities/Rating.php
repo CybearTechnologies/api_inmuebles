@@ -1,8 +1,8 @@
 <?php
 class Rating extends Entity {
-    private $_score;
-    private $_message;
-    private $_userTarget;
+	private $_score;
+	private $_message;
+	private $_userTarget;
 
 	/**
 	 * Rating constructor.
@@ -18,13 +18,13 @@ class Rating extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, float $score, string $message, int $user,bool $active, bool $delete, int $userCreator,
-		int $userModifier, string $dateCreated, string $dateModified) {
+	public function __construct (int $id, float $score, string $message, int $user, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_score = $score;
 		$this->_message = $message;
 		$this->_userTarget = $user;
-    }
+	}
 
 	/**
 	 * @return float
@@ -67,7 +67,4 @@ class Rating extends Entity {
 	public function setUserTarget (int $userTarget):void {
 		$this->_userTarget = $userTarget;
 	}
-
-
-
 }
