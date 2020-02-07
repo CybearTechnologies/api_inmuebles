@@ -1,7 +1,5 @@
 <?php
 class CommandDeleteSeatById extends Command {
-	private $_dao;
-
 	/**
 	 * CommandDeleteSeatById constructor.
 	 *
@@ -13,6 +11,7 @@ class CommandDeleteSeatById extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->deleteSeat());

@@ -11,6 +11,7 @@ class CommandDeleteAgencyById extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws AgencyNotFoundException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->deleteAgencyById());

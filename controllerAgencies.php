@@ -80,6 +80,30 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
+	case "DELETE":
+		if (Validate::id($get)) {
+			$agency = FactoryEntity::createAgency($get->id);
+			$command = FactoryCommand::createCommandDeleteAgencyById($agency);
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (AgencyNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(500);
+		}
+		echo json_encode($return);
+		break;
 	default:
 		$http_response_header(404);
 		break;

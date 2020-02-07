@@ -137,6 +137,7 @@ class DaoPlan extends Dao {
 	/**
 	 * @return Plan
 	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
 	 */
 	public function deletePlanById () {
 		try {
@@ -146,6 +147,8 @@ class DaoPlan extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PlanNotFoundException("There are no plans found", 200);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}

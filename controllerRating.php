@@ -46,7 +46,33 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		break;
 	case "POST":
+		//TODO post de rating
+		break;
+	case "DELETE":
+		if (Validate::id($get)) {
+			$rating = FactoryEntity::createRating($get->id);
+			$command = FactoryCommand::createDeleteRatingByIdCommand($rating);
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (RatingNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_RATING_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
 		break;
 	default:
+		Tools::setResponse(404);
 		break;
 }

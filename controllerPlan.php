@@ -67,6 +67,30 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
+	case "DELETE":
+		if (Validate::id($get)) {
+			$plan = FactoryEntity::createPlan($get->id);
+			$command = FactoryCommand::createDeletePlanByIdCommand($plan);
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (PlanNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_PLAN_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(500);
+		}
+		echo json_encode($return);
+		break;
 	default:
 		break;
 }

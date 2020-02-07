@@ -14,7 +14,6 @@ class CommandDeleteRatingById extends Command {
 	 * @throws RatingNotFoundException
 	 */
 	public function execute ():void {
-		//TODO falta este metodo
 		$this->setData($this->_dao->deleteRatingById());
 	}
 

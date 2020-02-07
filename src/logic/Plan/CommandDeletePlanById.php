@@ -11,6 +11,7 @@ class CommandDeletePlanById extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->deletePlanById());

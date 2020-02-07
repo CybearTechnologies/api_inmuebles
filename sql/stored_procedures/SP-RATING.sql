@@ -78,12 +78,12 @@ BEGIN
     WHERE ra_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteRating;
+DROP PROCEDURE IF EXISTS deleteRatingById;
 DELIMITER $$
-CREATE PROCEDURE deleteRating(id int, user int)
+CREATE PROCEDURE deleteRatingById(id int, user int)
 BEGIN
     UPDATE rating
-    SET ra_deleted = 0, ra_user_modified_fk = user
+    SET ra_deleted = 1, ra_user_modified_fk = user
     WHERE ra_id = id;
     SELECT ra_id id,
            ra_score score,

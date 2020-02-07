@@ -50,7 +50,7 @@ class DaoAgency extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AgencyNotFoundException("There are no Agencies found", 404);
+				Throw new AgencyNotFoundException("Agency not found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
@@ -82,6 +82,7 @@ class DaoAgency extends Dao {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws AgencyNotFoundException
 	 */
 	public function deleteAgencyById () {
 		try {
@@ -91,6 +92,8 @@ class DaoAgency extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AgencyNotFoundException("There are no Agency found", 404);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}

@@ -149,6 +149,7 @@ class DaoSeat extends Dao {
 	/**
 	 * @return Seat
 	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
 	 */
 	public function deleteSeat () {
 		try {
@@ -158,6 +159,8 @@ class DaoSeat extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SeatNotFoundException("There are no seats found", 404);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
