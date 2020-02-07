@@ -1,9 +1,9 @@
 <?php
-class CommandCreateRatingByUserId extends Command {
+class CommandCreateRating extends Command {
 	/**
-	 * CommandCreateRatingByUserId constructor.
+	 * CommandCreateRating constructor.
 	 *
-	 * @param User $entity
+	 * @param Rating $entity
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoRating($entity);
@@ -11,11 +11,9 @@ class CommandCreateRatingByUserId extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws RatingNotFoundException
 	 */
 	public function execute ():void {
-		//TODO FALTA ESTE DAO
-		$this->setData($this->_dao->createRatingByUserId());
+		$this->setData($this->_dao->createRating());
 	}
 
 	/**

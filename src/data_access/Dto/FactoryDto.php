@@ -230,6 +230,7 @@ class FactoryDto {
 	 * @param int    $id
 	 * @param float  $score
 	 * @param string $message
+	 * @param int    $target
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -240,13 +241,14 @@ class FactoryDto {
 	 * @return DtoRating
 	 */
 	static function createDtoRating (int $id, $score = Values::DEFAULT_FLOAT, $message = Values::DEFAULT_STRING,
+		int $target = Values::DEFAULT_FOREIGN,
 		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):DtoRating {
-		return new DtoRating($id, $score, $message, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
-			$delete);
+		return new DtoRating($id, $score, $message, $target, $userCreator, $userModifier, $dateCreated, $dateModified,
+			$active,$delete);
 	}
 
 	/**

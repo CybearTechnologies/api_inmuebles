@@ -1,6 +1,6 @@
 <?php
 class DaoRating extends Dao {
-	private const QUERY_CREATE = "CALL insertRating(:score,:message,:user,:userCreator,:dateCreated)"; //TODO
+	private const QUERY_CREATE = "CALL insertRating(:score,:message,:user,:userCreator)"; //TODO
 	private const QUERY_GET_BY_ID = "CALL getRatingById(:id)";
 	private const QUERY_GET_ALL_RATING_BY_USER = "CALL getAllRatingByUser(:id)";
 	private const QUERY_DELETE = "CALL deleteRatingById(:id,:user)";
@@ -10,7 +10,7 @@ class DaoRating extends Dao {
 	/**
 	 * DaoRating constructor.
 	 *
-	 * @param Rating|User $entity
+	 * @param Rating $entity
 	 */
 	public function __construct ($entity) {
 		parent::__construct();

@@ -500,12 +500,12 @@ class FactoryCommand {
 	 * RATING
 	 */
 	/**
-	 * @param User $user
+	 * @param Rating $rating
 	 *
-	 * @return CommandCreateRatingByUserId
+	 * @return CommandCreateRating
 	 */
-	static function createCreateRatingByUserIdCommand ($user):CommandCreateRatingByUserId {
-		return new CommandCreateRatingByUserId($user);
+	static function createCreateRatingByUserIdCommand ($rating):CommandCreateRating {
+		return new CommandCreateRating($rating);
 	}
 
 	/**

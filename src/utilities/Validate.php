@@ -57,6 +57,11 @@ class Validate {
 		return password_hash($password, PASSWORD_DEFAULT, self::OPTIONS);
 	}
 
+	/**
+	 * @param $get
+	 *
+	 * @return bool
+	 */
 	static function id ($get) {
 		return isset($get->id) && is_numeric($get->id);
 	}
@@ -135,6 +140,8 @@ class Validate {
 	 */
 	static function Rating ($rating) {
 		return isset($rating->id) && is_numeric($rating->id)
-			&& isset($rating->score);
+			&& isset($rating->score) && is_numeric($rating->score)
+			&& isset($rating->message) && !empty($rating->message)
+			&& isset($rating->target) && is_numeric($rating->target);
 	}
 }

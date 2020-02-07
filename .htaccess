@@ -44,6 +44,7 @@ RewriteRule ^location/type/(Estado|Municipio|Pais)$ controllerLocation.php?type=
 RewriteRule ^seat$ controllerSeat.php [NC,L]
 RewriteRule ^seat/([0-9]+)$ controllerSeat.php?id=$1 [NC,L]
 #   RATING
+RewriteRule ^rating/$ controllerRating.php [NC,L]
 RewriteRule ^rating/([0-9]+)$ controllerRating.php?id=$1 [NC,L]
 RewriteRule ^rating/user/([0-9]+)$ controllerRating.php?id_user=$1 [NC,L]
 #---------------------------------------------------------------------------------
