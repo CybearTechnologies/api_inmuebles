@@ -5,10 +5,17 @@
  */
 DROP PROCEDURE IF EXISTS insertExtra;
 DELIMITER $$
-CREATE PROCEDURE insertExtra(name varchar(45),icon varchar(45), user int)
+CREATE PROCEDURE insertExtra(name varchar(45),icon varchar(45), user int, dateCreated datetime)
 BEGIN
-    INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk)
-    VALUES (name, icon, user, user);
+    IF IsNull(dateCreated)THEN
+        INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk)
+        VALUES (name, icon, user, user);
+    ELSE
+        INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk,ex_date_created,
+                           ex_date_modified)
+        VALUES (name, icon, user, user,dateCreated,dateCreated);
+    END IF;
+
     SELECT ex_id id,
            ex_name name,
            ex_active active,

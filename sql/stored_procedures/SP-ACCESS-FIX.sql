@@ -5,10 +5,16 @@
  */
 DROP PROCEDURE IF EXISTS insertAccess;
 DELIMITER $$
-CREATE PROCEDURE insertAccess(name varchar(45), abbreviation varchar(5), user int)
+CREATE PROCEDURE insertAccess(name varchar(45), abbreviation varchar(5), user int, dateCreated datetime)
 BEGIN
-    INSERT INTO access (ac_name, ac_abbreviation, ac_user_created_fk, ac_user_modified_fk)
-    VALUES (name, abbreviation, user, user);
+    IF IsNull(dateCreated)THEN
+        INSERT INTO access (ac_name, ac_abbreviation, ac_user_created_fk, ac_user_modified_fk)
+        VALUES (name, abbreviation, user, user);
+    ELSE
+        INSERT INTO access (ac_name, ac_abbreviation, ac_user_created_fk, ac_user_modified_fk,
+                            ac_date_created,ac_date_modified)
+        VALUES (name, abbreviation, user, user,dateCreated,dateCreated);
+    END IF;
     SELECT ac_id id,
            ac_name name,
            ac_abbreviation abbreviation,
@@ -21,6 +27,8 @@ BEGIN
     FROM access
     WHERE ac_id = last_insert_id();
 END$$
+
+
 
 DROP PROCEDURE IF EXISTS getAllAccess;
 DELIMITER $$
