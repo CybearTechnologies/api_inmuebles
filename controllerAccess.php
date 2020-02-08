@@ -65,7 +65,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
 			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
 		}
-
+		echo json_encode($return);
 		break;
 	case "DELETE":
 		if (Validate::id($get)) {
