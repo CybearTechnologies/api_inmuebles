@@ -1,6 +1,6 @@
 <?php
 class DaoAgency extends Dao {
-	private const QUERY_CREATE_AGENCY = "CALL insertAgency(:name,:user)";
+	private const QUERY_CREATE_AGENCY = "CALL insertAgency(:name,:user:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllAgencies()";
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id,:user)";
@@ -25,9 +25,13 @@ class DaoAgency extends Dao {
 		try {
 			$id = $this->_entity->getName();
 			$user = 1; // TODO: replace for logged user
+			$dateCreated = $this->_entity->getDateCreated();
+			if ($dateCreated == "")
+				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_AGENCY);
 			$stmt->bindParam(":name", $id, PDO::PARAM_STR);
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));

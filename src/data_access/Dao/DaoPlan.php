@@ -1,6 +1,6 @@
 <?php
 class DaoPlan extends Dao {
-	private const QUERY_CREATE = "CALL insertPlan(:name,:price,:user);";
+	private const QUERY_CREATE = "CALL insertPlan(:name,:price,:user,:dateCreated);";
 	private const QUERY_GET_ALL = "CALL getAllPlans()";
 	private const QUERY_GET_BY_ID = "CALL getPlanById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPlanByName(:name)";
@@ -29,10 +29,15 @@ class DaoPlan extends Dao {
 			$name = $this->_entity->getName();
 			$price = $this->_entity->getPrice();
 			$user = 1; // TODO: replace for logged user
+			$dateCreated = $this->_entity->getDateCreated();
+			if ($dateCreated == "")
+				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
+
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));

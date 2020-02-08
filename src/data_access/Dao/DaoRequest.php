@@ -50,6 +50,8 @@ class DaoRequest extends Dao {
 			$property = $this->_entity->getProperty();
 			$user = $this->_entity->getUserCreator();
 			$dateCreated = $this->_entity->getDateCreated();
+			if ($dateCreated == "")
+				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);

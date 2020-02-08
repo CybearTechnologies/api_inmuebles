@@ -1,6 +1,6 @@
 <?php
 class DaoAccess extends Dao {
-	private const QUERY_CREATE_ACCESS = "CALL insertAccess(:name,:abbreviation,:user)";
+	private const QUERY_CREATE_ACCESS = "CALL insertAccess(:name,:abbreviation,:user:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllAccess()";
 	private const QUERY_GET_BY_ID = "CALL getAccessByid(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById(:id,:user)";
@@ -26,10 +26,14 @@ class DaoAccess extends Dao {
 			$name = $this->_entity->getName();
 			$abbreviation = $this->_entity->getAbbreviation();
 			$user = 1; // TODO: replace for logged user
+			$dateCreated = $this->_entity->getDateCreated();
+			if ($dateCreated == "")
+				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ACCESS);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":abbreviation", $abbreviation, PDO::PARAM_STR);
 			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
