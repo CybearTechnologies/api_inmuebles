@@ -1,6 +1,6 @@
 <?php
 class DaoExtra extends Dao {
-	private const QUERY_CREATE = "CALL insertExtra(:name, :icon, :user)";
+	private const QUERY_CREATE = "CALL insertExtra(:name, :icon, :user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllExtras()";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
 	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyId(:id)";
@@ -29,9 +29,14 @@ class DaoExtra extends Dao {
 			$icon = $this->_entity->getIcon();
 			$user = 1; // TODO: replace for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
+			$dateCreated = $this->_entity->getDateCreated();
+			if ($dateCreated == "")
+				$dateCreated = null;
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":icon", $icon, PDO::PARAM_STR);
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
+
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));

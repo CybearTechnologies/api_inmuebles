@@ -104,6 +104,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
+	case "PUT":
+		$post = json_decode(file_get_contents('php://input'));
+		break;
 	default:
 		$http_response_header(404);
 		break;

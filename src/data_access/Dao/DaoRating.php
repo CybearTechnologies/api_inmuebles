@@ -1,6 +1,6 @@
 <?php
 class DaoRating extends Dao {
-	private const QUERY_CREATE = "CALL insertRating(:score,:message,:user,:userCreator)"; //TODO
+	private const QUERY_CREATE = "CALL insertRating(:score,:message,:user,:userCreator,:dateCreated)"; //TODO
 	private const QUERY_GET_BY_ID = "CALL getRatingById(:id)";
 	private const QUERY_GET_ALL_RATING_BY_USER = "CALL getAllRatingByUser(:id)";
 	private const QUERY_DELETE = "CALL deleteRatingById(:id,:user)";
@@ -27,11 +27,15 @@ class DaoRating extends Dao {
 			$user = $this->_entity->getUserTarget();
 			$message = $this->_entity->getMessage();
 			$userCreator = 1; //TODO setear usuario logeado
+			$dateCreated = $this->_entity->getDateCreated();
+			if ($dateCreated == "")
+				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":score", $score, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":message", $message, PDO::PARAM_STR);
 			$stmt->bindParam(":userCreator", $userCreator, PDO::PARAM_INT);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));

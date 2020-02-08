@@ -1,6 +1,6 @@
 <?php
 class DaoRol extends Dao {
-	private const QUERY_CREATE_ROL = "CALL insertRol(:name,:user)";
+	private const QUERY_CREATE_ROL = "CALL insertRol(:name,:user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllRol()";
 	private const QUERY_GET_BY_ID = "CALL getRolById(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteRolById(:id)";
@@ -22,8 +22,14 @@ class DaoRol extends Dao {
 	public function createRol () {
 		try {
 			$id = $this->_entity->getName();
+			$user = 1; //TODO change for logged user
+			$dateCreated = $this->_entity->getDateCreated();
+			if ($dateCreated == "")
+				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ROL);
 			$stmt->bindParam(":name", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":userCreator", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateCreated", $user, PDO::PARAM_STR);
 			$stmt->execute();
 		}
 		catch (PDOException $exception) {
