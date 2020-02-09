@@ -105,9 +105,30 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	case "PUT":
-		$post = json_decode(file_get_contents('php://input'));
+		$put = json_decode(file_get_contents('php://input'));
+		if (Validate::putAgency($put)) {
+			$command = FactoryCommand::createCommandUpdateAgencyById($mapper->fromDtoToEntity($put));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (AgencyNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
 		break;
 	default:
-		$http_response_header(404);
+		Tools::setResponse(404);
 		break;
 }

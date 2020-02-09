@@ -144,4 +144,16 @@ class Validate {
 			&& isset($rating->message) && !empty($rating->message)
 			&& isset($rating->target) && is_numeric($rating->target);
 	}
+
+	/**
+	 * @param $agency
+	 *
+	 * @return bool
+	 */
+	static function putAgency ($agency) {
+		return isset($agency->id) && is_numeric($agency->id)
+			&& isset($agency->name) && !empty($agency->name)
+			&& isset($agency->user) && is_numeric($agency->user)
+			&& isset($agency->dateModified);
+	}
 }

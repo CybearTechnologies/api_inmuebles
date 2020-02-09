@@ -5,6 +5,7 @@ class DaoAgency extends Dao {
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id,:user)";
 	private const QUERY_GET_BY_NAME = "CALL getAgencyByName(:name)";
+	private const QUERY_UPDATE = "CALL updateAgency(:id,:name,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -47,20 +48,28 @@ class DaoAgency extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws AgencyNotFoundException
 	 */
-	public function getAgencyById () {
+	public function updateAgency () {
 		try {
 			$id = $this->_entity->getId();
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
+			$name = $this->_entity->getName();
+			$userModifier = 1; /*$this->_entity->getUserModifier();*/
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new AgencyNotFoundException("Agency not found", 404);
-			else
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
 
@@ -85,21 +94,20 @@ class DaoAgency extends Dao {
 	}
 
 	/**
+	 * @return Agency
 	 * @throws DatabaseConnectionException
 	 * @throws AgencyNotFoundException
 	 */
-	public function deleteAgencyById () {
+	public function getAgencyById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = 1; // TODO: replace for logged user
-			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AgencyNotFoundException("There are no Agency found", 404);
-
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+				Throw new AgencyNotFoundException("Agency not found", 404);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -122,6 +130,29 @@ class DaoAgency extends Dao {
 				Throw new AgencyNotFoundException("There are no Agencies found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws AgencyNotFoundException
+	 */
+	public function deleteAgencyById () {
+		try {
+			$id = $this->_entity->getId();
+			$user = 1; // TODO: replace for logged user
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AgencyNotFoundException("There are no Agency found", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
