@@ -49,6 +49,52 @@ BEGIN
     WHERE ag_id = id;
 END$$
 
+DROP PROCEDURE IF EXISTS activeAgency;
+DELIMITER $$
+CREATE PROCEDURE activeAgency(id int, user int,dateModified datetime)
+BEGIN
+    IF IsNull(dateModified)THEN
+        UPDATE agency SET ag_active = 1, ag_user_modified_fk=user
+        WHERE ag_id=id;
+    ELSE
+        UPDATE agency SET ag_active=1, ag_user_modified_fk=user, ag_date_modified=dateModified
+        WHERE ag_id=id;
+    END IF;
+    SELECT ag_id id,
+           ag_name name,
+           ag_active active,
+           ag_deleted 'delete',
+           ag_user_created_fk userCreator,
+           ag_date_created dateCreated,
+           ag_user_modified_fk userModifier,
+           ag_date_modified dateModified
+    FROM agency
+    WHERE ag_id = id;
+END$$
+
+DROP PROCEDURE IF EXISTS inactiveAgency;
+DELIMITER $$
+CREATE PROCEDURE inactiveAgency(id int, user int,dateModified datetime)
+BEGIN
+    IF IsNull(dateModified)THEN
+        UPDATE agency SET ag_active = 0, ag_user_modified_fk = user
+        WHERE ag_id = id;
+    ELSE
+        UPDATE agency SET ag_active = 0, ag_user_modified_fk = user, ag_date_modified = dateModified
+        WHERE ag_id = id;
+    END IF;
+    SELECT ag_id id,
+           ag_name name,
+           ag_active active,
+           ag_deleted 'delete',
+           ag_user_created_fk userCreator,
+           ag_date_created dateCreated,
+           ag_user_modified_fk userModifier,
+           ag_date_modified dateModified
+    FROM agency
+    WHERE ag_id = id;
+END$$
+
 DROP PROCEDURE IF EXISTS getAgencyById;
 DELIMITER $$
 CREATE PROCEDURE getAgencyById(id_agency int)
