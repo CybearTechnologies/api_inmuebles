@@ -5,17 +5,41 @@
  */
 DROP PROCEDURE IF EXISTS insertExtra;
 DELIMITER $$
-CREATE PROCEDURE insertExtra(name varchar(45),icon varchar(45), user int, dateCreated datetime)
+CREATE PROCEDURE insertExtra(name varchar(45), icon varchar(45), user int, dateCreated datetime)
 BEGIN
-    IF IsNull(dateCreated)THEN
+    IF IsNull(dateCreated) THEN
         INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk)
         VALUES (name, icon, user, user);
     ELSE
-        INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk,ex_date_created,
+        INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk, ex_date_created,
                            ex_date_modified)
-        VALUES (name, icon, user, user,dateCreated,dateCreated);
+        VALUES (name, icon, user, user, dateCreated, dateCreated);
     END IF;
 
+    SELECT ex_id id,
+           ex_name name,
+           ex_active active,
+           ex_deleted 'delete',
+           ex_icon icon,
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
+    FROM extra
+    WHERE ex_id = last_insert_id();
+END$$
+
+DROP PROCEDURE IF EXISTS updateExtra;
+DELIMITER $$
+CREATE PROCEDURE updateExtra(id int,name varchar(45), icon varchar(45), user int, dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE extra SET ex_name=name, ex_icon=icon,ex_user_modified_fk=user
+        WHERE ex_id = id;
+    ELSE
+        UPDATE extra SET ex_name=name, ex_icon=icon,ex_user_modified_fk=user,ex_date_modified=dateModified
+        WHERE ex_id = id;
+    END IF;
     SELECT ex_id id,
            ex_name name,
            ex_active active,

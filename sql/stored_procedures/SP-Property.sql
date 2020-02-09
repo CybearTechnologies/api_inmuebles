@@ -15,8 +15,43 @@ BEGIN
         VALUES (name, area, description, floor, type, location, user, user);
     ELSE
         INSERT INTO property(pr_name, pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
-                             pr_user_created_fk, pr_user_modified_fk,pr_date_created,pr_date_modified)
-        VALUES (name, area, description, floor, type, location, user, user,dateCreated,dateCreated);
+                             pr_user_created_fk, pr_user_modified_fk, pr_date_created, pr_date_modified)
+        VALUES (name, area, description, floor, type, location, user, user, dateCreated, dateCreated);
+    END IF;
+    SELECT pr_id id,
+           pr_name name,
+           pr_area area,
+           pr_description description,
+           pr_floor floor,
+           pr_status status,
+           pr_type_fk type,
+           pr_active active,
+           pr_deleted 'delete',
+           pr_location_fk location,
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
+    FROM property
+    WHERE pr_id = last_insert_id();
+END$$
+
+DROP PROCEDURE IF EXISTS updateProperty;
+DELIMITER $$
+CREATE PROCEDURE updateProperty(id int, name varchar(45), area double(20, 2), description varchar(500),
+                                floor tinyint, type int, location int, user int, dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE property
+        SET pr_name=name, pr_area = area, pr_description= description, pr_floor = floor,
+            pr_type_fk= type, pr_location_fk= location,
+            pr_user_modified_fk=user
+        WHERE pr_id = id;
+    ELSE
+        UPDATE property
+        SET pr_name=name, pr_area = area, pr_description= description, pr_floor = floor, pr_type_fk= type,
+            pr_location_fk= location, pr_user_modified_fk=user, pr_date_modified= dateModified
+        WHERE pr_id = id;
     END IF;
     SELECT pr_id id,
            pr_name name,
