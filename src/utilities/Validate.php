@@ -165,4 +165,15 @@ class Validate {
 			&& isset($extra->name) && !empty($extra->name)
 			&& isset($extra->icon) && !empty($extra->icon);
 	}
+
+	/**
+	 * @param $plan
+	 *
+	 * @return bool
+	 */
+	static function putPlan ($plan) {
+		return isset($plan->id) && is_numeric($plan->id)
+			&& isset($plan->name) && !empty($plan->name)
+			&& isset($plan->price) && is_numeric($plan->price);
+	}
 }

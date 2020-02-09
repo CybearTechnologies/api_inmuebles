@@ -1,10 +1,26 @@
 <?php
 class CommandActivePlan extends Command {
-	public function execute ():void {
-		// TODO: Implement execute() method.
+	/**
+	 * CommandActivePlan constructor.
+	 *
+	 * @param Plan $entity
+	 */
+	public function __construct ($entity) {
+		$this->_dao = FactoryDao::createDaoPlan($entity);
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
+	 */
+	public function execute ():void {
+		$this->setData($this->_dao->activePlanById());
+	}
+
+	/**
+	 * @return Plan
+	 */
 	public function return () {
-		// TODO: Implement return() method.
+		return $this->getData();
 	}
 }

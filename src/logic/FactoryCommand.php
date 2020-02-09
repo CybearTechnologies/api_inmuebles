@@ -362,6 +362,33 @@ class FactoryCommand {
 		return new CommandDeletePlanById($plan);
 	}
 
+	/**
+	 * @param $plan
+	 *
+	 * @return CommandUpdatePlan
+	 */
+	static function createCommandUpdatePlanById ($plan):CommandUpdatePlan {
+		return new CommandUpdatePlan($plan);
+	}
+
+	/**
+	 * @param $plan
+	 *
+	 * @return CommandActivePlan
+	 */
+	static function createCommandActivePlanById ($plan):CommandActivePlan {
+		return new CommandActivePlan($plan);
+	}
+
+	/**
+	 * @param $plan
+	 *
+	 * @return CommandInactivePlan
+	 */
+	static function createCommandInactivePlanById ($plan):CommandInactivePlan {
+		return new CommandInactivePlan($plan);
+	}
+
 	//------------------------------------------------------------
 	//-----------------------PROPERTY TYPE------------------------
 	//------------------------------------------------------------

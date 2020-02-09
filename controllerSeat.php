@@ -5,7 +5,7 @@ $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
-	case "GET":
+  	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$seat = FactoryEntity::createSeat(0);
 			$seat->setId($get->id);

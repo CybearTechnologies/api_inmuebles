@@ -9,11 +9,18 @@ class CommandInactivePlan extends Command {
 		$this->_dao = FactoryDao::createDaoPlan($entity);
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
+	 */
 	public function execute ():void {
-		// TODO: Implement execute() method.
+		$this->setData($this->_dao->inactivePlanById());
 	}
 
+	/**
+	 * @return Plan
+	 */
 	public function return () {
-		// TODO: Implement return() method.
+		return $this->getData();
 	}
 }

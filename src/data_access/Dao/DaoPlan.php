@@ -4,10 +4,10 @@ class DaoPlan extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllPlans()";
 	private const QUERY_GET_BY_ID = "CALL getPlanById(:id)";
 	private const QUERY_GET_BY_NAME = "CALL getPlanByName(:name)";
-	private const QUERY_UPDATE = "CALL updatePlan(:id,:name,:price,:user)";
-	private const QUERY_DELETE = "CALL deletePlan(:id,:user)";
-	private const QUERY_ACTIVE = "CALL activePlan(:id,:user)";
-	private const QUERY_INACTIVE = "CALL inactivePlan(:id,:user)";
+	private const QUERY_UPDATE = "CALL updatePlan(:id,:name,:price,:user,:dateModified)";
+	private const QUERY_DELETE = "CALL deletePlan(:id,:user,:dateModified)";
+	private const QUERY_ACTIVE = "CALL activePlan(:id,:user,:dateModified)";
+	private const QUERY_INACTIVE = "CALL inactivePlan(:id,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -37,7 +37,6 @@ class DaoPlan extends Dao {
 			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
-
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
@@ -117,6 +116,7 @@ class DaoPlan extends Dao {
 	/**
 	 * @return Plan
 	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
 	 */
 	public function updatePlanById () {
 		try {
@@ -124,12 +124,18 @@ class DaoPlan extends Dao {
 			$name = $this->_entity->getName();
 			$price = $this->_entity->getPrice();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PlanNotFoundException("There are no plans found", 200);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
@@ -148,9 +154,13 @@ class DaoPlan extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PlanNotFoundException("There are no plans found", 200);
@@ -166,15 +176,22 @@ class DaoPlan extends Dao {
 	/**
 	 * @return Plan
 	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
 	 */
 	public function activePlanById () {
 		try {
 			$id = $this->_entity->getId();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PlanNotFoundException("There are no plans found", 200);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
@@ -187,15 +204,22 @@ class DaoPlan extends Dao {
 	/**
 	 * @return Plan
 	 * @throws DatabaseConnectionException
+	 * @throws PlanNotFoundException
 	 */
 	public function inactivePlanById () {
 		try {
 			$id = $this->_entity->getId();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PlanNotFoundException("There are no plans found", 200);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}

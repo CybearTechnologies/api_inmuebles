@@ -91,6 +91,62 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
+	case "PUT":
+		$put = json_decode(file_get_contents('php://input'));
+		if (Validate::putPlan($put)) {
+			try {
+				$command = FactoryCommand::createCommandUpdatePlanById($mapper->fromDtoToEntity($put));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (PlanNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_PLAN_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
+			try {
+				$command = FactoryCommand::createCommandActivePlanById(FactoryEntity::createPlan($get->id));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (PlanNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_PLAN_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
+			try {
+				$command = FactoryCommand::createCommandInactivePlanById(FactoryEntity::createPlan($get->id));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (PlanNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_PLAN_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
+		break;
 	default:
 		break;
 }
