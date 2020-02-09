@@ -31,13 +31,15 @@ END$$
 
 DROP PROCEDURE IF EXISTS updateExtra;
 DELIMITER $$
-CREATE PROCEDURE updateExtra(id int,name varchar(45), icon varchar(45), user int, dateModified datetime)
+CREATE PROCEDURE updateExtra(id int, name varchar(45), icon varchar(45), user int, dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
-        UPDATE extra SET ex_name=name, ex_icon=icon,ex_user_modified_fk=user
+        UPDATE extra
+        SET ex_name=name, ex_icon=icon, ex_user_modified_fk=user
         WHERE ex_id = id;
     ELSE
-        UPDATE extra SET ex_name=name, ex_icon=icon,ex_user_modified_fk=user,ex_date_modified=dateModified
+        UPDATE extra
+        SET ex_name=name, ex_icon=icon, ex_user_modified_fk=user, ex_date_modified=dateModified
         WHERE ex_id = id;
     END IF;
     SELECT ex_id id,
@@ -110,11 +112,17 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteExtraById;
 DELIMITER $$
-CREATE PROCEDURE deleteExtraById(id_extra int, id_user int)
+CREATE PROCEDURE deleteExtraById(id_extra int, id_user int, dateModified datetime)
 BEGIN
-    UPDATE extra
-    SET ex_deleted = 1, ex_user_modified_fk = id_user
-    WHERE ex_id = id_extra;
+    IF IsNull(dateModified) THEN
+        UPDATE extra
+        SET ex_deleted = 1, ex_user_modified_fk = id_user
+        WHERE ex_id = id_extra;
+    ELSE
+        UPDATE extra
+        SET ex_deleted = 1, ex_user_modified_fk = id_user, ex_date_modified=dateModified
+        WHERE ex_id = id_extra;
+    END IF;
     SELECT ex_id id,
            ex_name name,
            ex_active active,
@@ -130,12 +138,17 @@ END$$
 
 DROP PROCEDURE IF EXISTS inactiveExtraById;
 DELIMITER $$
-CREATE PROCEDURE inactiveExtraById(id_extra int, id_user int)
+CREATE PROCEDURE inactiveExtraById(id_extra int, id_user int, dateModified datetime)
 BEGIN
-    UPDATE extra
-    SET ex_active = 0,
-        ex_user_modified_fk = id_user
-    WHERE ex_id = id_extra;
+    IF IsNull(dateModified) THEN
+        UPDATE extra
+        SET ex_active = 0, ex_user_modified_fk = id_user
+        WHERE ex_id = id_extra;
+    ELSE
+        UPDATE extra
+        SET ex_active = 0, ex_user_modified_fk = id_user, ex_date_modified = dateModified
+        WHERE ex_id = id_extra;
+    END IF;
     SELECT ex_id id,
            ex_name name,
            ex_active active,
@@ -151,12 +164,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS activeExtraById;
 DELIMITER $$
-CREATE PROCEDURE activeExtraById(id_extra int, id_user int)
+CREATE PROCEDURE activeExtraById(id_extra int, id_user int, dateModified datetime)
 BEGIN
-    UPDATE extra
-    SET ex_active = 1,
-        ex_user_modified_fk = id_user
-    WHERE ex_id = id_extra;
+    IF IsNull(dateModified) THEN
+        UPDATE extra
+        SET ex_active = 1,
+            ex_user_modified_fk = id_user
+        WHERE ex_id = id_extra;
+    ELSE
+        UPDATE extra
+        SET ex_active = 1,
+            ex_user_modified_fk = id_user, ex_date_modified = dateModified
+        WHERE ex_id = id_extra;
+    END IF;
     SELECT ex_id id,
            ex_name name,
            ex_active active,

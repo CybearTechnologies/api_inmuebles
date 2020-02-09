@@ -85,12 +85,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS inactiveOriginById;
 DELIMITER $$
-CREATE PROCEDURE inactiveOriginById(id_origin int, id_user int)
+CREATE PROCEDURE inactiveOriginById(id_origin int, id_user int, dateModified datetime)
 BEGIN
-    UPDATE origin
-    SET or_active = 0,
-        or_user_modified_fk = id_user
-    WHERE or_id = id_origin;
+    IF IsNull(dateModified) THEN
+        UPDATE origin
+        SET or_active = 0,
+            or_user_modified_fk = id_user
+        WHERE or_id = id_origin;
+    ELSE
+        UPDATE origin
+        SET or_active = 0,
+            or_user_modified_fk = id_user, or_date_modified=dateModified
+        WHERE or_id = id_origin;
+    END IF;
     SELECT or_id id,
            or_name name,
            or_private_key privatekey,
@@ -107,12 +114,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS activeOriginById;
 DELIMITER $$
-CREATE PROCEDURE activeOriginById(id_origin int, id_user int)
+CREATE PROCEDURE activeOriginById(id_origin int, id_user int, dateModified datetime)
 BEGIN
-    UPDATE origin
-    SET or_active = 0,
-        or_user_modified_fk = id_user
-    WHERE or_id = id_origin;
+    IF IsNull(dateModified) THEN
+        UPDATE origin
+        SET or_active = 1,
+            or_user_modified_fk = id_user
+        WHERE or_id = id_origin;
+    ELSE
+        UPDATE origin
+        SET or_active = 1,
+            or_user_modified_fk = id_user, or_date_modified = dateModified
+        WHERE or_id = id_origin;
+    END IF;
     SELECT or_id id,
            or_name name,
            or_private_key privatekey,

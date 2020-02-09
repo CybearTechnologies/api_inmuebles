@@ -55,11 +55,17 @@ END$$
 
 DROP PROCEDURE IF EXISTS deletePlan;
 DELIMITER $$
-CREATE PROCEDURE deletePlan(id_plan int, id_user int)
+CREATE PROCEDURE deletePlan(id_plan int, id_user int,dateModified datetime)
 BEGIN
-    UPDATE plan
-    SET pl_deleted = 1, pl_user_modified_fk = id_user
-    WHERE pl_id = id_plan;
+    IF IsNull(dateModified)THEN
+        UPDATE plan
+        SET pl_deleted = 1, pl_user_modified_fk = id_user
+        WHERE pl_id = id_plan;
+    ELSE
+        UPDATE plan
+        SET pl_deleted = 1, pl_user_modified_fk = id_user, pl_date_modified = dateModified
+        WHERE pl_id = id_plan;
+    END IF;
     SELECT pl_id id,
            pl_name name,
            pl_price price,
@@ -75,12 +81,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS inactivePlan;
 DELIMITER $$
-CREATE PROCEDURE inactivePlan(id_plan int, id_user int)
+CREATE PROCEDURE inactivePlan(id_plan int, id_user int, dateModified datetime)
 BEGIN
-    UPDATE plan
-    SET pl_active = 0,
-        pl_user_modified_fk = id_user
-    WHERE pl_id = id_plan;
+    IF IsNull(dateModified)THEN
+        UPDATE plan
+        SET pl_active = 0,
+            pl_user_modified_fk = id_user
+        WHERE pl_id = id_plan;
+    ELSE
+        UPDATE plan
+        SET pl_active = 0,
+            pl_user_modified_fk = id_user, pl_date_modified = dateModified
+        WHERE pl_id = id_plan;
+    END IF;
     SELECT pl_id id,
            pl_name name,
            pl_price price,
@@ -96,12 +109,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS activePlan;
 DELIMITER $$
-CREATE PROCEDURE activePlan(id_plan int, id_user int)
+CREATE PROCEDURE activePlan(id_plan int, id_user int,dateModified datetime)
 BEGIN
-    UPDATE plan
-    SET pl_active = 1,
-        pl_user_modified_fk = id_user
-    WHERE pl_id = id_plan;
+    IF IsNull(dateModified)THEN
+        UPDATE plan
+        SET pl_active = 1,
+            pl_user_modified_fk = id_user
+        WHERE pl_id = id_plan;
+    ELSE
+        UPDATE plan
+        SET pl_active = 1,
+            pl_user_modified_fk = id_user, pl_date_modified = dateModified
+        WHERE pl_id = id_plan;
+    END IF;
     SELECT pl_id id,
            pl_name name,
            pl_price price,
