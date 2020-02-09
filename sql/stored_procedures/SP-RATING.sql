@@ -5,10 +5,15 @@
  */
 DROP PROCEDURE IF EXISTS insertRating;
 DELIMITER $$
-CREATE PROCEDURE insertRating(score float, message varchar(200), user_target int, userCreated int)
+CREATE PROCEDURE insertRating(score float, message varchar(200), user_target int, userCreated int,dateCreated datetime)
 BEGIN
+    IF IsNull(dateCreated)THEN
         INSERT INTO rating(ra_score, ra_message, ra_user_fk, ra_user_created_fk, ra_user_modified_fk)
         VALUES (score, message, user_target, userCreated, userCreated);
+    ELSE
+        INSERT INTO rating(ra_score, ra_message, ra_user_fk, ra_user_created_fk, ra_user_modified_fk,ra_date_created,ra_date_modified)
+        VALUES (score, message, user_target, userCreated, userCreated,dateCreated,dateCreated);
+    END IF;
     SELECT ra_id id,
            ra_score score,
            ra_message message,
@@ -18,7 +23,7 @@ BEGIN
            ra_user_created_fk userCreator,
            ra_user_modified_fk userModifier,
            ra_date_created dateCreated,
-           ra_date_modified dateModified
+           ra_date_mqodified dateModified
     FROM rating
     WHERE ra_id = last_insert_id();
 END$$
@@ -50,7 +55,7 @@ BEGIN
            ra_date_created dateCreated,
            ra_date_modified dateModified
     FROM rating
-    WHERE ra_id = last_insert_id();
+    WHERE ra_id = id;
 END$$
 DELIMITER ;
 

@@ -68,7 +68,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property
-    WHERE pr_id = last_insert_id();
+    WHERE pr_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllProperty;
