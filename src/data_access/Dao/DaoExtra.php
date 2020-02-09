@@ -4,9 +4,9 @@ class DaoExtra extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllExtras()";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
 	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyId(:id)";
-	private const QUERY_DELETE_EXTRA_BY_ID = "CALL deleteExtraById(:id,:user)";
-	private const QUERY_ACTIVE_EXTRA_BY_ID = "CALL activeExtraById(:id,:user)";
-	private const QUERY_INACTIVE_EXTRA_BY_ID = "CALL inactiveExtraById(:id,:user)";
+	private const QUERY_DELETE_EXTRA_BY_ID = "CALL deleteExtraById(:id,:user,:dateModified)";
+	private const QUERY_ACTIVE_EXTRA_BY_ID = "CALL activeExtraById(:id,:user,:dateModified)";
+	private const QUERY_INACTIVE_EXTRA_BY_ID = "CALL inactiveExtraById(:id,:user,:dateModified)";
 	private const QUERY_UPDATE = "CALL updateExtra(:id,:name,:icon,:user,:dateModified)";
 	private $_entity;
 
@@ -120,9 +120,13 @@ class DaoExtra extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_EXTRA_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new ExtraNotFoundException("There are no Extra found", 404);
@@ -145,9 +149,13 @@ class DaoExtra extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE_EXTRA_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new ExtraNotFoundException("There are no Extra found", 404);
@@ -169,9 +177,13 @@ class DaoExtra extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$userModifier = 1; //TODO change for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE_EXTRA_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new ExtraNotFoundException("There are no Extra found", 404);
