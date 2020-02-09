@@ -50,7 +50,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = last_insert_id();
+    WHERE ex_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllExtras;

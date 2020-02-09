@@ -46,7 +46,7 @@ BEGIN
            ag_user_modified_fk userModifier,
            ag_date_modified dateModified
     FROM agency
-    WHERE ag_id = last_insert_id();
+    WHERE ag_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS getAgencyById;
