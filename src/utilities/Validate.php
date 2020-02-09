@@ -153,7 +153,17 @@ class Validate {
 	static function putAgency ($agency) {
 		return isset($agency->id) && is_numeric($agency->id)
 			&& isset($agency->name) && !empty($agency->name)
-			&& isset($agency->user) && is_numeric($agency->user)
-			&& isset($agency->dateModified);
+			&& isset($agency->user) && is_numeric($agency->user);
+	}
+
+	/**
+	 * @param $extra
+	 *
+	 * @return bool
+	 */
+	static function putExtra ($extra) {
+		return isset($extra->id) && is_numeric($extra->id)
+			&& isset($extra->name) && !empty($extra->name)
+			&& isset($extra->icon) && !empty($extra->icon);
 	}
 }

@@ -6,6 +6,8 @@ class DaoAgency extends Dao {
 	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id,:user)";
 	private const QUERY_GET_BY_NAME = "CALL getAgencyByName(:name)";
 	private const QUERY_UPDATE = "CALL updateAgency(:id,:name,:user,:dateModified)";
+	private const QUERY_ACTIVE = "CALL activeAgency(:id,:user,:dateModified)";
+	private const QUERY_INACTIVE = "CALL inactiveAgency(:id,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -59,6 +61,62 @@ class DaoAgency extends Dao {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AgencyNotFoundException("Agency not found", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Agency
+	 * @throws DatabaseConnectionException
+	 * @throws AgencyNotFoundException
+	 */
+	public function activeAgency () {
+		try {
+			$id = $this->_entity->getId();
+			$userModifier = 1; /*$this->_entity->getUserModifier();*/
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AgencyNotFoundException("Agency not found", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Agency
+	 * @throws DatabaseConnectionException
+	 * @throws AgencyNotFoundException
+	 */
+	public function inactiveAgency () {
+		try {
+			$id = $this->_entity->getId();
+			$userModifier = 1; /*$this->_entity->getUserModifier();*/
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();

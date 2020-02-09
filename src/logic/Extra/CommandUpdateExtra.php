@@ -1,7 +1,7 @@
 <?php
-class ActiveExtraByIdCommand extends Command {
+class CommandUpdateExtra extends Command {
 	/**
-	 * ActiveExtraByIdCommand constructor.
+	 * CommandUpdateExtra constructor.
 	 *
 	 * @param Extra $entity
 	 */
@@ -14,12 +14,9 @@ class ActiveExtraByIdCommand extends Command {
 	 * @throws ExtraNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->activeExtraById());
+		$this->setData($this->_dao->updateExtraById());
 	}
 
-	/***
-	 * @return mixed
-	 */
 	public function return () {
 		return $this->getData();
 	}

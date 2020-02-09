@@ -289,6 +289,24 @@ class FactoryCommand {
 	static function createCommandUpdateAgencyById ($agency):CommandUpdateAgency {
 		return new CommandUpdateAgency($agency);
 	}
+
+	/**
+	 * @param $agency
+	 *
+	 * @return CommandActiveAgency
+	 */
+	static function createCommandActiveAgencyById ($agency):CommandActiveAgency {
+		return new CommandActiveAgency($agency);
+	}
+
+	/**
+	 * @param $agency
+	 *
+	 * @return CommandInactiveAgency
+	 */
+	static function createCommandInactiveAgencyById ($agency):CommandInactiveAgency {
+		return new CommandInactiveAgency($agency);
+	}
 	//------------------------------------------------------------
 	//----------------------------PLAN----------------------------
 	//------------------------------------------------------------
@@ -464,6 +482,33 @@ class FactoryCommand {
 	 */
 	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
 		return new GetAllExtrasByPropertyIdCommand($property);
+	}
+
+	/**
+	 * @param $extra
+	 *
+	 * @return CommandUpdateExtra
+	 */
+	static function createCommandUpdateExtraById ($extra):CommandUpdateExtra {
+		return new CommandUpdateExtra($extra);
+	}
+
+	/**
+	 * @param $extra
+	 *
+	 * @return CommandActiveExtra
+	 */
+	static function createCommandActiveExtraById ($extra):CommandActiveExtra {
+		return new CommandActiveExtra($extra);
+	}
+
+	/**
+	 * @param $extra
+	 *
+	 * @return CommandInactiveExtra
+	 */
+	static function createCommandInactiveExtraById ($extra):CommandInactiveExtra {
+		return new CommandInactiveExtra($extra);
 	}
 
 	/**

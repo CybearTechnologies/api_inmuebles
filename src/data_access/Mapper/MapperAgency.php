@@ -6,6 +6,8 @@ class MapperAgency extends Mapper {
 	 * @return Agency
 	 */
 	public function fromDtoToEntity ($dto):Entity {
+		if (!isset($dto->name))
+			$dto->name = "";
 		return FactoryEntity::createAgency($dto->id, $dto->name);
 	}
 

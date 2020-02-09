@@ -1,7 +1,7 @@
 <?php
-class InactiveExtraByIdCommand extends Command {
+class CommandInactiveExtra extends Command {
 	/**
-	 * ActiveExtraByIdCommand constructor.
+	 * CommandActiveExtra constructor.
 	 *
 	 * @param Extra $entity
 	 */

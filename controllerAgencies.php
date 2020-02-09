@@ -122,6 +122,38 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse($exception->getCode());
 			}
 		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
+			$command = FactoryCommand::createCommandActiveAgencyById(FactoryEntity::createAgency($get->id));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (AgencyNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
+			$command = FactoryCommand::createCommandInactiveAgencyById(FactoryEntity::createAgency($put->id));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (AgencyNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
 			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));

@@ -1,7 +1,7 @@
 <?php
-class CommandUpdateAgency extends Command {
+class CommandActiveAgency extends Command {
 	/**
-	 * CommandUpdateAgency constructor.
+	 * CommandActiveAgency constructor.
 	 *
 	 * @param Agency $entity
 	 */
@@ -14,7 +14,7 @@ class CommandUpdateAgency extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->updateAgency());
+		$this->setData($this->_dao->activeAgency());
 	}
 
 	/**
