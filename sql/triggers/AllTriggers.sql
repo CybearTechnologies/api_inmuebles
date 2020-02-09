@@ -26,7 +26,7 @@ BEGIN
         IF NEW.se_active=1 THEN
             UPDATE user SET us_active=1 WHERE us_seat_fk=OLD.se_id;
         ELSEIF NEW.se_active=0 THEN
-            UPDATE user SET us_active=0 WHERE se_agency_fk=OLD.se_id;
+            UPDATE user SET us_active=0 WHERE us_seat_fk=OLD.se_id;
         END IF;
     END IF;
 END;
@@ -68,7 +68,7 @@ DELIMITER $$ ;
 
 DROP TRIGGER IF EXISTS afterChangeBlockedUser;
 DELIMITER $$
-CREATE TRIGGER afterChangeBlockUser
+CREATE TRIGGER afterChangeBlockedUser
     AFTER UPDATE
     ON user FOR EACH ROW
 BEGIN
