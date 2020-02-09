@@ -5,10 +5,16 @@
  */
 DROP PROCEDURE IF EXISTS insertPlan;
 DELIMITER $$
-CREATE PROCEDURE insertPlan(name varchar(45), price double(10, 2), user int)
+CREATE PROCEDURE insertPlan(name varchar(45), price double(10, 2), user int,dateCreated datetime)
 BEGIN
-    INSERT INTO plan (pl_name, pl_price, pl_user_created_fk, pl_user_modified_fk)
-    VALUES (name, price, user, user);
+    IF IsNull(dateCreated)THEN
+        INSERT INTO plan (pl_name, pl_price, pl_user_created_fk, pl_user_modified_fk)
+        VALUES (name, price, user, user);
+    ELSE
+        INSERT INTO plan (pl_name, pl_price, pl_user_created_fk, pl_user_modified_fk,pl_date_created,
+                          pl_date_modified)
+        VALUES (name, price, user, user,dateCreated,dateCreated);
+    END IF;
     SELECT pl_id id,
            pl_name name,
            pl_price price,
@@ -24,13 +30,16 @@ END$$
 
 DROP PROCEDURE IF EXISTS updatePlan;
 DELIMITER $$
-CREATE PROCEDURE updatePlan(id_plan int, name varchar(45), price double(10, 2), user int)
+CREATE PROCEDURE updatePlan(id_plan int, name varchar(45), price double(10, 2), user int, dateModified datetime)
 BEGIN
-    UPDATE plan
-    SET pl_name = name,
-        pl_price = price,
-        pl_user_modified_fk = user
-    WHERE pl_id = id_plan;
+    IF IsNull(dateModified)THEN
+        UPDATE plan SET pl_name = name, pl_price = price, pl_user_modified_fk = user
+        WHERE pl_id = id_plan;
+    ELSE
+        UPDATE plan SET pl_name = name, pl_price = price, pl_user_modified_fk = user,
+                        pl_date_modified = dateModified
+        WHERE pl_id = id_plan;
+    END IF;
     SELECT pl_id id,
            pl_name name,
            pl_price price,

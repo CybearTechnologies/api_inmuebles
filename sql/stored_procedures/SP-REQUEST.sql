@@ -36,7 +36,8 @@ BEGIN
         UPDATE request set re_property_fk = property, re_user_modified_fk = user
         WHERE re_id = id;
     ELSE
-        UPDATE request set re_property_fk = property, re_user_modified_fk = user, re_date_modified = dateModified
+        UPDATE request set re_property_fk = property, re_user_modified_fk = user,
+                           re_date_modified = dateModified
         WHERE re_id = id;
     END IF;
     SELECT re_id id,
