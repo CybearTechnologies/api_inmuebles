@@ -79,11 +79,17 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteRatingById;
 DELIMITER $$
-CREATE PROCEDURE deleteRatingById(id int, user int)
+CREATE PROCEDURE deleteRatingById(id int, user int, dateModified datetime)
 BEGIN
-    UPDATE rating
-    SET ra_deleted = 1, ra_user_modified_fk = user
-    WHERE ra_id = id;
+    IF IsNull(dateModified) THEN
+        UPDATE rating
+        SET ra_deleted = 1, ra_user_modified_fk = user
+        WHERE ra_id = id;
+    ELSE
+        UPDATE rating
+        SET ra_deleted = 1, ra_user_modified_fk = user, ra_date_modified = dateModified
+        WHERE ra_id = id;
+    END IF;
     SELECT ra_id id,
            ra_score score,
            ra_user_fk userTarget,

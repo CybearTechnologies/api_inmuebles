@@ -118,10 +118,15 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteRequest;
 DELIMITER $$
-CREATE PROCEDURE deleteRequest(id int,user int)
+CREATE PROCEDURE deleteRequest(id int,user int, dateModified datetime)
 BEGIN
-    UPDATE request SET re_deleted=1, re_date_modified=user
-    WHERE  re_id=id;
+    IF IsNull(dateModified)THEN
+        UPDATE request SET re_deleted=1, re_date_modified=user
+        WHERE  re_id=id;
+    ELSE
+        UPDATE request SET re_deleted=1, re_date_modified=user, re_date_modified = dateModified
+        WHERE  re_id=id;
+    END IF;
     SELECT re_id id,
            re_property_fk property,
            re_active active,
