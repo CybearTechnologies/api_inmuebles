@@ -323,21 +323,21 @@ class FactoryEntity {
 	 * @param int    $value
 	 * @param int    $propertyId
 	 * @param int    $extraId
-	 * @param bool   $active
-	 * @param bool   $delete
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return PropertyExtra
 	 */
-	static function createPropertyExtra (int $id, int $value = 0, int $propertyId = 0, int $extraId = 0,
-		bool $active = true,
-		bool $delete = false, int $userCreator = 0, int $userModifier = 0, string $dateCreated = "",
-		string $dateModified = ""):PropertyExtra {
-		return new PropertyExtra($id, $value, $propertyId, $extraId, $active, $delete, $userCreator, $userModifier,
-			$dateCreated,
-			$dateModified);
+	static function createPropertyExtra (int $id, int $value = Values::DEFAULT_INT,
+		int $propertyId = Values::DEFAULT_FOREIGN, int $extraId = Values::DEFAULT_FOREIGN,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):PropertyExtra {
+		return new PropertyExtra($id, $value, $propertyId, $extraId, $userCreator, $userModifier,
+			$dateCreated, $dateModified, $active, $delete);
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 class PropertyExtra extends Entity {
-	private $_amount;
+	private $_value;
 	private $_extraId;
 	private $_propertyId;
 
@@ -11,17 +11,17 @@ class PropertyExtra extends Entity {
 	 * @param int    $value
 	 * @param int    $propertyId
 	 * @param int    $extraId
-	 * @param bool   $active
-	 * @param bool   $delete
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 */
-	public function __construct (int $id, int $value, int $propertyId, int $extraId, bool $active, bool $delete,
-		int $userCreator, int $userModifier, string $dateCreated, string $dateModified) {
+	public function __construct (int $id, int $value, int $propertyId, int $extraId, int $userCreator,
+		int $userModifier, string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
-		$this->_amount = $value;
+		$this->_value = $value;
 		$this->_propertyId = $propertyId;
 		$this->_extraId = $extraId;
 	}
@@ -29,29 +29,15 @@ class PropertyExtra extends Entity {
 	/**
 	 * @return int
 	 */
-	public function getAmount ():int {
-		return $this->_amount;
+	public function getValue ():int {
+		return $this->_value;
 	}
 
 	/**
 	 * @param int $value
 	 */
-	public function setAmount (int $value):void {
-		$this->_amount = $value;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getPropertyId ():int {
-		return $this->_propertyId;
-	}
-
-	/**
-	 * @param int $propertyId
-	 */
-	public function setPropertyId (int $propertyId):void {
-		$this->_propertyId = $propertyId;
+	public function setValue (int $value):void {
+		$this->_value = $value;
 	}
 
 	/**
@@ -67,4 +53,19 @@ class PropertyExtra extends Entity {
 	public function setExtraId (int $extraId):void {
 		$this->_extraId = $extraId;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getPropertyId ():int {
+		return $this->_propertyId;
+	}
+
+	/**
+	 * @param int $propertyId
+	 */
+	public function setPropertyId (int $propertyId):void {
+		$this->_propertyId = $propertyId;
+	}
+	#
 }
