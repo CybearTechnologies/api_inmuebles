@@ -118,12 +118,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS deletePropertyById;
 DELIMITER $$
-CREATE PROCEDURE deletePropertyById(id_pro int, id_user int)
+CREATE PROCEDURE deletePropertyById(id_pro int, id_user int,dateModified datetime)
 BEGIN
-    UPDATE property
-    SET pr_deleted = 1,
-        pr_user_modified_fk = id_user
-    WHERE pr_id = id_pro;
+    IF IsNull(dateModified) THEN
+        UPDATE property
+        SET pr_deleted = 1,
+            pr_user_modified_fk = id_user
+        WHERE pr_id = id_pro;
+    ELSE
+        UPDATE property
+        SET pr_deleted = 1,
+            pr_user_modified_fk = id_user, pr_date_modified = dateModified
+        WHERE pr_id = id_pro;
+    END IF;
     SELECT pr_id id,
            pr_name name,
            pr_area area,
@@ -144,12 +151,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS inactivePropertyById;
 DELIMITER $$
-CREATE PROCEDURE inactivePropertyById(id_pro int, id_user int)
+CREATE PROCEDURE inactivePropertyById(id_pro int, id_user int,dateModified datetime)
 BEGIN
-    UPDATE property
-    SET pr_active = 0,
-        pr_user_modified_fk = id_user
-    WHERE pr_id = id_pro;
+    IF IsNull(dateModified) THEN
+        UPDATE property
+        SET pr_active = 0,
+            pr_user_modified_fk = id_user
+        WHERE pr_id = id_pro;
+    ELSE
+        UPDATE property
+        SET pr_active = 0,
+            pr_user_modified_fk = id_user, pr_date_modified = dateModified
+        WHERE pr_id = id_pro;
+    END IF;
     SELECT pr_id id,
            pr_name name,
            pr_area area,
@@ -170,12 +184,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS activePropertyById;
 DELIMITER $$
-CREATE PROCEDURE activePropertyById(id_pro int, id_user int)
+CREATE PROCEDURE activePropertyById(id_pro int, id_user int,dateModified datetime)
 BEGIN
-    UPDATE property
-    SET pr_active = 1,
-        pr_user_modified_fk = id_user
-    WHERE pr_id = id_pro;
+    IF IsNull(dateModified) THEN
+        UPDATE property
+        SET pr_active = 1,
+            pr_user_modified_fk = id_user
+        WHERE pr_id = id_pro;
+    ELSE
+        UPDATE property
+        SET pr_active = 1,
+            pr_user_modified_fk = id_user, pr_date_modified = dateModified
+        WHERE pr_id = id_pro;
+    END IF;
     SELECT pr_id id,
            pr_name name,
            pr_area area,
