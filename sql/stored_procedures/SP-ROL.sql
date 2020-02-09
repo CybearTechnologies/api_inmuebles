@@ -68,12 +68,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteRolById;
 DELIMITER $$
-CREATE PROCEDURE deleteRolById(id int, user int)
+CREATE PROCEDURE deleteRolById(id int, user int, dateModified datetime)
 BEGIN
-    UPDATE rol
-    SET ro_deleted = 1,
-        ro_user_modified_fk = user
-    WHERE ro_id = id;
+    IF IsNull(dateModified)THEN
+        UPDATE rol
+        SET ro_deleted = 1,
+            ro_user_modified_fk = user
+        WHERE ro_id = id;
+    ELSE
+        UPDATE rol
+        SET ro_deleted = 1,
+            ro_user_modified_fk = user, ro_date_modified = dateModified
+        WHERE ro_id = id;
+    END IF;
     SELECT ro_id id,
            ro_name name,
            ro_active active,

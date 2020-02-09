@@ -169,11 +169,89 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteUser;
 DELIMITER $$
-CREATE PROCEDURE deleteUser(id int, user int)
+CREATE PROCEDURE deleteUser(id int, user int, dateModified datetime)
 BEGIN
-    UPDATE user
-    SET us_deleted = 1, us_user_modified_fk = user
-    WHERE us_id = id;
+    IF IsNull(dateModified) THEN
+        UPDATE user
+        SET us_deleted = 1, us_user_modified_fk = user
+        WHERE us_id = id;
+    ELSE
+        UPDATE user
+        SET us_deleted = 1, us_user_modified_fk = user, us_date_modified = dateModified
+        WHERE us_id = id;
+    END IF;
+    SELECT us.us_id id,
+           us.us_first_name first_name,
+           us.us_last_name last_name,
+           us.us_address address,
+           us.us_deleted 'delete',
+           us.us_email email,
+           us.us_password password,
+           us.us_blocked blocked,
+           us.us_deleted 'delete',
+           us.us_active active,
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
+    FROM user us
+    WHERE us.us_id = user;
+
+END$$
+
+DROP PROCEDURE IF EXISTS activeUser;
+DELIMITER $$
+CREATE PROCEDURE activeUser(id int, user int, dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE user
+        SET us_active = 1, us_user_modified_fk = user
+        WHERE us_id = id;
+    ELSE
+        UPDATE user
+        SET us_active = 1, us_user_modified_fk = user, us_date_modified = dateModified
+        WHERE us_id = id;
+    END IF;
+    SELECT us.us_id id,
+           us.us_first_name first_name,
+           us.us_last_name last_name,
+           us.us_address address,
+           us.us_deleted 'delete',
+           us.us_email email,
+           us.us_password password,
+           us.us_blocked blocked,
+           us.us_deleted 'delete',
+           us.us_active active,
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
+    FROM user us
+    WHERE us.us_id = user;
+
+END$$
+
+DROP PROCEDURE IF EXISTS inactiveUser;
+DELIMITER $$
+CREATE PROCEDURE inactiveUser(id int, user int, dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE user
+        SET us_active = 0, us_user_modified_fk = user
+        WHERE us_id = id;
+    ELSE
+        UPDATE user
+        SET us_active = 0, us_user_modified_fk = user, us_date_modified = dateModified
+        WHERE us_id = id;
+    END IF;
     SELECT us.us_id id,
            us.us_first_name first_name,
            us.us_last_name last_name,

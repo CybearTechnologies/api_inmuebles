@@ -108,12 +108,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS deletePropertyType;
 DELIMITER $$
-CREATE PROCEDURE deletePropertyType(id int, user int)
+CREATE PROCEDURE deletePropertyType(id int, user int,dateModified datetime)
 BEGIN
-    UPDATE
-        property_type
-    SET pt_deleted = TRUE, pt_user_modified_fk = user
-    WHERE pt_id = id;
+    IF IsNull(dateModified) THEN
+        UPDATE
+            property_type
+        SET pt_deleted = TRUE, pt_user_modified_fk = user
+        WHERE pt_id = id;
+    ELSE
+        UPDATE
+            property_type
+        SET pt_deleted = TRUE, pt_user_modified_fk = user, pt_date_modified = dateModified
+        WHERE pt_id = id;
+    END IF;
     SELECT pt_id id,
            pt_name name,
            pt_image image,

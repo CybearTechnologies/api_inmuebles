@@ -120,14 +120,19 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteSeat;
 DELIMITER $$
-CREATE PROCEDURE deleteSeat(id int, user int)
+CREATE PROCEDURE deleteSeat(id int, user int, dateModified datetime)
 BEGIN
-
-    UPDATE seat
-    SET se_deleted = 1,
-        se_user_modified_fk = user
-    WHERE se_id = id;
-
+    IF IsNull(dateModified) THEN
+        UPDATE seat
+        SET se_deleted = 1,
+            se_user_modified_fk = user
+        WHERE se_id = id;
+    ELSE
+        UPDATE seat
+        SET se_deleted = 1,
+            se_user_modified_fk = user, se_date_modified = dateModified
+        WHERE se_id = id;
+    END IF;
     SELECT se_id id,
            se_name name,
            se_rif rif,
@@ -162,6 +167,66 @@ BEGIN
          agency ag
     WHERE ag.ag_id = agency_id
       AND se.se_agency_fk = ag.ag_id;
+END$$
+
+DROP PROCEDURE IF EXISTS activeSeat;
+DELIMITER $$
+CREATE PROCEDURE activeSeat(id int, user int, dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE seat
+        SET se_active = 1,
+            se_user_modified_fk = user
+        WHERE se_id = id;
+    ELSE
+        UPDATE seat
+        SET se_active = 1,
+            se_user_modified_fk = user, se_date_modified = dateModified
+        WHERE se_id = id;
+    END IF;
+    SELECT se_id id,
+           se_name name,
+           se_rif rif,
+           se_location_fk location,
+           se_agency_fk agency,
+           se_active active,
+           se_deleted 'delete',
+           se_user_created_fk userCreator,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
+    FROM seat
+    WHERE se_id = id;
+END$$
+
+DROP PROCEDURE IF EXISTS inactiveSeat;
+DELIMITER $$
+CREATE PROCEDURE inactiveSeat(id int, user int, dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE seat
+        SET se_active = 0,
+            se_user_modified_fk = user
+        WHERE se_id = id;
+    ELSE
+        UPDATE seat
+        SET se_active = 0,
+            se_user_modified_fk = user, se_date_modified = dateModified
+        WHERE se_id = id;
+    END IF;
+    SELECT se_id id,
+           se_name name,
+           se_rif rif,
+           se_location_fk location,
+           se_agency_fk agency,
+           se_active active,
+           se_deleted 'delete',
+           se_user_created_fk userCreator,
+           se_user_modified_fk userModifier,
+           se_date_created dateCreated,
+           se_date_modified dateModified
+    FROM seat
+    WHERE se_id = id;
 END$$
 
 /**

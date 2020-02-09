@@ -114,11 +114,17 @@ END$$
 
 DROP PROCEDURE IF EXISTS deletePropertyPrice;
 DELIMITER $$
-CREATE PROCEDURE deletePropertyPrice(id int,user int)
+CREATE PROCEDURE deletePropertyPrice(id int,user int,dateModified datetime)
 BEGIN
-    UPDATE property_price
-    SET pp_deleted = 1, pp_user_modified_fk=user
-    WHERE pp_id = id;
+    IF IsNull(dateModified)THEN
+        UPDATE property_price
+        SET pp_deleted = 1, pp_user_modified_fk=user
+        WHERE pp_id = id;
+    ELSE
+        UPDATE property_price
+        SET pp_deleted = 1, pp_user_modified_fk=user, pp_date_modified = dateModified
+        WHERE pp_id = id;
+    END IF;
     SELECT pp_id id,
            pp_price price,
            pp_final final,
