@@ -281,6 +281,14 @@ class FactoryCommand {
 		return new CommandDeleteAgencyById($agency);
 	}
 
+	/**
+	 * @param $agency
+	 *
+	 * @return CommandUpdateAgency
+	 */
+	static function createCommandUpdateAgencyById ($agency):CommandUpdateAgency {
+		return new CommandUpdateAgency($agency);
+	}
 	//------------------------------------------------------------
 	//----------------------------PLAN----------------------------
 	//------------------------------------------------------------
