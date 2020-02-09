@@ -1,9 +1,9 @@
 <?php
 class DaoAgency extends Dao {
-	private const QUERY_CREATE_AGENCY = "CALL insertAgency(:name,:user:dateCreated)";
+	private const QUERY_CREATE_AGENCY = "CALL insertAgency(:name,:user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllAgencies()";
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
-	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id,:user)";
+	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id,:user,:dateModified)";
 	private const QUERY_GET_BY_NAME = "CALL getAgencyByName(:name)";
 	private const QUERY_UPDATE = "CALL updateAgency(:id,:name,:user,:dateModified)";
 	private const QUERY_ACTIVE = "CALL activeAgency(:id,:user,:dateModified)";
@@ -26,13 +26,13 @@ class DaoAgency extends Dao {
 	 */
 	public function createAgency () {
 		try {
-			$id = $this->_entity->getName();
 			$user = 1; // TODO: replace for logged user
+			$name = $this->_entity->getName();
 			$dateCreated = $this->_entity->getDateCreated();
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_AGENCY);
-			$stmt->bindParam(":name", $id, PDO::PARAM_STR);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
@@ -203,9 +203,13 @@ class DaoAgency extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new AgencyNotFoundException("There are no Agency found", 404);

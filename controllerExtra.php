@@ -100,7 +100,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse($exception->getCode());
 			}
 		}
-		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
+		elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "active") {
 			$command = FactoryCommand::createCommandActiveExtraById(FactoryEntity::createExtra($get->id));
 			try {
 				$command->execute();
@@ -116,7 +116,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse($exception->getCode());
 			}
 		}
-		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
+		elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "inactive") {
 			$command = FactoryCommand::createCommandInactiveExtraById(FactoryEntity::createExtra($get->id));
 			try {
 				$command->execute();

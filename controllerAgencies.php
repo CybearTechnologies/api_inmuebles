@@ -82,8 +82,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "DELETE":
 		if (Validate::id($get)) {
-			$agency = FactoryEntity::createAgency($get->id);
-			$command = FactoryCommand::createCommandDeleteAgencyById($agency);
+			$command = FactoryCommand::createCommandDeleteAgencyById(FactoryEntity::createAgency($get->id));
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
@@ -138,8 +137,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse($exception->getCode());
 			}
 		}
-		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
-			$command = FactoryCommand::createCommandInactiveAgencyById(FactoryEntity::createAgency($put->id));
+		elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "inactive") {
+			$command = FactoryCommand::createCommandInactiveAgencyById(FactoryEntity::createAgency($get->id));
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
