@@ -7,7 +7,7 @@ $mapper = FactoryMapper::createMapperAccess();
 $access = FactoryEntity::createAccess(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($get->id) && is_numeric($get->id)) {
+		if (Validate::id($get)) {
 			$access->setId($get->id);
 			$command = FactoryCommand::createCommandGetAccessById($access);
 			try {

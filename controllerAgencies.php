@@ -7,7 +7,7 @@ $mapper = FactoryMapper::createMapperAgency();
 $mapperSeat = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($get->id) && is_numeric($get->id)) {
+		if (Validate::id($get)) {
 			$agency = FactoryEntity::createAgency($get->id);
 			$command = FactoryCommand::createCommandGetAgencyById($agency);
 			try {

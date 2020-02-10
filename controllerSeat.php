@@ -6,10 +6,8 @@ $return = null;
 $mapper = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($get->id) && is_numeric($get->id)) {
-			$seat = FactoryEntity::createSeat(0);
-			$seat->setId($get->id);
-			$command = FactoryCommand::createCommandGetSeatById($seat);
+		if (Validate::id($get)) {
+			$command = FactoryCommand::createCommandGetSeatById(FactoryEntity::createSeat($get->id));
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());

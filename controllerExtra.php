@@ -6,7 +6,7 @@ $return = null;
 $mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($get->id) && is_numeric($get->id)) {
+		if (Validate::id($get)) {
 			$extra = FactoryEntity::createExtra($get->id);
 			$command = FactoryCommand::createCommandGetExtraById($extra);
 			try {

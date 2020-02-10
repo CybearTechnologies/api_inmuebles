@@ -8,7 +8,7 @@ $rating = FactoryEntity::createRating(0);
 $user = FactoryEntity::createUser(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($get->id) && is_numeric($get->id)) {
+		if (Validate::id($get)) {
 			$rating->setId($get->id);
 			$command = FactoryCommand::createGetRatingByIdCommand($rating);
 			try {

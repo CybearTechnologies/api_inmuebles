@@ -12,42 +12,42 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetUserByUsername($user);
 			try {
 				$command->execute();
-				$return = new ErrorResponse(true, $mapper->fromEntityToDTO($command->return()));
-				ErrorResponse::setResponse();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = Values::getText("ERROR_DATABASE");
+				Tools::setResponse($exception->getCode());
 			}
 			catch (MultipleUserException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_MULTIPLE_USER"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = Values::getText("ERROR_MULTIPLE_USER");
+				Tools::setResponse($exception->getCode());
 			}
 			catch (UserNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_USER_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return =Values::getText("ERROR_USER_NOT_FOUND");
+				Tools::setResponse($exception->getCode());
 			}
 			echo json_encode($return);
 		}
-		elseif (isset($get->id) && is_numeric($get->id)) {
+		elseif (Validate::id($get)) {
 			$user->setId($get->id);
 			$command = FactoryCommand::createCommandGetUserById($user);
 			try {
 				$command->execute();
-				$return = new ErrorResponse(true, $mapper->fromEntityToDTO($command->return()));
-				ErrorResponse::setResponse();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_DATABASE"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse( Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (MultipleUserException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_MULTIPLE_USER"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse( Values::getText("ERROR_MULTIPLE_USER"));
+				Tools::setResponse($exception->getCode());
 			}
 			catch (UserNotFoundException $exception) {
-				$return = new ErrorResponse(false, [], Values::getText("ERROR_USER_NOT_FOUND"));
-				ErrorResponse::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		echo json_encode($return);
