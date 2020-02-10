@@ -6,7 +6,7 @@ class MapperRating extends Mapper {
 	 * @return Rating
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createRating($dto->id, $dto->score, $dto->message,$dto->target);
+		return FactoryEntity::createRating($dto->id, $dto->score, $dto->message);
 	}
 
 	/**
@@ -15,7 +15,8 @@ class MapperRating extends Mapper {
 	 * @return DtoRating
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoRating($entity->getId(), $entity->getScore(), $entity->getMessage(),$entity->getUserTarget(),
+		return FactoryDto::createDtoRating($entity->getId(), $entity->getScore(), $entity->getMessage(),
+			$entity->getUserTarget(),
 			$entity->getUserCreator(), $entity->getUserModifier(), $entity->getDateCreated(),
 			$entity->getDateModified(), $entity->isActive(), $entity->isDelete());
 	}

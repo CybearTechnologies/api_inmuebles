@@ -5,7 +5,7 @@ $get = Tools::getObject();
 $return = null;
 $mapper = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
-  	case "GET":
+	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$seat = FactoryEntity::createSeat(0);
 			$seat->setId($get->id);
@@ -88,6 +88,62 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
 			Tools::setResponse(500);
+		}
+		echo json_encode($return);
+		break;
+	case "PUT":
+		$put = json_decode(file_get_contents('php://input'));
+		if (Validate::putSeat($put)) {
+			try {
+				$command = FactoryCommand::createCommandUpdateSeatById($mapper->fromDtoToEntity($put));
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (SeatNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_SEAT_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
+			$command = FactoryCommand::createCommandActiveSeatById(FactoryEntity::createSeat($get->id));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (SeatNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_SEAT_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
+			$command = FactoryCommand::createCommandInactiveSeatById(FactoryEntity::createSeat($get->id));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDto($command->return());
+				Tools::setResponse();
+			}
+			catch (SeatNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_SEAT_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
 		}
 		echo json_encode($return);
 		break;

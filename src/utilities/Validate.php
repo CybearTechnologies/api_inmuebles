@@ -176,4 +176,28 @@ class Validate {
 			&& isset($plan->name) && !empty($plan->name)
 			&& isset($plan->price) && is_numeric($plan->price);
 	}
+
+	/**
+	 * @param $rating
+	 *
+	 * @return bool
+	 */
+	static function putRating ($rating) {
+		return isset($rating->id) && is_numeric($rating->id)
+			&& isset($rating->score) && is_numeric($rating->score)
+			&& isset($rating->message) && !empty($rating->message);
+	}
+
+	/**
+	 * @param $seat
+	 *
+	 * @return bool
+	 */
+	static function putSeat ($seat) {
+		return isset($seat->id) && is_numeric($seat->id)
+			&& isset($seat->name) && !empty($seat->name)
+			&& isset($seat->rif) && !empty($seat->rif)
+			&& isset($seat->location) && is_numeric($seat->location)
+			&& isset($seat->agency) && is_numeric($seat->agency);
+	}
 }

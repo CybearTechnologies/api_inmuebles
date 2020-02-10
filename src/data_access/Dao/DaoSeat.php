@@ -1,12 +1,14 @@
 <?php
 class DaoSeat extends Dao {
+	private const QUERY_CREATE = "CALL insertSeat(:name,:rif,:location,:agency,:user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllSeats()";
 	private const QUERY_GET_BY_ID = "CALL getSeatById(:id)";
+	private const QUERY_UPDATE = "CALL updateSeat(:id,:name,:rif,:location,:agency,:user,:dateModified)";
 	private const QUERY_GET_BY_NAME = "CALL getSeatByName(:name)";
 	private const QUERY_GET_SEATS_BY_AGENCY = "CALL getSeatsByAgency(:id)";
-	private const QUERY_DELETE = "CALL deleteSeat(:id,:user)";
-	private const QUERY_CREATE = "CALL insertSeat(:name,:rif,:location,:agency,:user,:dateCreated)";
-	private const QUERY_UPDATE = "CALL updateSeat(:id,:name,:rif,:location,:agency,:user,dateModified)";
+	private const QUERY_DELETE = "CALL deleteSeat(:id,:user,:dateModified)";
+	private const QUERY_ACTIVE = "CALL activeSeat(:id,:user,:dateModified)";
+	private const QUERY_INACTIVE = "CALL inactiveSeat(:id,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -53,6 +55,7 @@ class DaoSeat extends Dao {
 	/**
 	 * @return Seat
 	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
 	 */
 	public function updateSeat () {
 		try {
@@ -62,22 +65,82 @@ class DaoSeat extends Dao {
 			$location = $this->_entity->getLocation();
 			$agency = $this->_entity->getAgency();
 			$user = 1; // TODO: replace for logged user
-			$dateCreated = $this->_entity->getDateModified();
-			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-			$stmt->bindParam(":id", $id, PDO::PARAM_STR);
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);
-			$stmt->bindParam(":location", $location, PDO::PARAM_STR);
-			$stmt->bindParam(":agency", $agency, PDO::PARAM_STR);
-			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
-			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
+			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
+			$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SeatNotFoundException("There are no seats found", 404);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Seat
+	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
+	 */
+	public function activeSeat () {
+		try {
+			$id = $this->_entity->getId();
+			$userModifier = 1; /*TODO $this->_entity->getUserModifier();*/
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SeatNotFoundException("Agency not found", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Seat
+	 * @throws DatabaseConnectionException
+	 * @throws SeatNotFoundException
+	 */
+	public function inactiveSeat () {
+		try {
+			$id = $this->_entity->getId();
+			$userModifier = 1; /* TODO $this->_entity->getUserModifier();*/
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SeatNotFoundException("Agency not found", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
 
@@ -155,9 +218,13 @@ class DaoSeat extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$user = 1; // TODO: replace for logged user
+			$dateModified = $this->_entity->getDateModified();
+			if ($dateModified == "")
+				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new SeatNotFoundException("There are no seats found", 404);

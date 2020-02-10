@@ -237,6 +237,33 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param Seat $seat
+	 *
+	 * @return CommandUpdateSeat
+	 */
+	static function createCommandUpdateSeatById ($seat):CommandUpdateSeat {
+		return new CommandUpdateSeat($seat);
+	}
+
+	/**
+	 * @param Seat $seat
+	 *
+	 * @return CommandActiveSeat
+	 */
+	static function createCommandActiveSeatById ($seat):CommandActiveSeat {
+		return new CommandActiveSeat($seat);
+	}
+
+	/**
+	 * @param Seat $seat
+	 *
+	 * @return CommandInactiveSeat
+	 */
+	static function createCommandInactiveSeatById ($seat):CommandInactiveSeat {
+		return new CommandInactiveSeat($seat);
+	}
+
+	/**
 	 * @param $seat
 	 *
 	 * @return CommandDeleteSeatById
@@ -575,10 +602,9 @@ class FactoryCommand {
 		return new GetPropertyByIdCommand($property);
 	}
 
-
-	/**
-	 * RATING
-	 */
+	//------------------------------------------------------------
+	//----------------------------RATING---------------------------
+	//------------------------------------------------------------
 	/**
 	 * @param Rating $rating
 	 *
@@ -604,6 +630,33 @@ class FactoryCommand {
 	 */
 	static function createGetRatingByIdCommand ($rating):CommandGetRatingById {
 		return new CommandGetRatingById($rating);
+	}
+
+	/**
+	 * @param $rating
+	 *
+	 * @return CommandUpdateRating
+	 */
+	static function createCommandUpdateRatingById ($rating):CommandUpdateRating {
+		return new CommandUpdateRating($rating);
+	}
+
+	/**
+	 * @param $rating
+	 *
+	 * @return CommandActiveRating
+	 */
+	static function createCommandActiveRatingById ($rating):CommandActiveRating {
+		return new CommandActiveRating($rating);
+	}
+
+	/**
+	 * @param $rating
+	 *
+	 * @return CommandInactiveRating
+	 */
+	static function createCommandInactiveRatingById ($rating):CommandInactiveRating {
+		return new CommandInactiveRating($rating);
 	}
 
 	/**

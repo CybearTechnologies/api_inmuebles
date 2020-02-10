@@ -23,7 +23,7 @@ BEGIN
            ra_user_created_fk userCreator,
            ra_user_modified_fk userModifier,
            ra_date_created dateCreated,
-           ra_date_mqodified dateModified
+           ra_date_modified dateModified
     FROM rating
     WHERE ra_id = last_insert_id();
 END$$
@@ -32,15 +32,15 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS updateRating;
 DELIMITER $$
-CREATE PROCEDURE updateRating(id int,score float, message varchar(200), user_target int, userModifier int,
+CREATE PROCEDURE updateRating(id int,score float, message varchar(200), userModifier int,
                               dateModified DATE)
 BEGIN
     IF IsNull(dateModified) THEN
-        UPDATE rating SET ra_score = score, ra_message = message, ra_user_fk = user_target,
+        UPDATE rating SET ra_score = score, ra_message = message,
                           ra_user_modified_fk = userModifier
         WHERE ra_id = id;
     ELSE
-        UPDATE rating SET ra_score = score, ra_message = message, ra_user_fk = user_target,
+        UPDATE rating SET ra_score = score, ra_message = message,
                           ra_user_modified_fk = userModifier, ra_date_modified = dateModified
         WHERE ra_id = id;
     END IF;
