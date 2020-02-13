@@ -85,7 +85,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_deleted = 0;
+    WHERE ex_deleted = 0 AND ex_active = 1;
 END$$
 
 DROP PROCEDURE IF EXISTS getExtraById;
