@@ -9,7 +9,7 @@ class DaoPlan extends Dao {
 	private const QUERY_ACTIVE = "CALL activePlan(:id,:user,:dateModified)";
 	private const QUERY_INACTIVE = "CALL inactivePlan(:id,:user,:dateModified)";
 	private $_entity;
-
+	
 	/**
 	 * DaoPlan constructor.
 	 *

@@ -21,8 +21,10 @@ class DaoRolAccess extends Dao {
 	 * @inheritDoc
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRolAccess($dbObject->id, $dbObject->rol, $dbObject->access, $dbObject->accessName,
-			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
-			$dbObject->dateModified, $dbObject->active, $dbObject->delete);
+		return FactoryEntity::createRolAccess($dbObject->id, $dbObject->rol,
+			$dbObject->access, $dbObject->accessName,
+			$dbObject->userCreator, $dbObject->userModifier,
+			$dbObject->dateCreated,	$dbObject->dateModified,
+			$dbObject->active, $dbObject->delete);
 	}
 }
