@@ -71,6 +71,23 @@ BEGIN
     FROM extra;
 END$$
 
+DROP PROCEDURE IF EXISTS getAllExtraActiveNotDeleted;
+DELIMITER $$
+CREATE PROCEDURE getAllExtraActiveNotDeleted()
+BEGIN
+    SELECT ex_id id,
+           ex_name name,
+           ex_active active,
+           ex_deleted 'delete',
+           ex_icon icon,
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
+    FROM extra
+    WHERE ex_deleted = 0;
+END$$
+
 DROP PROCEDURE IF EXISTS getExtraById;
 DELIMITER $$
 CREATE PROCEDURE getExtraById(id_extra int)

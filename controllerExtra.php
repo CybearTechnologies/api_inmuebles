@@ -25,7 +25,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createCommandGetAllExtra();
+			$command = FactoryCommand::createCommandGetAllExtraActiveNotDeleted();
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());

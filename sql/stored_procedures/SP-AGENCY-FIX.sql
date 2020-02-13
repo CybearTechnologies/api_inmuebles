@@ -129,7 +129,8 @@ BEGIN
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
            ag_date_modified dateModified
-    FROM agency;
+    FROM agency
+        WHERE ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAgencyByName;

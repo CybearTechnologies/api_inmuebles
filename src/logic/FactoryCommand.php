@@ -512,6 +512,13 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @return CommandGetAllExtraActiveNotDeleted
+	 */
+	static function createCommandGetAllExtraActiveNotDeleted ():CommandGetAllExtraActiveNotDeleted {
+		return new CommandGetAllExtraActiveNotDeleted();
+	}
+
+	/**
 	 * @param Extra $extra
 	 *
 	 * @return CommandGetExtraById
@@ -601,7 +608,6 @@ class FactoryCommand {
 	static function createGetPropertyByIdCommand ($property):GetPropertyByIdCommand {
 		return new GetPropertyByIdCommand($property);
 	}
-
 	//------------------------------------------------------------
 	//----------------------------RATING---------------------------
 	//------------------------------------------------------------
