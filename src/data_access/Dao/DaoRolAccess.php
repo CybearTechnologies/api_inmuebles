@@ -5,8 +5,8 @@ class DaoRolAccess extends Dao {
 	private const QUERY_DEACTIVATE = "CALL deactivateRolAccessById(:id,:user,:dateModified)";
 	private const QUERY_ACTIVATE = "CALL activateRolAccessById(:id,:user,:dateModified";
 	private $_entity;
-
 	//TODO termimnar el dao
+
 	/**
 	 * DaoRolAccess constructor.
 	 *
@@ -21,6 +21,8 @@ class DaoRolAccess extends Dao {
 	 * @inheritDoc
 	 */
 	protected function extract ($dbObject) {
-		// TODO: Implement extract() method.
+		return FactoryEntity::createRolAccess($dbObject->id, $dbObject->rol, $dbObject->access, $dbObject->accessName,
+			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
+			$dbObject->dateModified, $dbObject->active, $dbObject->delete);
 	}
 }
