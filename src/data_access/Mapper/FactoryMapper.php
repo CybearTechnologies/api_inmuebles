@@ -95,4 +95,11 @@ class FactoryMapper {
 	static function createMapperPropertyExtra ():MapperPropertyExtra {
 		return new MapperPropertyExtra();
 	}
+
+	/**
+	 * @return MapperRolAccess
+	 */
+	static function createMapperRolAccess ():MapperRolAccess {
+		return new MapperRolAccess();
+	}
 }

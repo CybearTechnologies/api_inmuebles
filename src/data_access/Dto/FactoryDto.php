@@ -248,7 +248,7 @@ class FactoryDto {
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):DtoRating {
 		return new DtoRating($id, $score, $message, $target, $userCreator, $userModifier, $dateCreated, $dateModified,
-			$active,$delete);
+			$active, $delete);
 	}
 
 	/**
@@ -339,5 +339,30 @@ class FactoryDto {
 		int $userCreator, int $userModifier, string $dateCreated, string $dateModified):DtoPropertyExtra {
 		return new DtoPropertyExtra($id, $value, $propertyId, $extraId, $active, $delete, $userCreator, $userModifier,
 			$dateCreated, $dateModified);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $rol
+	 * @param int    $access
+	 * @param string $accessName
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return DtoRolAccess
+	 */
+	static function createDtoRolAccess (int $id, int $rol = Values::DEFAULT_FOREIGN,
+		int $access = Values::DEFAULT_FOREIGN,
+		string $accessName = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):DtoRolAccess {
+		return new DtoRolAccess($id, $rol, $access, $accessName, $userCreator, $userModifier, $dateCreated,
+			$dateModified,
+			$active, $delete);
 	}
 }

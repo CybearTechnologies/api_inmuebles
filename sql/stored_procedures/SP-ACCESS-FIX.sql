@@ -28,8 +28,6 @@ BEGIN
     WHERE ac_id = last_insert_id();
 END$$
 
-
-
 DROP PROCEDURE IF EXISTS getAllAccess;
 DELIMITER $$
 CREATE PROCEDURE getAllAccess()
@@ -126,15 +124,15 @@ END$$
 
 DROP PROCEDURE IF EXISTS deactivateAccessById;
 DELIMITER $$
-CREATE PROCEDURE deactivateAccessById(id int, dateModified datetime)
+CREATE PROCEDURE deactivateAccessById(id int,user int, dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE access
-        SET ac_deleted=0, ac_user_modified_fk=user
+        SET ac_active=0, ac_user_modified_fk=user
         WHERE ac_id = id;
     ELSE
         UPDATE access
-        SET ac_deleted=0, ac_user_modified_fk=user, ac_date_modified=dateModified
+        SET ac_active=0, ac_user_modified_fk=user, ac_date_modified=dateModified
         WHERE ac_id = id;
     END IF;
     SELECT ac_id id,

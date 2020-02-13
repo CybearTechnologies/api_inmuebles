@@ -118,7 +118,7 @@ class FactoryDao {
 	 *
 	 * @return DaoOrigin
 	 */
-	public static function createDaoOrigin (Origin $origin):DaoOrigin {
+	static function createDaoOrigin (Origin $origin):DaoOrigin {
 		return new DaoOrigin($origin);
 	}
 
@@ -127,7 +127,16 @@ class FactoryDao {
 	 *
 	 * @return DaoUser|null
 	 */
-	public static function createDaoUser ($user = null):DaoUser {
+	static function createDaoUser ($user = null):DaoUser {
 		return new DaoUser($user);
+	}
+
+	/**
+	 * @param RolAccess $entity
+	 *
+	 * @return DaoRolAccess
+	 */
+	static function createDaoRolAccess ($entity):DaoRolAccess {
+		return new DaoRolAccess($entity);
 	}
 }
