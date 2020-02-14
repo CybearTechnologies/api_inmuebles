@@ -22,10 +22,33 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
 				Tools::setResponse($exception->getCode());
 			}
-			echo json_encode($return);
+		}
+		if (isset($get->state)) {
+			if (strtolower($get->state) == "active")
+				$get->state = true;
+			if (strtolower($get->state) == "inactive")
+				$get->state = false;
+			$extra = FactoryEntity::createExtra(-1, "", "",
+				-1, -1,
+				"", "",
+				$get->state);
+			$command = FactoryCommand::createCommandGetAllExtraByState($extra);
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (ExtraNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
 		}
 		else {
-			$command = FactoryCommand::createCommandGetAllExtraActiveNotDeleted();
+			$command = FactoryCommand::createCommandGetAllExtra();
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());
@@ -39,8 +62,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRAS_NOT_FOUND"));
 				Tools::setResponse($exception->getCode());
 			}
-			echo json_encode($return);
 		}
+		echo json_encode($return);
 		break;
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));

@@ -512,10 +512,12 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @return CommandGetAllExtraActiveNotDeleted
+	 * @param Extra $extra
+	 *
+	 * @return CommandGetAllExtraByState
 	 */
-	static function createCommandGetAllExtraActiveNotDeleted ():CommandGetAllExtraActiveNotDeleted {
-		return new CommandGetAllExtraActiveNotDeleted();
+	static function createCommandGetAllExtraByState ($extra):CommandGetAllExtraByState {
+		return new CommandGetAllExtraByState($extra);
 	}
 
 	/**

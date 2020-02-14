@@ -68,12 +68,13 @@ BEGIN
            ex_date_created dateCreated,
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
-    FROM extra;
+    FROM extra
+    WHERE ex_deleted = 0;
 END$$
 
-DROP PROCEDURE IF EXISTS getAllExtraActiveNotDeleted;
+DROP PROCEDURE IF EXISTS getAllExtrasByState;
 DELIMITER $$
-CREATE PROCEDURE getAllExtraActiveNotDeleted()
+CREATE PROCEDURE getAllExtrasByState(ex_state int)
 BEGIN
     SELECT ex_id id,
            ex_name name,
@@ -85,7 +86,8 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_deleted = 0 AND ex_active = 1;
+    WHERE ex_deleted = 0
+    AND ex_active = ex_state;
 END$$
 
 DROP PROCEDURE IF EXISTS getExtraById;

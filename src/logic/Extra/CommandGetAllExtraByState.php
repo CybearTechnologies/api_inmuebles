@@ -1,10 +1,12 @@
 <?php
-class CommandGetAllExtraActiveNotDeleted extends Command {
+class CommandGetAllExtraByState extends Command {
 	/**
 	 * CommandGetAllExtra constructor.
+	 *
+	 * @param Extra $extra
 	 */
-	public function __construct () {
-		$this->_dao = FactoryDao::createDaoExtra();;
+	public function __construct ($extra) {
+		$this->_dao = FactoryDao::createDaoExtra($extra);;
 	}
 
 	/**
@@ -12,7 +14,7 @@ class CommandGetAllExtraActiveNotDeleted extends Command {
 	 * @throws ExtraNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllExtraActiveNotDeleted());
+		$this->setData($this->_dao->getAllExtraByState());
 	}
 
 	/**

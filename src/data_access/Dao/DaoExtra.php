@@ -2,7 +2,7 @@
 class DaoExtra extends Dao {
 	private const QUERY_CREATE = "CALL insertExtra(:name, :icon, :user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllExtras()";
-	private const QUERY_GET_ACTIVE_NOT_DELETED = "CALL getAllExtraActiveNotDeleted()";
+	private const QUERY_GET_BY_STATE = "CALL getAllExtrasByState(:state)";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
 	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyId(:id)";
 	private const QUERY_DELETE_EXTRA_BY_ID = "CALL deleteExtraById(:id,:user,:dateModified)";
@@ -73,9 +73,11 @@ class DaoExtra extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function getAllExtraActiveNotDeleted () {
+	public function getAllExtraByState () {
 		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ACTIVE_NOT_DELETED);
+			$state = $this->_entity->isActive();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_STATE);
+			$stmt->bindParam(":state", $state, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new ExtraNotFoundException("There are no Extra found", 404);
