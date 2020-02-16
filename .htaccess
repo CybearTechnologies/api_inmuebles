@@ -52,6 +52,10 @@ RewriteRule ^seat/(active|inactive)/([0-9]+)$ controllerSeat.php?action=$1&id=$2
 RewriteRule ^rating/$ controllerRating.php [NC,L]
 RewriteRule ^rating/([0-9]+)$ controllerRating.php?id=$1 [NC,L]
 RewriteRule ^rating/user/([0-9]+)$ controllerRating.php?id_user=$1 [NC,L]
+#   ROL ACCESS
+RewriteRule ^rolaccess$ controllerRolAccess.php [NC,L]
+RewriteRule ^rolaccess/([0-9]+)$ controllerRolAccess.php?id=$1 [NC,L]
+RewriteRule ^rolaccess/(active|inactive)/([0-9]+)$ controllerRolAccess.php?action=$1&id=$2 [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------

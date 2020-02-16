@@ -10,7 +10,7 @@ class CommandActivateRolAccessById extends Command {
 	}
 
 	/**
-	 * @throws AccessNotFoundException
+	 * @throws RolAccessNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {

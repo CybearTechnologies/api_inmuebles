@@ -20,13 +20,14 @@ BEGIN
            ra_rol_fk rol,
            ra_access_fk access,
            ra_active active,
+           ac_name accessName,
            ra_deleted 'delete',
-           ra_user_created_fk usercreator,
-           ra_date_created datecreated,
-           ra_user_modified_fk usermodifier,
-           ra_date_modified datemodified
-    FROM rol_access
-    WHERE ra_id = last_insert_id();
+           ra_user_created_fk userCreator,
+           ra_date_created dateCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_modified dateModified
+    FROM rol_access, access
+    WHERE ra_id = last_insert_id() AND ac_id = ra_access_fk;
 END$$
 
 DROP PROCEDURE IF EXISTS getAccessByRol;
@@ -36,14 +37,15 @@ BEGIN
     SELECT ra_id id,
            ra_rol_fk rol,
            ra_access_fk access,
-           ac_name name,
+           ac_name accessName,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk usercreator,
-           ra_date_created datecreated,
-           ra_user_modified_fk usermodifier,
-           ra_date_modified datemodified
-    FROM rol_access, access
+           ra_user_created_fk userCreator,
+           ra_date_created dateCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_modified dateModified
+    FROM rol_access,
+         access
     WHERE ra_rol_fk = id_rol
       AND ra_active = 1
       AND ra_deleted = 0;
@@ -51,54 +53,60 @@ END$$
 
 DROP PROCEDURE IF EXISTS deactivateRolAccessById;
 DELIMITER $$
-CREATE PROCEDURE deactivateRolAccessById(id int,user int, dateModified datetime)
+CREATE PROCEDURE deactivateRolAccessById(id int, user int, datemodified datetime)
 BEGIN
-    IF IsNull(dateModified) THEN
+    IF IsNull(datemodified) THEN
         UPDATE rol_access
         SET ra_active = 0, ra_user_modified_fk = user
         WHERE ra_id = id;
     ELSE
         UPDATE rol_access
-        SET ra_active = 0, ra_user_modified_fk = user, ra_date_modified = dateModified
+        SET ra_active = 0, ra_user_modified_fk = user, ra_date_modified = datemodified
         WHERE ra_id = id;
     END IF;
     SELECT ra_id id,
            ra_rol_fk rol,
            ra_access_fk access,
+           ac_name accessName,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk usercreator,
-           ra_date_created datecreated,
-           ra_user_modified_fk usermodifier,
-           ra_date_modified datemodified
-    FROM rol_access
-    WHERE ra_id = id;
+           ra_user_created_fk userCreator,
+           ra_date_created dateCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_modified dateModified
+    FROM rol_access,
+         access
+    WHERE ra_id = id
+      AND ra_access_fk = ac_id;
 END$$
 
 DROP PROCEDURE IF EXISTS activateRolAccessById;
 DELIMITER $$
-CREATE PROCEDURE activateRolAccessById(id int,user int, dateModified datetime)
+CREATE PROCEDURE activateRolAccessById(id int, user int, datemodified datetime)
 BEGIN
-    IF IsNull(dateModified) THEN
+    IF IsNull(datemodified) THEN
         UPDATE rol_access
         SET ra_active = 1, ra_user_modified_fk = user
         WHERE ra_id = id;
     ELSE
         UPDATE rol_access
-        SET ra_active = 1, ra_user_modified_fk = user, ra_date_modified = dateModified
+        SET ra_active = 1, ra_user_modified_fk = user, ra_date_modified = datemodified
         WHERE ra_id = id;
     END IF;
     SELECT ra_id id,
            ra_rol_fk rol,
            ra_access_fk access,
+           ac_name accessName,
            ra_active active,
            ra_deleted 'delete',
-           ra_user_created_fk usercreator,
-           ra_date_created datecreated,
-           ra_user_modified_fk usermodifier,
-           ra_date_modified datemodified
-    FROM rol_access
-    WHERE ra_id = id;
+           ra_user_created_fk userCreator,
+           ra_date_created dateCreated,
+           ra_user_modified_fk userModifier,
+           ra_date_modified dateModified
+    FROM rol_access,
+         access
+    WHERE ra_id = id
+      AND ra_access_fk = ac_id;
 END$$
 
 /**

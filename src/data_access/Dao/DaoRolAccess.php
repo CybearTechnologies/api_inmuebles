@@ -1,9 +1,9 @@
 <?php
 class DaoRolAccess extends Dao {
-	private const QUERY_INSERT = "CALL insertAccessRol(:rol,:access,:user,dateCreated)";
+	private const QUERY_INSERT = "CALL insertAccessRol(:rol,:access,:user,:dateCreated)";
 	private const QUERY_GET_ACCESS_BY_ROL = "CALL getAccessByRol(:rol)";
 	private const QUERY_DEACTIVATE = "CALL deactivateRolAccessById(:id,:user,:dateModified)";
-	private const QUERY_ACTIVATE = "CALL activateRolAccessById(:id,:user,:dateModified";
+	private const QUERY_ACTIVATE = "CALL activateRolAccessById(:id,:user,:dateModified)";
 	private $_entity;
 	//TODO termimnar el dao
 
@@ -31,7 +31,7 @@ class DaoRolAccess extends Dao {
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INSERT);
 			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
-			$stmt->bindParam(":access", $access, PDO::PARAM_STR);
+			$stmt->bindParam(":access", $access, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
@@ -46,17 +46,17 @@ class DaoRolAccess extends Dao {
 
 	/**
 	 * @return RolAccess
-	 * @throws AccessNotFoundException
 	 * @throws DatabaseConnectionException
+	 * @throws RolAccessNotFoundException
 	 */
 	public function getAccessByRol () {
 		try {
 			$rol = $this->_entity->getRol();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ACCESS_BY_ROL);
-			$stmt->bindParam(":rol", $rol, PDO::PARAM_STR);
+			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AccessNotFoundException("There are no acces with this rol ['{$rol}'] found", 404);
+				Throw new RolAccessNotFoundException("There are no acces with this rol ['{$rol}'] found", 404);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
@@ -69,7 +69,7 @@ class DaoRolAccess extends Dao {
 
 	/**
 	 * @return RolAccess
-	 * @throws AccessNotFoundException
+	 * @throws RolAccessNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function activateRolAccessById () {
@@ -82,10 +82,10 @@ class DaoRolAccess extends Dao {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
-			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AccessNotFoundException("There are no Access found", 404);
+				Throw new RolAccessNotFoundException("There are no Access found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
@@ -97,7 +97,7 @@ class DaoRolAccess extends Dao {
 
 	/**
 	 * @return RolAccess
-	 * @throws AccessNotFoundException
+	 * @throws RolAccessNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function deactivateRolAccessById () {
@@ -110,10 +110,10 @@ class DaoRolAccess extends Dao {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DEACTIVATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
-			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AccessNotFoundException("There are no Access found", 404);
+				Throw new RolAccessNotFoundException("There are no Access found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
@@ -129,7 +129,8 @@ class DaoRolAccess extends Dao {
 	 * @return RolAccess
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createRolAccess($dbObject->id, $dbObject->rol,
+		return FactoryEntity::createRolAccess(
+			$dbObject->id, $dbObject->rol,
 			$dbObject->access, $dbObject->accessName,
 			$dbObject->userCreator, $dbObject->userModifier,
 			$dbObject->dateCreated, $dbObject->dateModified,

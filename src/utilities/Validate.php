@@ -146,6 +146,36 @@ class Validate {
 	}
 
 	/**
+	 * @param $rolAccess
+	 *
+	 * @return bool
+	 */
+	static function rolAccess ($rolAccess) {
+		return isset($rolAccess->id) && is_numeric($rolAccess->id)
+			&& isset($rolAccess->access) && is_numeric($rolAccess->access)
+			&& isset($rolAccess->rol) && is_numeric($rolAccess->rol);
+	}
+
+	/**
+	 * @param $rolAccess
+	 *
+	 * @return bool
+	 */
+	static function activateRolAccess ($rolAccess) {
+		return isset($rolAccess->id) && is_numeric($rolAccess->id)
+			&& strtolower($rolAccess->action) == "active";
+	}
+
+	/**
+	 * @param $rolAccess
+	 *
+	 * @return bool
+	 */
+	static function inactivateRolAccess ($rolAccess) {
+		return isset($rolAccess->id) && is_numeric($rolAccess->id)
+			&& strtolower($rolAccess->action) == "inactive";
+	}
+	/**
 	 * @param $agency
 	 *
 	 * @return bool

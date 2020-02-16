@@ -11,9 +11,10 @@ class CommandGetAccessByRol extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws RolAccessNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createRolAccess());
+		$this->setData($this->_dao->getAccessByRol());
 	}
 
 	/**
