@@ -17,15 +17,15 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = Values::getText("ERROR_DATABASE");
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (MultipleUserException $exception) {
 				$return = Values::getText("ERROR_MULTIPLE_USER");
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_MULTIPLE_USER"));
 			}
 			catch (UserNotFoundException $exception) {
-				$return =Values::getText("ERROR_USER_NOT_FOUND");
-				Tools::setResponse($exception->getCode());
+				$return = Values::getText("ERROR_USER_NOT_FOUND");
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 			}
 			echo json_encode($return);
 		}
@@ -38,18 +38,21 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse( Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (MultipleUserException $exception) {
-				$return = new ErrorResponse( Values::getText("ERROR_MULTIPLE_USER"));
-				Tools::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText("ERROR_MULTIPLE_USER"));
+				Tools::setResponse(Values::getValue("ERROR_MULTIPLE_USER"));
 			}
 			catch (UserNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 			}
 		}
 		echo json_encode($return);
+		break;
+	default:
+		Tools::setResponse(405);
 		break;
 }

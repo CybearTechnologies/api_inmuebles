@@ -5,7 +5,6 @@ class DaoRolAccess extends Dao {
 	private const QUERY_DEACTIVATE = "CALL deactivateRolAccessById(:id,:user,:dateModified)";
 	private const QUERY_ACTIVATE = "CALL activateRolAccessById(:id,:user,:dateModified)";
 	private $_entity;
-	//TODO termimnar el dao
 
 	/**
 	 * DaoRolAccess constructor.

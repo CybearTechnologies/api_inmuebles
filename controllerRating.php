@@ -80,7 +80,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (RatingNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_RATING_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_RATING_NOT_FOUND"));
 			}
 		}
 		else {
@@ -100,11 +100,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (RatingNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_RATING_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_RATING_NOT_FOUND"));
 			}
 		}
 		else {
@@ -114,6 +114,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	default:
-		Tools::setResponse(404);
+		Tools::setResponse(405);
 		break;
 }

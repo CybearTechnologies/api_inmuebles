@@ -58,11 +58,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (RolAccessNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_ROL_ACCESS_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_ROL_ACCESS_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		elseif (Validate::inactivateRolAccess($get)) {
@@ -74,11 +74,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (RolAccessNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_ROL_ACCESS_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_ROL_ACCESS_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		else {
