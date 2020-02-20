@@ -625,6 +625,27 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @return CommandGetAllActiveProperties
+	 */
+	static function createCommandGetAllActiveProperties ():CommandGetAllActiveProperties {
+		return new CommandGetAllActiveProperties();
+	}
+
+	/**
+	 * @return CommandGetAllUserProperties
+	 */
+	static function createCommandGetAllUserProperties ():CommandGetAllUserProperties {
+		return new CommandGetAllUserProperties();
+	}
+
+	/**
+	 * @return CommandGetAllPropertiesByType
+	 */
+	static function createCommandGetAllPropertiesByType ():CommandGetAllPropertiesByType {
+		return new CommandGetAllPropertiesByType();
+	}
+
+	/**
 	 * @param Property $property
 	 *
 	 * @return DeletePropertyByIdCommand

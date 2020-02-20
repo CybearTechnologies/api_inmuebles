@@ -13,7 +13,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($get->seats)) {
+				if (empty($dto->seats)) {
 					$command = FactoryCommand::createCommandGetAllSeatsByAgency($agency);
 					try {
 						$command->execute();
@@ -23,8 +23,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						unset($dto->seats);
 					}
 				}
-				else
-					unset($dto->seats);
 				$return = $dto;
 				Tools::setResponse();
 			}
