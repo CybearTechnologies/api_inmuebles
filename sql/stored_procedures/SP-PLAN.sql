@@ -25,7 +25,8 @@ BEGIN
            pl_date_created dateCreated,
            pl_date_modified dateModified
     FROM plan
-    WHERE pl_id = LAST_INSERT_ID();
+    WHERE pl_id = LAST_INSERT_ID()
+    AND pl_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS updatePlan;
@@ -34,11 +35,11 @@ CREATE PROCEDURE updatePlan(id_plan int, name varchar(45), price double(10, 2), 
 BEGIN
     IF IsNull(dateModified)THEN
         UPDATE plan SET pl_name = name, pl_price = price, pl_user_modified_fk = user
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     ELSE
         UPDATE plan SET pl_name = name, pl_price = price, pl_user_modified_fk = user,
                         pl_date_modified = dateModified
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     END IF;
     SELECT pl_id id,
            pl_name name,
@@ -50,7 +51,7 @@ BEGIN
            pl_date_created dateCreated,
            pl_date_modified dateModified
     FROM plan
-    WHERE pl_id = id_plan;
+    WHERE pl_id = id_plan AND pl_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deletePlan;
@@ -60,11 +61,11 @@ BEGIN
     IF IsNull(dateModified)THEN
         UPDATE plan
         SET pl_deleted = 1, pl_user_modified_fk = id_user
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     ELSE
         UPDATE plan
         SET pl_deleted = 1, pl_user_modified_fk = id_user, pl_date_modified = dateModified
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     END IF;
     SELECT pl_id id,
            pl_name name,
@@ -76,7 +77,7 @@ BEGIN
            pl_date_created dateCreated,
            pl_date_modified dateModified
     FROM plan
-    WHERE pl_id = id_plan;
+    WHERE pl_id = id_plan AND pl_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS inactivePlan;
@@ -87,12 +88,12 @@ BEGIN
         UPDATE plan
         SET pl_active = 0,
             pl_user_modified_fk = id_user
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     ELSE
         UPDATE plan
         SET pl_active = 0,
             pl_user_modified_fk = id_user, pl_date_modified = dateModified
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     END IF;
     SELECT pl_id id,
            pl_name name,
@@ -104,7 +105,7 @@ BEGIN
            pl_date_created dateCreated,
            pl_date_modified dateModified
     FROM plan
-    WHERE pl_id = id_plan;
+    WHERE pl_id = id_plan AND pl_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS activePlan;
@@ -115,12 +116,12 @@ BEGIN
         UPDATE plan
         SET pl_active = 1,
             pl_user_modified_fk = id_user
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     ELSE
         UPDATE plan
         SET pl_active = 1,
             pl_user_modified_fk = id_user, pl_date_modified = dateModified
-        WHERE pl_id = id_plan;
+        WHERE pl_id = id_plan AND pl_deleted = 0;
     END IF;
     SELECT pl_id id,
            pl_name name,
@@ -132,7 +133,7 @@ BEGIN
            pl_date_created dateCreated,
            pl_date_modified dateModified
     FROM plan
-    WHERE pl_id = id_plan;
+    WHERE pl_id = id_plan AND pl_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllPlans;
@@ -148,7 +149,8 @@ BEGIN
            pl_user_modified_fk userModifier,
            pl_date_created dateCreated,
            pl_date_modified dateModified
-    FROM plan;
+    FROM plan
+    WHERE pl_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getPlanById;
@@ -165,7 +167,7 @@ BEGIN
            pl_date_created dateCreated,
            pl_date_modified dateModified
     FROM plan
-    WHERE pl_id = plan_id;
+    WHERE pl_id = plan_id AND pl_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getPlanByName;
@@ -182,7 +184,7 @@ BEGIN
            pl_date_created dateCreated,
            pl_date_modified dateModified
     FROM plan
-    WHERE lower(pl_name) = plan_name;
+    WHERE lower(pl_name) = plan_name AND pl_deleted = 0;
 END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------

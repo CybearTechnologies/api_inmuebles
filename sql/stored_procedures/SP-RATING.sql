@@ -25,7 +25,7 @@ BEGIN
            ra_date_created dateCreated,
            ra_date_modified dateModified
     FROM rating
-    WHERE ra_id = last_insert_id();
+    WHERE ra_id = last_insert_id() AND ra_deleted = 0;
 END$$
 
 DELIMITER ;
@@ -38,11 +38,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE rating SET ra_score = score, ra_message = message,
                           ra_user_modified_fk = userModifier
-        WHERE ra_id = id;
+        WHERE ra_id = id AND ra_deleted = 0;
     ELSE
         UPDATE rating SET ra_score = score, ra_message = message,
                           ra_user_modified_fk = userModifier, ra_date_modified = dateModified
-        WHERE ra_id = id;
+        WHERE ra_id = id AND ra_deleted = 0;
     END IF;
     SELECT ra_id id,
            ra_score score,
@@ -55,7 +55,7 @@ BEGIN
            ra_date_created dateCreated,
            ra_date_modified dateModified
     FROM rating
-    WHERE ra_id = id;
+    WHERE ra_id = id AND ra_deleted = 0;
 END$$
 DELIMITER ;
 
@@ -74,7 +74,7 @@ BEGIN
            ra_date_created dateCreated,
            ra_date_modified dateModified
     FROM rating
-    WHERE ra_id = id;
+    WHERE ra_id = id AND ra_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteRatingById;
@@ -84,11 +84,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE rating
         SET ra_deleted = 1, ra_user_modified_fk = user
-        WHERE ra_id = id;
+        WHERE ra_id = id AND ra_deleted = 0;
     ELSE
         UPDATE rating
         SET ra_deleted = 1, ra_user_modified_fk = user, ra_date_modified = dateModified
-        WHERE ra_id = id;
+        WHERE ra_id = id AND ra_deleted = 0;
     END IF;
     SELECT ra_id id,
            ra_score score,
@@ -101,7 +101,7 @@ BEGIN
            ra_date_created dateCreated,
            ra_date_modified dateModified
     FROM rating
-    WHERE ra_id = id;
+    WHERE ra_id = id AND ra_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllRatingByUser;
@@ -119,7 +119,7 @@ BEGIN
            ra_date_created dateCreated,
            ra_date_modified dateModified
     FROM rating
-    WHERE ra_user_fk = id_user;
+    WHERE ra_user_fk = id_user AND ra_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllRating;
@@ -136,7 +136,8 @@ BEGIN
            ra_user_modified_fk userModifier,
            ra_date_created dateCreated,
            ra_date_modified dateModified
-    FROM rating;
+    FROM rating
+    WHERE ra_deleted = 0;
 END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------

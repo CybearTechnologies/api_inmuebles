@@ -30,7 +30,7 @@ BEGIN
            se_date_created dateCreated,
            se_date_modified dateModified
     FROM seat
-    WHERE se_id = last_insert_id();
+    WHERE se_id = last_insert_id() AND se_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS updateSeat;
@@ -41,11 +41,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE seat set se_name=name, se_rif=rif, se_location_fk=location,se_agency_fk=agency,
                         se_user_modified_fk=user
-        WHERE se_id = id;
+        WHERE se_id = id AND se_deleted = 0;
     ELSE
         UPDATE seat set se_name=name, se_rif=rif, se_location_fk=location,se_agency_fk=agency,
                         se_user_modified_fk=user, se_date_modified=dateModified
-        WHERE se_id = id;
+        WHERE se_id = id AND se_deleted = 0;
     END IF;
     SELECT se_id id,
            se_name name,
@@ -59,7 +59,7 @@ BEGIN
            se_date_created dateCreated,
            se_date_modified dateModified
     FROM seat
-    WHERE se_id = id;
+    WHERE se_id = id AND se_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllSeats;
@@ -77,7 +77,8 @@ BEGIN
            se_user_modified_fk userModifier,
            se_date_created dateCreated,
            se_date_modified dateModified
-    FROM seat;
+    FROM seat
+    WHERE se_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getSeatById;
@@ -96,7 +97,7 @@ BEGIN
            se_date_created dateCreated,
            se_date_modified dateModified
     FROM seat
-    WHERE se_id = id_seat;
+    WHERE se_id = id_seat AND se_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getSeatByName;

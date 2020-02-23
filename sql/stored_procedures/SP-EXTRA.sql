@@ -36,11 +36,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE extra
         SET ex_name=name, ex_icon=icon, ex_user_modified_fk=user
-        WHERE ex_id = id;
+        WHERE ex_id = id AND ex_deleted = 0;
     ELSE
         UPDATE extra
         SET ex_name=name, ex_icon=icon, ex_user_modified_fk=user, ex_date_modified=dateModified
-        WHERE ex_id = id;
+        WHERE ex_id = id AND ex_deleted = 0;;
     END IF;
     SELECT ex_id id,
            ex_name name,
@@ -52,7 +52,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = id;
+    WHERE ex_id = id AND ex_deleted = 0;;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllExtras;
@@ -104,7 +104,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = id_extra;
+    WHERE ex_id = id_extra AND ex_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllExtraByPropertyId;
@@ -126,7 +126,8 @@ BEGIN
     FROM extra ex,
          property_extra pe
     WHERE pe.pe_extra_fk = ex_id
-      AND pe.pe_property_fk = id_pr;
+    AND pe.pe_property_fk = id_pr
+    AND pe.pe_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteExtraById;
@@ -136,11 +137,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE extra
         SET ex_deleted = 1, ex_user_modified_fk = id_user
-        WHERE ex_id = id_extra;
+        WHERE ex_id = id_extra AND ex_deleted = 0;
     ELSE
         UPDATE extra
         SET ex_deleted = 1, ex_user_modified_fk = id_user, ex_date_modified=dateModified
-        WHERE ex_id = id_extra;
+        WHERE ex_id = id_extra AND ex_deleted = 0;
     END IF;
     SELECT ex_id id,
            ex_name name,
@@ -152,7 +153,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = id_extra;
+    WHERE ex_id = id_extra AND ex_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS inactiveExtraById;
@@ -162,11 +163,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE extra
         SET ex_active = 0, ex_user_modified_fk = id_user
-        WHERE ex_id = id_extra;
+        WHERE ex_id = id_extra AND ex_deleted = 0;
     ELSE
         UPDATE extra
         SET ex_active = 0, ex_user_modified_fk = id_user, ex_date_modified = dateModified
-        WHERE ex_id = id_extra;
+        WHERE ex_id = id_extra AND ex_deleted = 0;
     END IF;
     SELECT ex_id id,
            ex_name name,
@@ -178,7 +179,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = id_extra;
+    WHERE ex_id = id_extra AND ex_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS activeExtraById;
@@ -189,12 +190,12 @@ BEGIN
         UPDATE extra
         SET ex_active = 1,
             ex_user_modified_fk = id_user
-        WHERE ex_id = id_extra;
+        WHERE ex_id = id_extra AND ex_deleted = 0;
     ELSE
         UPDATE extra
         SET ex_active = 1,
             ex_user_modified_fk = id_user, ex_date_modified = dateModified
-        WHERE ex_id = id_extra;
+        WHERE ex_id = id_extra AND ex_deleted = 0;
     END IF;
     SELECT ex_id id,
            ex_name name,
@@ -206,7 +207,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = id_extra;
+    WHERE ex_id = id_extra AND ex_deleted = 0;
 END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------
