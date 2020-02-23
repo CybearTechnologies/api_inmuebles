@@ -41,7 +41,8 @@ BEGIN
            ac_user_modified_fk userModifier,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access;
+    FROM access
+    WHERE ac_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAccessByName;
@@ -58,7 +59,8 @@ BEGIN
            ac_date_created dateCreated,
            ac_date_modified dateModified
     FROM access
-    WHERE ac_name = name_access;
+    WHERE ac_name = name_access
+    AND ac_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAccessById;
@@ -75,7 +77,8 @@ BEGIN
            ac_date_created dateCreated,
            ac_date_modified dateModified
     FROM access
-    WHERE ac_id = id_access;
+    WHERE ac_id = id_access
+    AND ac_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAccessByAbbreviation;
@@ -92,7 +95,8 @@ BEGIN
            ac_date_created dateCreated,
            ac_date_modified dateModified
     FROM access
-    WHERE ac_abbreviation = abbreviation_access;
+    WHERE ac_abbreviation = abbreviation_access
+    AND ac_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteAccessById;
@@ -129,11 +133,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE access
         SET ac_active=0, ac_user_modified_fk=user
-        WHERE ac_id = id;
+        WHERE ac_id = id AND ac_deleted = 0;
     ELSE
         UPDATE access
         SET ac_active=0, ac_user_modified_fk=user, ac_date_modified=dateModified
-        WHERE ac_id = id;
+        WHERE ac_id = id AND ac_deleted = 0;
     END IF;
     SELECT ac_id id,
            ac_name name,
@@ -145,10 +149,9 @@ BEGIN
            ac_date_created dateCreated,
            ac_date_modified dateModified
     FROM access
-    WHERE ac_id = id;
+    WHERE ac_id = id
+    AND ac_deleted = 0;
 END$$
-
-
 /**
   ----------------------------------------------------------------------------------------------------------------------
   ---                                              END  ACCESS                                                       ---
