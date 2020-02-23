@@ -7,3 +7,4 @@ houston
 *.log
 *.lock
 .phpunit.result.cache
+*.sqlite
