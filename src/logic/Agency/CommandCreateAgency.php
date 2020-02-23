@@ -7,7 +7,7 @@ class CommandCreateAgency extends Command {
 	 * @param Agency $agency
 	 */
 	public function __construct ($agency) {
-		$this->_command = FactoryCommand::createGetAgencyByNameCommand($agency);
+		$this->_command = FactoryCommand::createCommandGetAgencyByName($agency);
 		$this->_dao = FactoryDao::createDaoAgency($agency);
 	}
 

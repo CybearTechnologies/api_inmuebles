@@ -340,6 +340,15 @@ class FactoryCommand {
 	/**
 	 * @param Agency $agency
 	 *
+	 * @return CommandGetAgencyByName
+	 */
+	public static function createCommandGetAgencyByName ($agency):CommandGetAgencyByName {
+		return new CommandGetAgencyByName($agency);
+	}
+	
+	/**
+	 * @param Agency $agency
+	 *
 	 * @return CommandDeleteAgencyById
 	 */
 	static function createCommandDeleteAgencyById ($agency):CommandDeleteAgencyById {
@@ -414,7 +423,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandUpdatePlan
 	 */
-	static function createUpdatePlanCommand ($plan):CommandUpdatePlan {
+	static function createCommandUpdatePlan ($plan):CommandUpdatePlan {
 		return new CommandUpdatePlan($plan);
 	}
 
@@ -423,7 +432,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandDeletePlanById
 	 */
-	static function createDeletePlanByIdCommand ($plan):CommandDeletePlanById {
+	static function createCommandDeletePlanById ($plan):CommandDeletePlanById {
 		return new CommandDeletePlanById($plan);
 	}
 
@@ -581,7 +590,7 @@ class FactoryCommand {
 	 *
 	 * @return GetAllExtrasByPropertyIdCommand
 	 */
-	static function createGetAllExtrasByPropertyIdCommand ($property):GetAllExtrasByPropertyIdCommand {
+	static function createCommandGetAllExtrasByPropertyId ($property):GetAllExtrasByPropertyIdCommand {
 		return new GetAllExtrasByPropertyIdCommand($property);
 	}
 
@@ -611,16 +620,15 @@ class FactoryCommand {
 	static function createCommandInactiveExtraById ($extra):CommandInactiveExtra {
 		return new CommandInactiveExtra($extra);
 	}
-
-	/**
-	 * PROPERTY
-	 */
+	//------------------------------------------------------------
+	//----------------------------PROPERTY-----------------------
+	//------------------------------------------------------------
 	/**
 	 * @param Property $property
 	 *
 	 * @return CommandCreateProperty
 	 */
-	static function createCreatePropertyCommand ($property):CommandCreateProperty {
+	static function createCommandCreateProperty ($property):CommandCreateProperty {
 		return new CommandCreateProperty($property);
 	}
 
@@ -632,10 +640,21 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param Property $property
+	 *
 	 * @return CommandGetAllUserProperties
 	 */
-	static function createCommandGetAllUserProperties ():CommandGetAllUserProperties {
-		return new CommandGetAllUserProperties();
+	static function createCommandGetAllUserProperties ($property):CommandGetAllUserProperties {
+		return new CommandGetAllUserProperties($property);
+	}
+
+	/**
+	 * @param Property $property
+	 *
+	 * @return CommandGetAllUserPropertiesByState
+	 */
+	static function createCommandGetAllUserPropertiesByState ($property):CommandGetAllUserPropertiesByState {
+		return new CommandGetAllUserPropertiesByState($property);
 	}
 
 	/**
@@ -650,14 +669,14 @@ class FactoryCommand {
 	 *
 	 * @return CommandDeletePropertyById
 	 */
-	static function createDeletePopertyByIdCommand ($property):CommandDeletePropertyById {
+	static function createCommandDeletePropertyById ($property):CommandDeletePropertyById {
 		return new CommandDeletePropertyById($property);
 	}
 
 	/**
 	 * @return CommandGetAllProperty
 	 */
-	static function createGetAllPropertyCommand ():CommandGetAllProperty {
+	static function createCommandGetAllProperty ():CommandGetAllProperty {
 		return new CommandGetAllProperty();
 	}
 
@@ -666,7 +685,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandGetPropertyById
 	 */
-	static function createGetPropertyByIdCommand ($property):CommandGetPropertyById {
+	static function createCommandGetPropertyById ($property):CommandGetPropertyById {
 		return new CommandGetPropertyById($property);
 	}
 	//------------------------------------------------------------
@@ -677,7 +696,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreateRating
 	 */
-	static function createCreateRatingByUserIdCommand ($rating):CommandCreateRating {
+	static function createCommandCreateRatingByUserId ($rating):CommandCreateRating {
 		return new CommandCreateRating($rating);
 	}
 
@@ -686,7 +705,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandDeleteRatingById
 	 */
-	static function createDeleteRatingByIdCommand ($rating):CommandDeleteRatingById {
+	static function createCommandDeleteRatingById ($rating):CommandDeleteRatingById {
 		return new CommandDeleteRatingById($rating);
 	}
 
@@ -695,7 +714,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandGetRatingById
 	 */
-	static function createGetRatingByIdCommand ($rating):CommandGetRatingById {
+	static function createCommandGetRatingById ($rating):CommandGetRatingById {
 		return new CommandGetRatingById($rating);
 	}
 
@@ -731,17 +750,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandGetAllRatingByUser
 	 */
-	static function createGetAllRatingByUserCommand ($user):CommandGetAllRatingByUser {
+	static function createCommandGetAllRatingByUser ($user):CommandGetAllRatingByUser {
 		return new CommandGetAllRatingByUser($user);
-	}
-
-	/**
-	 * @param Agency $agency
-	 *
-	 * @return CommandGetAgencyByName
-	 */
-	public static function createGetAgencyByNameCommand ($agency):CommandGetAgencyByName {
-		return new CommandGetAgencyByName($agency);
 	}
 
 	/**
@@ -749,7 +759,7 @@ class FactoryCommand {
 	 *
 	 * @return GetOriginByPublicKeyCommand
 	 */
-	public static function createGetOriginByPublicKeyCommand (Origin $origin) {
+	public static function createCommandGetOriginByPublicKey (Origin $origin) {
 		return new GetOriginByPublicKeyCommand($origin);
 	}
 }

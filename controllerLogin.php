@@ -8,7 +8,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (isset($post->user) && !Validate::isEmpty($post->user) && isset($post->password) &&
 			!Validate::isEmpty($post->password) && isset($post->origin) && !Validate::isEmpty($post->origin)) {
 			try {
-				$command = FactoryCommand::createGetOriginByPublicKeyCommand($post->origin);
+				$command = FactoryCommand::createCommandGetOriginByPublicKey($post->origin);
 				$command->execute();
 				$origin = $command->return();
 				//	Hash the password

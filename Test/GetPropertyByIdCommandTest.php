@@ -23,7 +23,7 @@ class GetPropertyByIdCommandTest extends TestCase {
 		parent::setUp();
 		$this->_property = FactoryEntity::createProperty(1, "Apartamento en los palos grandes", 125.23,
 			"bonito apartamento", 1, 0, 1, 1, 1, 1, "2019-11-24 00:00:00", "2019-11-24 20:41:07");
-		$this->_command = FactoryCommand::createGetPropertyByIdCommand($this->_property);
+		$this->_command = FactoryCommand::createCommandGetPropertyById($this->_property);
 	}
 
 	public function testReturn () {

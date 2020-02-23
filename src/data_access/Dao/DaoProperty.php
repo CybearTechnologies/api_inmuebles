@@ -1,7 +1,4 @@
 <?php
-
-
-
 class DaoProperty extends Dao {
 	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,
 								  :user,:dateCreated)";
@@ -11,17 +8,18 @@ class DaoProperty extends Dao {
 	private const QUERY_GET_BY_USER_CREATOR = "CALL getPropertiesByUserCreator(:id)";
 	private const QUERY_GET_BY_TYPE = "CALL getPropertiesByType(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id,:user)";
-	private const QUERY_INACTIVE_PROPERTY_BY_ID = "inactivePropertyById(:id,:user)";
-	private const QUERY_ACTIVE_PROPERTY_BY_ID = "activePropertyById(:id,:user)";
+	private const QUERY_INACTIVE_PROPERTY_BY_ID = "CALL inactivePropertyById(:id,:user)";
+	private const QUERY_ACTIVE_PROPERTY_BY_ID = "CALL activePropertyById(:id,:user)";
+	const QUERY_GET_BY_USER_CREATOR_AND_STATE = "CALL getPropertiesByUserCreatorAndState(:id,:state)";
 	private $_genericQuery = "SELECT pr.pr_id id, pr.pr_name 'name', pr.pr_area area, pr.pr_description description,
 	 									   pr.pr_floor floor, pr.pr_status 'status', pr.pr_active active, pr.pr_type 'type', 
 	 									   pr.pr_deleted 'delete', pr.pr_location location, 
-	 									   pr.pr_user_created_fk userCreated, pr.pr_date_created dateCreated,
-	 									   pr.pr_user_modified_fk userModified, pr.pr_date_modified dateModified,
+	 									   pr.pr_user_created_fk usercreated, pr.pr_date_created datecreated,
+	 									   pr.pr_user_modified_fk usermodified, pr.pr_date_modified datemodified,
 	 									   (SELECT pp_price FROM property_price WHERE pp_property_fk = pr.pr_id 
-	 									   ORDER BY pp_date_created DESC limit 1) lastPrice
+	 									   ORDER BY pp_date_created DESC LIMIT 1) lastprice
 	 									   FROM property pr  
-	 									   :tables :sentences ;";
+	 									   :TABLES :sentences ;";
 	private $_property;
 
 	/**
@@ -42,42 +40,48 @@ class DaoProperty extends Dao {
 	 *
 	 * @return string|string[]
 	 */
-	public function genericGetProperty($keyWord,$extraList,$minPrice,$maxPrice){
-		$first=0;
-		if((isset($keyWord))OR(isset($minPrice))OR(isset($maxPrice)) OR (isset($extraList) AND !(empty($extraList)))){
+	public function genericGetProperty ($keyWord, $extraList, $minPrice, $maxPrice) {
+		$first = 0;
+		if ((isset($keyWord)) OR (isset($minPrice)) OR (isset($maxPrice)) OR (isset($extraList) AND !(empty($extraList)))) {
 			$this->_genericQuery = str_replace(":sentences", "WHERE :sentences", $this->_genericQuery);
 		}
-		if(isset($minPrice) OR isset($maxPrice)) {
-			if($first == 0)
-				$first=1;
+		if (isset($minPrice) OR isset($maxPrice)) {
+			if ($first == 0)
+				$first = 1;
 			else
 				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
-			if(isset($minPrice))
-				$this->_genericQuery = str_replace(":sentences", "lastPrice >=".$minPrice." AND :sentences", $this->_genericQuery);
-			if(isset($maxPrice))
-				$this->_genericQuery = str_replace(":sentences", "lastPrice =<".$maxPrice." :sentences", $this->_genericQuery);
+			if (isset($minPrice))
+				$this->_genericQuery = str_replace(":sentences", "lastPrice >=" . $minPrice . " AND :sentences",
+					$this->_genericQuery);
+			if (isset($maxPrice))
+				$this->_genericQuery = str_replace(":sentences", "lastPrice =<" . $maxPrice . " :sentences",
+					$this->_genericQuery);
 		}
-		if(isset($extraList) AND !(empty($extraList))){
-			if($first == 0)
-				$first=1;
+		if (isset($extraList) AND !(empty($extraList))) {
+			if ($first == 0)
+				$first = 1;
 			else
 				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
-			$this->_genericQuery=str_replace(":tables",", property_extra pe, extra ex :tables",$this->_genericQuery);
-			$this->_genericQuery=str_replace(":sentences","pe.pe_property_fk = pr.pr_id AND
-			pe.pe_extra_dk = ex.ex_id AND( :sentences ",$this->_genericQuery);
-			$size=sizeof($extraList);
+			$this->_genericQuery = str_replace(":tables", ", property_extra pe, extra ex :tables",
+				$this->_genericQuery);
+			$this->_genericQuery = str_replace(":sentences", "pe.pe_property_fk = pr.pr_id AND
+			pe.pe_extra_dk = ex.ex_id AND( :sentences ", $this->_genericQuery);
+			$size = sizeof($extraList);
 			$i = 0;
 			foreach ($extraList as $extra) {
-				if($i==$size){
-					$this->_genericQuery = str_replace(":sentences", " ex.ex_name =".$extra." ) :sentences", $this->_genericQuery);
+				if ($i == $size) {
+					$this->_genericQuery = str_replace(":sentences", " ex.ex_name =" . $extra . " ) :sentences",
+						$this->_genericQuery);
 				}
 				else
-					$this->_genericQuery = str_replace(":sentences", " ex.ex_name =".$extra." OR :sentences", $this->_genericQuery);
+					$this->_genericQuery = str_replace(":sentences", " ex.ex_name =" . $extra . " OR :sentences",
+						$this->_genericQuery);
 				$i++;
 			}
 			$this->_genericQuery = str_replace(" OR :sentences", ")", $this->_genericQuery);
 		}
-		$this->_genericQuery=str_replace(":tables","",$this->_genericQuery);
+		$this->_genericQuery = str_replace(":tables", "", $this->_genericQuery);
+
 		return $this->_genericQuery;
 	}
 
@@ -211,9 +215,34 @@ class DaoProperty extends Dao {
 	 */
 	public function getPropertiesByUser () {
 		try {
-			$id = $this->_property->getId();
+			$id = $this->_property->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_CREATOR);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyNotFoundException("There are no property found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Property[]
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
+	 */
+	public function getPropertiesByUserAndState () {
+		try {
+			$id = $this->_property->getUserCreator();
+			$state = $this->_property->isActive();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_CREATOR_AND_STATE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":state", $state, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PropertyNotFoundException("There are no property found", 404);

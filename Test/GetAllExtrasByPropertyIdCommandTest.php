@@ -20,7 +20,7 @@ class GetAllExtrasByPropertyIdCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllExtrasByPropertyIdCommand(FactoryEntity::createProperty(1));
+		$this->_command = FactoryCommand::createCommandGetAllExtrasByPropertyId(FactoryEntity::createProperty(1));
 	}
 
 	public function testReturn () {

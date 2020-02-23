@@ -11,12 +11,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (isset($get->id) && is_numeric($get->id)) {
 			$property->setId($get->id);
-			$command = FactoryCommand::createGetPropertyByIdCommand($property);
+			$command = FactoryCommand::createCommandGetPropertyById($property);
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
 				if (isset($get->extras)) {
-					$command = FactoryCommand::createGetAllExtrasByPropertyIdCommand($property);
+					$command = FactoryCommand::createCommandGetAllExtrasByPropertyId($property);
 					try {
 						$command->execute();
 						$dto->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
@@ -51,7 +51,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createGetAllPropertyCommand();
+			$command = FactoryCommand::createCommandGetAllProperty();
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDTOArray($command->return());
@@ -71,7 +71,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));
 		if (isset($post->property) /*&& Validate::property($post->property)*/) {
-			$command = FactoryCommand::createCreatePropertyCommand($mapper->fromDTOToEntity($post->property));
+			$command = FactoryCommand::createCommandCreateProperty($mapper->fromDTOToEntity($post->property));
 			try {
 				$command->execute();
 				$post->property->id = $command->return()->getId();

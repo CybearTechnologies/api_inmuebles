@@ -20,7 +20,7 @@ class GetAllPropertyCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllPropertyCommand();
+		$this->_command = FactoryCommand::createCommandGetAllProperty();
 	}
 
 	public function testReturn () {

@@ -68,7 +68,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "DELETE":
 		if (Validate::id($get)) {
 			$plan = FactoryEntity::createPlan($get->id);
-			$command = FactoryCommand::createDeletePlanByIdCommand($plan);
+			$command = FactoryCommand::createCommandDeletePlanById($plan);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());

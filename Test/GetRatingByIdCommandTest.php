@@ -22,7 +22,7 @@ class GetRatingByIdCommandTest extends TestCase {
 	protected function setUp ():void {
 		parent::setUp();
 		$this->_rating = FactoryEntity::createRating(1, 4, "Buen trabajo", 1);
-		$this->_command = FactoryCommand::createGetRatingByIdCommand($this->_rating);
+		$this->_command = FactoryCommand::createCommandGetRatingById($this->_rating);
 	}
 
 	public function testReturn () {

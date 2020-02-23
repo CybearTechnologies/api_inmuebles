@@ -32,6 +32,6 @@ class GetAgencyByNameCommandTest extends TestCase {
 		parent::setUp();
 		$this->_agency = FactoryEntity::createAgency(1, "Century21", 1, 0, 1, 1, "2019-11-24 20:40:14",
 			"2019-11-24 20:40:14");
-		$this->_command = FactoryCommand::createGetAgencyByNameCommand($this->_agency);
+		$this->_command = FactoryCommand::createCommandGetAgencyByName($this->_agency);
 	}
 }
