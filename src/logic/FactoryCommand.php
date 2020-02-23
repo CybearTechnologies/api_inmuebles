@@ -618,10 +618,10 @@ class FactoryCommand {
 	/**
 	 * @param Property $property
 	 *
-	 * @return CreatePropertyCommand
+	 * @return CommandCreateProperty
 	 */
-	static function createCreatePropertyCommand ($property):CreatePropertyCommand {
-		return new CreatePropertyCommand($property);
+	static function createCreatePropertyCommand ($property):CommandCreateProperty {
+		return new CommandCreateProperty($property);
 	}
 
 	/**
@@ -648,26 +648,26 @@ class FactoryCommand {
 	/**
 	 * @param Property $property
 	 *
-	 * @return DeletePropertyByIdCommand
+	 * @return CommandDeletePropertyById
 	 */
-	static function createDeletePopertyByIdCommand ($property):DeletePropertyByIdCommand {
-		return new DeletePropertyByIdCommand($property);
+	static function createDeletePopertyByIdCommand ($property):CommandDeletePropertyById {
+		return new CommandDeletePropertyById($property);
 	}
 
 	/**
-	 * @return GetAllPropertyCommand
+	 * @return CommandGetAllProperty
 	 */
-	static function createGetAllPropertyCommand ():GetAllPropertyCommand {
-		return new GetAllPropertyCommand();
+	static function createGetAllPropertyCommand ():CommandGetAllProperty {
+		return new CommandGetAllProperty();
 	}
 
 	/**
 	 * @param Property $property
 	 *
-	 * @return GetPropertyByIdCommand
+	 * @return CommandGetPropertyById
 	 */
-	static function createGetPropertyByIdCommand ($property):GetPropertyByIdCommand {
-		return new GetPropertyByIdCommand($property);
+	static function createGetPropertyByIdCommand ($property):CommandGetPropertyById {
+		return new CommandGetPropertyById($property);
 	}
 	//------------------------------------------------------------
 	//----------------------------RATING---------------------------
