@@ -33,10 +33,10 @@ CREATE PROCEDURE updateRol(id int,name varchar(45), active tinyint, user int,dat
 BEGIN
     IF IsNull(dateModified)THEN
         UPDATE rol SET ro_name=name,ro_active=active,ro_user_modified_fk=user
-        WHERE ro_id=id;
+        WHERE ro_id=id AND ro_deleted = 0;
     ELSE
         UPDATE rol SET ro_name=name,ro_active=active,ro_user_modified_fk=user,ro_date_modified=dateModified
-        WHERE ro_id=id;
+        WHERE ro_id=id AND ro_deleted = 0;
     END IF;
     SELECT ro_id id,
            ro_name name,
@@ -47,7 +47,7 @@ BEGIN
            ro_user_modified_fk userModifier,
            ro_date_modified dateModified
     FROM rol
-    WHERE ro_id = id;
+    WHERE ro_id = id AND ro_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getRolById;
@@ -63,7 +63,7 @@ BEGIN
            ro_user_modified_fk userModifier,
            ro_date_modified dateModified
     FROM rol
-    WHERE ro_id = id;
+    WHERE ro_id = id AND ro_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteRolById;
@@ -74,12 +74,12 @@ BEGIN
         UPDATE rol
         SET ro_deleted = 1,
             ro_user_modified_fk = user
-        WHERE ro_id = id;
+        WHERE ro_id = id AND ro_deleted = 0;
     ELSE
         UPDATE rol
         SET ro_deleted = 1,
             ro_user_modified_fk = user, ro_date_modified = dateModified
-        WHERE ro_id = id;
+        WHERE ro_id = id AND ro_deleted = 0;
     END IF;
     SELECT ro_id id,
            ro_name name,
@@ -90,7 +90,7 @@ BEGIN
            ro_user_modified_fk userModifier,
            ro_date_modified dateModified
     FROM rol
-    WHERE ro_id = id;
+    WHERE ro_id = id AND ro_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllRols;
@@ -105,9 +105,9 @@ BEGIN
            ro_date_created dateCreated,
            ro_user_modified_fk userModifier,
            ro_date_modified dateModified
-    FROM rol;
+    FROM rol
+    WHERE ro_deleted = 0;
 END$$
-
 
 /**
  ----------------------------------------------------------------------------------------------------------------------
