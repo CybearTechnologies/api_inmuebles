@@ -17,11 +17,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (AccessNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_ACCESS_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_ACCESS_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		else {
@@ -33,11 +33,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (AccessNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ACCESS_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ACCESS_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		echo json_encode($return);
@@ -54,11 +54,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (AccessAlreadyExistException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_ACCESS_ALREADY_EXIST"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_ACCESS_ALREADY_EXIST"));
 			}
 		}
 		else {
@@ -78,11 +78,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (AccessNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ACCESS_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ACCESS_NOT_FOUND"));
 			}
 		}
 		else {
@@ -92,6 +92,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	default:
-		Tools::setResponse(404);
+		Tools::setResponse(405);
 		break;
 }

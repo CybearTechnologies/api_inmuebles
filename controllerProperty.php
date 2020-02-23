@@ -42,11 +42,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (PropertyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 			}
 			echo json_encode($return);
 		}
@@ -59,11 +59,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (PropertyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTIES_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_PROPERTIES_NOT_FOUND"));
 			}
 			echo json_encode($return);
 		}
@@ -87,15 +87,18 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (InvalidPropertyPriceException $e) {
 			}
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
-			Tools::setResponse(500);
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
 		}
 		echo json_encode($return);
+		break;
+	default:
+		Tools::setResponse(405);
 		break;
 }

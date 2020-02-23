@@ -9,19 +9,17 @@ class Tools {
 	 * Headers Control
 	 */
 	public static function headers () {
-		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 		header('Content-Type: application/json');
+		header("Access-Control-Allow-Origin: *");
 		switch ($_SERVER['REQUEST_METHOD']) {
 			case 'GET':
 				header("Access-Control-Allow-Headers: access");
-				header("Access-Control-Allow-Origin: *");
 				header("Access-Control-Allow-Credentials: true");
 				break;
 			case 'POST' | 'PUT' | 'DELETE':
-				header("Access-Control-Allow-Origin: *");
 				header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 				header("Access-Control-Max-Age: 3600");
-				header("Content-Type: application/json; charset=UTF-8");
 				break;
 		}
 	}

@@ -16,11 +16,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
 			}
 		}
 		if (isset($get->state)) {
@@ -40,11 +40,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
 			}
 		}
 		else {
@@ -56,11 +56,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRAS_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_EXTRAS_NOT_FOUND"));
 			}
 		}
 		echo json_encode($return);
@@ -76,12 +76,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
-			Tools::setResponse(500);
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
 		}
 		echo json_encode($return);
 		break;
@@ -96,12 +96,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
-			Tools::setResponse(500);
+			Tools::setResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
 		}
 		echo json_encode($return);
 		break;
@@ -116,11 +116,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
 			}
 		}
 		elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "active") {
@@ -132,11 +132,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
 			}
 		}
 		elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "inactive") {
@@ -148,20 +148,20 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
 			}
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
-			Tools::setResponse(500);
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
 		}
 		echo json_encode($return);
 		break;
 	default:
-		Tools::setResponse(404);
+		Tools::setResponse(405);
 		break;
 }

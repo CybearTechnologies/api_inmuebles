@@ -6,7 +6,45 @@
  */
 class FactoryCommand {
 	//------------------------------------------------------------
-	//----------------------------USER---------------------------
+	//----------------------------RolAccess-----------------------
+	//------------------------------------------------------------
+	/**
+	 * @param RolAccess $rolAccess
+	 *
+	 * @return CommandCreateRolAccess
+	 */
+	static function createCommandCreateRolAccess (RolAccess $rolAccess):CommandCreateRolAccess {
+		return new CommandCreateRolAccess($rolAccess);
+	}
+
+	/**
+	 * @param RolAccess $rolAccess
+	 *
+	 * @return CommandGetAccessByRol
+	 */
+	static function createCommandGetAccessByRol (RolAccess $rolAccess):CommandGetAccessByRol {
+		return new CommandGetAccessByRol($rolAccess);
+	}
+
+	/**
+	 * @param RolAccess $rolAccess
+	 *
+	 * @return CommandActivateRolAccessById
+	 */
+	static function createCommandActivateRolAccess (RolAccess $rolAccess):CommandActivateRolAccessById {
+		return new CommandActivateRolAccessById($rolAccess);
+	}
+
+	/**
+	 * @param RolAccess $rolAccess
+	 *
+	 * @return CommandDeactivateRolAccessById
+	 */
+	static function createCommandDeactivateRolAccess (RolAccess $rolAccess):CommandDeactivateRolAccessById {
+		return new CommandDeactivateRolAccessById($rolAccess);
+	}
+	//------------------------------------------------------------
+	//----------------------------USER----------------------------
 	//------------------------------------------------------------
 	/**
 	 * @param User $user
@@ -26,7 +64,7 @@ class FactoryCommand {
 		return new CommandGetUserByUsername($user);
 	}
 	//------------------------------------------------------------
-	//----------------------------ROL---------------------------
+	//----------------------------ROL----------------------------
 	//------------------------------------------------------------
 	/**
 	 * @param Rol $rol
@@ -62,7 +100,7 @@ class FactoryCommand {
 		return new CommandDeleteRol($rol);
 	}
 	//------------------------------------------------------------
-	//----------------------------REQUEST---------------------------
+	//----------------------------REQUEST-------------------------
 	//------------------------------------------------------------
 	/**
 	 * @param Request $request
@@ -117,7 +155,7 @@ class FactoryCommand {
 	}
 
 	//------------------------------------------------------------
-	//----------------------------LOCATION---------------------------
+	//----------------------------LOCATION------------------------
 	//------------------------------------------------------------
 	/**
 	 * @param Location $location
@@ -137,7 +175,7 @@ class FactoryCommand {
 		return new CommandGetLocationsByType($location);
 	}
 	//------------------------------------------------------------
-	//----------------------------ACCESS---------------------------
+	//----------------------------ACCESS--------------------------
 	//------------------------------------------------------------
 	/**
 	 * @param Access $access
@@ -584,6 +622,27 @@ class FactoryCommand {
 	 */
 	static function createCreatePropertyCommand ($property):CreatePropertyCommand {
 		return new CreatePropertyCommand($property);
+	}
+
+	/**
+	 * @return CommandGetAllActiveProperties
+	 */
+	static function createCommandGetAllActiveProperties ():CommandGetAllActiveProperties {
+		return new CommandGetAllActiveProperties();
+	}
+
+	/**
+	 * @return CommandGetAllUserProperties
+	 */
+	static function createCommandGetAllUserProperties ():CommandGetAllUserProperties {
+		return new CommandGetAllUserProperties();
+	}
+
+	/**
+	 * @return CommandGetAllPropertiesByType
+	 */
+	static function createCommandGetAllPropertiesByType ():CommandGetAllPropertiesByType {
+		return new CommandGetAllPropertiesByType();
 	}
 
 	/**

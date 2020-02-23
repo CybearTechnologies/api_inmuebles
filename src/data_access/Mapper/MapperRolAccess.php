@@ -1,14 +1,19 @@
 <?php
 class MapperRolAccess extends Mapper {
 	/**
-	 * @inheritDoc
+	 * @param DtoRolAccess $dto
+	 *
+	 * @return RolAccess
 	 */
 	public function fromDtoToEntity ($dto):Entity {
+		if (!isset($dto->accessName)) $dto->accessName = "";
 		return FactoryEntity::createRolAccess($dto->id, $dto->rol, $dto->access, $dto->accessName);
 	}
 
 	/**
-	 * @inheritDoc
+	 * @param RolAccess $entity
+	 *
+	 * @return DtoRolAccess
 	 */
 	public function fromEntityToDto ($entity):Dto {
 		return FactoryDto::createDtoRolAccess($entity->getId(), $entity->getRol(), $entity->getAccess(),

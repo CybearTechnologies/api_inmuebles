@@ -13,7 +13,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command->execute();
 				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($get->seats)) {
+				if (empty($dto->seats)) {
 					$command = FactoryCommand::createCommandGetAllSeatsByAgency($agency);
 					try {
 						$command->execute();
@@ -23,18 +23,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						unset($dto->seats);
 					}
 				}
-				else
-					unset($dto->seats);
 				$return = $dto;
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (AgencyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
 			}
 			echo json_encode($return);
 		}
@@ -47,11 +45,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (AgencyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_AGENCIES_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_AGENCIES_NOT_FOUND"));
 			}
 			echo json_encode($return);
 		}
@@ -66,12 +64,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse();
 			}
 			catch (AgencyAlreadyExistException $exception) {
-				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_ALREADY_EXIST"));
-				Tools::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText('ERROR_AGENCY_ALREADY_EXIST'));
+				Tools::setResponse(Values::getValue('ERROR_AGENCY_ALREADY_EXIST'));
 			}
 			catch (DatabaseConnectionException $exception) {
-				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				$return = new ErrorResponse(Values::getText('ERROR_DATABASE'));
+				Tools::setResponse(Values::getValue('ERROR_DATABASE'));
 			}
 		}
 		else {
@@ -90,16 +88,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (AgencyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
 			}
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
-			Tools::setResponse(500);
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
 		}
 		echo json_encode($return);
 		break;
@@ -114,11 +112,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (AgencyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
@@ -130,11 +128,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (AgencyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "inactive") {
@@ -146,11 +144,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (AgencyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		else {
@@ -160,6 +158,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	default:
-		Tools::setResponse(404);
+		Tools::setResponse(405);
 		break;
 }

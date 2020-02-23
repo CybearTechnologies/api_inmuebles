@@ -5,8 +5,11 @@
 class DaoProperty extends Dao {
 	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,
 								  :user,:dateCreated)";
-	private const QUERY_GET_ALL = "CALL getAllProperty()";
+	private const QUERY_GET_ALL_ACTIVES = "CALL getAllPropertyActives()";
+	private const QUERY_GET_ALL_PROPERTIES = "CALL getAllProperty()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id)";
+	private const QUERY_GET_BY_USER_CREATOR = "CALL getPropertiesByUserCreator(:id)";
+	private const QUERY_GET_BY_TYPE = "CALL getPropertiesByType(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id,:user)";
 	private const QUERY_INACTIVE_PROPERTY_BY_ID = "inactivePropertyById(:id,:user)";
 	private const QUERY_ACTIVE_PROPERTY_BY_ID = "activePropertyById(:id,:user)";
@@ -120,7 +123,28 @@ class DaoProperty extends Dao {
 	 */
 	public function getAllProperty () {
 		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL_PROPERTIES);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyNotFoundException("There are no property found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Property[]
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
+	 */
+	public function getAllActiveProperties () {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL_ACTIVES);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PropertyNotFoundException("There are no property found", 404);
@@ -149,6 +173,52 @@ class DaoProperty extends Dao {
 				Throw new PropertyNotFoundException("There are no property found", 404);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Property[]
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
+	 */
+	public function getPropertiesByType () {
+		try {
+			$id = $this->_property->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_TYPE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyNotFoundException("There are no property found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Property[]
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
+	 */
+	public function getPropertiesByUser () {
+		try {
+			$id = $this->_property->getId();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_CREATOR);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyNotFoundException("There are no property found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 			}
 		}
 		catch (PDOException $exception) {
