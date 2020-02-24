@@ -5,11 +5,10 @@ class CommandGetPropertyPriceByPropertyId extends Command {
 	/**
 	 * CommandGetPropertyPriceByPropertyId constructor.
 	 *
-	 * @param int $property
+	 * @param PropertyPrice $propertyPrice
 	 */
-	public function __construct (int $property) {
-		$this->_dao = FactoryDao::createDaoPropertyPrice();
-		$this->_property = $property;
+	public function __construct ($propertyPrice) {
+		$this->_dao = FactoryDao::createDaoPropertyPrice($propertyPrice);
 	}
 
 	/**
@@ -17,7 +16,7 @@ class CommandGetPropertyPriceByPropertyId extends Command {
 	 * @throws InvalidPropertyPriceException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertyPriceByPropertyId($this->_property));
+		$this->setData($this->_dao->getPropertyPriceByPropertyId());
 	}
 
 	/**

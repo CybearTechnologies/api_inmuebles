@@ -21,7 +21,8 @@ class MapperProperty extends Mapper {
 	 */
 	public function fromEntityToDto ($entity):Dto {
 		$commandGetAllExtras = FactoryCommand::createCommandGetAllExtrasByPropertyId($entity);
-		$commandGetPropertyPrice = FactoryCommand::createGetPropertyPriceByPropertyIdCommand($entity);
+		$commandGetPropertyPrice = FactoryCommand::createCommandGetPropertyPriceByPropertyId(FactoryEntity::createPropertyPrice(-1,
+			-1, 1, $entity->getId()));
 		$mapperExtra = FactoryMapper::createMapperExtra();
 		$mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
 		$extras = [];

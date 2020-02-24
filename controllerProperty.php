@@ -21,7 +21,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$command->execute();
 						$dto->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
 						if (isset($get->price)) {
-							$command = FactoryCommand::createGetPropertyPriceByPropertyIdCommand($property);
+							$command = FactoryCommand::createCommandGetPropertyPriceByPropertyId(FactoryEntity::createPropertyPrice(-1,
+								-1, false, $property->getId()));
 							try {
 								$command->execute();
 								$dto->price = $mapperPropertyPrice->fromEntityArrayToDtoArray($command->return());
