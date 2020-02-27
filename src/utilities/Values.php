@@ -8,6 +8,9 @@ class Values {
 	private const VALUES = array (
 		'ACTIVE' => array ('text' => 'Active', 'value' => 1),
 		'INACTIVE' => array ('text' => 'Inactive', 'value' => 0),
+		//IMAGE
+		'ERROR_FILE_IS_NOT_IMAGE' => array ('text' => 'El archivo no es una imagen', 'value' => 400),
+		'ERROR_IMAGE_NOT_FOUND' => array ('text' => 'Imagen no encontrada', 'value' => 404),
 		//	GENERAL ERRORS
 		'ERROR_DATA_INCOMPLETE' => array ('text' => 'Datos incompletos', 'value' => 400),
 		'ERROR_DATABASE' => array ('text' => 'Error de comunicación', 'value' => 403),

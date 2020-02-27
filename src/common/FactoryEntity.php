@@ -363,4 +363,15 @@ class FactoryEntity {
 		return new RolAccess($id, $rol, $access, $accessName, $userCreator, $userModifier, $dateCreated, $dateModified,
 			$active, $delete);
 	}
+
+	/**
+	 * @param string $filename
+	 *
+	 * @return ResizeImage
+	 * @throws FileIsNotImageException
+	 * @throws ImageNotFoundException
+	 */
+	static function createResizeImage ($filename = null):ResizeImage {
+		return new ResizeImage($filename);
+	}
 }

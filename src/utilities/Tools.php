@@ -103,4 +103,28 @@ class Tools {
 	public static function setResponse ($responseCode = 200) {
 		http_response_code($responseCode);
 	}
+
+	/**
+	 * @param $string
+	 *
+	 * @return string|string[]
+	 */
+	public static function cleanToFile ($string) {
+		$string = str_replace(array ('&aacute;', 'á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+			array ('a', 'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'), $string);
+		$string = str_replace(array ('&eacute;', 'é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+			array ('e', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'), $string);
+		$string = str_replace(array ('&iacute;', 'í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+			array ('i', 'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'), $string);
+		$string = str_replace(array ('&oacute;', 'ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+			array ('o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'), $string);
+		$string = str_replace(array ('&uacute;', 'ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+			array ('u', 'u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'), $string);
+		$string = str_replace(array ('ç', 'Ç'), array ('c', 'C'), $string);
+		$cleanName = str_replace(array("/", "\\", "-", "+", "'", '"', '(', ')', '{', '}', '[', ']',
+			'.', ',', '?', ';', ':', '#', '@', '~', '`', '|', '&', '%', '^', '*', '_', '='), "", strtolower($string));
+		$cleanName = str_replace(" ", "-", strtolower($cleanName));
+
+		return $cleanName;
+	}
 }
