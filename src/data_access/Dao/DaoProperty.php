@@ -16,7 +16,7 @@ class DaoProperty extends Dao {
 	 								 pr.pr_deleted 'delete', pr.pr_location_fk location, 
 	 							     pr.pr_user_created_fk userCreated, pr.pr_date_created dateCreated,
 	 								 pr.pr_user_modified_fk userModified, pr.pr_date_modified dateModified
-	 						  FROM property pr :sentences ;";
+	 						  FROM property pr :sentences GROUP BY pr.pr_id;";
 	private $_property;
 
 	/**
@@ -52,7 +52,7 @@ class DaoProperty extends Dao {
                  pp4.pp_id=(SELECT pp2.pp_id price FROM property_price pp2
                  WHERE pr.pr_id = pp2.pp_property_fk
                  ORDER BY pp2.pp_date_created DESC limit 1) :sentences2
-                 ) :sentences GROUP BY pr.pr_id", $this->_genericQuery);
+                 ) :sentences", $this->_genericQuery);
 			if(isset($minPrice))
 				$this->_genericQuery = str_replace(":sentences2", "AND pp4.pp_price>=".$minPrice." :sentences2", $this->_genericQuery);
 			if(isset($maxPrice))
@@ -77,6 +77,14 @@ class DaoProperty extends Dao {
 				else
 					$this->_genericQuery = str_replace(":sentences2", " ex2.ex_name ='".$extra."' OR :sentences2 ", $this->_genericQuery);
 			}
+		}
+		if(isset($keyWord)){
+			if ($first==1) {
+				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
+				//$first=1;
+			}
+			$this->_genericQuery=str_replace(":sentences","((INSTR(pr.pr_name, '".$keyWord."') > 0) 
+			OR (INSTR(pr.pr_description, '".$keyWord."') > 0)) :sentences",$this->_genericQuery);
 		}
 		$this->_genericQuery=str_replace(":tables","",$this->_genericQuery);
 		$this->_genericQuery=str_replace(":sentences","",$this->_genericQuery);
