@@ -3,11 +3,13 @@ class PropertyExtra extends Entity {
 	private $_value;
 	private $_extraId;
 	private $_propertyId;
+	private $_name;
 
 	/**
 	 * PropertyExtra constructor.
 	 *
 	 * @param int    $id
+	 * @param string $name
 	 * @param int    $value
 	 * @param int    $propertyId
 	 * @param int    $extraId
@@ -18,12 +20,27 @@ class PropertyExtra extends Entity {
 	 * @param bool   $active
 	 * @param bool   $delete
 	 */
-	public function __construct (int $id, int $value, int $propertyId, int $extraId, int $userCreator,
+	public function __construct (int $id, string $name, int $value, int $propertyId, int $extraId, int $userCreator,
 		int $userModifier, string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_value = $value;
 		$this->_propertyId = $propertyId;
 		$this->_extraId = $extraId;
+		$this->_name = $name;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getName ():string {
+		return $this->_name;
+	}
+
+	/**
+	 * @param string $name
+	 */
+	public function setName (string $name):void {
+		$this->_name = $name;
 	}
 
 	/**
@@ -67,5 +84,4 @@ class PropertyExtra extends Entity {
 	public function setPropertyId (int $propertyId):void {
 		$this->_propertyId = $propertyId;
 	}
-	#
 }

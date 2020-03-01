@@ -15,6 +15,15 @@ class FactoryDao {
 	}
 
 	/**
+	 * @param null $propertyExtra
+	 *
+	 * @return DaoPropertyExtra
+	 */
+	static function createDaoPropertyExtra($propertyExtra = null):DaoPropertyExtra{
+		return new DaoPropertyExtra($propertyExtra);
+	}
+
+	/**
 	 * @param Plan|null $plan
 	 *
 	 * @return DaoPlan
