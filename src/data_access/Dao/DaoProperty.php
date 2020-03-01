@@ -13,15 +13,13 @@ class DaoProperty extends Dao {
 	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id,:user)";
 	private const QUERY_INACTIVE_PROPERTY_BY_ID = "inactivePropertyById(:id,:user)";
 	private const QUERY_ACTIVE_PROPERTY_BY_ID = "activePropertyById(:id,:user)";
-	private $_genericQuery = "SELECT pr.pr_id id, pr.pr_name 'name', pr.pr_area area, pr.pr_description description,
-	 									   pr.pr_floor floor, pr.pr_status 'status', pr.pr_active active, pr.pr_type 'type', 
-	 									   pr.pr_deleted 'delete', pr.pr_location location, 
-	 									   pr.pr_user_created_fk userCreated, pr.pr_date_created dateCreated,
-	 									   pr.pr_user_modified_fk userModified, pr.pr_date_modified dateModified,
-	 									   (SELECT pp_price FROM property_price WHERE pp_property_fk = pr.pr_id 
-	 									   ORDER BY pp_date_created DESC limit 1) lastPrice
-	 									   FROM property pr  
-	 									   :tables :sentences ;";
+	private $_genericQuery = "SELECT pr.pr_id id, pr.pr_name 'name', pr.pr_area area, 
+								     pr.pr_description description, pr.pr_floor floor, 
+								     pr.pr_status 'status', pr.pr_active active, pr.pr_type_fk 'type', 
+	 								 pr.pr_deleted 'delete', pr.pr_location_fk location, 
+	 							     pr.pr_user_created_fk userCreated, pr.pr_date_created dateCreated,
+	 								 pr.pr_user_modified_fk userModified, pr.pr_date_modified dateModified
+	 						  FROM property pr :sentences ;";
 	private $_property;
 
 	/**
@@ -48,36 +46,31 @@ class DaoProperty extends Dao {
 			$this->_genericQuery = str_replace(":sentences", "WHERE :sentences", $this->_genericQuery);
 		}
 		if(isset($minPrice) OR isset($maxPrice)) {
-			if($first == 0)
-				$first=1;
-			else
-				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
+			$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
+			$this->_genericQuery = str_replace(":sentences", "pr.pr_id =(Select pp4.pp_property_fk From property_price pp4 WHERE
+                 pp4.pp_id=(SELECT pp2.pp_id price FROM property_price pp2
+                 WHERE pr.pr_id = pp2.pp_property_fk
+                 ORDER BY pp2.pp_date_created DESC limit 1) :sentences2
+                 ) :sentences GROUP BY pr.pr_id", $this->_genericQuery);
 			if(isset($minPrice))
-				$this->_genericQuery = str_replace(":sentences", "lastPrice >=".$minPrice." AND :sentences", $this->_genericQuery);
+				$this->_genericQuery = str_replace(":sentences2", "AND pp4.pp_price>=".$minPrice." :sentences2", $this->_genericQuery);
 			if(isset($maxPrice))
-				$this->_genericQuery = str_replace(":sentences", "lastPrice =<".$maxPrice." :sentences", $this->_genericQuery);
+				$this->_genericQuery = str_replace(":sentences2", "AND pp4.pp_price<=10000000".$maxPrice." ", $this->_genericQuery);
+			$this->_genericQuery = str_replace(":sentences2", "", $this->_genericQuery);
 		}
 		if(isset($extraList) AND !(empty($extraList))){
-			if($first == 0)
-				$first=1;
-			else
-				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
-			$this->_genericQuery=str_replace(":tables",", property_extra pe, extra ex :tables",$this->_genericQuery);
-			$this->_genericQuery=str_replace(":sentences","pe.pe_property_fk = pr.pr_id AND
-			pe.pe_extra_dk = ex.ex_id AND( :sentences ",$this->_genericQuery);
+			$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
 			$size=sizeof($extraList);
-			$i = 0;
+			$this->_genericQuery=str_replace(":sentences","(Select count(*) 
+			FROM property_extra pe2,extra ex2 
+			WHERE pr.pr_id = pe2.pe_property_fk AND pe2.pe_extra_fk=ex2.ex_id
+       		AND ( :sentences2 ))=".$size." :sentences",$this->_genericQuery);
 			foreach ($extraList as $extra) {
-				if($i==$size){
-					$this->_genericQuery = str_replace(":sentences", " ex.ex_name =".$extra." ) :sentences", $this->_genericQuery);
-				}
-				else
-					$this->_genericQuery = str_replace(":sentences", " ex.ex_name =".$extra." OR :sentences", $this->_genericQuery);
-				$i++;
+				$this->_genericQuery = str_replace(":sentences2", " ex2.ex_name =".$extra." OR :sentences", $this->_genericQuery);
 			}
-			$this->_genericQuery = str_replace(" OR :sentences", ")", $this->_genericQuery);
 		}
 		$this->_genericQuery=str_replace(":tables","",$this->_genericQuery);
+		$this->_genericQuery=str_replace(":sentences","",$this->_genericQuery);
 		return $this->_genericQuery;
 	}
 
