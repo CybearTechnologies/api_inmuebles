@@ -78,7 +78,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$post->property->id = $command->return()->getId();
 				$propertyPrice = $mapperPropertyPrice->fromDtoArrayToEntityArray($post->property->price);
 				/** @var PropertyPrice[] $propertyPrice */
-				$command = FactoryCommand::createCreatePropertyPriceByPropertyCommand($propertyPrice);
+				$command = FactoryCommand::createCommandCreatePropertyPrice($propertyPrice[0]);
 				$command->execute();
 				if (isset($post->property->extras)) {
 					$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);

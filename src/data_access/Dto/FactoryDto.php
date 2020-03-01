@@ -322,6 +322,7 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
+	 * @param string $name
 	 * @param int    $value
 	 * @param int    $propertyId
 	 * @param int    $extraId
@@ -334,10 +335,12 @@ class FactoryDto {
 	 *
 	 * @return DtoPropertyExtra
 	 */
-	static function createDtoPropertyExtra (int $id, int $value, int $propertyId, int $extraId, bool $active,
+	static function createDtoPropertyExtra (int $id, string $name = Values::DEFAULT_STRING, int $value, int $propertyId,
+		int $extraId, bool $active,
 		bool $delete,
 		int $userCreator, int $userModifier, string $dateCreated, string $dateModified):DtoPropertyExtra {
-		return new DtoPropertyExtra($id, $value, $propertyId, $extraId, $active, $delete, $userCreator, $userModifier,
+		return new DtoPropertyExtra($id, $name, $value, $propertyId, $extraId, $active, $delete, $userCreator,
+			$userModifier,
 			$dateCreated, $dateModified);
 	}
 

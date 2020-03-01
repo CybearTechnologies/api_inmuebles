@@ -23,22 +23,24 @@ class MapperProperty extends Mapper {
 		$commandGetAllExtras = FactoryCommand::createCommandGetAllExtrasByPropertyId($entity);
 		$commandGetPropertyPrice = FactoryCommand::createCommandGetPropertyPriceByPropertyId(FactoryEntity::createPropertyPrice(-1,
 			-1, 1, $entity->getId()));
-		$mapperExtra = FactoryMapper::createMapperExtra();
+		$mapperPropertyExtra = FactoryMapper::createMapperPropertyExtra();
 		$mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
 		$extras = [];
 		$propertyPrice = [];
 		try {
 			$commandGetAllExtras->execute();
-			$extras = $mapperExtra->fromEntityArrayToDtoArray($commandGetAllExtras->return());
+			$extras = $mapperPropertyExtra->fromEntityArrayToDtoArray($commandGetAllExtras->return());
 			$commandGetPropertyPrice->execute();
 			$propertyPrice = $mapperPropertyPrice->fromEntityArrayToDtoArray($commandGetPropertyPrice->return());
 		}
 		catch (DatabaseConnectionException $exception) {
 			Logger::exception($exception, Logger::ERROR);
 		}
-		catch (ExtraNotFoundException $exception) {
-		}
 		catch (InvalidPropertyPriceException $e) {
+
+		}
+		catch (PropertyExtraNotFoundException $e) {
+
 		}
 
 		return FactoryDto::createDtoProperty($entity->getId(),

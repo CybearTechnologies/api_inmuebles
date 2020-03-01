@@ -321,6 +321,7 @@ class FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param int    $value
+	 * @param string $name
 	 * @param int    $propertyId
 	 * @param int    $extraId
 	 * @param int    $userCreator
@@ -332,12 +333,13 @@ class FactoryEntity {
 	 *
 	 * @return PropertyExtra
 	 */
-	static function createPropertyExtra (int $id, int $value = Values::DEFAULT_INT,
+	static function createPropertyExtra (int $id, string $name = Values::DEFAULT_STRING,
+		int $value = Values::DEFAULT_INT,
 		int $propertyId = Values::DEFAULT_FOREIGN, int $extraId = Values::DEFAULT_FOREIGN,
 		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):PropertyExtra {
-		return new PropertyExtra($id, $value, $propertyId, $extraId, $userCreator, $userModifier,
+		return new PropertyExtra($id, $name, $value, $propertyId, $extraId, $userCreator, $userModifier,
 			$dateCreated, $dateModified, $active, $delete);
 	}
 

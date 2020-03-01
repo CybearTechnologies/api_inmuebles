@@ -9,19 +9,13 @@ class Tools {
 	 * Headers Control
 	 */
 	public static function headers () {
-		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 		header('Content-Type: application/json');
-		header("Access-Control-Allow-Origin: *");
-		switch ($_SERVER['REQUEST_METHOD']) {
-			case 'GET':
-				header("Access-Control-Allow-Headers: access");
-				header("Access-Control-Allow-Credentials: true");
-				break;
-			case 'POST' | 'PUT' | 'DELETE':
-				header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-				header("Access-Control-Max-Age: 3600");
-				break;
-		}
+		header('Access-Control-Allow-Origin: *');
+		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
+		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+		header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+		if($_SERVER['REQUEST_METHOD'] == "OPTIONS")
+			die;
 	}
 
 	/**
@@ -81,7 +75,7 @@ class Tools {
 	 *
 	 * @return string
 	 */
-	static function encryptSha256(string $string){
+	static function encryptSha256 (string $string) {
 		return hash('sha256', $string);
 	}
 
@@ -94,6 +88,7 @@ class Tools {
 		$key = Environment::siteKey();
 		for ($i = 0; $i < strlen($key); $i++)
 			$string = str_replace($key[$i], $i, $string);
+
 		return $string;
 	}
 
@@ -102,29 +97,5 @@ class Tools {
 	 */
 	public static function setResponse ($responseCode = 200) {
 		http_response_code($responseCode);
-	}
-
-	/**
-	 * @param $string
-	 *
-	 * @return string|string[]
-	 */
-	public static function cleanToFile ($string) {
-		$string = str_replace(array ('&aacute;', 'á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
-			array ('a', 'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'), $string);
-		$string = str_replace(array ('&eacute;', 'é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
-			array ('e', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'), $string);
-		$string = str_replace(array ('&iacute;', 'í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
-			array ('i', 'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'), $string);
-		$string = str_replace(array ('&oacute;', 'ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
-			array ('o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'), $string);
-		$string = str_replace(array ('&uacute;', 'ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
-			array ('u', 'u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'), $string);
-		$string = str_replace(array ('ç', 'Ç'), array ('c', 'C'), $string);
-		$cleanName = str_replace(array("/", "\\", "-", "+", "'", '"', '(', ')', '{', '}', '[', ']',
-			'.', ',', '?', ';', ':', '#', '@', '~', '`', '|', '&', '%', '^', '*', '_', '='), "", strtolower($string));
-		$cleanName = str_replace(" ", "-", strtolower($cleanName));
-
-		return $cleanName;
 	}
 }

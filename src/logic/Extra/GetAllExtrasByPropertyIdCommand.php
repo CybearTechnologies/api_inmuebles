@@ -6,15 +6,15 @@ class GetAllExtrasByPropertyIdCommand extends Command {
 	 * @param Property $property
 	 */
 	public function __construct ($property) {
-		$this->_dao = FactoryDao::createDaoExtra($property);
+		$this->_dao = FactoryDao::createDaoPropertyExtra($property);
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws ExtraNotFoundException
+	 * @throws PropertyExtraNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllPropertyExtra());
+		$this->setData($this->_dao->getPropertyExtraByPropertyId());
 	}
 
 	/**
