@@ -1,7 +1,7 @@
 <?php
-class CommandGetAllUserProperties extends Command {
+class CommandGetAllUserPropertiesByState extends Command {
 	/**
-	 * CommandGetAllUserProperties constructor.
+	 * CommandGetAllUserPropertiesByState constructor.
 	 *
 	 * @param Property $entity
 	 */
@@ -14,7 +14,7 @@ class CommandGetAllUserProperties extends Command {
 	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertiesByUser());
+		$this->setData($this->_dao->getPropertiesByUserAndState());
 	}
 
 	/**

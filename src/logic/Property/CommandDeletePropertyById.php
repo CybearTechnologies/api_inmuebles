@@ -1,11 +1,11 @@
 <?php
-class InactivePropertyCommand extends Command {
+class CommandDeletePropertyById extends Command {
 	/**
-	 * InactivePropertyCommand constructor.
+	 * CommandDeletePropertyById constructor.
 	 *
 	 * @param Property $entity
 	 */
-	public function __construct (Property $entity) {
+	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoProperty($entity);
 	}
 
@@ -14,13 +14,13 @@ class InactivePropertyCommand extends Command {
 	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->inactiveProperty());
+		$this->setData($this->_dao->deletePropertyByPropertyId());
 	}
 
 	/**
-	 * @return mixed
+	 * @return Property
 	 */
-	public function return () {
+	public function return ():Property {
 		return $this->getData();
 	}
 }

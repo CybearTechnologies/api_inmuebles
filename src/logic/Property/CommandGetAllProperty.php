@@ -1,7 +1,7 @@
 <?php
-class GetAllPropertyCommand extends Command {
+class CommandGetAllProperty extends Command {
 	/**
-	 * GetAllPropertyCommand constructor.
+	 * CommandGetAllProperty constructor.
 	 */
 	public function __construct () {
 		$this->_dao = FactoryDao::createDaoProperty();

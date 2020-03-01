@@ -1,7 +1,4 @@
 <?php
-
-
-
 class DaoProperty extends Dao {
 	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,
 								  :user,:dateCreated)";
@@ -40,9 +37,9 @@ class DaoProperty extends Dao {
 	 *
 	 * @return string|string[]
 	 */
-	public function genericGetProperty($keyWord,$extraList,$minPrice,$maxPrice){
-		$first=0;
-		if((isset($keyWord))OR(isset($minPrice))OR(isset($maxPrice)) OR (isset($extraList) AND !(empty($extraList)))){
+	public function genericGetProperty ($keyWord, $extraList, $minPrice, $maxPrice) {
+		$first = 0;
+		if ((isset($keyWord)) OR (isset($minPrice)) OR (isset($maxPrice)) OR (isset($extraList) AND !(empty($extraList)))) {
 			$this->_genericQuery = str_replace(":sentences", "WHERE :sentences", $this->_genericQuery);
 		}
 		if(isset($minPrice) OR isset($maxPrice)) {
@@ -204,9 +201,34 @@ class DaoProperty extends Dao {
 	 */
 	public function getPropertiesByUser () {
 		try {
-			$id = $this->_property->getId();
+			$id = $this->_property->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_CREATOR);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyNotFoundException("There are no property found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @return Property[]
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
+	 */
+	public function getPropertiesByUserAndState () {
+		try {
+			$id = $this->_property->getUserCreator();
+			$state = $this->_property->isActive();
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_CREATOR_AND_STATE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":state", $state, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PropertyNotFoundException("There are no property found", 404);

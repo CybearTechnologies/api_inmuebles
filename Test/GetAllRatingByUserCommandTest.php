@@ -20,7 +20,7 @@ class GetAllRatingByUserCommandTest extends TestCase {
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createGetAllRatingByUserCommand(FactoryEntity::createUser(1));
+		$this->_command = FactoryCommand::createCommandGetAllRatingByUser(FactoryEntity::createUser(1));
 	}
 	public function testReturn () {
 		try {

@@ -23,7 +23,7 @@ class DeletePlanCommandTest extends TestCase {
 		try {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
-			$this->_command = FactoryCommand::createDeletePlanByIdCommand($this->_command->return());
+			$this->_command = FactoryCommand::createCommandDeletePlanById($this->_command->return());
 			$this->_command->execute();
 			$this->_plan = $this->_command->return();
 			$this->assertEquals(true, $this->_plan->isDelete());

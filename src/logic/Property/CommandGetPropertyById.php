@@ -1,7 +1,7 @@
 <?php
-class GetPropertyByIdCommand extends Command {
+class CommandGetPropertyById extends Command {
 	/**
-	 * GetPropertyByIdCommand constructor.
+	 * CommandGetPropertyById constructor.
 	 *
 	 * @param Property $property
 	 */

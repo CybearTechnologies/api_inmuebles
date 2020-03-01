@@ -3,7 +3,6 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
-
 DROP PROCEDURE IF EXISTS insertProperty;
 DELIMITER $$
 CREATE PROCEDURE insertProperty(name varchar(45), area double(20, 2), description varchar(500),
@@ -181,6 +180,30 @@ BEGIN
     WHERE pr_user_created_fk = id_user AND pr_deleted = 0 AND pr_active = 1;
 END$$
 
+DROP PROCEDURE IF EXISTS getPropertiesByUserCreatorAndState;
+DELIMITER $$
+CREATE PROCEDURE getPropertiesByUserCreatorAndState(id_user int,state int )
+BEGIN
+    SELECT pr_id id,
+           pr_name name,
+           pr_area area,
+           pr_description description,
+           pr_floor floor,
+           pr_status status,
+           pr_type_fk type,
+           pr_active active,
+           pr_deleted 'delete',
+           pr_location_fk location,
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
+    FROM property
+    WHERE pr_user_created_fk = id_user
+    AND pr_deleted = 0
+    AND pr_active = state;
+END$$
+
 DROP PROCEDURE IF EXISTS deletePropertyById;
 DELIMITER $$
 CREATE PROCEDURE deletePropertyById(id_pro int, id_user int,dateModified datetime)
@@ -279,7 +302,6 @@ BEGIN
     FROM property
     WHERE id_pro = pr_id;
 END$$
-
 /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---

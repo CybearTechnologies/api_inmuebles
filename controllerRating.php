@@ -10,7 +10,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
 			$rating->setId($get->id);
-			$command = FactoryCommand::createGetRatingByIdCommand($rating);
+			$command = FactoryCommand::createCommandGetRatingById($rating);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDTO($command->return());
@@ -27,7 +27,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		elseif (isset($get->id_user) && is_numeric($get->id_user)) {
 			$user->setId($get->id_user);
-			$command = FactoryCommand::createGetAllRatingByUserCommand($user);
+			$command = FactoryCommand::createCommandGetAllRatingByUser($user);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityArrayToDtoArray($command->return());
@@ -48,7 +48,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));
 		if (Validate::Rating($post)) {
-			$command = FactoryCommand::createCreateRatingByUserIdCommand($mapper->fromDtoToEntity($post));
+			$command = FactoryCommand::createCommandCreateRatingByUserId($mapper->fromDtoToEntity($post));
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
@@ -68,7 +68,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "DELETE":
 		if (Validate::id($get)) {
 			$rating = FactoryEntity::createRating($get->id);
-			$command = FactoryCommand::createDeleteRatingByIdCommand($rating);
+			$command = FactoryCommand::createCommandDeleteRatingById($rating);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());

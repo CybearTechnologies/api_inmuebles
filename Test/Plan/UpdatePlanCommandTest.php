@@ -24,7 +24,7 @@ class UpdatePlanCommandTest extends TestCase {
 			$this->_command->execute();
 			$this->assertNotEmpty($this->_command->return());
 			$this->_plan = FactoryEntity::createPlan($this->_command->return()->getId(), 'pedro', 235435.0);
-			$this->_command = FactoryCommand::createUpdatePlanCommand($this->_plan);
+			$this->_command = FactoryCommand::createCommandUpdatePlan($this->_plan);
 			$this->_command->execute();
 			$plan = $this->_command->return();
 			Environment::database()->exec('DELETE FROM plan WHERE pl_id =' . $this->_plan->getId());

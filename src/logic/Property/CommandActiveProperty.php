@@ -1,7 +1,7 @@
 <?php
-class ActivePropertyCommand extends Command {
+class CommandActiveProperty extends Command {
 	/**
-	 * ActivePropertyCommand constructor.
+	 * CommandActiveProperty constructor.
 	 *
 	 * @param PropertyPrice $entity
 	 */
