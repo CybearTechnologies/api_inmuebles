@@ -43,7 +43,11 @@ class DaoProperty extends Dao {
 			$this->_genericQuery = str_replace(":sentences", "WHERE :sentences", $this->_genericQuery);
 		}
 		if(isset($minPrice) OR isset($maxPrice)) {
-			$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
+			/*if ($first==0) {
+				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
+				$first=1;
+			}*/
+			$first=1;
 			$this->_genericQuery = str_replace(":sentences", "pr.pr_id =(Select pp4.pp_property_fk From property_price pp4 WHERE
                  pp4.pp_id=(SELECT pp2.pp_id price FROM property_price pp2
                  WHERE pr.pr_id = pp2.pp_property_fk
@@ -56,18 +60,27 @@ class DaoProperty extends Dao {
 			$this->_genericQuery = str_replace(":sentences2", "", $this->_genericQuery);
 		}
 		if(isset($extraList) AND !(empty($extraList))){
-			$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
+			if ($first==1) {
+				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
+				//$first=1;
+			}
 			$size=sizeof($extraList);
 			$this->_genericQuery=str_replace(":sentences","(Select count(*) 
 			FROM property_extra pe2,extra ex2 
 			WHERE pr.pr_id = pe2.pe_property_fk AND pe2.pe_extra_fk=ex2.ex_id
        		AND ( :sentences2 ))=".$size." :sentences",$this->_genericQuery);
+			$i=0;
 			foreach ($extraList as $extra) {
-				$this->_genericQuery = str_replace(":sentences2", " ex2.ex_name =".$extra." OR :sentences", $this->_genericQuery);
+				$i=$i+1;
+				if($i==$size)
+					$this->_genericQuery = str_replace(":sentences2", " ex2.ex_name ='".$extra."'", $this->_genericQuery);
+				else
+					$this->_genericQuery = str_replace(":sentences2", " ex2.ex_name ='".$extra."' OR :sentences2 ", $this->_genericQuery);
 			}
 		}
 		$this->_genericQuery=str_replace(":tables","",$this->_genericQuery);
 		$this->_genericQuery=str_replace(":sentences","",$this->_genericQuery);
+		$this->_genericQuery=str_replace(":sentences2","",$this->_genericQuery);
 		return $this->_genericQuery;
 	}
 
