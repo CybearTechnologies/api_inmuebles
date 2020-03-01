@@ -67,6 +67,15 @@ class Validate {
 	}
 
 	/**
+	 * @param $post
+	 *
+	 * @return bool
+	 */
+	static function rol ($post) {
+		return isset($post->id) && is_numeric($post->id) && isset($post->name) && !empty($post->name);
+	}
+
+	/**
 	 * @param $extra
 	 *
 	 * @return bool
@@ -175,6 +184,7 @@ class Validate {
 		return isset($rolAccess->id) && is_numeric($rolAccess->id)
 			&& strtolower($rolAccess->action) == "inactive";
 	}
+
 	/**
 	 * @param $agency
 	 *
@@ -183,6 +193,16 @@ class Validate {
 	static function putAgency ($agency) {
 		return isset($agency->id) && is_numeric($agency->id)
 			&& isset($agency->name) && !empty($agency->name);
+	}
+
+	/**
+	 * @param $rol
+	 *
+	 * @return bool
+	 */
+	static function putRol ($rol) {
+		return isset($rol->id) && is_numeric($rol->id)
+			&& isset($rol->name) && !empty($rol->name);
 	}
 
 	/**

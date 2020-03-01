@@ -11,6 +11,7 @@ class CommandDeleteRol extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws RolNotFoundException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->deleteRolById());

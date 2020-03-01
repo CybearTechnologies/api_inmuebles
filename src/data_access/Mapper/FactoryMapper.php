@@ -97,6 +97,13 @@ class FactoryMapper {
 	}
 
 	/**
+	 * @return MapperRol
+	 */
+	static function createMapperRol ():MapperRol {
+		return new MapperRol();
+	}
+
+	/**
 	 * @return MapperRolAccess
 	 */
 	static function createMapperRolAccess ():MapperRolAccess {

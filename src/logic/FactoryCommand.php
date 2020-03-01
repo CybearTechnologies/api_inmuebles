@@ -99,6 +99,33 @@ class FactoryCommand {
 	static function createCommandDeleteRol ($rol):CommandDeleteRol {
 		return new CommandDeleteRol($rol);
 	}
+
+	/**
+	 * @param $rol
+	 *
+	 * @return CommandUpdateRolById
+	 */
+	static function createCommandUpdateRol ($rol):CommandUpdateRolById {
+		return new CommandUpdateRolById($rol);
+	}
+
+	/**
+	 * @param $rol
+	 *
+	 * @return CommandInactiveRolById
+	 */
+	static function createCommandInactiveRol ($rol):CommandInactiveRolById {
+		return new CommandInactiveRolById($rol);
+	}
+
+	/**
+	 * @param $rol
+	 *
+	 * @return CommandActiveRolById
+	 */
+	static function createCommandActivateRol ($rol):CommandActiveRolById {
+		return new CommandActiveRolById($rol);
+	}
 	//------------------------------------------------------------
 	//----------------------------REQUEST-------------------------
 	//------------------------------------------------------------
@@ -345,7 +372,7 @@ class FactoryCommand {
 	public static function createCommandGetAgencyByName ($agency):CommandGetAgencyByName {
 		return new CommandGetAgencyByName($agency);
 	}
-	
+
 	/**
 	 * @param Agency $agency
 	 *

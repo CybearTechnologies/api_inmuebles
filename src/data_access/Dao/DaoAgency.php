@@ -54,7 +54,7 @@ class DaoAgency extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$name = $this->_entity->getName();
-			$userModifier = 1; /*$this->_entity->getUserModifier();*/
+			$userModifier = 1; /*TODO $this->_entity->getUserModifier();*/
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;

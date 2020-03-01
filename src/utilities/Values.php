@@ -14,6 +14,8 @@ class Values {
 		//	GENERAL ERRORS
 		'ERROR_DATA_INCOMPLETE' => array ('text' => 'Datos incompletos', 'value' => 400),
 		'ERROR_DATABASE' => array ('text' => 'Error de comunicación', 'value' => 403),
+		//ROL
+		'ERROR_ROL_NOT_FOUND' => array ('text' => 'Rol no existente', 'value' => 404),
 		//ROL ACCESS
 		'ERROR_ROL_ACCESS_NOT_FOUND' => array ('text' => 'Este rol no tiene este acceso ', 'value' => 404),
 		//	AGENCY ERRORS
