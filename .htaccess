@@ -4,8 +4,8 @@
     #RewriteCond %{HTTPS} off
     #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     #	Uncomment on production
-    RewriteBase /
-    #RewriteBase /inmobi-houston/
+    #RewriteBase /
+    RewriteBase /inmobi-houston/
 
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
