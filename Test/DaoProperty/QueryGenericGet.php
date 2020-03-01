@@ -20,8 +20,8 @@ class QueryGenericGet extends TestCase {
 		$this->_minPrice=200;
 		$this->_maxPrice=800;
 		$this->_extraList = array();
-		array_push($this->_extraList,"piscina");
-		array_push($this->_extraList,"estacionamiento");
+		array_push($this->_extraList,"Piscina");
+		array_push($this->_extraList,"Estacionamiento");
 	}
 
 	public function testReturn () {
