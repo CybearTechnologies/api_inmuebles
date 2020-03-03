@@ -27,9 +27,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = Values::getText("ERROR_USER_NOT_FOUND");
 				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 			}
-			echo json_encode($return);
 		}
-		elseif (Validate::id($get)) {
+		if (Validate::id($get)) {
 			$user->setId($get->id);
 			$command = FactoryCommand::createCommandGetUserById($user);
 			try {
@@ -50,9 +49,80 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 			}
 		}
+		else {
+			$command = FactoryCommand::createCommandGetAllUser();
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (UserNotFoundException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
+			}
+		}
+		echo json_encode($return);
+		break;
+	case "PUT":
+		$put = json_decode(file_get_contents('php://input'));
+		if (Validate::putRol($put)) {
+			try {
+				$command = FactoryCommand::createCommandUpdateUser($mapper->fromDtoToEntity($put));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (UserNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
+			}
+		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
+			try {
+				$command = FactoryCommand::createCommandActivateUser(FactoryEntity::createUser($get->id));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (UserNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
+			}
+		}
+		elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
+			try {
+				$command = FactoryCommand::createCommandInactiveUser(FactoryEntity::createUser($get->id));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (UserNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
 		echo json_encode($return);
 		break;
 	default:
-		Tools::setResponse(405);
 		break;
 }

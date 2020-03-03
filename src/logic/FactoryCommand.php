@@ -63,6 +63,67 @@ class FactoryCommand {
 	public static function createCommandGetUserByUsername (User $user) {
 		return new CommandGetUserByUsername($user);
 	}
+
+	/**
+	 * @return CommandGetAllUser
+	 */
+	static function createCommandGetAllUser ():CommandGetAllUser {
+		return new CommandGetAllUser();
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandActivateUser
+	 */
+	static function createCommandActivateUser ($user):CommandActivateUser {
+		return new CommandActivateUser($user);
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandInactiveUser
+	 */
+	static function createCommandInactiveUser ($user):CommandInactiveUser {
+		return new CommandInactiveUser($user);
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandDeleteUser
+	 */
+	static function createCommandDeleteUser ($user):CommandDeleteUser {
+		return new CommandDeleteUser($user);
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandBlockUser
+	 */
+	static function createCommandBlockUser ($user):CommandBlockUser {
+		return new CommandBlockUser($user);
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandUnblockUser
+	 */
+	static function createCommandUnblockUser ($user):CommandUnblockUser {
+		return new CommandUnblockUser($user);
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandUpdateUser
+	 */
+	static function createCommandUpdateUser ($user):CommandUpdateUser {
+		return new CommandUpdateUser($user);
+	}
 	//------------------------------------------------------------
 	//----------------------------ROL----------------------------
 	//------------------------------------------------------------

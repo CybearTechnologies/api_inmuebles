@@ -5,8 +5,8 @@
  */
 DROP PROCEDURE IF EXISTS createUser;
 DELIMITER $$
-CREATE PROCEDURE createUser(firstName varchar, lastName varchar, address varchar, email varchar,
-                            password varchar, seat int, rol int, plan int, location int, userCreator int,
+CREATE PROCEDURE createUser(firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
+                            password varchar(60), seat int, rol int, plan int, location int, userCreator int,
                             dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
@@ -41,10 +41,10 @@ BEGIN
     WHERE us_id = last_insert_id();
 END$$
 
-DROP PROCEDURE IF EXISTS modifyUser;
+DROP PROCEDURE IF EXISTS updateUser;
 DELIMITER $$
-CREATE PROCEDURE modifyUser(id int, firstName varchar, lastName varchar, address varchar, email varchar,
-                            password varchar, seat int, rol int, plan int, location int, user int,
+CREATE PROCEDURE updateUser(id int, firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
+                            password varchar(60), seat int, rol int, plan int, location int, user int,
                             dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
@@ -52,13 +52,13 @@ BEGIN
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
             us_email = email, us_password = password, us_seat_fk=seat, us_rol_fk = rol,
             us_plan_fk=plan, us_location_fk = location, us_user_modified_fk = user
-        WHERE us_id = user;
+        WHERE us_id = id;
     ELSE
         UPDATE user
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
             us_email = email, us_password = password, us_seat_fk=seat, us_rol_fk = rol,
             us_plan_fk=plan, us_location_fk = location, us_user_modified_fk = user, us_date_modified=dateModified
-        WHERE us_id = user;
+        WHERE us_id = id;
     END IF;
     SELECT us.us_id id,
            us.us_first_name first_name,
@@ -78,7 +78,7 @@ BEGIN
            us.us_date_created dateCreated,
            us.us_date_modified dateModified
     FROM user us
-    WHERE us_id = last_insert_id();
+    WHERE us.us_id = last_insert_id();
 END$$
 
 DROP PROCEDURE IF EXISTS getUserById;
