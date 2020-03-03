@@ -14,6 +14,7 @@
 #   CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
 #	USER
+RewriteRule ^user controllerUser.php [NC,L]
 RewriteRule ^user/([0-9]+)$ controllerUser.php?id=$1 [NC,L]
 RewriteRule ^user/(.*?)$ controllerUser.php?email=$1 [NC,L]
 #	ACCESS
