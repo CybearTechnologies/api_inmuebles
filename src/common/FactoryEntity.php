@@ -211,32 +211,32 @@ class FactoryEntity {
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param int    $seat
-	 * @param int    $rol
-	 * @param int    $plan
-	 * @param int    $location
+	 * @param string $seat
+	 * @param string $rol
+	 * @param string $plan
+	 * @param string $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 *
 	 * @return User
 	 */
 	static function createUser (int $id,
-		string $firstName = "",
-		string $lastName = "",
-		string $address = "",
-		string $email = "",
-		string $password = "",
-		int $userCreator = 1,
-		int $userModifier = 1,
-		bool $active = true,
-		bool $blocked = false,
-		bool $deleted = false,
-		int $seat = 1,
-		int $rol = 1,
-		int $plan = 1,
-		int $location = 1,
-		string $dateCreated = "",
-		string $dateModified = ""):User {
+		string $firstName = Values::DEFAULT_STRING,
+		string $lastName = Values::DEFAULT_STRING,
+		string $address = Values::DEFAULT_STRING,
+		string $email = Values::DEFAULT_STRING,
+		string $password = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN,
+		bool $active = Values::DEFAULT_ACTIVE,
+		bool $blocked = Values::DEFAULT_INT,
+		bool $deleted = Values::DEFAULT_DELETE,
+		string $seat = Values::DEFAULT_STRING,
+		string $rol = Values::DEFAULT_STRING,
+		string $plan = Values::DEFAULT_STRING,
+		string $location = Values::DEFAULT_STRING,
+		string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE):User {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
 			$blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
 	}
