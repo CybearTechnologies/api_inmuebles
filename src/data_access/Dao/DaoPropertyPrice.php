@@ -1,6 +1,6 @@
 <?php
 class DaoPropertyPrice extends Dao {
-	private const QUERY_CREATE = "CALL insertPropertyPrice(:price,:final,:property,:user)";
+	private const QUERY_CREATE = "CALL insertPropertyPrice(:price,:final,:property,:user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllPropertyPrice()";
 	private const QUERY_GET_BY_ID = "CALL getPropertyPriceById(:id)";
 	private const QUERY_GET_PRICE_BY_PROPERTY_ID = "CALL getPropertyPriceByPropertyId(:id)";
@@ -25,13 +25,16 @@ class DaoPropertyPrice extends Dao {
 		try {
 			$price = $this->_entity->getPrice();
 			$final = $this->_entity->isFinal();
-			$property = $this->_entity->getProperty();
+			$property = $this->_entity->getPropertyId();
 			$user = 1; // TODO: replace for logged user
+			if ($this->_entity->getDateCreated() == "")
+				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
 			$stmt->bindParam(":final", $final, PDO::PARAM_BOOL);
 			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
@@ -51,7 +54,7 @@ class DaoPropertyPrice extends Dao {
 	 */
 	public function getPropertyPriceByPropertyId () {
 		try {
-			$id = $this->_entity->getProperty();
+			$id = $this->_entity->getPropertyId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_PRICE_BY_PROPERTY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

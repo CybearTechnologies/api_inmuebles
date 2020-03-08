@@ -6,7 +6,7 @@ class MapperPropertyPrice extends Mapper {
 	 * @return PropertyPrice
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createPropertyPrice($dto->id, $dto->price, $dto->final, $dto->property);
+		return FactoryEntity::createPropertyPrice($dto->id, $dto->price, $dto->final, $dto->propertyId);
 	}
 
 	/**
@@ -16,7 +16,7 @@ class MapperPropertyPrice extends Mapper {
 	 */
 	public function fromEntityToDto ($entity):Dto {
 		return FactoryDto::createDtoPropertyPrice($entity->getId(), $entity->getPrice(), $entity->isFinal(),
-			$entity->getProperty(), $entity->getUserCreator(), $entity->getUserModifier(), $entity->getDateCreated(),
+			$entity->getPropertyId(), $entity->getUserCreator(), $entity->getUserModifier(), $entity->getDateCreated(),
 			$entity->getDateModified(), $entity->isActive(), $entity->isDelete());
 	}
 }

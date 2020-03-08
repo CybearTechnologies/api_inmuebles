@@ -2,7 +2,7 @@
 class DtoPropertyPrice extends Dto {
 	public $price;
 	public $final;
-	public $property;
+	public $propertyId;
 
 	/**
 	 * DtoPropertyPrice constructor.
@@ -24,6 +24,6 @@ class DtoPropertyPrice extends Dto {
 		$this->id = $id;
 		$this->price = $price;
 		$this->final = $final;
-		$this->property = $property;
+		$this->propertyId = $property;
 	}
 }

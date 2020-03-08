@@ -25,28 +25,22 @@ class DtoUser extends Dto {
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param int    $seat
-	 * @param int    $rol
-	 * @param int    $plan
-	 * @param int    $location
+	 * @param string $seat
+	 * @param string $rol
+	 * @param string $plan
+	 * @param string $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
-		int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
-		$this->id = $id;
-		$this->userCreator = $userCreator;
-		$this->userModifier = $userModifier;
-		$this->active = $active;
-		$this->dateCreated = $dateCreated;
-		$this->dateModified = $dateModified;
+		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, string $seat,
+		string $rol, string $plan, string $location, string $dateCreated, string $dateModified) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->firstName = $firstName;
 		$this->lastName = $lastName;
 		$this->address = $address;
 		$this->email = $email;
 		$this->password = $password;
-		$this->delete = $deleted;
 		$this->blocked = $blocked;
 		$this->seat = $seat;
 		$this->rol = $rol;
