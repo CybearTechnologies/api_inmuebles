@@ -850,4 +850,13 @@ class FactoryCommand {
 	public static function createCommandGetOriginByPublicKey (Origin $origin) {
 		return new GetOriginByPublicKeyCommand($origin);
 	}
+
+	/**
+	 * @param PropertyExtra[] $propertyExtra
+	 *
+	 * @return CommandCreatePropertyExtra
+	 */
+	static function createCommandCreatePropertyExtra ($propertyExtra):CommandCreatePropertyExtra {
+		return new CommandCreatePropertyExtra($propertyExtra);
+	}
 }

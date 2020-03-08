@@ -2,7 +2,7 @@
 class PropertyPrice extends Entity {
 	private $_price;
 	private $_final;
-	private $_property;
+	private $_propertyId;
 
 	/**
 	 * PropertyPrice constructor.
@@ -23,7 +23,7 @@ class PropertyPrice extends Entity {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_price = $price;
 		$this->_final = $final;
-		$this->_property = $property;
+		$this->_propertyId = $property;
 	}
 
 	/**
@@ -57,14 +57,14 @@ class PropertyPrice extends Entity {
 	/**
 	 * @return int
 	 */
-	public function getProperty ():int {
-		return $this->_property;
+	public function getPropertyId ():int {
+		return $this->_propertyId;
 	}
 
 	/**
 	 * @param int $property
 	 */
-	public function setProperty (int $property):void {
-		$this->_property = $property;
+	public function setPropertyId (int $property):void {
+		$this->_propertyId = $property;
 	}
 }

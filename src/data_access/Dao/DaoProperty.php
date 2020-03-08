@@ -107,7 +107,7 @@ class DaoProperty extends Dao {
 			if ($this->_property->getDateCreated() == "")
 				$dateCreated = null;
 			$location = $this->_property->getLocation();
-			$user = $this->_property->getUserCreator();
+			$user = 1; //TODO replacefor user logged $this->_property->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":description", $description, PDO::PARAM_STR);

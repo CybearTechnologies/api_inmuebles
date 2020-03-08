@@ -9,7 +9,7 @@ $mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
 $property = FactoryEntity::createProperty(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (isset($get->id) && is_numeric($get->id)) {
+		if (Validate::id($get)) {
 			$property->setId($get->id);
 			$command = FactoryCommand::createCommandGetPropertyById($property);
 			try {
@@ -32,7 +32,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 							}
 						}
 					}
-					catch (ExtraNotFoundException $exception) {
+					catch (PropertyExtraNotFoundException $exception) {
 						unset($dto->extras);
 					}
 				}
@@ -80,8 +80,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				/** @var PropertyPrice[] $propertyPrice */
 				$command = FactoryCommand::createCommandCreatePropertyPrice($propertyPrice[0]);
 				$command->execute();
+				array_push($post->property->price, $command->return());
 				if (isset($post->property->extras)) {
+					/** @var PropertyExtra[] $propertyExtra */
 					$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);
+					$command = FactoryCommand::createCommandCreatePropertyExtra($propertyExtra);
+					$command->execute();
+					$post->property->extras = $command->return();
+					echo '<pre>';
+					var_dump($command->return());
+					die();
 				}
 				$return = $post;
 				Tools::setResponse();
@@ -90,7 +98,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
-			catch (InvalidPropertyPriceException $e) {
+			catch (PropertyExtraNotFoundException $e) {
 			}
 		}
 		else {

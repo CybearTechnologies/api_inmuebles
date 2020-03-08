@@ -1,17 +1,15 @@
 <?php
 class MapperPropertyExtra extends Mapper {
 	/**
-	 * @return Entity
+	 * @return PropertyExtra
 	 * @var DtoPropertyExtra $dto
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createPropertyExtra($dto->id, $dto->name, $dto->amount, $dto->propertyId, $dto->extraId,
-			$dto->active, $dto->delete,
-			$dto->userCreator, $dto->userModifier, $dto->dateCreated, $dto->dateModified);
+		return FactoryEntity::createPropertyExtra($dto->id, $dto->name, $dto->amount, $dto->propertyId, $dto->extraId);
 	}
 
 	/**
-	 * @return Dto
+	 * @return DtoPropertyExtra
 	 * @var PropertyExtra $entity
 	 */
 	public function fromEntityToDto ($entity):Dto {
