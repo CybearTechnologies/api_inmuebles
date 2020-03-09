@@ -21,13 +21,11 @@ BEGIN
            ac_active active,
            ac_deleted 'delete',
            ac_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ac_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access, user us1, user us2
-    WHERE ac_id = last_insert_id() AND us1.us_id= ac_user_created_fk AND us2.us_id= ac_user_modified_fk ;
+    FROM access
+    WHERE ac_id = last_insert_id() ;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllAccess;
@@ -40,13 +38,11 @@ BEGIN
            ac_active active,
            ac_deleted 'delete',
            ac_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ac_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access, user us1, user us2
-    WHERE ac_deleted = 0 AND us1.us_id = ac_user_created_fk AND us2.us_id = ac_user_modified_fk;
+    FROM access
+    WHERE ac_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAccessByName;
@@ -59,13 +55,11 @@ BEGIN
            ac_active active,
            ac_deleted 'delete',
            ac_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ac_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access, user us1, user us2
-    WHERE ac_name = name_access AND us1.us_id = ac_user_created_fk AND us2.us_id = ac_user_modified_fk
+    FROM access
+    WHERE ac_name = name_access
     AND ac_deleted = 0;
 END$$
 
@@ -79,14 +73,12 @@ BEGIN
            ac_active active,
            ac_deleted 'delete',
            ac_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ac_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access, user us1, user us2
+    FROM access
     WHERE ac_id = id_access
-    AND ac_deleted = 0 AND us1.us_id= ac_user_created_fk AND us2.us_id= ac_user_modified_fk;
+    AND ac_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAccessByAbbreviation;
@@ -99,14 +91,12 @@ BEGIN
            ac_active active,
            ac_deleted 'delete',
            ac_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ac_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access, user us1, user us2
+    FROM access
     WHERE ac_abbreviation = abbreviation_access
-    AND ac_deleted = 0 AND us1.us_id= ac_user_created_fk AND us2.us_id= ac_user_modified_fk;
+    AND ac_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteAccessById;
@@ -128,14 +118,12 @@ BEGIN
            ac_active active,
            ac_deleted 'delete',
            ac_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ac_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ac_user_modified_fk userModifier,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access, user us1, user us2
-    WHERE ac_id = id AND us1.us_id= ac_user_created_fk AND us2.us_id= ac_user_modified_fk;
+    FROM access
+    WHERE ac_id = id;
 END$$
 
 
@@ -158,15 +146,13 @@ BEGIN
            ac_active active,
            ac_deleted 'delete',
            ac_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ac_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ac_user_modified_fk userModifier,
            ac_date_created dateCreated,
            ac_date_modified dateModified
-    FROM access, user us1, user us2
+    FROM access
     WHERE ac_id = id
-    AND ac_deleted = 0 AND us1.us_id= ac_user_created_fk AND us2.us_id= ac_user_modified_fk;
+    AND ac_deleted = 0;
 END$$
 /**
   ----------------------------------------------------------------------------------------------------------------------
