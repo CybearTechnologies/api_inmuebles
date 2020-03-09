@@ -19,14 +19,11 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
-    WHERE ag_id = last_insert_id() AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    FROM agency
+    WHERE ag_id = last_insert_id();
 END$$
 
 DROP PROCEDURE IF EXISTS updateAgency;
@@ -49,15 +46,12 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
+    FROM agency
     WHERE ag_id = id
-    AND ag_deleted = 0 AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS activeAgency;
@@ -80,14 +74,11 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
-    WHERE ag_id = id AND ag_deleted = 0  AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    FROM agency
+    WHERE ag_id = id AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS inactiveAgency;
@@ -108,15 +99,12 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
+    FROM agency
     WHERE ag_id = id
-    AND ag_deleted = 0 AND ag_deleted = 0 AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    AND ag_deleted = 0 AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAgencyById;
@@ -128,15 +116,12 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
+    FROM agency
     WHERE ag_id = id_agency
-    AND ag_deleted = 0 AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllAgencies;
@@ -148,14 +133,11 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
-        WHERE ag_deleted = 0 AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    FROM agency
+        WHERE ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAgencyByName;
@@ -167,14 +149,11 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
-    WHERE ag_name = name_agency AND ag_deleted = 0 AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    FROM agency
+    WHERE ag_name = name_agency AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteAgency;
@@ -195,14 +174,11 @@ BEGIN
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
-           us1.us_email userCreatorEmail,
            ag_date_created dateCreated,
            ag_user_modified_fk userModifier,
-           us2.us_email userModifierEmail,
            ag_date_modified dateModified
-    FROM agency, user us1, user us2
-    WHERE ag_id = id AND ag_deleted = 0 AND us1.us_id=ag_user_created_fk
-      AND us2.us_id=ag_user_modified_fk;
+    FROM agency
+    WHERE ag_id = id;
 END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------
