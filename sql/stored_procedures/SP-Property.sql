@@ -71,26 +71,6 @@ BEGIN
 END$$
 
 DROP PROCEDURE IF EXISTS getAllPropertyActives;
-DELIMITER $$
-CREATE PROCEDURE getAllPropertyActives()
-BEGIN
-    SELECT pr_id id,
-           pr_name name,
-           pr_area area,
-           pr_description description,
-           pr_floor floor,
-           pr_status status,
-           pr_type_fk type,
-           pr_active active,
-           pr_deleted 'delete',
-           pr_location_fk location,
-           pr_user_created_fk userCreator,
-           pr_date_created dateCreated,
-           pr_user_modified_fk userModifier,
-           pr_date_modified dateModified
-    FROM property
-    WHERE pr_deleted = 0 AND pr_active = 1;
-END$$
 
 DROP PROCEDURE IF EXISTS getAllProperty;
 DELIMITER $$
@@ -177,32 +157,11 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property
-    WHERE pr_user_created_fk = id_user AND pr_deleted = 0 AND pr_active = 1;
+    WHERE pr_user_created_fk = id_user AND pr_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertiesByUserCreatorAndState;
-DELIMITER $$
-CREATE PROCEDURE getPropertiesByUserCreatorAndState(id_user int,state int )
-BEGIN
-    SELECT pr_id id,
-           pr_name name,
-           pr_area area,
-           pr_description description,
-           pr_floor floor,
-           pr_status status,
-           pr_type_fk type,
-           pr_active active,
-           pr_deleted 'delete',
-           pr_location_fk location,
-           pr_user_created_fk userCreator,
-           pr_date_created dateCreated,
-           pr_user_modified_fk userModifier,
-           pr_date_modified dateModified
-    FROM property
-    WHERE pr_user_created_fk = id_user
-    AND pr_deleted = 0
-    AND pr_active = state;
-END$$
+
 
 DROP PROCEDURE IF EXISTS deletePropertyById;
 DELIMITER $$
