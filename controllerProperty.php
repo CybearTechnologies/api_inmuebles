@@ -86,7 +86,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				if (isset($post->property->extras)) {
 					/** @var PropertyExtra[] $propertyExtra */
 					$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);
-					foreach ($propertyExtra as $extra){
+					foreach ($propertyExtra as $extra) {
 						$extra->setPropertyId($property->id);
 					}
 					$command = FactoryCommand::createCommandCreatePropertyExtra($propertyExtra);
