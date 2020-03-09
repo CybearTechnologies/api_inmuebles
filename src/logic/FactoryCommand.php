@@ -674,7 +674,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Property $property
+	 * @param PropertyExtra $property
 	 *
 	 * @return GetAllExtrasByPropertyIdCommand
 	 */

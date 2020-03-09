@@ -75,23 +75,26 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandCreateProperty($mapper->fromDTOToEntity($post->property));
 			try {
 				$command->execute();
-				$post->property->id = $command->return()->getId();
+				$property = $mapper->fromEntityToDto($command->return());
+				/** @var PropertyPrice[] $propertyPrice */
 				$propertyPrice = $mapperPropertyPrice->fromDtoArrayToEntityArray($post->property->price);
+				$propertyPrice[0]->setPropertyId($property->id);
 				/** @var PropertyPrice[] $propertyPrice */
 				$command = FactoryCommand::createCommandCreatePropertyPrice($propertyPrice[0]);
 				$command->execute();
-				array_push($post->property->price, $command->return());
+				$property->price = $mapperPropertyPrice->fromEntityToDto($command->return());
 				if (isset($post->property->extras)) {
 					/** @var PropertyExtra[] $propertyExtra */
 					$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);
+					foreach ($propertyExtra as $extra){
+						$extra->setPropertyId($property->id);
+					}
 					$command = FactoryCommand::createCommandCreatePropertyExtra($propertyExtra);
 					$command->execute();
-					$post->property->extras = $command->return();
-					echo '<pre>';
-					var_dump($command->return());
-					die();
+					/** @var PropertyExtra[] $post ->property->extras */
+					$property->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
 				}
-				$return = $post;
+				$return = $property;
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -99,6 +102,28 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (PropertyExtraNotFoundException $e) {
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
+		break;
+	case "DELETE":
+		if (Validate::id($get)) {
+			$command = FactoryCommand::createCommandDeletePropertyById(FactoryEntity::createProperty($get->id));
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityArrayToDTOArray($command->return());
+			}
+			catch (DatabaseConnectionException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (PropertyNotFoundException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 			}
 		}
 		else {

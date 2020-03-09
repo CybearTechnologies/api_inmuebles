@@ -14,15 +14,15 @@ class CommandCreatePropertyExtra extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyExtraNotFoundException
 	 */
 	public function execute ():void {
 		$extras = $this->_propertyExtra;
+		$propertyExtras = [];
 		for ($i = 0; $i < count($extras); $i++) {
 			$this->_dao->setEntity($extras[$i]);
-			$this->_dao->createPropertyExtra();
+			array_push($propertyExtras, $this->_dao->createPropertyExtra());
 		}
-		$this->setData($this->_dao->getPropertyExtraByPropertyId());
+		$this->setData($propertyExtras);
 	}
 
 	/**

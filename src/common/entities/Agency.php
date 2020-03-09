@@ -1,5 +1,5 @@
 <?php
-class Agency extends Entity {
+class 	Agency extends Entity {
 	private $_name;
 
 	/**

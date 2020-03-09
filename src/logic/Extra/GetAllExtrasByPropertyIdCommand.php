@@ -3,7 +3,7 @@ class GetAllExtrasByPropertyIdCommand extends Command {
 	/**
 	 * GetAllExtrasByPropertyIdCommand constructor.
 	 *
-	 * @param Property $property
+	 * @param PropertyExtra $property
 	 */
 	public function __construct ($property) {
 		$this->_dao = FactoryDao::createDaoPropertyExtra($property);
