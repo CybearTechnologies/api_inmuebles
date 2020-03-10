@@ -15,9 +15,8 @@ class DaoProperty extends Dao {
 	 								 pr.pr_deleted 'delete', pr.pr_location_fk location, 
 	 							     pr.pr_user_created_fk userCreated, pr.pr_date_created dateCreated,
 	 								 pr.pr_user_modified_fk userModified, pr.pr_date_modified dateModified
-	 						  FROM property pr :sentences GROUP BY pr.pr_id;";
+	 						  FROM property pr :tables :sentences GROUP BY pr.pr_id;";
 	private $_property;
-
 	/**
 	 * DaoProperty constructor.
 	 *
@@ -33,19 +32,17 @@ class DaoProperty extends Dao {
 	 * @param $extraList
 	 * @param $minPrice
 	 * @param $maxPrice
+	 * @param $municipality
+	 * @param $state
 	 *
 	 * @return string|string[]
 	 */
-	public function genericGetProperty ($keyWord, $extraList, $minPrice, $maxPrice) {
+	public function genericGetProperty ($keyWord, $extraList, $minPrice, $maxPrice,$municipality,$state) {
 		$first = 0;
-		if ((isset($keyWord)) OR (isset($minPrice)) OR (isset($maxPrice)) OR (isset($extraList) AND !(empty($extraList)))) {
+		if ((isset($keyWord)) OR (isset($minPrice)) OR (isset($maxPrice)) OR (isset($extraList) AND !(empty($extraList)))OR isset($municipality) OR isset($state)) {
 			$this->_genericQuery = str_replace(":sentences", "WHERE :sentences", $this->_genericQuery);
 		}
 		if(isset($minPrice) OR isset($maxPrice)) {
-			/*if ($first==0) {
-				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
-				$first=1;
-			}*/
 			$first=1;
 			$this->_genericQuery = str_replace(":sentences", "pr.pr_id =(Select pp4.pp_property_fk From property_price pp4 WHERE
                  pp4.pp_id=(SELECT pp2.pp_id price FROM property_price pp2
@@ -61,7 +58,6 @@ class DaoProperty extends Dao {
 		if(isset($extraList) AND !(empty($extraList))){
 			if ($first==1) {
 				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
-				//$first=1;
 			}
 			$size=sizeof($extraList);
 			$this->_genericQuery=str_replace(":sentences","(Select count(*) 
@@ -80,10 +76,25 @@ class DaoProperty extends Dao {
 		if(isset($keyWord)){
 			if ($first==1) {
 				$this->_genericQuery = str_replace(":sentences", "AND :sentences", $this->_genericQuery);
-				//$first=1;
 			}
 			$this->_genericQuery=str_replace(":sentences","((INSTR(pr.pr_name, '".$keyWord."') > 0) 
 			OR (INSTR(pr.pr_description, '".$keyWord."') > 0)) :sentences",$this->_genericQuery);
+		}
+		if(isset($municipality) OR isset($state)){
+			if ($first==1) {
+				$this->_genericQuery = str_replace(":sentences", "AND :sentences",
+					$this->_genericQuery);
+			}
+			$this->_genericQuery = str_replace(":tables", ",location :tables",
+				$this->_genericQuery);
+			if(isset($municipality)){
+				$this->_genericQuery = str_replace(":sentences", "pr_location_fk = lo_id 
+				AND lo_name = ".$municipality." ",
+					$this->_genericQuery);
+			}
+			else if(isset($state)){
+
+			}
 		}
 		$this->_genericQuery=str_replace(":tables","",$this->_genericQuery);
 		$this->_genericQuery=str_replace(":sentences","",$this->_genericQuery);
