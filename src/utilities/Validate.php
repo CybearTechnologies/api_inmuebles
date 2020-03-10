@@ -186,6 +186,26 @@ class Validate {
 	}
 
 	/**
+	 * @param $property
+	 *
+	 * @return bool
+	 */
+	static function activeProperty ($property) {
+		return isset($property->id) && is_numeric($property->id)
+			&& strtolower($property->action) == "active";
+	}
+
+	/**
+	 * @param $property
+	 *
+	 * @return bool
+	 */
+	static function inactiveProperty ($property) {
+		return isset($property->id) && is_numeric($property->id)
+			&& strtolower($property->action) == "inactive";
+	}
+
+	/**
 	 * @param $agency
 	 *
 	 * @return bool

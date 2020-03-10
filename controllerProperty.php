@@ -110,12 +110,52 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
+	case "PUT":
+		$put = json_decode(file_get_contents('php://input'));
+		if (Validate::activeProperty($get)) {
+			try {
+				$command = FactoryCommand::createCommandActiveProperty(FactoryEntity::createProperty($get->id));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (PropertyNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
+			}
+		}
+		elseif (Validate::inactiveProperty($get)) {
+			try {
+				$command = FactoryCommand::createCommandInactiveProperty(FactoryEntity::createProperty($get->id));
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (PropertyNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
+			}
+		}
+		else {
+			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
+			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));
+		}
+		echo json_encode($return);
+		break;
 	case "DELETE":
 		if (Validate::id($get)) {
 			$command = FactoryCommand::createCommandDeletePropertyById(FactoryEntity::createProperty($get->id));
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDTOArray($command->return());
+				$return = $mapper->fromEntityToDto($command->return());
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));

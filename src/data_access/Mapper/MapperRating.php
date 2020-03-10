@@ -6,7 +6,7 @@ class MapperRating extends Mapper {
 	 * @return Rating
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createRating($dto->id, $dto->score, $dto->message);
+		return FactoryEntity::createRating($dto->id, $dto->score, $dto->message,$dto->target);
 	}
 
 	/**
