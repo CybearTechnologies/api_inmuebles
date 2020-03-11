@@ -88,12 +88,13 @@ class DaoProperty extends Dao {
 			$this->_genericQuery = str_replace(":tables", ",location :tables",
 				$this->_genericQuery);
 			if(isset($municipality)){
-				$this->_genericQuery = str_replace(":sentences", "pr_location_fk = lo_id 
-				AND lo_name = ".$municipality." ",
-					$this->_genericQuery);
+				$this->_genericQuery = str_replace(":sentences", "lo_name = '". $municipality."' 
+				AND (pr_location_fk = lo_id OR pr_location_fk = lo_location_fk) :sentences 
+				", $this->_genericQuery);
 			}
 			else if(isset($state)){
-
+				$this->_genericQuery = str_replace(":sentences", "lo_name = '". $municipality."' 
+				AND pr_location_fk = lo_id :sentences", $this->_genericQuery);
 			}
 		}
 		$this->_genericQuery=str_replace(":tables","",$this->_genericQuery);
