@@ -721,12 +721,22 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @return CommandGetAllActiveProperties
+	 * @param $property
+	 *
+	 * @return CommandActiveProperty
 	 */
-	static function createCommandGetAllActiveProperties ():CommandGetAllActiveProperties {
-		return new CommandGetAllActiveProperties();
+	static function createCommandActiveProperty($property):CommandActiveProperty{
+		return new CommandActiveProperty($property);
 	}
 
+	/**
+	 * @param $property
+	 *
+	 * @return CommandInactiveProperty
+	 */
+	static function createCommandInactiveProperty($property):CommandInactiveProperty{
+		return new CommandInactiveProperty($property);
+	}
 	/**
 	 * @param Property $property
 	 *

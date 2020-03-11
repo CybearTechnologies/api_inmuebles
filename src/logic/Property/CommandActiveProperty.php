@@ -3,9 +3,9 @@ class CommandActiveProperty extends Command {
 	/**
 	 * CommandActiveProperty constructor.
 	 *
-	 * @param PropertyPrice $entity
+	 * @param Property $entity
 	 */
-	public function __construct (PropertyPrice $entity) {
+	public function __construct (Property $entity) {
 		$this->_dao = FactoryDao::createDaoProperty($entity);
 	}
 

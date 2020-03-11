@@ -24,6 +24,7 @@ RewriteRule ^access$ controllerAccess.php [NC,L]
 RewriteRule ^login$ controllerLogin.php [NC,L]
 #	INMUEBLE
 RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
+RewriteRule ^property/(active|inactive)/([0-9]+)$ controllerProperty.php?action=$1&id=$2 [NC,L]
 RewriteRule ^property$ controllerProperty.php [NC,L]
 #   TIPO DE INMUBELE
 RewriteRule ^property-type/?$ controllerPropertyType.php [NC,L]

@@ -257,3 +257,45 @@ CREATE TABLE origin
     FOREIGN KEY (or_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (or_user_modified_fk) REFERENCES user (us_id)
 );
+
+CREATE TABLE favourite
+(
+    fa_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
+    fa_property_fk      int(10)    NOT NULL COMMENT 'ID Propiedad',
+    fa_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    fa_user_created_fk  int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    fa_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    fa_user_modified_fk int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    fa_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    FOREIGN KEY (fa_user_created_fk) REFERENCES user (us_id),
+    FOREIGN KEY (fa_user_modified_fk) REFERENCES user (us_id),
+    FOREIGN KEY (fa_property_fk) REFERENCES property (pr_id)
+);
+
+CREATE TABLE subscription
+(
+    su_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
+    su_ci               int(10) NOT NULL COMMENT 'Documento de identidad',
+    su_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    su_user_created_fk  int             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    su_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    su_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    su_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    su_plan_fk          int            DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    FOREIGN KEY (su_user_created_fk) REFERENCES user (us_id),
+    FOREIGN KEY (su_user_modified_fk) REFERENCES user (us_id)
+);
+
+CREATE TABLE subscription_detail
+(
+    sd_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
+    sd_document         varchar(255) NOT NULL COMMENT 'Documento',
+    sd_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    sd_user_created_fk  int             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    sd_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    sd_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    sd_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    sd_su_fk          int            DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    FOREIGN KEY (sd_user_created_fk) REFERENCES user (us_id),
+    FOREIGN KEY (sd_user_modified_fk) REFERENCES user (us_id)
+)
