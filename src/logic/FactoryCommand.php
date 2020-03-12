@@ -124,6 +124,25 @@ class FactoryCommand {
 	static function createCommandUpdateUser ($user):CommandUpdateUser {
 		return new CommandUpdateUser($user);
 	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandSetUserPlan
+	 */
+	static function createCommandSetUserPlan ($user, $plan):CommandSetUserPlan {
+		return new CommandSetUserPlan($user, $plan);
+	}
+
+	/**
+	 * @param $user
+	 * @param $password
+	 *
+	 * @return CommandChangePassword
+	 */
+	static function createCommandChangeUserPassword ($user, $password):CommandChangePassword {
+		return new CommandChangePassword($user, $password);
+	}
 	//------------------------------------------------------------
 	//----------------------------ROL----------------------------
 	//------------------------------------------------------------
@@ -725,7 +744,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandActiveProperty
 	 */
-	static function createCommandActiveProperty($property):CommandActiveProperty{
+	static function createCommandActiveProperty ($property):CommandActiveProperty {
 		return new CommandActiveProperty($property);
 	}
 
@@ -734,9 +753,10 @@ class FactoryCommand {
 	 *
 	 * @return CommandInactiveProperty
 	 */
-	static function createCommandInactiveProperty($property):CommandInactiveProperty{
+	static function createCommandInactiveProperty ($property):CommandInactiveProperty {
 		return new CommandInactiveProperty($property);
 	}
+
 	/**
 	 * @param Property $property
 	 *
