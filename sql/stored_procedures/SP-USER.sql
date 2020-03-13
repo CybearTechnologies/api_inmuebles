@@ -503,49 +503,6 @@ BEGIN
 
 END$$
 
-DROP PROCEDURE IF EXISTS setUserPlan;
-DELIMITER $$
-CREATE PROCEDURE setUserPlan(id int, plan int,user int, dateModified datetime)
-BEGIN
-    IF IsNull(dateModified) THEN
-        UPDATE user
-        SET us_plan_fk = plan, us_user_modified_fk = user
-        WHERE us_id = id;
-    ELSE
-        UPDATE user
-        SET us_plan_fk = plan, us_user_modified_fk = user, us_date_modified = dateModified
-        WHERE us_id = id;
-    END IF;
-    SELECT us.us_id id,
-           us.us_first_name first_name,
-           us.us_last_name last_name,
-           us.us_address address,
-           us.us_deleted deleted,
-           us.us_email email,
-           us.us_password password,
-           us.us_blocked blocked,
-           us.us_deleted 'delete',
-           us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
-
-END$$
 
 /**
  ----------------------------------------------------------------------------------------------------------------------

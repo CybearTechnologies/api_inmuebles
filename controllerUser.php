@@ -117,6 +117,39 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 			}
 		}
+		elseif (isset($put->user) && is_numeric($put->user) && isset($put->plan) && is_numeric($put->plan)) {
+			$put = json_decode(file_get_contents('php://input'));
+			$command = FactoryCommand::createCommandSetUserPlan($put->user, $put->plan);
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (UserNotFoundException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
+			}
+		}
+		elseif (isset ($put->user) && is_numeric($put->user) && isset($put->password) && !empty($put->password)) {
+			try {
+				$command = FactoryCommand::createCommandChangeUserPassword($put->user, $put->password);
+				$command->execute();
+				$return = $mapper->fromEntityToDTO($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (UserNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
+			}
+		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
 			Tools::setResponse(Values::getValue("ERROR_DATA_INCOMPLETE"));

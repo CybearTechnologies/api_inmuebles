@@ -16,6 +16,8 @@
 #	USER
 RewriteRule ^user/([0-9]+)$ controllerUser.php?id=$1 [NC,L]
 RewriteRule ^user/(.*?)$ controllerUser.php?email=$1 [NC,L]
+RewriteRule ^user/plan$ controllerUser.php [NC,L]
+RewriteRule ^user/password$ controllerUser.php [NC,L]
 RewriteRule ^user controllerUser.php [NC,L]
 #	ACCESS
 RewriteRule ^access/([0-9]+)$ controllerAccess.php?id=$1 [NC,L]
@@ -26,6 +28,9 @@ RewriteRule ^login$ controllerLogin.php [NC,L]
 RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
 RewriteRule ^property/(active|inactive)/([0-9]+)$ controllerProperty.php?action=$1&id=$2 [NC,L]
 RewriteRule ^property$ controllerProperty.php [NC,L]
+# REQUEST
+RewriteRule ^property/([0-9]+)/request$ controllerPropertyRequest.php?property=$1 [NC,L]
+RewriteRule ^user/([0-9]+)/request$ controllerPropertyRequest.php?user=$1 [NC,L]
 #   TIPO DE INMUBELE
 RewriteRule ^property-type/?$ controllerPropertyType.php [NC,L]
 RewriteRule ^property-type/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]

@@ -49,6 +49,8 @@ class Values {
 		'ERROR_ACCESS_NOT_FOUND' => array ('text' => 'Acceso no encontrado', 'value' => 404),
 		'ERROR_ACCESS_ALREADY_EXIST' => array ('text' => 'Este acceso ya existe', 'value' => 200),
 		'ERROR_USER_NOT_FOUND' => array ('text' => 'Usuario no encontrado', 'value' => 404),
+		//REQUEST
+		'ERROR_REQUEST_NOT_FOUND' => array ('text' => 'Petición no encontrada', 'value' => 404),
 	);
 
 	/**
