@@ -276,14 +276,22 @@ CREATE TABLE subscription
 (
     su_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
     su_ci               int(10) NOT NULL COMMENT 'Documento de identidad',
+    su_passport         varchar(50) NOT NULL COMMENT 'Documento de identidad',
+    su_email       varchar(50)  NOT NULL COMMENT 'Email',
+    su_password    varchar(255) NOT NULL COMMENT 'Contraseña',
     su_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
     su_user_created_fk  int             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     su_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     su_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     su_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    su_plan_fk          int            DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    FOREIGN KEY (su_user_created_fk) REFERENCES user (us_id),
-    FOREIGN KEY (su_user_modified_fk) REFERENCES user (us_id)
+    su_plan_fk          int        NOT NULL COMMENT 'Plan',
+    su_seat_fk          int        NOT NULL COMMENT 'Seat',
+    su_location_fk      int        NOT NULL COMMENT 'Location',
+    FOREIGN KEY (su_user_created_fk)  REFERENCES user (us_id),
+    FOREIGN KEY (su_user_modified_fk) REFERENCES user (us_id),
+    FOREIGN KEY (su_plan_fk)          REFERENCES plan (pl_id),
+    FOREIGN KEY (su_seat_fk)          REFERENCES seat (se_id),
+    FOREIGN KEY (su_location_fk)      REFERENCES location (lo_id)
 );
 
 CREATE TABLE subscription_detail
@@ -295,7 +303,8 @@ CREATE TABLE subscription_detail
     sd_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     sd_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     sd_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    sd_su_fk          int            DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    sd_subscription_fk  int            DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     FOREIGN KEY (sd_user_created_fk) REFERENCES user (us_id),
-    FOREIGN KEY (sd_user_modified_fk) REFERENCES user (us_id)
-)
+    FOREIGN KEY (sd_user_modified_fk) REFERENCES user (us_id),
+    FOREIGN KEY (sd_subscription_fk) REFERENCES subscription (su_id)
+);

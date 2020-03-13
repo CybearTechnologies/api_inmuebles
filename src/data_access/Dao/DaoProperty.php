@@ -103,6 +103,7 @@ class DaoProperty extends Dao {
 			}
 		}
 		$this->_genericQuery = str_replace(":tables", "", $this->_genericQuery);
+		$this->_genericQuery = str_replace(":sentences", "AND pr.pr_deleted = 0", $this->_genericQuery);
 		$this->_genericQuery = str_replace(":sentences", "", $this->_genericQuery);
 		$this->_genericQuery = str_replace(":sentences2", "", $this->_genericQuery);
 
