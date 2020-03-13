@@ -13,7 +13,7 @@ class DaoUser extends Dao {
 	private const QUERY_UPDATE = "CALL updateUser(:id,:firstName,:lastName,:address,:email,:password,:seat,:rol,:plan,
 	:location,:user,:dateModified)";
 	private const QUERY_SET_PLAN = "CALL setUserPlan(:id,:plan,:user,:dateModified)";
-	private const QUERY_CHANGE_PASSWORD = "CALL changeUserPassword(:id,:password,:user,:dateModified)";
+	private const QUERY_CHANGE_PASSWORD = "CALL changePassword(:id,:password,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -367,7 +367,7 @@ class DaoUser extends Dao {
 			$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CHANGE_PASSWORD);
 			$stmt->bindParam(":id", $user, PDO::PARAM_INT);
-			$stmt->bindParam(":plan", $password, PDO::PARAM_STR);
+			$stmt->bindParam(":password", $password, PDO::PARAM_STR);
 			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
