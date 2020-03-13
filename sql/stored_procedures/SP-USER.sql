@@ -373,11 +373,17 @@ END$$
 
 DROP PROCEDURE IF EXISTS changePassword;
 DELIMITER $$
-CREATE PROCEDURE changePassword(id int, password varchar (255))
+CREATE PROCEDURE changePassword(id int, password varchar (255),user int, dateModified datetime)
 BEGIN
-    UPDATE user
-    SET us_password = password
-    WHERE us_id = id;
+    IF IsNull(dateModified) THEN
+        UPDATE user
+        SET us_password = password, us_user_modified_fk = user
+        WHERE us_id = id;
+    ELSE
+        UPDATE user
+        SET us_password = password, us_user_modified_fk = user, us_date_modified = dateModified
+        WHERE us_id = id;
+    END IF;
     SELECT us.us_id id,
            us.us_first_name first_name,
            us.us_last_name last_name,
