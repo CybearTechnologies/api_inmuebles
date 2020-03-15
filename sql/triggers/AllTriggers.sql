@@ -83,3 +83,38 @@ BEGIN
 END;
 DELIMITER $$;
 
+DROP TRIGGER IF EXISTS afterChangeActiveSubscription;
+DELIMITER $$
+CREATE TRIGGER afterChangeActiveSubscription
+    AFTER UPDATE
+    ON subscription FOR EACH ROW
+BEGIN
+    IF NEW.su_active <> OLD.su_active
+    THEN
+        IF NEW.su_active=1 THEN
+            UPDATE subscription_detail SET sd_active=1 WHERE sd_subscription_fk=OLD.su_id;
+        ELSEIF NEW.su_active=0 THEN
+            UPDATE subscription_detail SET sd_active=0 WHERE sd_subscription_fk=OLD.su_id;
+        END IF;
+    END IF;
+END;
+DELIMITER $$ ;
+
+DROP TRIGGER IF EXISTS afterDeleteSubscription;
+DELIMITER $$
+CREATE TRIGGER afterDeleteSubscription
+    AFTER UPDATE
+    ON subscription FOR EACH ROW
+BEGIN
+    IF NEW.su_deleted <> OLD.su_deleted
+    THEN
+        IF NEW.su_deleted=1 THEN
+            UPDATE subscription_detail SET sd_deleted=1 WHERE sd_subscription_fk=OLD.su_id;
+        ELSEIF NEW.su_deleted=0 THEN
+            UPDATE subscription_detail SET sd_deleted=1 WHERE sd_subscription_fk=OLD.su_id;
+        END IF;
+    END IF;
+END;
+DELIMITER $$ ;
+
+

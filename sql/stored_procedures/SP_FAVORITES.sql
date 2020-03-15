@@ -3,6 +3,7 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
+
 DROP PROCEDURE IF EXISTS insertFavorites;
 DELIMITER $$
 CREATE PROCEDURE insertFavorites(property int, user int,dateCreated datetime)
