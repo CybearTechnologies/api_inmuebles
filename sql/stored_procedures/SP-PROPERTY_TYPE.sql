@@ -6,7 +6,7 @@
 
 DROP PROCEDURE IF EXISTS insertPropertyType;
 DELIMITER $$
-CREATE PROCEDURE insertPropertyType(name varchar(30), image varchar(30), user int, dateCreated datetime)
+CREATE PROCEDURE insertPropertyType(name varchar(30), image varchar(255), user int, dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
         INSERT INTO property_type(pt_name, pt_image, pt_user_created_fk, pt_user_modified_fk)
