@@ -3,7 +3,7 @@ class DaoRequest extends Dao {
 	private const QUERY_CREATE = "CALL insertRequest(:property,:user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllRequest()";
 	private const QUERY_GET_BY_ID = "CALL getRequestById(:id)";
-	private const QUERY_GET_BY_USER_ID = "CALL getAllRequestByUserId(:id)";
+	private const QUERY_GET_BY_USER_ID = "CALL getRequestByUserId(:id)";
 	private const QUERY_GET_REQUEST_BY_PROPERTY_ID = "CALL getRequestByPropertyId(:id)";
 	private const QUERY_DELETE = "CALL deleteRequest(:id,:user)";
 	private const QUERY_UPDATE = "CALL updateRequest(:id,:property,:user,:dateModified)";
@@ -113,15 +113,16 @@ class DaoRequest extends Dao {
 	}
 
 	/**
+	 * @param $userId
+	 *
 	 * @return Request[]
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
-	public function getAllRequestByUserId () {
+	public function getAllRequestByUserId ($userId) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_ID);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":id", $userId, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new RequestNotFoundException("There are no request found", 200);
