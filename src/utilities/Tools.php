@@ -53,6 +53,13 @@ class Tools {
 	}
 
 	/**
+	 * @return object
+	 */
+	static function postObject () {
+		return (object) $_POST;
+	}
+
+	/**
 	 * @param $date
 	 *
 	 * @return string
