@@ -3,6 +3,7 @@
   ---                                               BEGIN                                                           ---
   ----------------------------------------------------------------------------------------------------------------------
  */
+
 DROP PROCEDURE IF EXISTS insertRequest;
 DELIMITER $$
 CREATE PROCEDURE insertRequest(property int, user int,dateCreated datetime)
@@ -110,13 +111,14 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           re_user_created_fk userCreator,
-           re_user_modified_fk userModifier,
+           CONCAT(us_first_name, us_last_name) userCreator,
+           CONCAT(us_first_name, us_last_name) userModifier,
            re_date_created dateCreated,
            re_date_modified dateModified
-    FROM request
+    FROM request, user
     WHERE re_property_fk = id_property
-    AND re_deleted = 0;
+        AND re_user_created_fk = us_id
+        AND re_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteRequest;

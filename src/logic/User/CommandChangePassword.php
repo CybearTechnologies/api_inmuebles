@@ -12,7 +12,7 @@ class CommandChangePassword extends Command {
 	public function __construct ($user, $password) {
 		$this->_dao = FactoryDao::createDaoUser();
 		$this->_user = $user;
-		$this->_password = Tools::siteEncrypt($password);
+		$this->_password = password_hash($password, PASSWORD_DEFAULT, array ('cost' => 10));
 	}
 
 	/**

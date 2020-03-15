@@ -253,7 +253,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param User $user
+	 * @param int $user
 	 *
 	 * @return CommandGetAllRequestByUserId
 	 */

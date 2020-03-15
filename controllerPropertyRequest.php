@@ -22,6 +22,22 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse(Values::getValue("ERROR_REQUEST_NOT_FOUND"));
 			}
 		}
+		if (isset($get->user) && is_numeric($get->user)) {
+			$command = FactoryCommand::createCommandGetAllRequestByUserId($get->user);
+			try {
+				$command->execute();
+				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (RequestNotFoundException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_REQUEST_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_REQUEST_NOT_FOUND"));
+			}
+		}
 		echo json_encode($return);
 		break;
 	case "POST":

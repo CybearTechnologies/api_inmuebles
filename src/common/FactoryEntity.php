@@ -134,18 +134,18 @@ class FactoryEntity {
 
 	/**
 	 * @param int    $id
-	 * @param bool   $active
-	 * @param bool   $delete
 	 * @param int    $property
-	 * @param int    $userCreator
-	 * @param int    $userModifier
+	 * @param string $userCreator
+	 * @param string $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return Request
 	 */
 	static function createRequest (int $id, int $property = Values::DEFAULT_INT,
-		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $userCreator = Values::DEFAULT_STRING, string $userModifier = Values::DEFAULT_STRING,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Request {
 		return new Request($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
