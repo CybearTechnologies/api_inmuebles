@@ -2,6 +2,7 @@
 require_once "autoload.php";
 Tools::headers();
 $get = Tools::getObject();
+$post = Tools::postObject();
 $return = null;
 $mapper = FactoryMapper::createMapperPropertyType();
 switch ($_SERVER["REQUEST_METHOD"]) {
@@ -42,10 +43,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	case "POST":
-		$post = json_decode(file_get_contents('php://input'));
-		if (Validate::propertyType($post)) {
+		if (Validate::propertyType($post) && ImageProcessor::imageFileExist('image')) {
 			try {
-				$command = FactoryCommand::createCommandCreatePropertyType($mapper->fromDTOToEntity($post));
+				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
+						$post->name, 'photos/property-type');
+				$dto = FactoryDto::createDtoPropertyType(-1, $post->name, Environment::baseURL() . $tempImage);
+				$command = FactoryCommand::createCommandCreatePropertyType($mapper->fromDTOToEntity($dto));
 				$command->execute();
 				$return = $mapper->fromEntityToDTO($command->return());
 				Tools::setResponse();
@@ -53,10 +56,20 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+				ImageProcessor::removeImage($tempImage);
 			}
 			catch (PropetyTypeAlreadyExistException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
 				Tools::setResponse(Values::getValue("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
+				ImageProcessor::removeImage($tempImage);
+			}
+			catch (FileIsNotImageException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
+			}
+			catch (ImageNotFoundException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {

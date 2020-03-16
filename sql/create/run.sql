@@ -306,3 +306,18 @@ CREATE TABLE subscription_detail
     FOREIGN KEY (sd_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (sd_subscription_fk) REFERENCES subscription (su_id)
 );
+
+CREATE TABLE favorites
+(
+    fa_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
+    fa_property_fk      int(10)    NOT NULL COMMENT 'ID Propiedad',
+    fa_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
+    fa_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    fa_user_created_fk  int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    fa_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    fa_user_modified_fk int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    fa_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    FOREIGN KEY (fa_user_created_fk) REFERENCES user (us_id),
+    FOREIGN KEY (fa_user_modified_fk) REFERENCES user (us_id),
+    FOREIGN KEY (fa_property_fk) REFERENCES property (pr_id)
+)

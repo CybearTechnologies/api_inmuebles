@@ -18,7 +18,7 @@ class CommandCreateAgency extends Command {
 	public function execute ():void {
 		try {
 			$this->_command->execute();
-			Throw new AgencyAlreadyExistException("Agencia ya existente");
+			Throw new AgencyAlreadyExistException("Agency already exist", 403);
 		}
 		catch (AgencyNotFoundException $exception) {
 			$this->setData($this->_dao->createAgency());
