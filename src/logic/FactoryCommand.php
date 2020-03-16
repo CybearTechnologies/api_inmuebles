@@ -47,11 +47,11 @@ class FactoryCommand {
 	//----------------------------USER----------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param User $user
+	 * @param int $user
 	 *
 	 * @return CommandGetUserById
 	 */
-	public static function createCommandGetUserById (User $user):CommandGetUserById {
+	public static function createCommandGetUserById ($user):CommandGetUserById {
 		return new CommandGetUserById($user);
 	}
 

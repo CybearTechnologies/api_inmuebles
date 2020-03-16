@@ -26,7 +26,7 @@ class CommandGetPlanById extends Command {
 	}
 
 	/**
-	 * @return Plan
+	 * @return DtoPlan
 	 */
 	public function return () {
 		return $this->getData();

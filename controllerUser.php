@@ -9,10 +9,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
 			$user->setId($get->id);
-			$command = FactoryCommand::createCommandGetUserById($user);
+			$command = FactoryCommand::createCommandGetUserById($get->id);
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDTO($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {

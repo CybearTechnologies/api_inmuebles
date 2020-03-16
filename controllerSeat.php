@@ -10,7 +10,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetSeatById(FactoryEntity::createSeat($get->id));
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDto($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -20,6 +20,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (SeatNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_SEAT_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_SEAT_NOT_FOUND"));
+			}
+			catch (CustomException $exception){
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			echo json_encode($return);
 		}
