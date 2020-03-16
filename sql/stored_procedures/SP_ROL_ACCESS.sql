@@ -47,6 +47,7 @@ BEGIN
     FROM rol_access,
          access
     WHERE ra_rol_fk = id_rol
+      AND ra_access_fk = ac_id
       AND ra_active = 1
       AND ra_deleted = 0;
 END$$

@@ -307,7 +307,7 @@ CREATE TABLE subscription_detail
     FOREIGN KEY (sd_subscription_fk) REFERENCES subscription (su_id)
 );
 
-CREATE TABLE favorites
+CREATE TABLE favorite
 (
     fa_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
     fa_property_fk      int(10)    NOT NULL COMMENT 'ID Propiedad',
@@ -320,4 +320,12 @@ CREATE TABLE favorites
     FOREIGN KEY (fa_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (fa_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (fa_property_fk) REFERENCES property (pr_id)
-)
+);
+
+
+
+
+
+
+
+

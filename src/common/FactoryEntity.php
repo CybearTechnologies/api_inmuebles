@@ -376,4 +376,23 @@ class FactoryEntity {
 	static function createResizeImage ($filename = null):ResizeImage {
 		return new ResizeImage($filename);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $property
+	 * @param string $userCreator
+	 * @param string $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return Favorite
+	 */
+	static function createFavorite (int $id, int $property = Values::DEFAULT_INT,
+		string $userCreator = Values::DEFAULT_STRING, string $userModifier = Values::DEFAULT_STRING,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Favorite {
+		return new Favorite($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+	}
 }
