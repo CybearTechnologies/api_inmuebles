@@ -118,7 +118,7 @@ BEGIN
     WHERE su_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteSubscription;
+DROP PROCEDURE IF EXISTS getAllSubscription;
 DELIMITER $$
 CREATE PROCEDURE getAllSubscription()
 BEGIN

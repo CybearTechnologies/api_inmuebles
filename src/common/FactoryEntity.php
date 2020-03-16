@@ -395,4 +395,55 @@ class FactoryEntity {
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Favorite {
 		return new Favorite($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $plan
+	 * @param int    $seat
+	 * @param int    $location
+	 * @param int    $ci
+	 * @param string $passport
+	 * @param string $email
+	 * @param string $password
+	 * @param string $userCreator
+	 * @param string $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return Subscription
+	 */
+	static function createSubscription (int $id, int $plan,int $seat,int $location,int $ci = Values::DEFAULT_INT,
+		string $passport = Values::DEFAULT_STRING, string $email = Values::DEFAULT_STRING,
+		string $password = Values::DEFAULT_STRING, string $userCreator = Values::DEFAULT_STRING,
+		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):Subscription {
+		return new Subscription($id, $ci, $passport,$email,$password,$plan,$seat,$location,$userCreator,
+			$userModifier, $dateCreated, $dateModified, $active, $delete);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $subscription
+	 * @param string $document
+	 * @param string $userCreator
+	 * @param string $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return SubscriptionDetail
+	 */
+	static function createSubscriptionDetail (int $id,int $subscription,
+		string $document = Values::DEFAULT_STRING,
+		string $userCreator = Values::DEFAULT_STRING,
+		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):SubscriptionDetail {
+		return new SubscriptionDetail($id, $subscription,$document,$userCreator,
+			$userModifier, $dateCreated, $dateModified, $active, $delete);
+	}
 }

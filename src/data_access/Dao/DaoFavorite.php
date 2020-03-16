@@ -1,6 +1,6 @@
 <?php
 class DaoFavorite extends Dao {
-	private const QUERY_CREATE = "CALL insertFavorites(:property,:user,:dateCreated)";
+	private const QUERY_CREATE = "CALL insertFavorite(:property,:user,:dateCreated)";
 	private const QUERY_GET_BY_USER_ID = "CALL getFavoritesByUserId(:id)";
 	private const QUERY_DELETE = "CALL deleteFavorite(:id)";
 	private $_entity;
@@ -46,7 +46,7 @@ class DaoFavorite extends Dao {
 	 *
 	 * @return Favorite[]
 	 * @throws DatabaseConnectionException
-	 * @throws RequestNotFoundException
+	 * @throws FavoriteNotFoundException
 	 */
 	public function getAllFavoriteByUserId ($userId) {
 		try {
@@ -54,7 +54,7 @@ class DaoFavorite extends Dao {
 			$stmt->bindParam(":id", $userId, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new RequestNotFoundException("There are no request found", 200);
+				Throw new FavoriteNotFoundException("There are no Favorite found", 200);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
@@ -69,7 +69,7 @@ class DaoFavorite extends Dao {
 	 *
 	 * @return Favorite[]
 	 * @throws DatabaseConnectionException
-	 * @throws RequestNotFoundException
+	 * @throws FavoriteNotFoundException
 	 */
 	public function getAllRequestByUserId ($userId) {
 		try {
@@ -77,7 +77,7 @@ class DaoFavorite extends Dao {
 			$stmt->bindParam(":id", $userId, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new RequestNotFoundException("There are no request found", 200);
+				Throw new FavoriteNotFoundException("There are no Favorite found", 200);
 			else
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
