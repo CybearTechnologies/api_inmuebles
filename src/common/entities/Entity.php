@@ -4,7 +4,7 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-abstract class Entity {
+abstract class 	Entity {
 	private $_id;
 	private $_userCreator;
 	private $_userModifier;
@@ -17,14 +17,14 @@ abstract class Entity {
 	 * Entity constructor.
 	 *
 	 * @param int    $_id
-	 * @param        $_userCreator
-	 * @param        $_userModifier
+	 * @param int    $_userCreator
+	 * @param int    $_userModifier
 	 * @param string $_dateCreated
 	 * @param string $_dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
 	 */
-	public function __construct (int $_id,  $_userCreator,  $_userModifier, string $_dateCreated,
+	public function __construct (int $_id, int $_userCreator, int $_userModifier, string $_dateCreated,
 		string $_dateModified, bool $active, bool $delete) {
 		$this->_id = $_id;
 		$this->_userCreator = $_userCreator;
@@ -49,18 +49,24 @@ abstract class Entity {
 		$this->_id = $id;
 	}
 
-	public function getUserCreator () {
+	/**
+	 * @return int
+	 */
+	public function getUserCreator ():int {
 		return $this->_userCreator;
 	}
 
 	/**
 	 * @param $userCreator
 	 */
-	public function setUserCreator ( $userCreator):void {
+	public function setUserCreator ($userCreator):void {
 		$this->_userCreator = $userCreator;
 	}
 
-	public function getUserModifier () {
+	/**
+	 * @return int
+	 */
+	public function getUserModifier ():int {
 		return $this->_userModifier;
 	}
 

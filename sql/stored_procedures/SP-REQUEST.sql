@@ -111,13 +111,12 @@ BEGIN
            re_property_fk property,
            re_active active,
            re_deleted 'delete',
-           CONCAT(us_first_name, us_last_name) userCreator,
-           CONCAT(us_first_name, us_last_name) userModifier,
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
            re_date_created dateCreated,
            re_date_modified dateModified
-    FROM request, user
+    FROM request
     WHERE re_property_fk = id_property
-        AND re_user_created_fk = us_id
         AND re_deleted = 0;
 END$$
 

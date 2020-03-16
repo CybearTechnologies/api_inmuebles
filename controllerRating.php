@@ -13,7 +13,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetRatingById($rating);
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDTO($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -22,6 +22,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (RatingNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_RATING_NOT_FOUND"));
+				Tools::setResponse($exception->getCode());
+			}
+			catch (CustomException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse($exception->getCode());
 			}
 		}

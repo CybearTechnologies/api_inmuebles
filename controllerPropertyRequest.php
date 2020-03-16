@@ -10,7 +10,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$command = FactoryCommand::createCommandGetAllRequestByPropertyId($get->property);
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
@@ -18,15 +18,19 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (RequestNotFoundException $e) {
-				$return = new ErrorResponse(Values::getText("ERROR_REQUEST_NOT_FOUND"));
-				Tools::setResponse(Values::getValue("ERROR_REQUEST_NOT_FOUND"));
+				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_WITHOUT_REQUEST"));
+				Tools::setResponse(Values::getValue("ERROR_PROPERTY_WITHOUT_REQUEST"));
+			}
+			catch (CustomException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		if (isset($get->user) && is_numeric($get->user)) {
 			$command = FactoryCommand::createCommandGetAllRequestByUserId($get->user);
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
@@ -34,8 +38,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (RequestNotFoundException $e) {
-				$return = new ErrorResponse(Values::getText("ERROR_REQUEST_NOT_FOUND"));
-				Tools::setResponse(Values::getValue("ERROR_REQUEST_NOT_FOUND"));
+				$return = new ErrorResponse(Values::getText("ERROR_USER_WITHOUT_REQUEST"));
+				Tools::setResponse(Values::getValue("ERROR_USER_WITHOUT_REQUEST	"));
+			}
+			catch (CustomException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		echo json_encode($return);

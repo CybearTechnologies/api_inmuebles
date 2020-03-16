@@ -8,22 +8,10 @@ $mapperSeat = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
-			$agency = FactoryEntity::createAgency($get->id);
-			$command = FactoryCommand::createCommandGetAgencyById($agency);
+			$command = FactoryCommand::createCommandGetAgencyById(FactoryEntity::createAgency($get->id));
 			try {
 				$command->execute();
-				$dto = $mapper->fromEntityToDTO($command->return());
-				if (empty($dto->seats)) {
-					$command = FactoryCommand::createCommandGetAllSeatsByAgency($agency);
-					try {
-						$command->execute();
-						$dto->seats = $mapperSeat->fromEntityArrayToDtoArray($command->return());
-					}
-					catch (SeatNotFoundException $exception) {
-						unset($dto->seats);
-					}
-				}
-				$return = $dto;
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -33,6 +21,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (AgencyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
+			}
+			catch (CustomException $exception) {
+				$return = $exception->getMessage();
+				//$return = new ErrorResponse(Values::getText("ERROR_DATABASE")); // TODO colocar mensaje error inesperado.
+				Tools::setResponse(Values::getValue("ERROR_DATABASE")); //TODO ERROR POR MULTIPLEUSERS
 			}
 			echo json_encode($return);
 		}

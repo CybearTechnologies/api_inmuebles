@@ -235,7 +235,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Property $property
+	 * @param int $property
 	 *
 	 * @return CommandGetAllRequestByPropertyId
 	 */

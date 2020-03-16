@@ -14,7 +14,7 @@ class Tools {
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
 		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 		header("Allow: GET, POST, OPTIONS, PUT, DELETE");
-		if($_SERVER['REQUEST_METHOD'] == "OPTIONS")
+		if ($_SERVER['REQUEST_METHOD'] == "OPTIONS")
 			die;
 	}
 
@@ -97,5 +97,25 @@ class Tools {
 	 */
 	public static function setResponse ($responseCode = 200) {
 		http_response_code($responseCode);
+	}
+
+	/**
+	 * @param Dto $dto
+	 * @param int $creator
+	 * @param int $modifier
+	 *
+	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
+	 * @throws UserNotFoundException
+	 */
+	static function setUserToDto (Dto $dto, int $creator, int $modifier):void {
+		$dao = FactoryDao::createDaoUser();
+		$mapperUser = FactoryMapper::createMapperUser();
+		$dto->userCreator = $mapperUser->fromEntityToDto($dao->getUserById($creator));
+		$dto->userModifier = $mapperUser->fromEntityToDto($dao->getUserById($modifier));
+		unset($dto->userCreator->userCreator);
+		unset($dto->userCreator->userModifier);
+		unset($dto->userModifier->userCreator);
+		unset($dto->userModifier->userModifier);
 	}
 }
