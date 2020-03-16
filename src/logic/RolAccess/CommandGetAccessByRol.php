@@ -1,5 +1,7 @@
 <?php
 class CommandGetAccessByRol extends Command {
+	private $_mapperRolAccess;
+
 	/**
 	 * CommandGetAccessByRol constructor.
 	 *
@@ -7,18 +9,25 @@ class CommandGetAccessByRol extends Command {
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoRolAccess($entity);
+		$this->_mapperRolAccess = FactoryMapper::createMapperRolAccess();
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
 	 * @throws RolAccessNotFoundException
+	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAccessByRol());
+		$dtoAccess = $this->_mapperRolAccess->fromEntityArrayToDtoArray($this->_dao->getAccessByRol());
+		foreach ($dtoAccess as $dto) {
+			Tools::setUserToDto($dto, $dto->userCreator, $dto->userModifier);
+		}
+		$this->setData($dtoAccess);
 	}
 
 	/**
-	 * @return RolAccess
+	 * @return RolAccess[]
 	 */
 	public function return () {
 		return $this->getData();

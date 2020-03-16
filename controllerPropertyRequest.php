@@ -39,7 +39,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (RequestNotFoundException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_USER_WITHOUT_REQUEST"));
-				Tools::setResponse(Values::getValue("ERROR_USER_WITHOUT_REQUEST	"));
+				Tools::setResponse(Values::getValue("ERROR_USER_WITHOUT_REQUEST"));
 			}
 			catch (CustomException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));

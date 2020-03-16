@@ -44,7 +44,7 @@ class DaoRolAccess extends Dao {
 	}
 
 	/**
-	 * @return RolAccess
+	 * @return RolAccess[]
 	 * @throws DatabaseConnectionException
 	 * @throws RolAccessNotFoundException
 	 */
@@ -55,9 +55,9 @@ class DaoRolAccess extends Dao {
 			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new RolAccessNotFoundException("There are no acces with this rol ['{$rol}'] found", 404);
+				Throw new RolAccessNotFoundException("There are no access with this rol ['{$rol}'] found", 404);
 			else {
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 			}
 		}
 		catch (PDOException $exception) {
