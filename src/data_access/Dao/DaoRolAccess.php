@@ -130,7 +130,7 @@ class DaoRolAccess extends Dao {
 	protected function extract ($dbObject) {
 		return FactoryEntity::createRolAccess(
 			$dbObject->id, $dbObject->rol,
-			$dbObject->access, $dbObject->accessName,
+			$dbObject->access,
 			$dbObject->userCreator, $dbObject->userModifier,
 			$dbObject->dateCreated, $dbObject->dateModified,
 			$dbObject->active, $dbObject->delete);

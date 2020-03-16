@@ -21,13 +21,21 @@ class CommandGetAccessByRol extends Command {
 	public function execute ():void {
 		$dtoAccess = $this->_mapperRolAccess->fromEntityArrayToDtoArray($this->_dao->getAccessByRol());
 		foreach ($dtoAccess as $dto) {
-			Tools::setUserToDto($dto, $dto->userCreator, $dto->userModifier);
+			$command = FactoryCommand::createCommandGetRolById(FactoryEntity::createRol($dto->rol));
+			try {
+				$command->execute();
+				$dto->rol = $command->return();
+				Tools::setUserToDto($dto, $dto->userCreator, $dto->userModifier);
+			}
+			catch (RolNotFoundException $e) {
+				unset($dto->rol);
+			}
 		}
 		$this->setData($dtoAccess);
 	}
 
 	/**
-	 * @return RolAccess[]
+	 * @return DtoRolAccess[]
 	 */
 	public function return () {
 		return $this->getData();
