@@ -81,8 +81,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function extra ($extra) {
-		return isset($extra->name) && !empty($extra->name)
-			&& isset($extra->icon) && !empty($extra->icon);
+		return isset($extra->name) && !empty($extra->name);
 	}
 
 	/**
