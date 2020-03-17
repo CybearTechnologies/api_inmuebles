@@ -1,5 +1,6 @@
 <?php
 class CommandGetLocationById extends Command {
+	private $_mapperLocation;
 	/**
 	 * CommandGetLocationById constructor.
 	 *
@@ -7,6 +8,7 @@ class CommandGetLocationById extends Command {
 	 */
 	public function __construct ($location) {
 		$this->_dao = FactoryDao::createDaoLocation($location);
+		$this->_mapperLocation = FactoryMapper::createMapperLocation();
 	}
 
 	/**
@@ -14,11 +16,12 @@ class CommandGetLocationById extends Command {
 	 * @throws LocationNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getLocationById());
+		$dtoLocation = $this->_mapperLocation->fromEntityToDto($this->_dao->getLocationById());
+		$this->setData($dtoLocation);
 	}
 
 	/**
-	 * @return Location
+	 * @return DtoLocation
 	 */
 	public function return () {
 		return $this->getData();

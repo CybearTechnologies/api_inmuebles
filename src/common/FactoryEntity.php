@@ -231,10 +231,10 @@ class FactoryEntity {
 		bool $active = Values::DEFAULT_ACTIVE,
 		bool $blocked = Values::DEFAULT_INT,
 		bool $deleted = Values::DEFAULT_DELETE,
-		string $seat = Values::DEFAULT_STRING,
-		string $rol = Values::DEFAULT_STRING,
-		string $plan = Values::DEFAULT_STRING,
-		string $location = Values::DEFAULT_STRING,
+		string $seat = Values::DEFAULT_FOREIGN,
+		string $rol = Values::DEFAULT_FOREIGN,
+		string $plan = Values::DEFAULT_FOREIGN,
+		string $location = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE):User {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
@@ -347,7 +347,6 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param int    $rol
 	 * @param int    $access
-	 * @param string $accessName
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -358,11 +357,11 @@ class FactoryEntity {
 	 * @return RolAccess
 	 */
 	static function createRolAccess (int $id, int $rol = Values::DEFAULT_FOREIGN, int $access = Values::DEFAULT_FOREIGN,
-		string $accessName = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		 int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):RolAccess {
-		return new RolAccess($id, $rol, $access, $accessName, $userCreator, $userModifier, $dateCreated, $dateModified,
+		return new RolAccess($id, $rol, $access, $userCreator, $userModifier, $dateCreated, $dateModified,
 			$active, $delete);
 	}
 

@@ -86,13 +86,12 @@ class Validate {
 	}
 
 	/**
-	 * @param $propertyType
+	 * @param object
 	 *
 	 * @return bool
 	 */
 	static function propertyType ($propertyType) {
-		return isset($propertyType->name) && !empty($propertyType->name)
-			&& isset($propertyType->image) && !empty($propertyType->image);
+		return isset($propertyType->name) && !empty($propertyType->name);
 	}
 
 	/**

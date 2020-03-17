@@ -1,6 +1,8 @@
 <?php
 class CommandGetAllRequestByUserId extends Command {
 	private $_userId;
+	private $_mapperRequest;
+
 	/**
 	 * CommandGetAllRequestByUserId constructor.
 	 *
@@ -8,19 +10,26 @@ class CommandGetAllRequestByUserId extends Command {
 	 */
 	public function __construct ($user) {
 		$this->_dao = FactoryDao::createDaoRequest();
+		$this->_mapperRequest = FactoryMapper::createMapperRequest();
 		$this->_userId = $user;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
 	 * @throws RequestNotFoundException
+	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllRequestByUserId($this->_userId));
+		$dtoRequest = $this->_mapperRequest->fromEntityArrayToDtoArray($this->_dao->getAllRequestByUserId($this->_userId));
+		foreach ($dtoRequest as $dto) {
+			Tools::setUserToDto($dto, $dto->userCreator, $dto->userModifier);
+		}
+		$this->setData($dtoRequest);
 	}
 
 	/**
-	 * @return Request[]
+	 * @return DtoRequest[]
 	 */
 	public function return () {
 		return $this->getData();

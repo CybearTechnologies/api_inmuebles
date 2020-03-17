@@ -37,7 +37,6 @@ BEGIN
     SELECT ra_id id,
            ra_rol_fk rol,
            ra_access_fk access,
-           ac_name accessName,
            ra_active active,
            ra_deleted 'delete',
            ra_user_created_fk userCreator,

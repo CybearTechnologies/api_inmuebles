@@ -2,7 +2,6 @@
 class RolAccess extends Entity {
 	private $_rol;
 	private $_access;
-	private $_accessName;
 
 	/**
 	 * RolAccess constructor.
@@ -10,7 +9,6 @@ class RolAccess extends Entity {
 	 * @param int    $id
 	 * @param int    $rol
 	 * @param int    $access
-	 * @param string $accessName
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -18,13 +16,12 @@ class RolAccess extends Entity {
 	 * @param bool   $active
 	 * @param bool   $delete
 	 */
-	public function __construct (int $id, int $rol, int $access, string $accessName, int $userCreator,
+	public function __construct (int $id, int $rol, int $access, int $userCreator,
 		int $userModifier, string $dateCreated,
 		string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_rol = $rol;
 		$this->_access = $access;
-		$this->_accessName = $accessName;
 	}
 
 	/**
@@ -53,19 +50,5 @@ class RolAccess extends Entity {
 	 */
 	public function setAccess (int $access):void {
 		$this->_access = $access;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getAccessName ():string {
-		return $this->_accessName;
-	}
-
-	/**
-	 * @param string $accessName
-	 */
-	public function setAccessName (string $accessName):void {
-		$this->_accessName = $accessName;
 	}
 }
