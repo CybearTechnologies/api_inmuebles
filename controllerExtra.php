@@ -2,6 +2,7 @@
 require_once "autoload.php";
 Tools::headers();
 $get = Tools::getObject();
+$post = Tools::postObject();
 $return = null;
 $mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
@@ -68,10 +69,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	case "POST":
-		$post = json_decode(file_get_contents('php://input'));
-		if (Validate::extra($post)) {
-			$command = FactoryCommand::createCommandCreateExtra($mapper->fromDTOToEntity($post));
+		if (Validate::extra($post) && ImageProcessor::imageFileExist('image')) {
 			try {
+				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
+						$post->name, 'photos/extra');
+				$dto = FactoryDto::createDtoExtra(-1, $post->name, Environment::baseURL() . $tempImage);
+				$command = FactoryCommand::createCommandCreateExtra($mapper->fromDTOToEntity($dto));
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
 				Tools::setResponse();
@@ -79,6 +82,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (FileIsNotImageException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
+			}
+			catch (ImageNotFoundException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {

@@ -48,10 +48,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		break;
 	case "POST":
-		$post = json_decode(file_get_contents('php://input'));
-		if (Validate::agency($post)) {
-			$command = FactoryCommand::createCommandCreateAgency($mapper->fromDtoToEntity($post));
+		if (Validate::agency($post) && ImageProcessor::imageFileExist('image')) {
 			try {
+				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
+						$post->name, 'photos/agency');
+				$dto = FactoryDto::createDtoAgency(-1, $post->name, Environment::baseURL() . $tempImage);
+				$command = FactoryCommand::createCommandCreateAgency($mapper->fromDtoToEntity($dto));
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
 				Tools::setResponse();
@@ -63,6 +65,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText('ERROR_DATABASE'));
 				Tools::setResponse(Values::getValue('ERROR_DATABASE'));
+			}
+			catch (FileIsNotImageException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
+			}
+			catch (ImageNotFoundException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {
