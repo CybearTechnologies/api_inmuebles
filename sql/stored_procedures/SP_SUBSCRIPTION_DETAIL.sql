@@ -59,6 +59,32 @@ BEGIN
     WHERE sd_id = id;
 END$$
 
+DROP PROCEDURE IF EXISTS deleteSubscriptionDetail;
+DELIMITER $$
+CREATE PROCEDURE deleteSubscriptionDetail(id int,dateModified datetime, userModified int)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE subscription_detail
+        SET sd_deleted = 1, sd_user_modified_fk = userModified
+        WHERE sd_id = id;
+    ELSE
+        UPDATE subscription_detail
+        SET sd_deleted = 1, sd_user_modified_fk = userModified, sd_date_modified = dateModified
+        WHERE sd_id = id;
+    END IF;
+    SELECT sd_id,
+           sd_document,
+           sd_active,
+           sd_deleted,
+           sd_date_created,
+           sd_user_modified_fk,
+           sd_date_modified,
+           sd_subscription_fk
+    FROM subscription_detail
+    WHERE sd_id = id;
+END$$
+
+
  /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---

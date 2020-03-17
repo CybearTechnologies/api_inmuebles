@@ -5,6 +5,7 @@ class DaoSubscriptionDetail extends Dao {
 									:document,:dateCreated)";
 	private const QUERY_GET_BY_ID = "CALL getSubscriptionDetailById(:id)";
 	private const QUERY_GET_BY_SUBSCRIPTION = "CALL getSubscriptionDetailBySubscription(:subscriptionId)";
+	private const QUERY_DELETE = "CALL deleteSubscriptionDetail(:id ,:dateModified , :userModified )";
 
 	/**
 	 * DaoSubscriptionDetail constructor.
@@ -83,6 +84,29 @@ class DaoSubscriptionDetail extends Dao {
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
+		}
+		catch (PDOException $e) {
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $user
+	 * @param string $dateModified
+	 *
+	 * @return SubscriptionDetail
+	 * @throws DatabaseConnectionException
+	 */
+	public function deleteSubscriptionDetail (int $id,int $user, string $dateModified) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":userModified", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+
 		}
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
