@@ -51,6 +51,8 @@ class Values {
 		'ERROR_USER_NOT_FOUND' => array ('text' => 'Usuario no encontrado', 'value' => 404),
 		//REQUEST
 		'ERROR_REQUEST_NOT_FOUND' => array ('text' => 'Petición no encontrada', 'value' => 404),
+		'ERROR_PROPERTY_WITHOUT_REQUEST' => array ('text' => 'Esta propiedad aun no tiene peticiones', 'value' => 404),
+		'ERROR_USER_WITHOUT_REQUEST' => array ('text' => 'Usuario aún no ha realizado peticiones', 'value' => 404),
 	);
 
 	/**

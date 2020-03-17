@@ -5,14 +5,14 @@ class DtoRol extends Dto {
 	/**
 	 * DtoRol constructor.
 	 *
-	 * @param int    $id
-	 * @param string $name
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int         $id
+	 * @param string      $name
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
 	 */
 	public function __construct (int $id, string $name, int $userCreator, int $userModifier, string $dateCreated,
 		string $dateModified, bool $active, bool $delete) {

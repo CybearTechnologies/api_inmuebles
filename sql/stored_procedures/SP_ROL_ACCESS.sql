@@ -37,7 +37,6 @@ BEGIN
     SELECT ra_id id,
            ra_rol_fk rol,
            ra_access_fk access,
-           ac_name accessName,
            ra_active active,
            ra_deleted 'delete',
            ra_user_created_fk userCreator,
@@ -47,6 +46,7 @@ BEGIN
     FROM rol_access,
          access
     WHERE ra_rol_fk = id_rol
+      AND ra_access_fk = ac_id
       AND ra_active = 1
       AND ra_deleted = 0;
 END$$

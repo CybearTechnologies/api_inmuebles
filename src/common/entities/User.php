@@ -25,23 +25,22 @@ class User extends Entity {
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param string $seat
-	 * @param string $rol
-	 * @param string $plan
-	 * @param string $location
+	 * @param int $seat
+	 * @param int $rol
+	 * @param int $plan
+	 * @param int $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, string $seat,
-		string $rol, string $plan, string $location, string $dateCreated, string $dateModified) {
+		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
+		int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->_firstName = $firstName;
 		$this->_lastName = $lastName;
 		$this->_address = $address;
 		$this->_email = $email;
 		$this->_password = $password;
-		$this->_deleted = $deleted;
 		$this->_blocked = $blocked;
 		$this->_seat = $seat;
 		$this->_rol = $rol;
@@ -134,60 +133,59 @@ class User extends Entity {
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
-	public function getSeat ():string {
+	public function getSeat ():int {
 		return $this->_seat;
 	}
 
 	/**
-	 * @param string $seat
+	 * @param int $seat
 	 */
-	public function setSeat (string $seat):void {
+	public function setSeat (int $seat):void {
 		$this->_seat = $seat;
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
-	public function getRol ():string {
+	public function getRol ():int {
 		return $this->_rol;
 	}
 
 	/**
-	 * @param string $rol
+	 * @param int $rol
 	 */
-	public function setRol (string $rol):void {
+	public function setRol (int $rol):void {
 		$this->_rol = $rol;
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
-	public function getPlan ():string {
+	public function getPlan ():int {
 		return $this->_plan;
 	}
 
 	/**
-	 * @param string $plan
+	 * @param int $plan
 	 */
-	public function setPlan (string $plan):void {
+	public function setPlan (int $plan):void {
 		$this->_plan = $plan;
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
-	public function getLocation ():string {
+	public function getLocation ():int {
 		return $this->_location;
 	}
 
 	/**
-	 * @param string $location
+	 * @param int $location
 	 */
-	public function setLocation (string $location):void {
+	public function setLocation (int $location):void {
 		$this->_location = $location;
 	}
-
 
 }

@@ -11,7 +11,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetRolById($rol = FactoryEntity::createRol($get->id));
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDto($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $e) {
@@ -21,6 +21,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (RolNotFoundException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_ROL_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_ROL_NOT_FOUND"));
+			}
+			catch (CustomException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
 		else {

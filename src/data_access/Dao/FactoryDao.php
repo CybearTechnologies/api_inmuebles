@@ -148,4 +148,15 @@ class FactoryDao {
 	static function createDaoRolAccess ($entity):DaoRolAccess {
 		return new DaoRolAccess($entity);
 	}
+
+	/**
+	 * @param Favorite $entity
+	 *
+	 * @return DaoFavorite
+	 */
+	static function createDaoFavorite ($entity):DaoFavorite {
+		return new DaoFavorite($entity);
+	}
+
+
 }

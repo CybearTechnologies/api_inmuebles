@@ -1,5 +1,7 @@
 <?php
 class CommandGetRolById extends Command {
+	private $_mapperRol;
+
 	/**
 	 * CommandGetRolById constructor.
 	 *
@@ -7,18 +9,23 @@ class CommandGetRolById extends Command {
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoRol($entity);
+		$this->_mapperRol = FactoryMapper::createMapperRol();
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
 	 * @throws RolNotFoundException
+	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getRolById());
+		$dtoRol = $this->_mapperRol->fromEntityToDto($this->_dao->getRolById());
+		Tools::setUserToDto($dtoRol,$dtoRol->userCreator,$dtoRol->userModifier);
+		$this->setData($dtoRol);
 	}
 
 	/**
-	 * @return Rol
+	 * @return DtoRol
 	 */
 	public function return () {
 		return $this->getData();

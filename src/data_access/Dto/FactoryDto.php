@@ -51,20 +51,20 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
-	 * @param string $name
-	 * @param float  $price
+	 * @param int         $id
+	 * @param string      $name
+	 * @param float       $price
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
 	 *
 	 * @return DtoPlan
 	 */
 	static function createDtoPlan (int $id, string $name = Values::DEFAULT_STRING, float $price = Values::DEFAULT_FLOAT,
-		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoPlan {
 		return new DtoPlan($id, $name, $price, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
@@ -75,8 +75,8 @@ class FactoryDto {
 	 * @param int            $id
 	 * @param string         $name
 	 * @param DtoSeat[]|null $seats
-	 * @param int            $userCreator
-	 * @param string         $userModifier
+	 * @param DtoUser|int    $userCreator
+	 * @param DtoUser|int    $userModifier
 	 * @param string         $dateCreated
 	 * @param string         $dateModified
 	 * @param bool           $active
@@ -85,7 +85,7 @@ class FactoryDto {
 	 * @return DtoAgency
 	 */
 	static function createDtoAgency (int $id, string $name = Values::DEFAULT_STRING, $seats = Values::DEFAULT_ARRAY,
-		int $userCreator = Values::DEFAULT_INT, string $userModifier = Values::DEFAULT_STRING,
+		$userCreator = Values::DEFAULT_INT, $userModifier = Values::DEFAULT_INT, //todo null user creator..
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoAgency {
 		return new DtoAgency($id, $name, $seats, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
@@ -93,21 +93,21 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param string $name
-	 * @param string $icon
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int         $id
+	 * @param string      $name
+	 * @param string      $icon
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
 	 *
 	 * @return DtoExtra
 	 */
 	static function createDtoExtra (int $id, string $name = Values::DEFAULT_STRING,
 		string $icon = Values::DEFAULT_STRING,
-		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoExtra {
 		return new DtoExtra($id, $name, $icon, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
@@ -137,23 +137,23 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param string $name
-	 * @param string $rif
-	 * @param int    $location
-	 * @param int    $agency
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int             $id
+	 * @param string          $name
+	 * @param string          $rif
+	 * @param DtoLocation|int $location
+	 * @param DtoAgency|int   $agency
+	 * @param DtoUser|int     $userCreator
+	 * @param DtoUser|int     $userModifier
+	 * @param string          $dateCreated
+	 * @param string          $dateModified
+	 * @param bool            $active
+	 * @param bool            $delete
 	 *
 	 * @return DtoSeat
 	 */
 	static function createDtoSeat (int $id, string $name = Values::DEFAULT_STRING, string $rif = Values::DEFAULT_STRING,
-		int $location = Values::DEFAULT_INT, int $agency = Values::DEFAULT_INT,
-		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		$location = Values::DEFAULT_INT, $agency = Values::DEFAULT_INT,
+		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoSeat {
 		return new DtoSeat($id, $name, $rif, $location, $agency, $userCreator, $userModifier, $dateCreated,
@@ -161,19 +161,19 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $property
-	 * @param string $userCreator
-	 * @param string $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int         $id
+	 * @param int         $property
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
 	 *
 	 * @return DtoRequest
 	 */
-	static function createDtoRequest (int $id, int $property = Values::DEFAULT_INT,
-		string $userCreator = Values::DEFAULT_STRING, string $userModifier = Values::DEFAULT_FOREIGN,
+	static function createDtoRequest (int $id, int $property = Values::DEFAULT_FOREIGN,
+		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoRequest {
 		return new DtoRequest($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
@@ -227,23 +227,23 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param float  $score
-	 * @param string $message
-	 * @param int    $target
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int         $id
+	 * @param float       $score
+	 * @param string      $message
+	 * @param int         $target
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
 	 *
 	 * @return DtoRating
 	 */
 	static function createDtoRating (int $id, $score = Values::DEFAULT_FLOAT, $message = Values::DEFAULT_STRING,
 		int $target = Values::DEFAULT_FOREIGN,
-		int $userCreator = Values::DEFAULT_FOREIGN,
-		int $userModifier = Values::DEFAULT_FOREIGN,
+		$userCreator = Values::DEFAULT_FOREIGN,
+		$userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):DtoRating {
@@ -345,26 +345,25 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $rol
-	 * @param int    $access
-	 * @param string $accessName
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int           $id
+	 * @param DtoRol|int    $rol
+	 * @param DtoAccess|int $access
+	 * @param DtoUser|int   $userCreator
+	 * @param DtoUser|int   $userModifier
+	 * @param string        $dateCreated
+	 * @param string        $dateModified
+	 * @param bool          $active
+	 * @param bool          $delete
 	 *
 	 * @return DtoRolAccess
 	 */
-	static function createDtoRolAccess (int $id, int $rol = Values::DEFAULT_FOREIGN,
-		int $access = Values::DEFAULT_FOREIGN,
-		string $accessName = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+	static function createDtoRolAccess (int $id, $rol = Values::DEFAULT_FOREIGN,
+		$access = Values::DEFAULT_FOREIGN,
+		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):DtoRolAccess {
-		return new DtoRolAccess($id, $rol, $access, $accessName, $userCreator, $userModifier, $dateCreated,
+		return new DtoRolAccess($id, $rol, $access, $userCreator, $userModifier, $dateCreated,
 			$dateModified,
 			$active, $delete);
 	}

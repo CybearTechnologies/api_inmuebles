@@ -1,5 +1,7 @@
 <?php
 class CommandGetRatingById extends Command {
+	private $_mapperRating;
+
 	/**
 	 * CommandGetRatingById constructor.
 	 *
@@ -7,20 +9,25 @@ class CommandGetRatingById extends Command {
 	 */
 	public function __construct ($rating) {
 		$this->_dao = FactoryDao::createDaoRating($rating);
+		$this->_mapperRating = FactoryMapper::createMapperRating();
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
 	 * @throws RatingNotFoundException
+	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getRatingById());
+		$dtoRating = $this->_mapperRating->fromEntityToDto($this->_dao->getRatingById());
+		Tools::setUserToDto($dtoRating,$dtoRating->userCreator,$dtoRating->userModifier);
+		$this->setData($dtoRating);
 	}
 
 	/**
-	 * @return Rating
+	 * @return DtoRating
 	 */
-	public function return ():Rating {
+	public function return ():DtoRating {
 		return $this->getData();
 	}
 }

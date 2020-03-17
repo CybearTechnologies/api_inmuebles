@@ -231,10 +231,10 @@ class FactoryEntity {
 		bool $active = Values::DEFAULT_ACTIVE,
 		bool $blocked = Values::DEFAULT_INT,
 		bool $deleted = Values::DEFAULT_DELETE,
-		string $seat = Values::DEFAULT_STRING,
-		string $rol = Values::DEFAULT_STRING,
-		string $plan = Values::DEFAULT_STRING,
-		string $location = Values::DEFAULT_STRING,
+		string $seat = Values::DEFAULT_FOREIGN,
+		string $rol = Values::DEFAULT_FOREIGN,
+		string $plan = Values::DEFAULT_FOREIGN,
+		string $location = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE):User {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
@@ -347,7 +347,6 @@ class FactoryEntity {
 	 * @param int    $id
 	 * @param int    $rol
 	 * @param int    $access
-	 * @param string $accessName
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -358,11 +357,11 @@ class FactoryEntity {
 	 * @return RolAccess
 	 */
 	static function createRolAccess (int $id, int $rol = Values::DEFAULT_FOREIGN, int $access = Values::DEFAULT_FOREIGN,
-		string $accessName = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		 int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):RolAccess {
-		return new RolAccess($id, $rol, $access, $accessName, $userCreator, $userModifier, $dateCreated, $dateModified,
+		return new RolAccess($id, $rol, $access, $userCreator, $userModifier, $dateCreated, $dateModified,
 			$active, $delete);
 	}
 
@@ -375,5 +374,75 @@ class FactoryEntity {
 	 */
 	static function createResizeImage ($filename = null):ResizeImage {
 		return new ResizeImage($filename);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $property
+	 * @param string $userCreator
+	 * @param string $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return Favorite
+	 */
+	static function createFavorite (int $id, int $property = Values::DEFAULT_INT,
+		string $userCreator = Values::DEFAULT_STRING, string $userModifier = Values::DEFAULT_STRING,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Favorite {
+		return new Favorite($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $plan
+	 * @param int    $seat
+	 * @param int    $location
+	 * @param int    $ci
+	 * @param string $passport
+	 * @param string $email
+	 * @param string $password
+	 * @param string $userCreator
+	 * @param string $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return Subscription
+	 */
+	static function createSubscription (int $id, int $plan,int $seat,int $location,int $ci = Values::DEFAULT_INT,
+		string $passport = Values::DEFAULT_STRING, string $email = Values::DEFAULT_STRING,
+		string $password = Values::DEFAULT_STRING, string $userCreator = Values::DEFAULT_STRING,
+		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):Subscription {
+		return new Subscription($id, $ci, $passport,$email,$password,$plan,$seat,$location,$userCreator,
+			$userModifier, $dateCreated, $dateModified, $active, $delete);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $subscription
+	 * @param string $document
+	 * @param string $userCreator
+	 * @param string $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return SubscriptionDetail
+	 */
+	static function createSubscriptionDetail (int $id,int $subscription,
+		string $document = Values::DEFAULT_STRING,
+		string $userCreator = Values::DEFAULT_STRING,
+		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE):SubscriptionDetail {
+		return new SubscriptionDetail($id, $subscription,$document,$userCreator,
+			$userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 }

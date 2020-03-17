@@ -8,11 +8,10 @@ $mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
-			$extra = FactoryEntity::createExtra($get->id);
-			$command = FactoryCommand::createCommandGetExtraById($extra);
+			$command = FactoryCommand::createCommandGetExtraById(FactoryEntity::createExtra($get->id));
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDTO($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -22,9 +21,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
+			}catch (CustomException $exception){
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
-		if (isset($get->state)) {
+		else if (isset($get->state)) {
 			if (strtolower($get->state) == "active")
 				$get->state = true;
 			if (strtolower($get->state) == "inactive")
