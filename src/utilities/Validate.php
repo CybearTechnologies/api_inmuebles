@@ -136,8 +136,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function agency ($agency) {
-		return isset($agency->id) && is_numeric($agency->id)
-			&& isset($agency->name) && !empty($agency->name);
+		return isset($agency->name) && !empty($agency->name);
 	}
 
 	/**
