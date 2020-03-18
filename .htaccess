@@ -70,6 +70,10 @@ RewriteRule ^rol/(active|inactive)/([0-9]+)$ controllerRol.php?action=$1&id=$2 [
 #FAVORITE
 RewriteRule ^favorite/([0-9]+)$ controllerFavorite.php?id=$1 [NC,L]
 RewriteRule ^favorite$ controllerFavorite.php [NC,L]
+#SUBSCRIPTION
+RewriteRule ^subscription/([0-9]+)$ controllerSubscription.php?id=$1 [NC,L]
+RewriteRule ^subscription/(accept|decline)/([0-9]+)$ controllerSubscription.php?action=$1&id=$2 [NC,L]
+RewriteRule ^subscription$ controllerSubscription.php [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
