@@ -1,6 +1,5 @@
 <?php
 class DaoSubscriptionDetail extends Dao {
-	private $_entity;
 	private const QUERY_CREATE = "CALL createSubscriptionDetail(:subscription_id,
 									:document,:dateCreated)";
 	private const QUERY_GET_BY_ID = "CALL getSubscriptionDetailById(:id)";
@@ -10,23 +9,22 @@ class DaoSubscriptionDetail extends Dao {
 	/**
 	 * DaoSubscriptionDetail constructor.
 	 *
-	 * @param SubscriptionDetail $_entity
 	 */
-	public function __construct ($_entity) {
+	public function __construct () {
 		parent::__construct();
-		$this->_entity = $_entity;
 	}
 
 	/**
+	 * @param SubscriptionDetail $entity
 	 *
 	 * @return SubscriptionDetail
 	 * @throws DatabaseConnectionException
 	 */
-	public function createSubscriptionDetail () {
+	public function createSubscriptionDetail ($entity) {
 		try {
-			$document = $this->_entity->getDocument();
-			$subscription = $this->_entity->getSubscription();
-			$dateCreated = $this->_entity->getDateCreated();
+			$document = $entity->getDocument();
+			$subscription = $entity->getSubscription();
+			$dateCreated = $entity->getDateCreated();
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);

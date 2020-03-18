@@ -369,14 +369,14 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $property
-	 * @param DtoUser|int    $userCreator
-	 * @param DtoUser|int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int         $id
+	 * @param int         $property
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
 	 *
 	 * @return DtoFavorite
 	 */

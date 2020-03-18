@@ -919,4 +919,27 @@ class FactoryCommand {
 	static function createCommandGetAllFavoriteByUserId ($id):CommandGetAllFavoriteByUserId {
 		return new CommandGetAllFavoriteByUserId($id);
 	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//								SUBSCRIPTION DETAIL
+	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * @param SubscriptionDetail[] $subscribeDetail
+	 *
+	 * @return CommandAddSubscribeDetail
+	 */
+	static function createCommandAddSubscribeDetail($subscribeDetail):CommandAddSubscribeDetail{
+		return new CommandAddSubscribeDetail($subscribeDetail);
+	}
+
+	/**
+	 * @param Subscription $subscription
+	 * @param SubscriptionDetail[] $subscriptionDetail
+	 *
+	 * @return CommandSubscribeUser
+	 */
+	static function createCommandSubscribeUser($subscription, $subscriptionDetail):CommandSubscribeUser{
+		return new CommandSubscribeUser($subscription,$subscriptionDetail);
+	}
 }
