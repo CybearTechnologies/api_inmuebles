@@ -158,5 +158,22 @@ class FactoryDao {
 		return new DaoFavorite($entity);
 	}
 
+	/**
+	 * @param $entity
+	 *
+	 * @return DaoSubscription
+	 */
+	static function  createDaoSubscription($entity):DaoSubscription{
+		return new DaoSubscription($entity);
+	}
+
+	/**
+	 *
+	 * @return DaoSubscriptionDetail
+	 */
+	static function createDaoSubscriptionDetail():DaoSubscriptionDetail{
+		return new DaoSubscriptionDetail();
+	}
+
 
 }

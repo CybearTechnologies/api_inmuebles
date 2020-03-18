@@ -367,4 +367,5 @@ class FactoryDto {
 			$dateModified,
 			$active, $delete);
 	}
+
 }

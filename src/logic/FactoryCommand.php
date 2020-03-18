@@ -889,4 +889,23 @@ class FactoryCommand {
 	static function createCommandCreatePropertyExtra ($propertyExtra):CommandCreatePropertyExtra {
 		return new CommandCreatePropertyExtra($propertyExtra);
 	}
+
+	/**
+	 * @param SubscriptionDetail[] $subscribeDetail
+	 *
+	 * @return CommandAddSubscribeDetail
+	 */
+	static function createCommandAddSubscribeDetail($subscribeDetail):CommandAddSubscribeDetail{
+		return new CommandAddSubscribeDetail($subscribeDetail);
+	}
+
+	/**
+	 * @param Subscription $subscription
+	 * @param SubscriptionDetail[] $subscriptionDetail
+	 *
+	 * @return CommandSubscribeUser
+	 */
+	static function createCommandSubscribeUser($subscription, $subscriptionDetail):CommandSubscribeUser{
+		return new CommandSubscribeUser($subscription,$subscriptionDetail);
+	}
 }
