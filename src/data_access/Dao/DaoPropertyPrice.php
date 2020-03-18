@@ -52,9 +52,8 @@ class DaoPropertyPrice extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws InvalidPropertyPriceException
 	 */
-	public function getPropertyPriceByPropertyId () {
+	public function getPropertyPriceByPropertyId ($id) {
 		try {
-			$id = $this->_entity->getPropertyId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_PRICE_BY_PROPERTY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

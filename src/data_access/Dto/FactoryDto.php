@@ -322,10 +322,9 @@ class FactoryDto {
 
 	/**
 	 * @param int    $id
-	 * @param string $name
 	 * @param int    $value
-	 * @param int    $propertyId
-	 * @param int    $extraId
+	 * @param int    $property
+	 * @param int    $extra
 	 * @param bool   $active
 	 * @param bool   $delete
 	 * @param int    $userCreator
@@ -335,13 +334,12 @@ class FactoryDto {
 	 *
 	 * @return DtoPropertyExtra
 	 */
-	static function createDtoPropertyExtra (int $id, string $name = Values::DEFAULT_STRING, int $value, int $propertyId,
-		int $extraId, bool $active,
-		bool $delete,
-		int $userCreator, int $userModifier, string $dateCreated, string $dateModified):DtoPropertyExtra {
-		return new DtoPropertyExtra($id, $name, $value, $propertyId, $extraId, $active, $delete, $userCreator,
-			$userModifier,
-			$dateCreated, $dateModified);
+	static function createDtoPropertyExtra (int $id, $value = Values::DEFAULT_INT, $property = Values::DEFAULT_FOREIGN,
+		$extra = Values::DEFAULT_FOREIGN, bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE,
+		int $userCreator = Values::DEFAULT_INT, int $userModifier = Values::DEFAULT_INT,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE):DtoPropertyExtra {
+		return new DtoPropertyExtra($id, $value, $property, $extra, $active, $delete, $userCreator,
+			$userModifier, $dateCreated, $dateModified);
 	}
 
 	/**

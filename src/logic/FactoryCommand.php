@@ -629,7 +629,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param PropertyPrice $propertyPrice
+	 * @param int $propertyPrice
 	 *
 	 * @return CommandGetPropertyPriceByPropertyId
 	 */
@@ -693,7 +693,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param PropertyExtra $property
+	 * @param int $property
 	 *
 	 * @return GetAllExtrasByPropertyIdCommand
 	 */
@@ -799,7 +799,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Property $property
+	 * @param int $property
 	 *
 	 * @return CommandGetPropertyById
 	 */

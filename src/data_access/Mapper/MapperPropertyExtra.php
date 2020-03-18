@@ -5,7 +5,7 @@ class MapperPropertyExtra extends Mapper {
 	 * @var DtoPropertyExtra $dto
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createPropertyExtra($dto->id, $dto->name, $dto->amount, $dto->propertyId, $dto->extraId);
+		return FactoryEntity::createPropertyExtra($dto->id, $dto->name, $dto->amount, $dto->property, $dto->extra);
 	}
 
 	/**
@@ -13,8 +13,7 @@ class MapperPropertyExtra extends Mapper {
 	 * @var PropertyExtra $entity
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoPropertyExtra($entity->getId(),
-			$entity->getName(), $entity->getValue(), $entity->getPropertyId(),
+		return FactoryDto::createDtoPropertyExtra($entity->getId(), $entity->getValue(), $entity->getPropertyId(),
 			$entity->getExtraId(), $entity->isActive(), $entity->isDelete(), $entity->getUserCreator(),
 			$entity->getUserModifier(), $entity->getDateCreated(), $entity->getDateModified());
 	}
