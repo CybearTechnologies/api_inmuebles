@@ -367,4 +367,24 @@ class FactoryDto {
 			$dateModified,
 			$active, $delete);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $property
+	 * @param DtoUser|int    $userCreator
+	 * @param DtoUser|int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return DtoFavorite
+	 */
+	static function createDtoFavorite (int $id, $property = Values::DEFAULT_FOREIGN,
+		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, $dateModified = Values::DEFAULT_DATE,
+		$active = Values::DEFAULT_ACTIVE, $delete = Values::DEFAULT_DELETE) {
+		return new DtoFavorite($id, $property, $userCreator, $userModifier, $dateCreated,
+			$dateModified, $active, $delete);
+	}
 }

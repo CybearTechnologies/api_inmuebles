@@ -154,7 +154,7 @@ class FactoryDao {
 	 *
 	 * @return DaoFavorite
 	 */
-	static function createDaoFavorite ($entity):DaoFavorite {
+	static function createDaoFavorite ($entity = null):DaoFavorite {
 		return new DaoFavorite($entity);
 	}
 

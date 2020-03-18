@@ -389,7 +389,7 @@ class FactoryEntity {
 	 * @return Favorite
 	 */
 	static function createFavorite (int $id, int $property = Values::DEFAULT_INT,
-		string $userCreator = Values::DEFAULT_STRING, string $userModifier = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_FOREIGN, string $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Favorite {
 		return new Favorite($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
