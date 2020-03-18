@@ -6,39 +6,13 @@ $return = null;
 $mapper = FactoryMapper::createMapperProperty();
 $mapperExtra = FactoryMapper::createMapperPropertyExtra();
 $mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
-$property = FactoryEntity::createProperty(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
-			$property->setId($get->id);
-			$command = FactoryCommand::createCommandGetPropertyById($property);
+			$command = FactoryCommand::createCommandGetPropertyById($get->id);
 			try {
 				$command->execute();
-				$dto = $mapper->fromEntityToDTO($command->return());
-				if (isset($get->extras)) {
-					$command = FactoryCommand::createCommandGetAllExtrasByPropertyId($property);
-					try {
-						$command->execute();
-						$dto->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
-						if (isset($get->price)) {
-							$command = FactoryCommand::createCommandGetPropertyPriceByPropertyId(FactoryEntity::createPropertyPrice(-1,
-								-1, false, $property->getId()));
-							try {
-								$command->execute();
-								$dto->price = $mapperPropertyPrice->fromEntityArrayToDtoArray($command->return());
-							}
-							catch (InvalidPropertyPriceException $exception) {
-								unset($dto->price);
-							}
-						}
-					}
-					catch (PropertyExtraNotFoundException $exception) {
-						unset($dto->extras);
-					}
-				}
-				else
-					unset($dto->seats);
-				$return = $dto;
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -48,6 +22,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (PropertyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
+			}
+			catch (CustomException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			echo json_encode($return);
 		}

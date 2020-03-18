@@ -74,15 +74,16 @@ class DaoPropertyExtra extends Dao {
 	}
 
 	/**
+	 * @param $propertyId
+	 *
 	 * @return PropertyExtra[]
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyExtraNotFoundException
 	 */
-	public function getPropertyExtraByPropertyId () {
+	public function getPropertyExtraByPropertyId ($propertyId) {
 		try {
-			$id = $this->_entity->getPropertyId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_PROPERTY_ID);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":id", $propertyId, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PropertyExtraNotFoundException("Property Extra Not found", 200);

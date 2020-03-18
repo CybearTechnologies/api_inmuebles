@@ -267,4 +267,14 @@ class Validate {
 			&& isset($seat->location) && is_numeric($seat->location)
 			&& isset($seat->agency) && is_numeric($seat->agency);
 	}
+
+	/**
+	 * @param $post
+	 *
+	 * @return bool
+	 */
+	public static function favorite ($post) {
+		return isset($post->id) && is_numeric($post->id)
+			&& isset($post->property) && is_numeric($post->property);
+	}
 }

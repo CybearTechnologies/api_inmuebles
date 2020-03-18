@@ -16,7 +16,6 @@ class DaoFavorite extends Dao {
 	}
 
 	/**
-	 *
 	 * @return Favorite
 	 * @throws DatabaseConnectionException
 	 */
@@ -89,19 +88,23 @@ class DaoFavorite extends Dao {
 
 	/**
 	 * @param int $id
-	 * @param int $user
 	 *
 	 * @return Request
 	 * @throws DatabaseConnectionException
+	 * @throws FavoriteNotFoundException
 	 */
-	public function deleteFavorite ($id, $user) {
+	public function deleteFavorite ($id) {
 		try {
+			$user = 1; // TODO change for logged user
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
 
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			if ($stmt->rowCount() == 0)
+				Throw new FavoriteNotFoundException("There are no Favorite found", 200);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

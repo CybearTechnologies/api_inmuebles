@@ -629,7 +629,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param PropertyPrice $propertyPrice
+	 * @param int $propertyPrice
 	 *
 	 * @return CommandGetPropertyPriceByPropertyId
 	 */
@@ -693,7 +693,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param PropertyExtra $property
+	 * @param int $property
 	 *
 	 * @return GetAllExtrasByPropertyIdCommand
 	 */
@@ -799,7 +799,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Property $property
+	 * @param int $property
 	 *
 	 * @return CommandGetPropertyById
 	 */
@@ -889,6 +889,40 @@ class FactoryCommand {
 	static function createCommandCreatePropertyExtra ($propertyExtra):CommandCreatePropertyExtra {
 		return new CommandCreatePropertyExtra($propertyExtra);
 	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//								FAVORITE
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @param Favorite $favorite
+	 *
+	 * @return CommandCreateFavorite
+	 */
+	static function createCommandCreateFavorite ($favorite) {
+		return new CommandCreateFavorite($favorite);
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return CommandDeleteFavorite
+	 */
+	static function createCommandDeleteFavorite ($id) {
+		return new CommandDeleteFavorite($id);
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return CommandGetAllFavoriteByUserId
+	 */
+	static function createCommandGetAllFavoriteByUserId ($id):CommandGetAllFavoriteByUserId {
+		return new CommandGetAllFavoriteByUserId($id);
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//								SUBSCRIPTION DETAIL
+	////////////////////////////////////////////////////////////////////////////
 
 	/**
 	 * @param SubscriptionDetail[] $subscribeDetail

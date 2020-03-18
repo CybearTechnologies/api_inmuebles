@@ -1,14 +1,17 @@
 <?php
 class CommandGetPropertyPriceByPropertyId extends Command {
+	private $_mapperPropertyPrice;
 	private $_property;
 
 	/**
 	 * CommandGetPropertyPriceByPropertyId constructor.
 	 *
-	 * @param PropertyPrice $propertyPrice
+	 * @param int $property
 	 */
-	public function __construct ($propertyPrice) {
-		$this->_dao = FactoryDao::createDaoPropertyPrice($propertyPrice);
+	public function __construct ($property) {
+		$this->_dao = FactoryDao::createDaoPropertyPrice($property);
+		$this->_mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
+		$this->_property = $property;
 	}
 
 	/**
@@ -16,11 +19,12 @@ class CommandGetPropertyPriceByPropertyId extends Command {
 	 * @throws InvalidPropertyPriceException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertyPriceByPropertyId());
+		$dtoPropertyPrice = $this->_mapperPropertyPrice->fromEntityArrayToDtoArray($this->_dao->getPropertyPriceByPropertyId($this->_property));
+		$this->setData($dtoPropertyPrice);
 	}
 
 	/**
-	 * @return PropertyPrice[]
+	 * @return DtoPropertyPrice[]
 	 */
 	public function return () {
 		return $this->getData();
