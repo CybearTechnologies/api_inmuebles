@@ -6,13 +6,13 @@ class CommandSubscribeUser extends Command {
 	/**
 	 * CommandSubscribeUser constructor.
 	 *
-	 * @param $subscription
-	 * @param $subDetail
+	 * @param Subscription $subscription
+	 * @param SubscriptionDetail[] $subDetail
 	 */
 	public function __construct ($subscription,$subDetail) {
 		$this->_dao = FactoryDao::createDaoSubscription($subscription);
 		$this->_subDetail = $subDetail;
-		//$this->_mapperSubscription = FactoryMapper::
+		$this->_mapperSubscription = FactoryMapper::createMapperSubscription();
 
 	}
 
@@ -21,12 +21,19 @@ class CommandSubscribeUser extends Command {
 	 */
 	public function execute ():void {
 		$subscription= $this->_dao->createSubscription();
-		$dtoSubscription=
-		$this->_command= FactoryCommand::createCommandAddSubscribeDetail($this->_subDetail);
-		$this->_command->execute();
+		$dtoSubscription=$this->_mapperSubscription->fromEntityToDto($subscription);
+		if(isset($this->_subDetail) && !empty($this->_subDetail)) {
+			$this->_command = FactoryCommand::createCommandAddSubscribeDetail($this->_subDetail);
+			$this->_command->execute();
+			$dtoSubscription->subsDetails = $this->_command->return();
+		}
+		$this->setData($subscription);
 	}
 
+	/**
+	 * @return DtoSubscription
+	 */
 	public function return () {
-
+		return $this->getData();
 	}
 }

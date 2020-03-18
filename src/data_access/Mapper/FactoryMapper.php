@@ -116,4 +116,18 @@ class FactoryMapper {
 	static function createMapperFavorite ():MapperFavorite {
 		return new MapperFavorite();
 	}
+
+	/**
+	 * @return MapperSubscription
+	 */
+	static function  createMapperSubscription():MapperSubscription{
+		return new MapperSubscription();
+	}
+
+	/**
+	 * @return MapperSubscriptionDetail
+	 */
+	static function createMapperSubscriptionDetail():MapperSubscriptionDetail{
+		return new MapperSubscriptionDetail();
+	}
 }
