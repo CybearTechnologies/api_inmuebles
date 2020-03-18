@@ -12,7 +12,7 @@ class CommandSubscribeUser extends Command {
 	public function __construct ($subscription,$subDetail) {
 		$this->_dao = FactoryDao::createDaoSubscription($subscription);
 		$this->_subDetail = $subDetail;
-		$this->_mapperSubscription = FactoryMapper::
+		//$this->_mapperSubscription = FactoryMapper::
 
 	}
 
