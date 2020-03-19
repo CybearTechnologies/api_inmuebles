@@ -53,6 +53,8 @@ class Values {
 		'ERROR_REQUEST_NOT_FOUND' => array ('text' => 'Petición no encontrada', 'value' => 404),
 		'ERROR_PROPERTY_WITHOUT_REQUEST' => array ('text' => 'Esta propiedad aun no tiene peticiones', 'value' => 404),
 		'ERROR_USER_WITHOUT_REQUEST' => array ('text' => 'Usuario aún no ha realizado peticiones', 'value' => 404),
+		//FAVORITE
+		'ERROR_FAVORITE_NOT_FOUND' => array ('text' => 'Este favorito no ha sido encontrado', 'value' => 404),
 	);
 
 	/**
@@ -84,5 +86,6 @@ class Values {
 	const DEFAULT_DATE = "";
 	const DEFAULT_ACTIVE = true;
 	const DEFAULT_DELETE = false;
+	const DEFAULT_STATUS = false;
 	const DEFAULT_ARRAY = [];
 }

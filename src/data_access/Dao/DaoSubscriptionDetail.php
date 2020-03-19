@@ -1,31 +1,30 @@
 <?php
 class DaoSubscriptionDetail extends Dao {
-	private $_entity;
 	private const QUERY_CREATE = "CALL createSubscriptionDetail(:subscription_id,
 									:document,:dateCreated)";
 	private const QUERY_GET_BY_ID = "CALL getSubscriptionDetailById(:id)";
 	private const QUERY_GET_BY_SUBSCRIPTION = "CALL getSubscriptionDetailBySubscription(:subscriptionId)";
+	private const QUERY_DELETE = "CALL deleteSubscriptionDetail(:id ,:dateModified , :userModified )";
 
 	/**
 	 * DaoSubscriptionDetail constructor.
 	 *
-	 * @param SubscriptionDetail $_entity
 	 */
-	public function __construct ($_entity) {
+	public function __construct () {
 		parent::__construct();
-		$this->_entity = $_entity;
 	}
 
 	/**
+	 * @param SubscriptionDetail $entity
 	 *
 	 * @return SubscriptionDetail
 	 * @throws DatabaseConnectionException
 	 */
-	public function createSubscriptionDetail () {
+	public function createSubscriptionDetail ($entity) {
 		try {
-			$document = $this->_entity->getDocument();
-			$subscription = $this->_entity->getSubscription();
-			$dateCreated = $this->_entity->getDateCreated();
+			$document = $entity->getDocument();
+			$subscription = $entity->getSubscription();
+			$dateCreated = $entity->getDateCreated();
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
@@ -83,6 +82,29 @@ class DaoSubscriptionDetail extends Dao {
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
+		}
+		catch (PDOException $e) {
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $user
+	 * @param string $dateModified
+	 *
+	 * @return SubscriptionDetail
+	 * @throws DatabaseConnectionException
+	 */
+	public function deleteSubscriptionDetail (int $id,int $user, string $dateModified) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":userModified", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+
 		}
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);

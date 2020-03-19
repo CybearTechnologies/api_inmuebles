@@ -16,8 +16,8 @@ class DtoProperty extends Dto {
 	 * DtoProperty constructor.
 	 *
 	 * @param int                $id
-	 * @param int                $userCreator
-	 * @param int                $userModifier
+	 * @param DtoUser|int        $userCreator
+	 * @param DtoUser|int        $userModifier
 	 * @param string             $dateCreated
 	 * @param string             $dateModified
 	 * @param bool               $active
@@ -28,7 +28,7 @@ class DtoProperty extends Dto {
 	 * @param int                $state
 	 * @param int                $floor
 	 * @param int                $type
-	 * @param int                $location
+	 * @param DtoLocation|int    $location
 	 * @param DtoExtra[]         $extras
 	 * @param DtoRequest[]       $request
 	 * @param DtoPropertyPrice[] $price

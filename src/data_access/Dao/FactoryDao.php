@@ -154,8 +154,24 @@ class FactoryDao {
 	 *
 	 * @return DaoFavorite
 	 */
-	static function createDaoFavorite ($entity):DaoFavorite {
+	static function createDaoFavorite ($entity = null):DaoFavorite {
 		return new DaoFavorite($entity);
+	}
+
+	/**
+	 *
+	 * @return DaoSubscription
+	 */
+	static function  createDaoSubscription($entity = null):DaoSubscription{
+		return new DaoSubscription($entity);
+	}
+
+	/**
+	 *
+	 * @return DaoSubscriptionDetail
+	 */
+	static function createDaoSubscriptionDetail():DaoSubscriptionDetail{
+		return new DaoSubscriptionDetail();
 	}
 
 

@@ -1,9 +1,9 @@
 CREATE TABLE user
 (
     us_id          int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID usuario',
-    us_first_name  varchar(45)  NOT NULL COMMENT 'Nombre',
-    us_last_name   varchar(45)  NOT NULL COMMENT 'Apellido',
-    us_address     varchar(200) NOT NULL COMMENT 'Dirección',
+    us_first_name  varchar(45)  COMMENT 'Nombre',
+    us_last_name   varchar(45)  COMMENT 'Apellido',
+    us_address     varchar(200) COMMENT 'Dirección',
     us_email       varchar(50)  NOT NULL COMMENT 'Email',
     us_password    varchar(255) NOT NULL COMMENT 'Contraseña',
     us_active      tinyint(1)   NOT NULL DEFAULT 1 COMMENT 'Activo',
@@ -279,6 +279,7 @@ CREATE TABLE subscription
     su_passport         varchar(50) NOT NULL COMMENT 'Documento de identidad',
     su_email            varchar(50)  NOT NULL COMMENT 'Email',
     su_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
+    su_status           tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Aprobado',
     su_password         varchar(255) NOT NULL COMMENT 'Contraseña',
     su_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
     su_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
@@ -306,6 +307,7 @@ CREATE TABLE subscription_detail
     FOREIGN KEY (sd_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (sd_subscription_fk) REFERENCES subscription (su_id)
 );
+
 
 CREATE TABLE favorite
 (

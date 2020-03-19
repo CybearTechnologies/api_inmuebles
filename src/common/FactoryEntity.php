@@ -389,7 +389,7 @@ class FactoryEntity {
 	 * @return Favorite
 	 */
 	static function createFavorite (int $id, int $property = Values::DEFAULT_INT,
-		string $userCreator = Values::DEFAULT_STRING, string $userModifier = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_FOREIGN, string $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Favorite {
 		return new Favorite($id, $property, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
@@ -410,6 +410,7 @@ class FactoryEntity {
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
+	 * @param bool   $status
 	 *
 	 * @return Subscription
 	 */
@@ -418,9 +419,9 @@ class FactoryEntity {
 		string $password = Values::DEFAULT_STRING, string $userCreator = Values::DEFAULT_STRING,
 		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE):Subscription {
+		bool $delete = Values::DEFAULT_DELETE,bool $status = Values::DEFAULT_STATUS):Subscription {
 		return new Subscription($id, $ci, $passport,$email,$password,$plan,$seat,$location,$userCreator,
-			$userModifier, $dateCreated, $dateModified, $active, $delete);
+			$userModifier, $dateCreated, $dateModified, $active, $delete,$status);
 	}
 
 	/**

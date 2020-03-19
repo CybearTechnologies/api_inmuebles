@@ -7,6 +7,7 @@ class Subscription extends Entity {
 	private $_plan;
 	private $_seat;
 	private $_location;
+	private $_status;
 
 	/**
 	 * Subscription constructor.
@@ -25,10 +26,11 @@ class Subscription extends Entity {
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
+	 * @param bool   $status
 	 */
 	public function __construct (int $id, string $ci, string $_passport, string $email,string $password,
 		int $plan, int $seat, int $location,int $userCreator, int $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete) {
+		string $dateModified, bool $active, bool $delete,bool $status) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
 			$delete);
 		$this->_ci= $ci;
@@ -38,6 +40,7 @@ class Subscription extends Entity {
 		$this->_plan = $plan;
 		$this->_seat = $seat;
 		$this->_location = $location;
+		$this->_status = $status;
 	}
 
 	/**
@@ -137,6 +140,21 @@ class Subscription extends Entity {
 	public function setLocation ($location):void {
 		$this->_location = $location;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function isStatus ():bool {
+		return $this->_status;
+	}
+
+	/**
+	 * @param bool $status
+	 */
+	public function setStatus (bool $status):void {
+		$this->_status = $status;
+	}
+
 
 
 }

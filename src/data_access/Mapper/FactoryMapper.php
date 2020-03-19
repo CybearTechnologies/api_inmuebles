@@ -109,4 +109,25 @@ class FactoryMapper {
 	static function createMapperRolAccess ():MapperRolAccess {
 		return new MapperRolAccess();
 	}
+
+	/**
+	 * @return MapperFavorite
+	 */
+	static function createMapperFavorite ():MapperFavorite {
+		return new MapperFavorite();
+	}
+
+	/**
+	 * @return MapperSubscription
+	 */
+	static function  createMapperSubscription():MapperSubscription{
+		return new MapperSubscription();
+	}
+
+	/**
+	 * @return MapperSubscriptionDetail
+	 */
+	static function createMapperSubscriptionDetail():MapperSubscriptionDetail{
+		return new MapperSubscriptionDetail();
+	}
 }

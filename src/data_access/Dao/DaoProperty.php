@@ -92,13 +92,13 @@ class DaoProperty extends Dao {
 			}
 			$this->_genericQuery = str_replace(":tables", ",location :tables",
 				$this->_genericQuery);
-			if(isset($municipality)){
-				$this->_genericQuery = str_replace(":sentences", "lo_name = '". $municipality."' 
+			if (isset($municipality)) {
+				$this->_genericQuery = str_replace(":sentences", "lo_name = '" . $municipality . "' 
 				AND (pr_location_fk = lo_id OR pr_location_fk = lo_location_fk) :sentences 
 				", $this->_genericQuery);
 			}
-			else if(isset($state)){
-				$this->_genericQuery = str_replace(":sentences", "lo_name = '". $municipality."' 
+			elseif (isset($state)) {
+				$this->_genericQuery = str_replace(":sentences", "lo_name = '" . $municipality . "' 
 				AND pr_location_fk = lo_id :sentences", $this->_genericQuery);
 			}
 		}
@@ -188,15 +188,16 @@ class DaoProperty extends Dao {
 	}
 
 	/**
+	 * @param $property
+	 *
 	 * @return Property
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function getPropertyById () {
+	public function getPropertyById ($property) {
 		try {
-			$id = $this->_property->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":id", $property, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PropertyNotFoundException("There are no property found", 404);
