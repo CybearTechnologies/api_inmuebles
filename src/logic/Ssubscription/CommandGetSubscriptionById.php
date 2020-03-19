@@ -43,9 +43,11 @@ class CommandGetSubscriptionById extends Command {
 		$dtoSubscription->subsDetails = $command->return();
 		//USERCREATOR
 		Tools::setUserToDto($dtoSubscription, $dtoSubscription->userCreator, $dtoSubscription->userModifier);
+		$this->setData($dtoSubscription);
 	}
 
+	/**@return  DtoSubscription */
 	public function return () {
-		// TODO: Implement return() method.
+		return $this->getData();
 	}
 }
