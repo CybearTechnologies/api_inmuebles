@@ -410,6 +410,7 @@ class FactoryEntity {
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
+	 * @param bool   $status
 	 *
 	 * @return Subscription
 	 */
@@ -418,9 +419,9 @@ class FactoryEntity {
 		string $password = Values::DEFAULT_STRING, string $userCreator = Values::DEFAULT_STRING,
 		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE):Subscription {
+		bool $delete = Values::DEFAULT_DELETE,bool $status = Values::DEFAULT_STATUS):Subscription {
 		return new Subscription($id, $ci, $passport,$email,$password,$plan,$seat,$location,$userCreator,
-			$userModifier, $dateCreated, $dateModified, $active, $delete);
+			$userModifier, $dateCreated, $dateModified, $active, $delete,$status);
 	}
 
 	/**

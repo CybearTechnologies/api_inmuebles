@@ -159,7 +159,6 @@ class FactoryDao {
 	}
 
 	/**
-	 * @param $entity
 	 *
 	 * @return DaoSubscription
 	 */

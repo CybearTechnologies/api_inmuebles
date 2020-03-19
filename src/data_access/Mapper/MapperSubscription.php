@@ -21,6 +21,6 @@ class MapperSubscription extends Mapper {
 			$entity->getSeat(),$entity->getLocation(),$entity->getCi(),$entity->getPassport(),
 			$entity->getEmail(),$entity->getPassword(),Values::DEFAULT_ARRAY,
 			$entity->getUserCreator(),$entity->getUserModifier(),$entity->getDateCreated(),
-			$entity->getDateModified(),$entity->isActive(),$entity->isDelete());
+			$entity->getDateModified(),$entity->isActive(),$entity->isDelete(),$entity->isStatus());
 	}
 }
