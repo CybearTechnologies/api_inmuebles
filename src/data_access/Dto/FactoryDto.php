@@ -406,35 +406,34 @@ class FactoryDto {
 	 *
 	 * @return DtoSubscription
 	 */
-	static function createDtoSubscription(int $id, $plan,$seat,$location, int $ci, string $passport,
-		string $email, string $password, $subsDetails,int $userCreator = Values::DEFAULT_FOREIGN,
+	static function createDtoSubscription (int $id, $plan, $seat, $location, int $ci, string $passport,
+		string $email, string $password, $subsDetails, int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE, bool $status = Values::DEFAULT_STATUS):DtoSubscription{
-		return new DtoSubscription($id, $plan,$seat,$location,$ci,$passport,$email,$password,
-			$subsDetails,$userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
+		bool $delete = Values::DEFAULT_DELETE, bool $status = Values::DEFAULT_STATUS):DtoSubscription {
+		return new DtoSubscription($id, $plan, $seat, $location, $ci, $passport, $email, $password,
+			$subsDetails, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
 			$status);
 	}
 
 	/**
-	 * @param int    				$id
-	 * @param string 				$document
-	 * @param DtoSubscription|int	$subscription
-	 * @param int    				$userCreator
-	 * @param int    				$userModifier
-	 * @param string 				$dateCreated
-	 * @param string 				$dateModified
-	 * @param bool   				$active
-	 * @param bool   				$delete
+	 * @param int                 $id
+	 * @param string              $document
+	 * @param DtoSubscription|int $subscription
+	 * @param int                 $userCreator
+	 * @param int                 $userModifier
+	 * @param string              $dateCreated
+	 * @param string              $dateModified
+	 * @param bool                $active
+	 * @param bool                $delete
 	 *
 	 * @return DtoSubscriptionDetail
 	 */
-	static function createDtoSubscriptionDetail(int $id, string $document, $subscription,
+	static function createDtoSubscriptionDetail (int $id, string $document, $subscription,
 		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
-		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoSubscriptionDetail{
-		return new DtoSubscriptionDetail($id, $document, $subscription,$userCreator, $userModifier,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoSubscriptionDetail {
+		return new DtoSubscriptionDetail($id, $document, $subscription, $userCreator, $userModifier,
 			$dateCreated, $dateModified, $active, $delete);
 	}
-
 }

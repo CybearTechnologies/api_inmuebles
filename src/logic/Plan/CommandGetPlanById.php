@@ -16,12 +16,16 @@ class CommandGetPlanById extends Command {
 	 * @throws DatabaseConnectionException
 	 * @throws MultipleUserException
 	 * @throws PlanNotFoundException
-	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
 		$plan = $this->_dao->getPlanById();
 		$dtoPlan = $this->_mapperPlan->fromEntityToDto($plan);
-		Tools::setUserToDto($dtoPlan, $dtoPlan->userCreator, $dtoPlan->userModifier);
+		try {
+			Tools::setUserToDto($dtoPlan, $dtoPlan->userCreator, $dtoPlan->userModifier);
+		}
+		catch (UserNotFoundException $e) {
+			$dtoPlan = FactoryDto::createDtoUser(0);
+		}
 		$this->setData($dtoPlan);
 	}
 

@@ -162,8 +162,8 @@ class FactoryDao {
 	 *
 	 * @return DaoSubscription
 	 */
-	static function  createDaoSubscription():DaoSubscription{
-		return new DaoSubscription();
+	static function  createDaoSubscription($entity = null):DaoSubscription{
+		return new DaoSubscription($entity);
 	}
 
 	/**
