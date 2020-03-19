@@ -46,7 +46,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (Validate::propertyType($post) && ImageProcessor::imageFileExist('image')) {
 			try {
 				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-						$post->name, 'photos/property-type');
+						$post->name, 'files/property-type');
 				$dto = FactoryDto::createDtoPropertyType(-1, $post->name, Environment::baseURL() . $tempImage);
 				$command = FactoryCommand::createCommandCreatePropertyType($mapper->fromDTOToEntity($dto));
 				$command->execute();
