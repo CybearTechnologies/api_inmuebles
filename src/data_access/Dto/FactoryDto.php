@@ -385,22 +385,24 @@ class FactoryDto {
 		return new DtoFavorite($id, $property, $userCreator, $userModifier, $dateCreated,
 			$dateModified, $active, $delete);
 	}
+
 	/**
-	 * @param int                    		$id
-	 * @param DtoPlan|int            		$plan
-	 * @param DtoSeat|int            		$seat
-	 * @param DtoLocation|int        		$location
-	 * @param int                    		$ci
-	 * @param string                  		$passport
-	 * @param string                  		$email
-	 * @param string                  		$password
+	 * @param int                           $id
+	 * @param DtoPlan|int                   $plan
+	 * @param DtoSeat|int                   $seat
+	 * @param DtoLocation|int               $location
+	 * @param int                           $ci
+	 * @param string                        $passport
+	 * @param string                        $email
+	 * @param string                        $password
 	 * @param array|DtoSubscriptionDetail[] $subsDetails
-	 * @param int                     		$userCreator
-	 * @param int                     		$userModifier
-	 * @param string                  		$dateCreated
-	 * @param string                  		$dateModified
-	 * @param bool                    		$active
-	 * @param bool                    		$delete
+	 * @param int                           $userCreator
+	 * @param int                           $userModifier
+	 * @param string                        $dateCreated
+	 * @param string                        $dateModified
+	 * @param bool                          $active
+	 * @param bool                          $delete
+	 * @param bool                          $status
 	 *
 	 * @return DtoSubscription
 	 */
@@ -408,9 +410,10 @@ class FactoryDto {
 		string $email, string $password, $subsDetails,int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE):DtoSubscription{
+		bool $delete = Values::DEFAULT_DELETE, bool $status = Values::DEFAULT_STATUS):DtoSubscription{
 		return new DtoSubscription($id, $plan,$seat,$location,$ci,$passport,$email,$password,
-			$subsDetails,$userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+			$subsDetails,$userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
+			$status);
 	}
 
 	/**

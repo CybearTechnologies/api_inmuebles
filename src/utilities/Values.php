@@ -86,5 +86,6 @@ class Values {
 	const DEFAULT_DATE = "";
 	const DEFAULT_ACTIVE = true;
 	const DEFAULT_DELETE = false;
+	const DEFAULT_STATUS = false;
 	const DEFAULT_ARRAY = [];
 }

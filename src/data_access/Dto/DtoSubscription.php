@@ -8,29 +8,31 @@ class DtoSubscription extends Dto {
 	public $plan;
 	public $location;
 	public $seat;
+	public $status;
 
 	/**
 	 * DtoSubscription constructor.
 	 *
-	 * @param int                     		$id
-	 * @param DtoPlan|int             		$plan
-	 * @param DtoSeat|int             		$seat
-	 * @param DtoLocation|int         		$location
-	 * @param int                     		$ci
-	 * @param string                  		$passport
-	 * @param string                  		$email
-	 * @param string                  		$password
+	 * @param int                           $id
+	 * @param DtoPlan|int                   $plan
+	 * @param DtoSeat|int                   $seat
+	 * @param DtoLocation|int               $location
+	 * @param int                           $ci
+	 * @param string                        $passport
+	 * @param string                        $email
+	 * @param string                        $password
 	 * @param array|DtoSubscriptionDetail[] $subsDetails
-	 * @param DtoUser|int             		$userCreator
-	 * @param DtoUser|int             		$userModifier
-	 * @param string                  		$dateCreated
-	 * @param string                  		$dateModified
-	 * @param bool                    		$active
-	 * @param bool                    		$delete
+	 * @param DtoUser|int                   $userCreator
+	 * @param DtoUser|int                   $userModifier
+	 * @param string                        $dateCreated
+	 * @param string                        $dateModified
+	 * @param bool                          $active
+	 * @param bool                          $delete
+	 * @param bool                          $status
 	 */
 	public function __construct (int $id, $plan,$seat,$location,int $ci, string $passport,
 		string $email, string $password,$subsDetails, $userCreator, $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete) {
+		string $dateModified, bool $active, bool $delete,bool $status) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified,
 			$active, $delete);
 		$this->plan = $plan;
@@ -41,6 +43,7 @@ class DtoSubscription extends Dto {
 		$this->password = $password;
 		$this->email = $email;
 		$this->subsDetails = $subsDetails;
+		$this->status = $status;
 	}
 
 }

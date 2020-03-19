@@ -159,12 +159,11 @@ class FactoryDao {
 	}
 
 	/**
-	 * @param $entity
 	 *
 	 * @return DaoSubscription
 	 */
-	static function  createDaoSubscription($entity):DaoSubscription{
-		return new DaoSubscription($entity);
+	static function  createDaoSubscription():DaoSubscription{
+		return new DaoSubscription();
 	}
 
 	/**

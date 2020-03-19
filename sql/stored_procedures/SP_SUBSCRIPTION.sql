@@ -19,17 +19,18 @@ BEGIN
                                  su_seat_fk, su_plan_fk,su_location_fk, su_date_created)
         VALUES (ci, passport, email, password, seat, plan, location,dateCreated);
     END IF;
-    SELECT su_id, su_ci,
-           su_passport,
-           su_email,
-           su_password,
-           su_deleted,
-           su_date_created,
-           su_user_modified_fk,
-           su_date_modified,
-           su_plan_fk,
-           su_seat_fk,
-           su_location_fk
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
     FROM subscription
     WHERE su_id = last_insert_id();
 END$$
@@ -47,17 +48,18 @@ BEGIN
         SET su_active = 0, su_user_modified_fk= user, su_date_modified = dateModified
         WHERE su_id=id;
     END IF;
-    SELECT su_id, su_ci,
-           su_passport,
-           su_email,
-           su_password,
-           su_deleted,
-           su_date_created,
-           su_user_modified_fk,
-           su_date_modified,
-           su_plan_fk,
-           su_seat_fk,
-           su_location_fk
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
     FROM subscription
     WHERE su_id = id;
 END$$
@@ -75,17 +77,18 @@ BEGIN
         SET su_active = 0, su_user_modified_fk= user, su_date_modified = dateModified
         WHERE su_id=id;
     END IF;
-    SELECT su_id, su_ci,
-           su_passport,
-           su_email,
-           su_password,
-           su_deleted,
-           su_date_created,
-           su_user_modified_fk,
-           su_date_modified,
-           su_plan_fk,
-           su_seat_fk,
-           su_location_fk
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
     FROM subscription
     WHERE su_id = id;
 END$$
@@ -103,17 +106,47 @@ BEGIN
         SET su_active = 0, su_user_modified_fk= user, su_date_modified = dateModified
         WHERE su_id=id;
     END IF;
-    SELECT su_id, su_ci,
-           su_passport,
-           su_email,
-           su_password,
-           su_deleted,
-           su_date_created,
-           su_user_modified_fk,
-           su_date_modified,
-           su_plan_fk,
-           su_seat_fk,
-           su_location_fk
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
+    FROM subscription
+    WHERE su_id = id;
+END$$
+
+DROP PROCEDURE IF EXISTS approveSubscription;
+DELIMITER $$
+CREATE PROCEDURE approveSubscription(id int, user int,dateModified datetime)
+BEGIN
+    IF IsNull(dateModified) THEN
+        UPDATE subscription
+        SET su_status = 1, su_user_modified_fk= user
+        WHERE su_id=id;
+    ELSE
+        UPDATE subscription
+        SET su_status = 1, su_user_modified_fk= user, su_date_modified = dateModified
+        WHERE su_id=id;
+    END IF;
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
     FROM subscription
     WHERE su_id = id;
 END$$
@@ -122,17 +155,18 @@ DROP PROCEDURE IF EXISTS getAllSubscription;
 DELIMITER $$
 CREATE PROCEDURE getAllSubscription()
 BEGIN
-    SELECT su_id, su_ci,
-           su_passport,
-           su_email,
-           su_password,
-           su_deleted,
-           su_date_created,
-           su_user_modified_fk,
-           su_date_modified,
-           su_plan_fk,
-           su_seat_fk,
-           su_location_fk
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
     FROM subscription;
 END$$
 
@@ -140,17 +174,18 @@ DROP PROCEDURE IF EXISTS getSubscriptionById;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionById(id int)
 BEGIN
-    SELECT su_id, su_ci,
-           su_passport,
-           su_email,
-           su_password,
-           su_deleted,
-           su_date_created,
-           su_user_modified_fk,
-           su_date_modified,
-           su_plan_fk,
-           su_seat_fk,
-           su_location_fk
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
     FROM subscription
     WHERE su_id = id;
 END$$
@@ -159,20 +194,23 @@ DROP PROCEDURE IF EXISTS getSubscriptionById;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionByEmail(email varchar(50))
 BEGIN
-    SELECT su_id, su_ci,
-           su_passport,
-           su_email,
-           su_password,
-           su_deleted,
-           su_date_created,
-           su_user_modified_fk,
-           su_date_modified,
-           su_plan_fk,
-           su_seat_fk,
-           su_location_fk
+    SELECT su_id id, su_ci ci,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
     FROM subscription
     WHERE su_email = email;
 END$$
+
+
 
 /**
  ----------------------------------------------------------------------------------------------------------------------
