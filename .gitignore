@@ -8,3 +8,4 @@ houston
 *.lock
 .phpunit.result.cache
 *.sqlite
+files
