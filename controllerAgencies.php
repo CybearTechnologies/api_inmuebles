@@ -2,6 +2,7 @@
 require_once "autoload.php";
 Tools::headers();
 $get = Tools::getObject();
+$post = Tools::postObject();
 $return = null;
 $mapper = FactoryMapper::createMapperAgency();
 $mapperSeat = FactoryMapper::createMapperSeat();
@@ -48,6 +49,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		break;
 	case "POST":
+		echo json_encode($_FILES);
 		if (Validate::agency($post) && ImageProcessor::imageFileExist('image')) {
 			try {
 				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
