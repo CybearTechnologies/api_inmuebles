@@ -102,18 +102,18 @@ class DaoSubscription extends Dao {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $user
-	 * @param string $dateModified
+	 * @param int $id
 	 *
 	 * @return Subscription
 	 * @throws DatabaseConnectionException
 	 */
-	public function deleteSubscription (int $id, int $user, string $dateModified) {
+	public function deleteSubscription (int $id) {
 		try {
+			$dateModified=null;
+			$user=1;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));

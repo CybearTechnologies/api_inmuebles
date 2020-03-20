@@ -93,3 +93,30 @@ insert into property_extra(pe_value, pe_property_fk,pe_extra_fk,pe_user_created_
 insert into property_extra(pe_value, pe_property_fk,pe_extra_fk,pe_user_created_fk,
                            pe_user_modified_fk) values
 (3,1,2,1,1);
+
+insert into favorite(fa_property_fk, fa_user_created_fk, fa_user_modified_fk)  VALUES
+(1,2,2);
+
+insert into favorite(fa_property_fk, fa_user_created_fk, fa_user_modified_fk)  VALUES
+(1,1,1);
+
+insert into subscription(su_ci, su_passport, su_email, su_password,
+                         su_user_modified_fk,su_plan_fk, su_seat_fk,
+                         su_location_fk) VALUES
+(24933360,'N45OP456','ramiroavch@gmail.com','89531705',1,1,1,1);
+
+insert into subscription(su_ci, su_passport, su_email, su_password,
+                         su_user_modified_fk,su_plan_fk, su_seat_fk,
+                         su_location_fk) VALUES
+(24933360,'N45OP456','ramiroavch@gmail.com','89531705',1,1,1,1);
+
+insert into subscription(su_ci, su_passport, su_email, su_password,
+                         su_user_modified_fk,su_plan_fk, su_seat_fk,
+                         su_location_fk) VALUES
+(23897542,'N45OP1324','ramiroavch@gmail.com','89531705',1,1,1,1);
+
+insert into subscription_detail(sd_subscription_fk,sd_document,sd_user_modified_fk) values
+(1,'C:/',1);
+
+insert into subscription_detail(sd_subscription_fk,sd_document,sd_user_modified_fk) values
+(2,'D:/',1);
