@@ -49,7 +49,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		break;
 	case "POST":
-		echo json_encode($_FILES);
 		if (Validate::agency($post) && ImageProcessor::imageFileExist('image')) {
 			try {
 				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
