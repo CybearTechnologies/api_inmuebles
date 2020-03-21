@@ -2,6 +2,7 @@
 require_once "autoload.php";
 Tools::headers();
 $get = Tools::getObject();
+$post = Tools::postObject();
 $return = null;
 $mapper = FactoryMapper::createMapperAgency();
 $mapperSeat = FactoryMapper::createMapperSeat();
