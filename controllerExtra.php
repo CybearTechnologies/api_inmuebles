@@ -72,7 +72,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (Validate::extra($post) && ImageProcessor::imageFileExist('image')) {
 			try {
 				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-						$post->name, 'photos/extra');
+						$post->name, 'files/extra');
 				$dto = FactoryDto::createDtoExtra(-1, $post->name, Environment::baseURL() . $tempImage);
 				$command = FactoryCommand::createCommandCreateExtra($mapper->fromDTOToEntity($dto));
 				$command->execute();
