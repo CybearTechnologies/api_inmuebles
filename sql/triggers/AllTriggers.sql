@@ -117,10 +117,10 @@ BEGIN
 END;
 DELIMITER $$ ;
 
-DROP TRIGGER IF EXISTS beforeApproveSubscription;
+DROP TRIGGER IF EXISTS afterApproveSubscription;
 DELIMITER $$
-CREATE TRIGGER beforeApproveSubscription
-    BEFORE UPDATE
+CREATE TRIGGER afterApproveSubscription
+    AFTER UPDATE
     ON subscription FOR EACH ROW
 BEGIN
     IF NEW.su_deleted <> OLD.su_deleted AND NEW.su_deleted = 1

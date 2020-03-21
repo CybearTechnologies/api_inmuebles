@@ -942,4 +942,13 @@ class FactoryCommand {
 	static function createCommandSubscribeUser($subscription, $subscriptionDetail):CommandSubscribeUser{
 		return new CommandSubscribeUser($subscription,$subscriptionDetail);
 	}
+
+	/**
+	 * @param int $entity
+	 *
+	 * @return CommandDeleteSubscription
+	 */
+	static function createCommandDeleteSubscription(int $entity):CommandDeleteSubscription{
+		return new CommandDeleteSubscription($entity);
+	}
 }
