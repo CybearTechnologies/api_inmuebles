@@ -30,24 +30,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us_id = last_insert_id();
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us_id = last_insert_id();
 END$$
 
 DROP PROCEDURE IF EXISTS updateUser;
@@ -79,24 +71,20 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
     FROM user us,
          plan pl,
          rol ro,
          location lo,
          seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
+    WHERE us.us_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS updateUserProfile;
@@ -117,24 +105,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS getUserById;
@@ -151,24 +131,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_id plan,
-           ro.ro_id rol,
-           lo.lo_id location,
-           se.se_id seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = user_id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = user_id;
 END$$
 
 DROP PROCEDURE IF EXISTS getUserByEmail;
@@ -185,24 +157,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND lower(us.us_email) = user_email;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE lower(us.us_email) = user_email;
 END$$
 
 
@@ -220,23 +184,15 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us;
 END$$
 
 DROP PROCEDURE IF EXISTS deleteUser;
@@ -262,24 +218,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = id;
 
 END$$
 
@@ -306,24 +254,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = id;
 
 END$$
 
@@ -350,24 +290,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = id;
 
 END$$
 
@@ -394,24 +326,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS blockUser;
@@ -437,24 +361,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = id;
 
 END$$
 
@@ -482,25 +398,16 @@ BEGIN
            us.us_blocked blocked,
            us.us_deleted 'delete',
            us.us_active active,
-           pl.pl_name plan,
-           ro.ro_name rol,
-           lo.lo_name location,
-           se.se_name seat,
-           us.us_user_created_fk userCreator,
-           us.us_user_modified_fk userModifier,
-           us.us_date_created dateCreated,
-           us.us_date_modified dateModified
-    FROM user us,
-         plan pl,
-         rol ro,
-         location lo,
-         seat se
-    WHERE us.us_location_fk = lo.lo_id
-      AND us.us_plan_fk = pl.pl_id
-      AND us.us_rol_fk = ro.ro_id
-      AND us.us_seat_fk = se.se_id
-      AND us.us_id = id;
-
+           us.us_plan_fk plan,
+           us.us_rol_fk rol,
+           us.us_location_fk location,
+           us.us_seat_fk seat,
+           us.us_user_created_fk usercreator,
+           us.us_user_modified_fk usermodifier,
+           us.us_date_created datecreated,
+           us.us_date_modified datemodified
+    FROM user us
+    WHERE us.us_id = id;
 END$$
 
 
