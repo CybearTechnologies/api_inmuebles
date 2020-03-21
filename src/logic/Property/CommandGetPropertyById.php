@@ -23,6 +23,9 @@ class CommandGetPropertyById extends Command {
 	 */
 	public function execute ():void {
 		$dtoProperty = $this->_mapperProperty->fromEntityToDto($this->_dao->getPropertyById($this->_property));
+		\
+			//USER
+		Tools::setUserToDto($dtoProperty, $dtoProperty->userCreator, $dtoProperty->userModifier);
 		//EXTRA
 		$command = FactoryCommand::createCommandGetAllExtrasByPropertyId($dtoProperty->id);
 		try {
@@ -58,7 +61,21 @@ class CommandGetPropertyById extends Command {
 		catch (InvalidPropertyPriceException $e) {
 			$dtoProperty->price = [];
 		}
-		Tools::setUserToDto($dtoProperty, $dtoProperty->userCreator, $dtoProperty->userModifier);
+		//SEAT
+		$command = FactoryCommand::createCommandGetSeatById(FactoryEntity::createSeat($dtoProperty->userCreator->seat));
+		try {
+			$command->execute();
+			$dtoProperty->userCreator->seat = $command->return();
+		}
+		catch (AgencyNotFoundException $e) {
+			unset($dtoProperty->userModifier->seat);
+		}
+		catch (SeatNotFoundException $e) {
+			unset($dtoProperty->userModifier->seat);
+		}
+		catch (LocationNotFoundException $e) {
+			unset($dtoProperty->userModifier->seat);
+		}
 		$this->setData($dtoProperty);
 	}
 
