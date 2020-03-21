@@ -51,6 +51,7 @@ RewriteRule ^extra$ controllerExtra.php [NC,L]
 #   LOCATION
 RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]
 RewriteRule ^location/type/(Estado|Municipio|Pais)$ controllerLocation.php?type=$1 [NC,L]
+RewriteRule ^location/state/([0-9]+)$ controllerLocation.php?state=$1 [NC,L]
 #	SEAT
 RewriteRule ^seat$ controllerSeat.php [NC,L]
 RewriteRule ^seat/([0-9]+)$ controllerSeat.php?id=$1 [NC,L]
