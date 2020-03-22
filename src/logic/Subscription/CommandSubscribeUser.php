@@ -32,7 +32,7 @@ class CommandSubscribeUser extends Command {
 			$this->_command->execute();
 			$dtoSubscription->subsDetails = $this->_command->return();
 		}
-		$this->setData($subscription);
+		$this->setData($dtoSubscription);
 	}
 
 	/**

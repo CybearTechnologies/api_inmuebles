@@ -22,7 +22,6 @@ class MapperSubscriptionDetail extends Mapper {
 	public function fromEntityToDto ($entity):Dto {
 		return FactoryDto::createDtoSubscriptionDetail($entity->getId(), $entity->getDocument(),
 			$entity->getSubscription(), $entity->getUserCreator(), $entity->getUserModifier(),
-			$entity->getDateCreated(), $entity->getDateModified(), $entity->isActive(),
-			$entity->isDelete());
+			$entity->getDateCreated(), $entity->getDateModified(), $entity->isActive(), $entity->isDelete());
 	}
 }

@@ -4,7 +4,7 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-class FactoryEntity {
+class  FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $name
@@ -439,7 +439,8 @@ class FactoryEntity {
 	 *
 	 * @return SubscriptionDetail
 	 */
-	static function createSubscriptionDetail (int $id, int $subscription,
+	static function createSubscriptionDetail (
+		int $id, int $subscription = Values::DEFAULT_FOREIGN,
 		string $document = Values::DEFAULT_STRING,
 		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,

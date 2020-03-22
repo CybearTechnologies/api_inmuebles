@@ -29,9 +29,8 @@ class DaoSubscriptionDetail extends Dao {
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":subscription_id", $subscription, PDO::PARAM_INT);
-			$stmt->bindParam(":document", $document, PDO::PARAM_INT);
+			$stmt->bindParam(":document", $document, PDO::PARAM_STR);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
-
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));

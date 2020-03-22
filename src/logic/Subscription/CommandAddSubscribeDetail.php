@@ -1,7 +1,6 @@
 <?php
 class CommandAddSubscribeDetail extends Command {
 	private $_subsDetail;
-	private $_subsDetailResult;
 	private $_mapperSubscriptionDetail;
 	/**
 	 * CommandAddSubscribeDetail constructor.
@@ -9,8 +8,8 @@ class CommandAddSubscribeDetail extends Command {
 	 * @param SubscriptionDetail[] $entity
 	 */
 	public function __construct ($entity) {
-		$this->_subsDetail=$entity;
-		$this->_dao= FactoryDao::createDaoSubscriptionDetail();
+		$this->_subsDetail = $entity;
+		$this->_dao = FactoryDao::createDaoSubscriptionDetail();
 		$this->_mapperSubscriptionDetail = FactoryMapper::createMapperSubscriptionDetail();
 	}
 
@@ -18,10 +17,12 @@ class CommandAddSubscribeDetail extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		foreach ($this->_subsDetail as $subDetail){
-			array_push($this->_subsDetailResult,
+		$_subsDetailResult = [];
+		foreach ($this->_subsDetail as $subDetail) {
+			array_push($_subsDetailResult,
 				$this->_mapperSubscriptionDetail->fromEntityToDto($this->_dao->createSubscriptionDetail($subDetail)));
 		}
+		$this->setData($_subsDetailResult);
 	}
 
 	/**
