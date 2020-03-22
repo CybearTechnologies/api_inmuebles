@@ -153,7 +153,7 @@ class DaoSubscription extends Dao {
 	protected function extract ($dbObject) {
 		return FactoryEntity::createSubscription($dbObject->id, $dbObject->ci, $dbObject->passport, $dbObject->email,
 			$dbObject->password, $dbObject->plan, $dbObject->seat, $dbObject->location, $dbObject->status,
-			Values::DEFAULT_FOREIGN, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+			$dbObject->userModifier, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
 			$dbObject->active, $dbObject->delete);
 	}
 }
