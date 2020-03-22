@@ -8,7 +8,6 @@ class DaoSubscriptionDetail extends Dao {
 
 	/**
 	 * DaoSubscriptionDetail constructor.
-	 *
 	 */
 	public function __construct () {
 		parent::__construct();
@@ -95,15 +94,15 @@ class DaoSubscriptionDetail extends Dao {
 	 */
 	public function deleteSubscriptionDetail (int $id) {
 		try {
-			$dateModified=null;
+			$dateModified = null;
 			$user = 1;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":userModified", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $e) {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
@@ -116,8 +115,12 @@ class DaoSubscriptionDetail extends Dao {
 	 * @return SubscriptionDetail
 	 */
 	protected function extract ($dbObject) {
+		return FactoryEntity::createSubscriptionDetail($dbObject->id, $dbObject->subscription, $dbObject->document,
+			$dbObject->userModifier, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+			$dbObject->active, $dbObject->delete);
+		/*
 		return FactoryEntity::createSubscriptionDetail($dbObject->id,$dbObject->subscription,
 			$dbObject->document,$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
-			$dbObject->active, $dbObject->delete);
+			$dbObject->active, $dbObject->delete);*/
 	}
 }
