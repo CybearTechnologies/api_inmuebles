@@ -22,6 +22,7 @@ class CommandAddSubscribeDetail extends Command {
 			array_push($this->_subsDetailResult, $this->_mapperSubscriptionDetail->fromEntityToDto(
 				$this->_dao->createSubscriptionDetail($subDetail)));
 		}
+		$this->setData($this->_subsDetailResult);
 	}
 
 	/**
