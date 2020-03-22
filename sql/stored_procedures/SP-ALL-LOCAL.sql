@@ -212,7 +212,7 @@ BEGIN
         UPDATE agency
         SET ag_active = 1, ag_user_modified_fk=user
         WHERE ag_id = id
-          AND ag_deleted = 0;;
+          AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_active=1, ag_user_modified_fk=user, ag_date_modified=dateModified
@@ -238,7 +238,7 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE agency
         SET ag_active = 0, ag_user_modified_fk = user
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_active = 0, ag_user_modified_fk = user, ag_date_modified = dateModified
@@ -313,11 +313,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE agency
         SET ag_deleted = 1, ag_user_modified_fk = user
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_deleted = 1, ag_user_modified_fk = user, ag_date_modified=dateModified
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     END IF;
     SELECT ag_id id,
            ag_name name,
@@ -369,7 +369,7 @@ BEGIN
     ELSE
         UPDATE extra
         SET ex_name=name, ex_icon=icon, ex_user_modified_fk=user, ex_date_modified=dateModified
-        WHERE ex_id = id AND ex_deleted = 0;;
+        WHERE ex_id = id AND ex_deleted = 0;
     END IF;
     SELECT ex_id id,
            ex_name name,
@@ -381,7 +381,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = id AND ex_deleted = 0;;
+    WHERE ex_id = id AND ex_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllExtras;
@@ -3070,7 +3070,7 @@ BEGIN
     WHERE su_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS deleteSubscription;
+DROP PROCEDURE IF EXISTS getAllSubscription;
 DELIMITER $$
 CREATE PROCEDURE getAllSubscription()
 BEGIN
@@ -3107,7 +3107,7 @@ BEGIN
     WHERE su_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS getSubscriptionById;
+DROP PROCEDURE IF EXISTS getSubscriptionByEmail;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionByEmail(email varchar(50))
 BEGIN

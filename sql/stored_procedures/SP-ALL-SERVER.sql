@@ -238,7 +238,7 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE agency
         SET ag_active = 0, ag_user_modified_fk = user
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_active = 0, ag_user_modified_fk = user, ag_date_modified = dateModified
@@ -313,11 +313,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE agency
         SET ag_deleted = 1, ag_user_modified_fk = user
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_deleted = 1, ag_user_modified_fk = user, ag_date_modified=dateModified
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     END IF;
     SELECT ag_id id,
            ag_name name,
@@ -369,7 +369,7 @@ BEGIN
     ELSE
         UPDATE extra
         SET ex_name=name, ex_icon=icon, ex_user_modified_fk=user, ex_date_modified=dateModified
-        WHERE ex_id = id AND ex_deleted = 0;;
+        WHERE ex_id = id AND ex_deleted = 0;
     END IF;
     SELECT ex_id id,
            ex_name name,

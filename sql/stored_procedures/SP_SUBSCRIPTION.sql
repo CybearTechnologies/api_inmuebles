@@ -192,7 +192,7 @@ BEGIN
     WHERE su_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS getSubscriptionById;
+DROP PROCEDURE IF EXISTS getSubscriptionByEmail;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionByEmail(email varchar(50))
 BEGIN
