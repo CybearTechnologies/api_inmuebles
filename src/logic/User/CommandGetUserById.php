@@ -35,7 +35,6 @@ class CommandGetUserById extends Command {
 	 * @param $dtoUser
 	 */
 	private function clean ($dtoUser) {
-		unset($dtoUser->seat->agency->seats);
 		unset($dtoUser->seat->agency->userCreator);
 		unset($dtoUser->seat->agency->userModifier);
 		unset($dtoUser->seat->location->userCreator);

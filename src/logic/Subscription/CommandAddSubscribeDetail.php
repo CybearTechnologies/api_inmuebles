@@ -19,8 +19,8 @@ class CommandAddSubscribeDetail extends Command {
 	 */
 	public function execute ():void {
 		foreach ($this->_subsDetail as $subDetail){
-			array_push($this->_subsDetailResult, $this->_mapperSubscriptionDetail->fromEntityToDto(
-				$this->_dao->createSubscriptionDetail($subDetail)));
+			array_push($this->_subsDetailResult,
+				$this->_mapperSubscriptionDetail->fromEntityToDto($this->_dao->createSubscriptionDetail($subDetail)));
 		}
 	}
 

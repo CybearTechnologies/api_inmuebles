@@ -28,12 +28,12 @@ class Subscription extends Entity {
 	 * @param bool   $delete
 	 * @param bool   $status
 	 */
-	public function __construct (int $id, string $ci, string $_passport, string $email,string $password,
-		int $plan, int $seat, int $location,int $userCreator, int $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete,bool $status) {
+	public function __construct (int $id, string $ci, string $_passport, string $email, string $password,
+		int $plan, int $seat, int $location, bool $status, int $userCreator, int $userModifier, string $dateCreated,
+		string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
 			$delete);
-		$this->_ci= $ci;
+		$this->_ci = $ci;
 		$this->_passport = $_passport;
 		$this->_email = $email;
 		$this->_password = $password;
@@ -154,7 +154,4 @@ class Subscription extends Entity {
 	public function setStatus (bool $status):void {
 		$this->_status = $status;
 	}
-
-
-
 }
