@@ -281,6 +281,15 @@ class FactoryCommand {
 	static function createCommandGetLocationsByType ($location):CommandGetLocationsByType {
 		return new CommandGetLocationsByType($location);
 	}
+
+	/**
+	 * @param $state
+	 *
+	 * @return CommandGetAllTownByState
+	 */
+	static function createCommandGetAllTownByState ($state):CommandGetAllTownByState {
+		return new CommandGetAllTownByState($state);
+	}
 	//------------------------------------------------------------
 	//----------------------------ACCESS--------------------------
 	//------------------------------------------------------------

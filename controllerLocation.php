@@ -12,8 +12,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetLocationById($location);
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDTO($command->return());
-				Tools::setResponse();
+				$return = $command->return();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
@@ -41,7 +40,23 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse(Values::getText("ERROR_LOCATION_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_LOCATION_NOT_FOUND"));
 			}
-			echo json_encode($return);
 		}
+		elseif (isset($get->state)) {
+			$command = FactoryCommand::createCommandGetAllTownByState($get->state);
+			try {
+				$command->execute();
+				$return = $command->return();
+				Tools::setResponse();
+			}
+			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (LocationNotFoundException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_LOCATION_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_LOCATION_NOT_FOUND"));
+			}
+		}
+		echo json_encode($return);
 		break;
 }

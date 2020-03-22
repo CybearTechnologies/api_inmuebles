@@ -29,7 +29,7 @@ class DtoProperty extends Dto {
 	 * @param int                $floor
 	 * @param int                $type
 	 * @param DtoLocation|int    $location
-	 * @param DtoExtra[]         $extras
+	 * @param DtoPropertyExtra[] $extras
 	 * @param DtoRequest[]       $request
 	 * @param DtoPropertyPrice[] $price
 	 */

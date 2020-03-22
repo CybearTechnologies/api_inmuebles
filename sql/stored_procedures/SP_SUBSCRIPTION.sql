@@ -19,15 +19,17 @@ BEGIN
                                  su_seat_fk, su_plan_fk,su_location_fk, su_date_created)
         VALUES (ci, passport, email, password, seat, plan, location,dateCreated);
     END IF;
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
            su_passport passport,
            su_email email,
            su_password password,
            su_deleted 'delete',
            su_status status,
-           su_date_created dateCreated,
-           su_user_modified_fk userModifier,
-           su_date_modified dateModified,
+           su_active active,
+           su_date_created datecreated,
+           su_user_modified_fk usermodifier,
+           su_date_modified datemodified,
            su_plan_fk plan,
            su_seat_fk seat,
            su_location_fk location

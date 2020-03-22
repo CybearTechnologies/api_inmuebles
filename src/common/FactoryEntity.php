@@ -357,7 +357,7 @@ class FactoryEntity {
 	 * @return RolAccess
 	 */
 	static function createRolAccess (int $id, int $rol = Values::DEFAULT_FOREIGN, int $access = Values::DEFAULT_FOREIGN,
-		 int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):RolAccess {
@@ -397,39 +397,41 @@ class FactoryEntity {
 
 	/**
 	 * @param int    $id
-	 * @param int    $plan
-	 * @param int    $seat
-	 * @param int    $location
-	 * @param int    $ci
+	 * @param string $ci
 	 * @param string $passport
 	 * @param string $email
 	 * @param string $password
-	 * @param string $userCreator
-	 * @param string $userModifier
+	 * @param int    $plan
+	 * @param int    $seat
+	 * @param int    $location
+	 * @param bool   $status
+	 * @param int    $userCreator
+	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
-	 * @param bool   $status
 	 *
 	 * @return Subscription
 	 */
-	static function createSubscription (int $id, int $plan,int $seat,int $location,int $ci = Values::DEFAULT_INT,
+	static function createSubscription (int $id, string $ci = Values::DEFAULT_STRING,
 		string $passport = Values::DEFAULT_STRING, string $email = Values::DEFAULT_STRING,
-		string $password = Values::DEFAULT_STRING, string $userCreator = Values::DEFAULT_STRING,
-		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
+		string $password = Values::DEFAULT_STRING, int $plan = Values::DEFAULT_FOREIGN,
+		int $seat = Values::DEFAULT_FOREIGN, int $location = Values::DEFAULT_FOREIGN,
+		bool $status = Values::DEFAULT_STATUS, int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE,bool $status = Values::DEFAULT_STATUS):Subscription {
-		return new Subscription($id, $ci, $passport,$email,$password,$plan,$seat,$location,$userCreator,
-			$userModifier, $dateCreated, $dateModified, $active, $delete,$status);
+		bool $delete = Values::DEFAULT_DELETE):Subscription {
+		return new Subscription($id, $ci, $passport, $email, $password, $plan, $seat, $location, $status, $userCreator,
+			$userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**
 	 * @param int    $id
 	 * @param int    $subscription
 	 * @param string $document
-	 * @param string $userCreator
-	 * @param string $userModifier
+	 * @param int    $userCreator
+	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 * @param bool   $active
@@ -437,13 +439,13 @@ class FactoryEntity {
 	 *
 	 * @return SubscriptionDetail
 	 */
-	static function createSubscriptionDetail (int $id,int $subscription,
+	static function createSubscriptionDetail (int $id, int $subscription,
 		string $document = Values::DEFAULT_STRING,
-		string $userCreator = Values::DEFAULT_STRING,
-		string $userModifier = Values::DEFAULT_STRING, string $dateCreated = Values::DEFAULT_DATE,
+		int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):SubscriptionDetail {
-		return new SubscriptionDetail($id, $subscription,$document,$userCreator,
+		return new SubscriptionDetail($id, $subscription, $document, $userCreator,
 			$userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 }

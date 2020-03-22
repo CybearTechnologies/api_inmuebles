@@ -1,7 +1,7 @@
 <?php
 class DaoSubscription extends Dao {
 	private $_entity;
-	private const QUERY_CREATE = "CALL insertFavorites(:ci,:passport,:email,
+	private const QUERY_CREATE = "CALL createSubscription(:ci,:passport,:email,
                             :password, :seat, :plan, :location,
                             :dateCreated)";
 	private const QUERY_GET_BY_ID = "CALL getSubscriptionById(:id)";
@@ -11,7 +11,6 @@ class DaoSubscription extends Dao {
 
 	/**
 	 * DaoSubscription constructor.
-	 *
 	 */
 	public function __construct () {
 		parent::__construct();
@@ -44,7 +43,6 @@ class DaoSubscription extends Dao {
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
-
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
@@ -109,13 +107,14 @@ class DaoSubscription extends Dao {
 	 */
 	public function deleteSubscription (int $id) {
 		try {
-			$dateModified=null;
-			$user=1;
+			$dateModified = null;
+			$user = 1;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $e) {
@@ -138,6 +137,7 @@ class DaoSubscription extends Dao {
 			$stmt->bindParam(":user", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $e) {
@@ -151,9 +151,9 @@ class DaoSubscription extends Dao {
 	 * @return mixed
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createSubscription($dbObject->id, $dbObject->plan,$dbObject->seat,$dbObject->location,
-			$dbObject->ci,$dbObject->passport,$dbObject->email,$dbObject->password,
-			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified, $dbObject->active,
-			$dbObject->delete,$dbObject->status);
+		return FactoryEntity::createSubscription($dbObject->id, $dbObject->ci, $dbObject->passport, $dbObject->email,
+			$dbObject->password, $dbObject->plan, $dbObject->seat, $dbObject->location, $dbObject->status,
+			Values::DEFAULT_FOREIGN, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+			$dbObject->active, $dbObject->delete);
 	}
 }

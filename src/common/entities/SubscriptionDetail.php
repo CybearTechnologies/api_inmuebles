@@ -16,10 +16,9 @@ class SubscriptionDetail extends Entity {
 	 * @param bool   $active
 	 * @param bool   $delete
 	 */
-	public function __construct (int $id, int $subscription,string $document,int $userCreator, int $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete) {
-		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
-			$delete);
+	public function __construct (int $id, int $subscription, string $document, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified, bool $active, bool $delete) {
+		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_subscription = $subscription;
 		$this->_document = $document;
 	}
@@ -38,7 +37,6 @@ class SubscriptionDetail extends Entity {
 		$this->_subscription = $subscription;
 	}
 
-
 	/**
 	 * @return mixed
 	 */
@@ -52,5 +50,4 @@ class SubscriptionDetail extends Entity {
 	public function setDocument ($document):void {
 		$this->_document = $document;
 	}
-
 }

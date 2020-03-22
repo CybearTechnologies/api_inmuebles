@@ -26,8 +26,25 @@ class CommandGetUserById extends Command {
 		$this->setSeatToUser($dtoUser, $user);
 		$this->setRolToUser($dtoUser, $user);
 		$this->setLocationToUser($dtoUser, $user);
-		$this->setPlanToUser($dtoUser,$user);
+		$this->setPlanToUser($dtoUser, $user);
 		$this->setData($dtoUser);
+		$this->clean($dtoUser);
+	}
+
+	/**
+	 * @param $dtoUser
+	 */
+	private function clean ($dtoUser) {
+		unset($dtoUser->seat->agency->userCreator);
+		unset($dtoUser->seat->agency->userModifier);
+		unset($dtoUser->seat->location->userCreator);
+		unset($dtoUser->seat->location->userModifier);
+		unset($dtoUser->seat->location->dateCreated);
+		unset($dtoUser->seat->location->dateModified);
+		unset($dtoUser->plan->userCreator);
+		unset($dtoUser->plan->userModifier);
+		unset($dtoUser->rol->userCreator);
+		unset($dtoUser->rol->userModifier);
 	}
 
 	/**

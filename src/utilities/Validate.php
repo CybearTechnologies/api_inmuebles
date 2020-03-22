@@ -277,4 +277,13 @@ class Validate {
 		return isset($post->id) && is_numeric($post->id)
 			&& isset($post->property) && is_numeric($post->property);
 	}
+
+	/**
+	 * @param $post
+	 *
+	 * @return bool
+	 */
+	static function subscription ($post) {
+		return true;
+	}
 }

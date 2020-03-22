@@ -22,9 +22,12 @@ class CommandSubscribeUser extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$subscription= $this->_dao->createSubscription($this->_subscription);
-		$dtoSubscription=$this->_mapperSubscription->fromEntityToDto($subscription);
-		if(isset($this->_subDetail) && !empty($this->_subDetail)) {
+		$subscription = $this->_dao->createSubscription($this->_subscription);
+		$dtoSubscription = $this->_mapperSubscription->fromEntityToDto($subscription);
+		foreach ($this->_subDetail as $detail) {
+			$detail->setSubscription($subscription->getId());
+		}
+		if (!empty($this->_subDetail)) {
 			$this->_command = FactoryCommand::createCommandAddSubscribeDetail($this->_subDetail);
 			$this->_command->execute();
 			$dtoSubscription->subsDetails = $this->_command->return();

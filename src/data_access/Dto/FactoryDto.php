@@ -212,7 +212,7 @@ class FactoryDto {
 	 * @param int                      $floor
 	 * @param int                      $type
 	 * @param int                      $location
-	 * @param array|DtoExtra[]         $extras
+	 * @param array|DtoPropertyExtra[] $extras
 	 * @param array|DtoRequest[]       $request
 	 * @param array|DtoPropertyPrice[] $propertyPrice
 	 *
@@ -293,29 +293,29 @@ class FactoryDto {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param string $firstName
-	 * @param string $lastName
-	 * @param string $address
-	 * @param string $email
-	 * @param string $password
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param bool   $active
-	 * @param bool   $blocked
-	 * @param bool   $deleted
-	 * @param string $seat
-	 * @param string $rol
-	 * @param string $plan
-	 * @param string $location
-	 * @param string $dateCreated
-	 * @param string $dateModified
+	 * @param int             $id
+	 * @param string          $firstName
+	 * @param string          $lastName
+	 * @param string          $address
+	 * @param string          $email
+	 * @param string          $password
+	 * @param DtoUser|int     $userCreator
+	 * @param DtoUser|int     $userModifier
+	 * @param bool            $active
+	 * @param bool            $blocked
+	 * @param bool            $deleted
+	 * @param DtoSeat|int     $seat
+	 * @param DtoRol|int      $rol
+	 * @param DtoPlan|int     $plan
+	 * @param DtoLocation|int $location
+	 * @param string          $dateCreated
+	 * @param string          $dateModified
 	 *
 	 * @return DtoUser
 	 */
 	static function createDtoUser (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, string $seat,
-		string $rol, string $plan, string $location, string $dateCreated, string $dateModified):DtoUser {
+		string $password, $userCreator, $userModifier, bool $active, bool $blocked, bool $deleted, $seat,
+		$rol, $plan, $location, string $dateCreated, string $dateModified):DtoUser {
 		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier,
 			$active, $blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
 	}
