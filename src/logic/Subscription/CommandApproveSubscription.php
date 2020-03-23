@@ -2,10 +2,11 @@
 class CommandApproveSubscription extends Command {
 	private $_mapperSubscription;
 	private $_subscription;
+
 	/**
 	 * CommandApproveSubscription constructor.
 	 *
-	 * @param Subscription $entity
+	 * @param int $entity
 	 */
 	public function __construct ($entity) {
 		$this->_dao = FactoryDao::createDaoSubscription();
@@ -17,9 +18,8 @@ class CommandApproveSubscription extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$result= $this->_dao->approveSubscription($this->_subscription->getId(),$this->_subscription->getUserModifier(),
-			$this->_subscription->getDateModified());
-		$this->setData($this->_mapperSubscription->fromEntityToDto($result));
+		$dtoSubscription = $this->_mapperSubscription->fromEntityToDto($this->_dao->approveSubscription($this->_subscription));
+		$this->setData($dtoSubscription);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 <?php
 class DaoSubscription extends Dao {
+	private const QUERY_GET_ALL = "CALL getAllSubscription()";
 	private $_entity;
 	private const QUERY_CREATE = "CALL createSubscription(:ci, :firstName , :lastName , :address, 
 							:passport , :email , :password , :seat , :plan , :location ,
@@ -55,7 +56,7 @@ class DaoSubscription extends Dao {
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem."." ".$exception->getMessage(), 500);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
 
@@ -129,18 +130,18 @@ class DaoSubscription extends Dao {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $user
-	 * @param string $dateModified
+	 * @param int $id
 	 *
 	 * @return Subscription
 	 * @throws DatabaseConnectionException
 	 */
-	public function approveSubscription (int $id, int $user, string $dateModified) {
+	public function approveSubscription (int $id) {
 		try {
+			$userModifier = 1; //TODO change for logged user
+			$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_APPROVE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 
@@ -151,6 +152,25 @@ class DaoSubscription extends Dao {
 		}
 	}
 
+	/**
+	 * @return array
+	 * @throws DatabaseConnectionException
+	 * @throws SubscriptionNotFoundException
+	 */
+	public function getAllSubscription () {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new SubscriptionNotFoundException("There are no subscription found", 404);
+			else
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
 	/**
 	 * @param $dbObject
 	 *
