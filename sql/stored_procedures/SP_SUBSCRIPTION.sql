@@ -27,9 +27,9 @@ BEGIN
            su_deleted 'delete',
            su_status status,
            su_active active,
-           su_date_created datecreated,
-           su_user_modified_fk usermodifier,
-           su_date_modified datemodified,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
            su_location_fk location
