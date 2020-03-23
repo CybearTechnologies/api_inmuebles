@@ -1,12 +1,24 @@
 <?php
-
 class CommandGetAllSubscription extends Command {
-
-	public function execute ():void {
-		// TODO: Implement execute() method.
+	/**
+	 * CommandGetAllSubscription constructor.
+	 */
+	public function __construct () {
+		$this->_dao = FactoryDao::createDaoSubscription();
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws SubscriptionNotFoundException
+	 */
+	public function execute ():void {
+		$this->setData($this->_dao->getAllSubscription());
+	}
+
+	/**
+	 * @return Subscription[]
+	 */
 	public function return () {
-		// TODO: Implement return() method.
+		return $this->getData();
 	}
 }

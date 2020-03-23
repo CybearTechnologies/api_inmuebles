@@ -163,6 +163,7 @@ BEGIN
            su_password password,
            su_deleted 'delete',
            su_status status,
+           su_active active,
            su_date_created dateCreated,
            su_user_modified_fk userModifier,
            su_date_modified dateModified,

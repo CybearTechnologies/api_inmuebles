@@ -31,12 +31,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetAllSubscription();
 			try {
 				$command->execute();
-				$return = $command->return();
+				$return = $mapper->fromEntityArrayToDtoArray($command->return());
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (SubscriptionNotFoundException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_SUBSCRIPTION_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_SUBSCRIPTION_NOT_FOUND"));
 			}
 		}
 		echo json_encode($return);
@@ -67,7 +71,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "PUT":
 		if (isset($get->accept) && isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createCommandAcceptSubscription($get->id);
+			$command = FactoryCommand::createCommandApproveSubscription($get->id);
 			try {
 				$command->execute();
 				$return = $command->return();

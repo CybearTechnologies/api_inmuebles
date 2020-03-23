@@ -932,24 +932,39 @@ class FactoryCommand {
 	////////////////////////////////////////////////////////////////////////////
 	//								SUBSCRIPTION DETAIL
 	////////////////////////////////////////////////////////////////////////////
-
 	/**
 	 * @param SubscriptionDetail[] $subscribeDetail
 	 *
 	 * @return CommandAddSubscribeDetail
 	 */
-	static function createCommandAddSubscribeDetail($subscribeDetail):CommandAddSubscribeDetail{
+	static function createCommandAddSubscribeDetail ($subscribeDetail):CommandAddSubscribeDetail {
 		return new CommandAddSubscribeDetail($subscribeDetail);
 	}
 
 	/**
-	 * @param Subscription $subscription
+	 * @param Subscription         $subscription
 	 * @param SubscriptionDetail[] $subscriptionDetail
 	 *
 	 * @return CommandSubscribeUser
 	 */
-	static function createCommandSubscribeUser($subscription, $subscriptionDetail):CommandSubscribeUser{
-		return new CommandSubscribeUser($subscription,$subscriptionDetail);
+	static function createCommandSubscribeUser ($subscription, $subscriptionDetail):CommandSubscribeUser {
+		return new CommandSubscribeUser($subscription, $subscriptionDetail);
+	}
+
+	/**
+	 * @param int $subscription
+	 *
+	 * @return CommandApproveSubscription
+	 */
+	static function createCommandApproveSubscription ($subscription):CommandApproveSubscription {
+		return new CommandApproveSubscription($subscription);
+	}
+
+	/**
+	 * @return CommandGetAllSubscription
+	 */
+	static function createCommandGetAllSubscription ():CommandGetAllSubscription {
+		return new CommandGetAllSubscription();
 	}
 
 	/**
@@ -957,7 +972,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandDeleteSubscription
 	 */
-	static function createCommandDeleteSubscription(int $entity):CommandDeleteSubscription{
+	static function createCommandDeleteSubscription (int $entity):CommandDeleteSubscription {
 		return new CommandDeleteSubscription($entity);
 	}
 }
