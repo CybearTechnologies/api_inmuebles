@@ -1,12 +1,16 @@
 <?php
 class CommandGetAccessById extends Command {
+	private $_builder;
+	private $_id;
+
 	/**
 	 * CommandGetAccessById constructor.
 	 *
-	 * @param Access $entity
+	 * @param $id
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoAccess($entity);
+	public function __construct ($id) {
+		$this->_builder = new AccessBuilder();
+		$this->_id = $id;
 	}
 
 	/**
@@ -14,13 +18,16 @@ class CommandGetAccessById extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAccessById());
+		$dtoAccess = $this->_builder
+							->getMinimumById($this->_id)
+							->build();
+		$this->setData($dtoAccess);
 	}
 
 	/**
-	 * @return Access
+	 * @return DtoAccess
 	 */
-	public function return ():Access {
+	public function return ():DtoAccess {
 		return $this->getData();
 	}
 }

@@ -310,12 +310,12 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Access $access
+	 * @param int $id
 	 *
 	 * @return CommandGetAccessById
 	 */
-	static function createCommandGetAccessById ($access):CommandGetAccessById {
-		return new CommandGetAccessById($access);
+	static function createCommandGetAccessById ($id):CommandGetAccessById {
+		return new CommandGetAccessById($id);
 	}
 
 	/**
@@ -364,7 +364,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Seat $seat
+	 * @param int $seat
 	 *
 	 * @return CommandGetSeatById
 	 */
@@ -445,7 +445,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Agency $agency
+	 * @param int $agency
 	 *
 	 * @return CommandGetAgencyById
 	 */

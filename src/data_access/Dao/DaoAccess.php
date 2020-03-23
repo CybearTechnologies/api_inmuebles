@@ -91,13 +91,14 @@ class DaoAccess extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return Access
-	 * @throws DatabaseConnectionException
 	 * @throws AccessNotFoundException
+	 * @throws DatabaseConnectionException
 	 */
-	public function getAccessById () {
+	public function getAccessById ($id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

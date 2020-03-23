@@ -8,11 +8,10 @@ $access = FactoryEntity::createAccess(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
-			$access->setId($get->id);
-			$command = FactoryCommand::createCommandGetAccessById($access);
+			$command = FactoryCommand::createCommandGetAccessById($get->id);
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDto($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (AccessNotFoundException $exception) {
@@ -20,6 +19,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse(Values::getValue("ERROR_ACCESS_NOT_FOUND"));
 			}
 			catch (DatabaseConnectionException $exception) {
+				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (CustomException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
