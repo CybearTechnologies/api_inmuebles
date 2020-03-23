@@ -6,21 +6,27 @@
 
 DROP PROCEDURE IF EXISTS createSubscription;
 DELIMITER $$
-CREATE PROCEDURE createSubscription(ci int(10), passport varchar(50), email varchar(60),
+CREATE PROCEDURE createSubscription(ci int(10), firstName varchar(45),lastName varchar(45),
+                            address varchar(200),passport varchar(50), email varchar(60),
                             password varchar(60), seat int, plan int, location int,
                             dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
-        INSERT INTO subscription(su_ci, su_passport, su_email, su_password,
-                                 su_seat_fk, su_plan_fk,su_location_fk)
-        VALUES (ci, passport, email, password, seat, plan, location);
+        INSERT INTO subscription(su_ci, su_first_name,su_last_name,su_address,su_passport,
+                                 su_email, su_password, su_seat_fk, su_plan_fk,su_location_fk)
+        VALUES (ci, firstName,lastName,address,passport, email, password, seat, plan, location);
     ELSE
-        INSERT INTO subscription(su_ci, su_passport, su_email, su_password,
+        INSERT INTO subscription(su_ci, su_first_name, su_last_name, su_address,
+                                 su_passport, su_email, su_password,
                                  su_seat_fk, su_plan_fk,su_location_fk, su_date_created)
-        VALUES (ci, passport, email, password, seat, plan, location,dateCreated);
+        VALUES (ci, firstName,lastName,address,passport, email, password, seat, plan, location,
+                dateCreated);
     END IF;
     SELECT su_id id,
            su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
@@ -50,7 +56,11 @@ BEGIN
         SET su_active = 0, su_user_modified_fk= user, su_date_modified = dateModified
         WHERE su_id=id;
     END IF;
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
@@ -79,7 +89,11 @@ BEGIN
         SET su_active = 0, su_user_modified_fk= user, su_date_modified = dateModified
         WHERE su_id=id;
     END IF;
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
@@ -108,7 +122,11 @@ BEGIN
         SET su_active = 0, su_user_modified_fk= user, su_date_modified = dateModified
         WHERE su_id=id;
     END IF;
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
@@ -137,7 +155,11 @@ BEGIN
         SET su_status = 1, su_user_modified_fk= user, su_date_modified = dateModified
         WHERE su_id=id;
     END IF;
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
@@ -157,7 +179,11 @@ DROP PROCEDURE IF EXISTS getAllSubscription;
 DELIMITER $$
 CREATE PROCEDURE getAllSubscription()
 BEGIN
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
@@ -176,7 +202,11 @@ DROP PROCEDURE IF EXISTS getSubscriptionById;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionById(id int)
 BEGIN
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
@@ -196,7 +226,11 @@ DROP PROCEDURE IF EXISTS getSubscriptionByEmail;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionByEmail(email varchar(50))
 BEGIN
-    SELECT su_id id, su_ci ci,
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name fisrtName,
+           su_last_name lastName,
+           su_address address,
            su_passport passport,
            su_email email,
            su_password password,
