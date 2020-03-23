@@ -1,9 +1,9 @@
 CREATE TABLE user
 (
     us_id          int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID usuario',
-    us_first_name  varchar(45)  COMMENT 'Nombre',
-    us_last_name   varchar(45)  COMMENT 'Apellido',
-    us_address     varchar(200) COMMENT 'Dirección',
+    us_first_name  varchar(45)  NOT NULL COMMENT 'Nombre',
+    us_last_name   varchar(45)  NOT NULL COMMENT 'Apellido',
+    us_address     varchar(200) NOT NULL COMMENT 'Dirección',
     us_email       varchar(50)  NOT NULL COMMENT 'Email',
     us_password    varchar(255) NOT NULL COMMENT 'Contraseña',
     us_active      tinyint(1)   NOT NULL DEFAULT 1 COMMENT 'Activo',
@@ -276,6 +276,9 @@ CREATE TABLE subscription
 (
     su_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
     su_ci               int(10) NOT NULL COMMENT 'Documento de identidad',
+    su_first_name       varchar(45)  NOT NULL COMMENT 'Nombre',
+    su_last_name        varchar(45)  NOT NULL COMMENT 'Apellido',
+    su_address          varchar(200) NOT NULL COMMENT 'Dirección',
     su_passport         varchar(50) NOT NULL COMMENT 'Documento de identidad',
     su_email            varchar(50)  NOT NULL COMMENT 'Email',
     su_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
@@ -306,22 +309,6 @@ CREATE TABLE subscription_detail
     sd_subscription_fk  int            DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     FOREIGN KEY (sd_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (sd_subscription_fk) REFERENCES subscription (su_id)
-);
-
-
-CREATE TABLE favorite
-(
-    fa_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
-    fa_property_fk      int(10)    NOT NULL COMMENT 'ID Propiedad',
-    fa_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
-    fa_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
-    fa_user_created_fk  int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
-    fa_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
-    fa_user_modified_fk int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
-    fa_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    FOREIGN KEY (fa_user_created_fk) REFERENCES user (us_id),
-    FOREIGN KEY (fa_user_modified_fk) REFERENCES user (us_id),
-    FOREIGN KEY (fa_property_fk) REFERENCES property (pr_id)
 );
 
 

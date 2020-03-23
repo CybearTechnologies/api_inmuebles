@@ -1,6 +1,9 @@
 <?php
 class DtoSubscription extends Dto {
 	public $ci;
+	public $firstName;
+	public $lastName;
+	public $address;
 	public $passport;
 	public $password;
 	public $email;
@@ -14,6 +17,9 @@ class DtoSubscription extends Dto {
 	 * DtoSubscription constructor.
 	 *
 	 * @param int                           $id
+	 * @param string                        $firstName
+	 * @param string                        $lastName
+	 * @param string                        $address
 	 * @param DtoPlan|int                   $plan
 	 * @param DtoSeat|int                   $seat
 	 * @param DtoLocation|int               $location
@@ -30,11 +36,15 @@ class DtoSubscription extends Dto {
 	 * @param bool                          $delete
 	 * @param bool                          $status
 	 */
-	public function __construct (int $id, $plan,$seat,$location,int $ci, string $passport,
-		string $email, string $password,$subsDetails, $userCreator, $userModifier, string $dateCreated,
+	public function __construct (int $id, string $firstName, string $lastName, string $address,
+		$plan,$seat,$location,int $ci, string $passport, string $email, string $password,
+		$subsDetails, $userCreator, $userModifier, string $dateCreated,
 		string $dateModified, bool $active, bool $delete,bool $status) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified,
 			$active, $delete);
+		$this->firstName = $firstName;
+		$this->lastName = $lastName;
+		$this->address = $address;
 		$this->plan = $plan;
 		$this->seat= $seat;
 		$this->location = $location;

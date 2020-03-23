@@ -397,6 +397,9 @@ class  FactoryEntity {
 
 	/**
 	 * @param int    $id
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @param string $address
 	 * @param string $ci
 	 * @param string $passport
 	 * @param string $email
@@ -414,16 +417,17 @@ class  FactoryEntity {
 	 *
 	 * @return Subscription
 	 */
-	static function createSubscription (int $id, string $ci = Values::DEFAULT_STRING,
-		string $passport = Values::DEFAULT_STRING, string $email = Values::DEFAULT_STRING,
-		string $password = Values::DEFAULT_STRING, int $plan = Values::DEFAULT_FOREIGN,
-		int $seat = Values::DEFAULT_FOREIGN, int $location = Values::DEFAULT_FOREIGN,
-		bool $status = Values::DEFAULT_STATUS, int $userCreator = Values::DEFAULT_FOREIGN,
-		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
-		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE):Subscription {
-		return new Subscription($id, $ci, $passport, $email, $password, $plan, $seat, $location, $status, $userCreator,
-			$userModifier, $dateCreated, $dateModified, $active, $delete);
+	static function createSubscription (int $id,string $firstName,string $lastName,string $address,
+		string $ci = Values::DEFAULT_STRING, string $passport = Values::DEFAULT_STRING,
+		string $email = Values::DEFAULT_STRING, string $password = Values::DEFAULT_STRING,
+		int $plan = Values::DEFAULT_FOREIGN, int $seat = Values::DEFAULT_FOREIGN,
+		int $location = Values::DEFAULT_FOREIGN, bool $status = Values::DEFAULT_STATUS,
+		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Subscription {
+		return new Subscription($id, $ci,$firstName,$lastName,$address, $passport, $email, $password,
+			$plan, $seat, $location, $status, $userCreator, $userModifier, $dateCreated,
+			$dateModified, $active, $delete);
 	}
 
 	/**

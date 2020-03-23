@@ -1,6 +1,9 @@
 <?php
 class Subscription extends Entity {
 	private $_ci;
+	private $_firstName;
+	private $_lastName;
+	private $_address;
 	private $_passport;
 	private $_email;
 	private $_password;
@@ -14,26 +17,33 @@ class Subscription extends Entity {
 	 *
 	 * @param int    $id
 	 * @param string $ci
+	 * @param string $firstName
+	 * @param string $lastName
+	 * @param string $address
 	 * @param string $_passport
 	 * @param string $email
 	 * @param string $password
 	 * @param int    $plan
 	 * @param int    $seat
 	 * @param int    $location
+	 * @param bool   $status
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
-	 * @param bool   $status
 	 */
-	public function __construct (int $id, string $ci, string $_passport, string $email, string $password,
-		int $plan, int $seat, int $location, bool $status, int $userCreator, int $userModifier, string $dateCreated,
-		string $dateModified, bool $active, bool $delete) {
+	public function __construct (int $id, string $ci, string $firstName,string $lastName,
+		string $address,string $_passport, string $email, string $password,
+		int $plan, int $seat, int $location, bool $status, int $userCreator, int $userModifier,
+		string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
 			$delete);
 		$this->_ci = $ci;
+		$this->_firstName = $firstName;
+		$this->_lastName = $lastName;
+		$this->_address = $address;
 		$this->_passport = $_passport;
 		$this->_email = $email;
 		$this->_password = $password;
@@ -56,6 +66,50 @@ class Subscription extends Entity {
 	public function setCi ($ci):void {
 		$this->_ci = $ci;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getFirstName ():string {
+		return $this->_firstName;
+	}
+
+	/**
+	 * @param string $firstName
+	 */
+	public function setFirstName (string $firstName):void {
+		$this->_firstName = $firstName;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLastName ():string {
+		return $this->_lastName;
+	}
+
+	/**
+	 * @param string $lastName
+	 */
+	public function setLastName (string $lastName):void {
+		$this->_lastName = $lastName;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAddress ():string {
+		return $this->_address;
+	}
+
+	/**
+	 * @param string $address
+	 */
+	public function setAddress (string $address):void {
+		$this->_address = $address;
+	}
+
+
 
 	/**
 	 * @return mixed
@@ -154,4 +208,6 @@ class Subscription extends Entity {
 	public function setStatus (bool $status):void {
 		$this->_status = $status;
 	}
+
+
 }

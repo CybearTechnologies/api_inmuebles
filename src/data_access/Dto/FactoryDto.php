@@ -388,6 +388,9 @@ class FactoryDto {
 
 	/**
 	 * @param int                           $id
+	 * @param string                        $firstName
+	 * @param string                        $lastName
+	 * @param string                        $address
 	 * @param DtoPlan|int                   $plan
 	 * @param DtoSeat|int                   $seat
 	 * @param DtoLocation|int               $location
@@ -406,12 +409,14 @@ class FactoryDto {
 	 *
 	 * @return DtoSubscription
 	 */
-	static function createDtoSubscription (int $id, $plan, $seat, $location, int $ci, string $passport,
+	static function createDtoSubscription (int $id, string $firstName, string $lastName,
+		string $address, $plan, $seat, $location, int $ci, string $passport,
 		string $email, string $password, $subsDetails, int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE, bool $status = Values::DEFAULT_STATUS):DtoSubscription {
-		return new DtoSubscription($id, $plan, $seat, $location, $ci, $passport, $email, $password,
+		return new DtoSubscription($id,$firstName,$lastName,$address, $plan, $seat, $location, $ci,
+			$passport, $email, $password,
 			$subsDetails, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
 			$status);
 	}
