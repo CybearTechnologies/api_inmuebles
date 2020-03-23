@@ -24,7 +24,7 @@ BEGIN
     END IF;
     SELECT su_id id,
            su_ci ci,
-           su_first_name fisrtName,
+           su_first_name firstName,
            su_last_name lastName,
            su_address address,
            su_passport passport,

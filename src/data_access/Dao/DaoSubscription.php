@@ -1,9 +1,9 @@
 <?php
 class DaoSubscription extends Dao {
 	private $_entity;
-	private const QUERY_CREATE = "CALL createSubscription(:ci,:passport,:email,
-                            :password, :seat, :plan, :location,
-                            :dateCreated)";
+	private const QUERY_CREATE = "CALL createSubscription(:ci, :firstName , :lastName , :address, 
+							:passport , :email , :password , :seat , :plan , :location ,
+                            :dateCreated )";
 	private const QUERY_GET_BY_ID = "CALL getSubscriptionById(:id)";
 	private const QUERY_GET_BY_EMAIL = "CALL getSubscriptionByEmail(:email)";
 	private const QUERY_DELETE = "CALL deleteSubscription(:id,:user,:dateModified)";
@@ -25,6 +25,9 @@ class DaoSubscription extends Dao {
 	public function createSubscription ($entity) {
 		try {
 			$ci = $entity->getCi();
+			$firstName = $entity->getFirstName();
+			$lastName = $entity->getLastName();
+			$address = $entity->getAddress();
 			$passport = $entity->getPassport();
 			$email = $entity->getEmail();
 			$password = $entity->getPassword();
@@ -36,6 +39,9 @@ class DaoSubscription extends Dao {
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":ci", $ci, PDO::PARAM_INT);
+			$stmt->bindParam(":firstName", $firstName, PDO::PARAM_STR);
+			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
+			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":passport", $passport, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
 			$stmt->bindParam(":password", $password, PDO::PARAM_STR);
@@ -49,7 +55,7 @@ class DaoSubscription extends Dao {
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
-			Throw new DatabaseConnectionException("Database connection problem.", 500);
+			Throw new DatabaseConnectionException("Database connection problem."." ".$exception->getMessage(), 500);
 		}
 	}
 
@@ -132,9 +138,9 @@ class DaoSubscription extends Dao {
 	 */
 	public function approveSubscription (int $id, int $user, string $dateModified) {
 		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
+			$stmt = $this->getDatabase()->prepare(self::QUERY_APPROVE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 
@@ -151,9 +157,11 @@ class DaoSubscription extends Dao {
 	 * @return mixed
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createSubscription($dbObject->id, $dbObject->ci, $dbObject->passport, $dbObject->email,
-			$dbObject->password, $dbObject->plan, $dbObject->seat, $dbObject->location, $dbObject->status,
-			$dbObject->userModifier, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+		return FactoryEntity::createSubscription($dbObject->id, $dbObject->firstName,
+			$dbObject-> lastName,$dbObject->address, $dbObject->ci, $dbObject->passport,
+			$dbObject->email, $dbObject->password, $dbObject->plan, $dbObject->seat,
+			$dbObject->location, $dbObject->status, $dbObject->userModifier,
+			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
 			$dbObject->active, $dbObject->delete);
 	}
 }
