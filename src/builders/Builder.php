@@ -1,5 +1,5 @@
 <?php
-abstract class Builder implements IBuilder {
+abstract class Builder {
 	/**@var Dto $_data */
 	protected $_data;
 	protected $_dao = null;
@@ -34,8 +34,7 @@ abstract class Builder implements IBuilder {
 	 * @return Builder
 	 */
 	public function unsetUsers () {
-		if (is_numeric($this->_data->userCreator))
-			unset($this->_data->userCreator);
+		unset($this->_data->userCreator);
 		unset($this->_data->userModifier);
 
 		return $this;
