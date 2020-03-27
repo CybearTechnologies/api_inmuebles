@@ -670,14 +670,14 @@ VALUES ('Baño', 'icono-baño');
 INSERT INTO extra(ex_name, ex_icon)
 VALUES ('Habitacion', 'icono-habitacion');
 
-INSERT INTO agency(ag_name)
-VALUES ('Century21');
-INSERT INTO agency(ag_name)
-VALUES ('Remax');
-INSERT INTO agency(ag_name)
-VALUES ('Rent a House');
-INSERT INTO agency(ag_name)
-VALUES ('Sinergia');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Century21','Ruta 1');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Remax','Ruta 2');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Rent a House','Ruta 3');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Sinergia','Ruta 4');
 
 INSERT INTO plan(pl_name, pl_price)
 VALUES ('Regular', 5);
@@ -774,15 +774,6 @@ INSERT INTO access(ac_name, ac_abbreviation)
 VALUES ('Precio_Propiedad - Modificar', 'pr_u');
 INSERT INTO access(ac_name, ac_abbreviation)
 VALUES ('Precio_Propiedad - Eliminar', 'pr_d');
-
-INSERT INTO agency(ag_name)
-VALUES ('Century21');
-INSERT INTO agency(ag_name)
-VALUES ('Remax');
-INSERT INTO agency(ag_name)
-VALUES ('Rent a House');
-INSERT INTO agency(ag_name)
-VALUES ('Sinergia');
 
 ALTER TABLE location
     ALTER COLUMN lo_user_created_fk DROP DEFAULT,

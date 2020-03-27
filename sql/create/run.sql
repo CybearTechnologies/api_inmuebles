@@ -31,6 +31,7 @@ CREATE TABLE agency
 (
     ag_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Inmobiliaria',
     ag_name             varchar(45) NOT NULL COMMENT 'Nombre',
+    ag_icon             varchar(255) NOT NULL COMMENT 'Icono',
     ag_active           tinyint(1)  NOT NULL DEFAULT 1 COMMENT 'Activo',
     ag_deleted          tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado',
     ag_user_created_fk  int(10)              DEFAULT 1 NOT NULL COMMENT 'Usuario creador',

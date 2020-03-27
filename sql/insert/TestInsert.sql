@@ -113,7 +113,7 @@ insert into subscription(su_ci, su_first_name,su_last_name,su_address,
 (23897542,'benito','llovia','can','N45OP1324','ramiroavch@gmail.com','89531705',1,1,1,1);
 
 insert into subscription_detail(sd_subscription_fk,sd_document,sd_user_modified_fk) values
-(2,'C:/',1);
+(1,'C:/',1);
 
 insert into subscription_detail(sd_subscription_fk,sd_document,sd_user_modified_fk) values
-(3,'D:/',1);
+(2,'D:/',1);

@@ -24,7 +24,7 @@ BEGIN
            fa_user_modified_fk userModifier,
            fa_date_created dateCreated,
            fa_date_modified dateModified
-    FROM favorite
+    FROM favourite
     WHERE fa_id = last_insert_id();
 END $$
 DELIMITER ;
@@ -48,7 +48,7 @@ BEGIN
            fa_user_modified_fk userModifier,
            fa_date_created dateCreated,
            fa_date_modified dateModified
-    FROM favorite
+    FROM favourite
     WHERE fa_id = id;
 END $$
 DELIMITER ;
@@ -65,7 +65,7 @@ BEGIN
            fa_user_modified_fk userModifier,
            fa_date_created dateCreated,
            fa_date_modified dateModified
-    FROM favorite
+    FROM favourite
     WHERE fa_user_created_fk = id_user
       AND fa_deleted = 0;
 END$$
