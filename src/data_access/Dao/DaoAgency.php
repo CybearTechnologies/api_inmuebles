@@ -152,13 +152,14 @@ class DaoAgency extends Dao {
 	}
 
 	/**
+	 * @param $id
+	 *
 	 * @return Agency
-	 * @throws DatabaseConnectionException
 	 * @throws AgencyNotFoundException
+	 * @throws DatabaseConnectionException
 	 */
-	public function getAgencyById () {
+	public function getAgencyById ($id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

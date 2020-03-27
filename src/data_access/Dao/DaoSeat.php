@@ -167,13 +167,14 @@ class DaoSeat extends Dao {
 	}
 
 	/**
+	 * @param $id
+	 *
 	 * @return Seat
 	 * @throws DatabaseConnectionException
 	 * @throws SeatNotFoundException
 	 */
-	public function getSeatById () {
+	public function getSeatById ($id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

@@ -20,8 +20,8 @@ RewriteRule ^user/plan$ controllerUser.php [NC,L]
 RewriteRule ^user/password$ controllerUser.php [NC,L]
 RewriteRule ^user controllerUser.php [NC,L]
 #	ACCESS
-RewriteRule ^access/([0-9]+)$ controllerAccess.php?id=$1 [NC,L]
 RewriteRule ^access$ controllerAccess.php [NC,L]
+RewriteRule ^access/([0-9]+)$ controllerAccess.php?id=$1 [NC,L]
 #	LOGIN
 RewriteRule ^login$ controllerLogin.php [NC,L]
 #	INMUEBLE
