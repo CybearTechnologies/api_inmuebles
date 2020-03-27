@@ -51,3 +51,10 @@ BEGIN
       AND pe.pe_property_fk = id_pr
       AND pe.pe_deleted = 0;
 END$$
+
+DROP PROCEDURE IF EXISTS deletePropertyExtraByPropertyId;
+DELIMITER $$
+CREATE PROCEDURE deletePropertyExtraByPropertyId(id int)
+BEGIN
+    DELETE FROM property_extra WHERE pe_id = id;
+END$$
