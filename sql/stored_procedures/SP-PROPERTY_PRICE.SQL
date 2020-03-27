@@ -112,6 +112,24 @@ BEGIN
     WHERE pp_property_fk = id_property;
 END$$
 
+DROP PROCEDURE IF EXISTS getPropertyPriceByPropertyId;
+DELIMITER $$
+CREATE PROCEDURE getProperty2LastPriceByPropertyId(id_property int)
+BEGIN
+    SELECT pp_id id,
+           pp_price price,
+           pp_final final,
+           pp_active active,
+           pp_deleted 'delete',
+           pp_property_fk property,
+           pp_user_created_fk userCreator,
+           pp_date_created dateCreated,
+           pp_user_modified_fk userModifier,
+           pp_date_modified dateModified
+    FROM property_price
+    WHERE pp_property_fk = id_property ORDER BY pp_date_created DESC limit 2;
+END$$
+
 DROP PROCEDURE IF EXISTS deletePropertyPrice;
 DELIMITER $$
 CREATE PROCEDURE deletePropertyPrice(id int,user int,dateModified datetime)

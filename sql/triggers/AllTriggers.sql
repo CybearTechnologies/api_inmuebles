@@ -125,7 +125,7 @@ CREATE TRIGGER afterApproveSubscription
 BEGIN
     IF NEW.su_deleted <> OLD.su_deleted AND NEW.su_deleted = 1
     THEN
-            CALL createMinUser(OLD.su_email,OLD.su_password,OLD.su_seat_fk,
+            CALL createUser(OLD.su_email,OLD.su_password,OLD.su_seat_fk,
                 (Select ro_id FROM rol WHERE ro_name='Corredor'),OLD.su_plan_fk,
                 OLD.su_location_fk,OLD.su_user_modified_fk,OLD.su_date_modified);
     END IF;
