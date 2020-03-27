@@ -20,6 +20,7 @@ class UserBuilder extends Builder {
 	 */
 	public function getMinimumById (int $id) {
 		$this->_data = $this->_mapper->fromEntityToDto($this->_dao->getUserById($id));
+		unset($this->_data->password);
 
 		return $this;
 	}
@@ -38,6 +39,58 @@ class UserBuilder extends Builder {
 		}
 		catch (SeatNotFoundException $e) {
 			unset($this->_data->seat);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 * @throws DatabaseConnectionException
+	 */
+	function withRol () {
+		$rolBuilder = new RolBuilder();
+		try {
+			$this->_data->rol = $rolBuilder->getMinimumById($this->_data->rol)->clean()->build();
+		}
+		catch (RolNotFoundException $e) {
+			unset($this->_data->rol);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withPlan () {
+		$planBuilder = new PlanBuilder();
+		try {
+			$this->_data->plan = $planBuilder
+				->getMinimumById($this->_data->plan)
+				->clean()
+				->build();
+		}
+		catch (PlanNotFoundException $e) {
+			unset($this->_data->plan);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withLocation () {
+		$locationBuilder = new LocationBuilder();
+		try {
+			$this->_data->location = $locationBuilder
+				->getMinimumById($this->_data->location)
+				->clean()
+				->build();
+		}
+		catch (LocationNotFoundException $e) {
+			unset($this->_data->location);
 		}
 
 		return $this;

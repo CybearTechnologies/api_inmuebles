@@ -9,7 +9,7 @@ class DaoPlan extends Dao {
 	private const QUERY_ACTIVE = "CALL activePlan(:id,:user,:dateModified)";
 	private const QUERY_INACTIVE = "CALL inactivePlan(:id,:user,:dateModified)";
 	private $_entity;
-	
+
 	/**
 	 * DaoPlan constructor.
 	 *
@@ -71,13 +71,14 @@ class DaoPlan extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return Plan
 	 * @throws DatabaseConnectionException
 	 * @throws PlanNotFoundException
 	 */
-	public function getPlanById () {
+	public function getPlanById (int $id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

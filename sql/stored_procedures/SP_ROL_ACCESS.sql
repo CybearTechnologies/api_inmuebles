@@ -50,27 +50,6 @@ BEGIN
       AND ra_deleted = 0;
 END$$
 
-DROP PROCEDURE IF EXISTS getAccessByRol;
-DELIMITER $$
-CREATE PROCEDURE getAccessByRol(id_rol int)
-BEGIN
-    SELECT ac_id id,
-           ac_name name,
-           ac_abbreviation abbreviation,
-           ac_active active,
-           ac_deleted 'delete',
-           ac_user_created_fk userCreator,
-           ac_user_modified_fk userModifier,
-           ac_date_created dateCreated,
-           ac_date_modified dateModified
-    FROM rol_access,
-         access
-    WHERE ra_rol_fk = id_rol
-      AND ra_access_fk = ac_id
-      AND ra_active = 1
-      AND ra_deleted = 0;
-END$$
-
 DROP PROCEDURE IF EXISTS deactivateRolAccessById;
 DELIMITER $$
 CREATE PROCEDURE deactivateRolAccessById(id int, user int, datemodified datetime)

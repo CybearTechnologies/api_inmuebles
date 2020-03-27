@@ -8,7 +8,6 @@ $user = FactoryEntity::createUser(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
-			$user->setId($get->id);
 			$command = FactoryCommand::createCommandGetUserById($get->id);
 			try {
 				$command->execute();

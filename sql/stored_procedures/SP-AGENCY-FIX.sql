@@ -35,13 +35,13 @@ BEGIN
         UPDATE agency
         SET ag_name=name, ag_icon = icon, ag_user_modified_fk=user
         WHERE ag_id = id
-        AND ag_deleted = 0;
+          AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_name=name, ag_icon = icon, ag_user_modified_fk=user,
             ag_date_modified=dateModified
         WHERE ag_id = id
-        AND ag_deleted = 0;
+          AND ag_deleted = 0;
     END IF;
     SELECT ag_id id,
            ag_name name,
@@ -54,7 +54,7 @@ BEGIN
            ag_date_modified dateModified
     FROM agency
     WHERE ag_id = id
-    AND ag_deleted = 0;
+      AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS activeAgency;
@@ -65,12 +65,12 @@ BEGIN
         UPDATE agency
         SET ag_active = 1, ag_user_modified_fk=user
         WHERE ag_id = id
-        AND ag_deleted = 0;;
+          AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_active=1, ag_user_modified_fk=user, ag_date_modified=dateModified
         WHERE ag_id = id
-        AND ag_deleted = 0;
+          AND ag_deleted = 0;
     END IF;
     SELECT ag_id id,
            ag_name name,
@@ -92,7 +92,7 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE agency
         SET ag_active = 0, ag_user_modified_fk = user
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_active = 0, ag_user_modified_fk = user, ag_date_modified = dateModified
@@ -109,7 +109,7 @@ BEGIN
            ag_date_modified dateModified
     FROM agency
     WHERE ag_id = id
-    AND ag_deleted = 0 AND ag_deleted = 0;
+      AND ag_deleted = 0 AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAgencyById;
@@ -118,6 +118,7 @@ CREATE PROCEDURE getAgencyById(id_agency int)
 BEGIN
     SELECT ag_id id,
            ag_name name,
+           ag_icon icon,
            ag_active active,
            ag_deleted 'delete',
            ag_user_created_fk userCreator,
@@ -126,7 +127,7 @@ BEGIN
            ag_date_modified dateModified
     FROM agency
     WHERE ag_id = id_agency
-    AND ag_deleted = 0;
+      AND ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllAgencies;
@@ -143,7 +144,7 @@ BEGIN
            ag_user_modified_fk userModifier,
            ag_date_modified dateModified
     FROM agency
-        WHERE ag_deleted = 0;
+    WHERE ag_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAgencyByName;
@@ -170,11 +171,11 @@ BEGIN
     IF IsNull(dateModified) THEN
         UPDATE agency
         SET ag_deleted = 1, ag_user_modified_fk = user
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     ELSE
         UPDATE agency
         SET ag_deleted = 1, ag_user_modified_fk = user, ag_date_modified=dateModified
-        WHERE ag_id = id AND ag_deleted = 0;;
+        WHERE ag_id = id AND ag_deleted = 0;
     END IF;
     SELECT ag_id id,
            ag_name name,

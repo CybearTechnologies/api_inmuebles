@@ -6,6 +6,7 @@ class DaoAccess extends Dao {
 	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById(:id,:user)";
 	private const QUERY_GET_BY_NAME = "CALL getAccessByName(:name)";
 	private const QUERY_GET_BY_ABBREVIATION = "CALL getAccessByAbbreviation(:abbreviation)";
+	private const QUERY_GET_BY_ROL = "CALL getAccessByRol(:id)";
 	private $_entity;
 
 	/**
@@ -106,6 +107,30 @@ class DaoAccess extends Dao {
 				Throw new AccessNotFoundException("There are no access found", 404);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return Access[]
+	 * @throws AccessNotFoundException
+	 * @throws DatabaseConnectionException
+	 */
+	public function getAccessByRol ($id) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ROL);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new AccessNotFoundException("There are no access found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 			}
 		}
 		catch (PDOException $exception) {

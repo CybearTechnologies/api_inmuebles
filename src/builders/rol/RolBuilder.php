@@ -21,16 +21,23 @@ class RolBuilder extends Builder {
 	public function getMinimumById (int $id) {
 		$this->_data = $this->_mapperRol->fromEntityToDto($this->_dao->getRolById($id));
 		$this->_id = $id;
+		unset($this->_data->access);
 
 		return $this;
 	}
 
 	/**
 	 * @return RolBuilder
+	 * @throws DatabaseConnectionException
 	 */
 	public function withAccess () {
 		$listAccessBuilder = new ListAccessBuilder();
-		$this->_data->access = $listAccessBuilder->getMinimumById($this->_id);
+		try {
+			$this->_data->access = $listAccessBuilder->getMinimumById($this->_id)->clean()->build();
+		}
+		catch (AccessNotFoundException $e) {
+			$this->_data->access = [];
+		}
 
 		return $this;
 	}

@@ -18,7 +18,7 @@ class CommandGetRolById extends Command {
 	 * @throws RolNotFoundException
 	 */
 	public function execute ():void {
-		$dtoRol = $this->_rolBuilder->getMinimumById($this->_id)->clean()->build();
+		$dtoRol = $this->_rolBuilder->getMinimumById($this->_id)->withAccess()->clean()->build();
 		$this->setData($dtoRol);
 	}
 

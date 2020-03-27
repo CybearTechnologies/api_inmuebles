@@ -22,4 +22,5 @@ class AccessBuilder extends Builder {
 
 		return $this;
 	}
+
 }
