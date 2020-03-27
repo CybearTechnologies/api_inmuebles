@@ -36,14 +36,14 @@ class ListPropertyBuilder extends ListBuilder {
 	 * @throws DatabaseConnectionException
 	 */
 	function withExtras () {
-		$listExtraBuilder = new ListExtraBuilder();
+		$propertyExtraBuilder = new ListPropertyExtraBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$datum->extras = $listExtraBuilder->getMinimumById($datum->id)
+				$datum->extras = $propertyExtraBuilder->getMinimumById($datum->id)
 					->clean()
 					->build();
 			}
-			catch (ExtraNotFoundException $e) {
+			catch (PropertyExtraNotFoundException $e) {
 				$datum->extras = [];
 			}
 		}
