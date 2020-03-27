@@ -8,7 +8,7 @@ $mapper = FactoryMapper::createMapperExtra();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
-			$command = FactoryCommand::createCommandGetExtraById(FactoryEntity::createExtra($get->id));
+			$command = FactoryCommand::createCommandGetExtraById($get->id);
 			try {
 				$command->execute();
 				$return = $command->return();
@@ -21,12 +21,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (ExtraNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
-			}catch (CustomException $exception){
+			}
+			catch (CustomException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 		}
-		else if (isset($get->state)) {
+		elseif (isset($get->state)) {
 			if (strtolower($get->state) == "active")
 				$get->state = true;
 			if (strtolower($get->state) == "inactive")
@@ -54,7 +55,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetAllExtra();
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDTOArray($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {

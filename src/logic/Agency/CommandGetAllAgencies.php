@@ -1,10 +1,12 @@
 <?php
 class CommandGetAllAgencies extends Command {
+	private $_builder;
+
 	/**
 	 * CommandGetAllAgencies constructor.
 	 */
 	public function __construct () {
-		$this->_dao = FactoryDao::createDaoAgency();
+		$this->_builder = new ListAgencyBuilder();
 	}
 
 	/**
@@ -12,7 +14,11 @@ class CommandGetAllAgencies extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllAgency());
+		$dtoAgency = $this->_builder
+									->getAll()
+									->clean()
+									->build();
+		$this->setData($dtoAgency);
 	}
 
 	/**

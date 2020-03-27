@@ -107,6 +107,24 @@ BEGIN
     WHERE ex_id = id_extra AND ex_deleted = 0;
 END$$
 
+DROP PROCEDURE IF EXISTS getAllExtrasByPropertyId;
+DELIMITER $$
+CREATE PROCEDURE getAllExtrasByPropertyId(id_property int)
+BEGIN
+    SELECT ex_id id,
+           ex_name name,
+           ex_active active,
+           ex_deleted 'delete',
+           ex_icon icon,
+           ex_user_created_fk userCreator,
+           ex_date_created dateCreated,
+           ex_user_modified_fk userModifier,
+           ex_date_modified dateModified
+    FROM extra, property_extra, property
+    WHERE ex_id = pe_extra_fk AND pe_property_fk = id_property AND ex_deleted = 0
+    ;
+END$$
+
 DROP PROCEDURE IF EXISTS deleteExtraById;
 DELIMITER $$
 CREATE PROCEDURE deleteExtraById(id_extra int, id_user int, dateModified datetime)

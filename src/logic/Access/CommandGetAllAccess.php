@@ -1,10 +1,12 @@
 <?php
 class CommandGetAllAccess extends Command {
+	private $_builder;
+
 	/**
 	 * CommandGetAllAccess constructor.
 	 */
 	public function __construct () {
-		$this->_dao = FactoryDao::createDaoAccess();
+		$this->_builder = new ListAccessBuilder();
 	}
 
 	/**
@@ -12,11 +14,15 @@ class CommandGetAllAccess extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllAccess());
+		$dtoAccess = $this->_builder
+									->getAll()
+									->clean()
+									->build();
+		$this->setData($dtoAccess);
 	}
 
 	/**
-	 * @return Access[]
+	 * @return DtoAccess[]
 	 */
 	public function return () {
 		return $this->getData();

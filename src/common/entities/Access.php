@@ -4,7 +4,7 @@ class Access extends Entity {
 	private $_abbreviation;
 
 	/**
-	 * Access constructor.
+	 * access constructor.
 	 *
 	 * @param int    $id
 	 * @param string $name

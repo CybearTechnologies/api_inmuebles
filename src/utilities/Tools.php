@@ -10,9 +10,9 @@ class Tools {
 	 */
 	public static function headers () {
 		header('Content-Type: application/json');
-		header('Access-Control-Allow-Origin: *');
-		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method");
-		header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+		header('access-Control-Allow-Origin: *');
+		header("access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, access-Control-Request-Method");
+		header("access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 		header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 		if ($_SERVER['REQUEST_METHOD'] == "OPTIONS")
 			die;

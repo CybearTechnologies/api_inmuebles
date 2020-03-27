@@ -4,7 +4,7 @@ class DaoExtra extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllExtras()";
 	private const QUERY_GET_BY_STATE = "CALL getAllExtrasByState(:state)";
 	private const QUERY_GET_BY_ID = "CALL getExtraById(:id)";
-	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtraByPropertyId(:id)";
+	private const QUERY_GET_EXTRA_BY_PROPERTY_ID = "CALL getAllExtrasByPropertyId(:id)";
 	private const QUERY_DELETE_EXTRA_BY_ID = "CALL deleteExtraById(:id,:user,:dateModified)";
 	private const QUERY_ACTIVE_EXTRA_BY_ID = "CALL activeExtraById(:id,:user,:dateModified)";
 	private const QUERY_INACTIVE_EXTRA_BY_ID = "CALL inactiveExtraById(:id,:user,:dateModified)";
@@ -91,13 +91,14 @@ class DaoExtra extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return Extra[]
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function getAllPropertyExtra () {
+	public function getAllExtrasByPropertyId (int $id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_EXTRA_BY_PROPERTY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -113,13 +114,14 @@ class DaoExtra extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function getExtraById () {
+	public function getExtraById ($id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

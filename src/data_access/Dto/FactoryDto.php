@@ -276,20 +276,22 @@ class FactoryDto {
 	/**
 	 * @param int    $id
 	 * @param string $name
-	 * @param bool   $active
-	 * @param bool   $delete
-	 * @param        $userCreator
-	 * @param        $userModifier
+	 * @param array  $access
+	 * @param int    $userCreator
+	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return DtoRol
 	 */
-	static function createDtoRol (int $id, string $name = Values::DEFAULT_STRING,
+	static function createDtoRol (int $id, string $name = Values::DEFAULT_STRING, $access = Values::DEFAULT_ARRAY,
 		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoRol {
-		return new DtoRol($id, $name, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+		return new DtoRol($id, $name, $access, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**
@@ -415,7 +417,7 @@ class FactoryDto {
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE, bool $status = Values::DEFAULT_STATUS):DtoSubscription {
-		return new DtoSubscription($id,$firstName,$lastName,$address, $plan, $seat, $location, $ci,
+		return new DtoSubscription($id, $firstName, $lastName, $address, $plan, $seat, $location, $ci,
 			$passport, $email, $password,
 			$subsDetails, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
 			$status);

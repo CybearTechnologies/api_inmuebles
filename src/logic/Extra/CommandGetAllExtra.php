@@ -1,10 +1,12 @@
 <?php
 class CommandGetAllExtra extends Command {
+	private $_builder;
+
 	/**
 	 * CommandGetAllExtra constructor.
 	 */
 	public function __construct () {
-		$this->_dao = FactoryDao::createDaoExtra();;
+		$this->_builder = new ListExtraBuilder();
 	}
 
 	/**
@@ -12,13 +14,16 @@ class CommandGetAllExtra extends Command {
 	 * @throws ExtraNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllExtra());
+		$dtoExtra = $this->_builder->getAll()
+									->clean()
+									->build();
+		$this->setData($dtoExtra);
 	}
 
 	/**
-	 * @return Extra[]
+	 * @return DtoExtra[]
 	 */
 	public function return () {
-		return ($this->getData());
+		return $this->getData();
 	}
 }
