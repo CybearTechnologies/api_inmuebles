@@ -74,6 +74,7 @@ class FactoryDto {
 	/**
 	 * @param int            $id
 	 * @param string         $name
+	 * @param string         $icon
 	 * @param DtoSeat[]|null $seats
 	 * @param DtoUser|int    $userCreator
 	 * @param DtoUser|int    $userModifier
@@ -84,11 +85,12 @@ class FactoryDto {
 	 *
 	 * @return DtoAgency
 	 */
-	static function createDtoAgency (int $id, string $name = Values::DEFAULT_STRING, $seats = Values::DEFAULT_ARRAY,
+	static function createDtoAgency (int $id, string $name = Values::DEFAULT_STRING,
+		string $icon = Values::DEFAULT_STRING, $seats = Values::DEFAULT_ARRAY,
 		$userCreator = Values::DEFAULT_INT, $userModifier = Values::DEFAULT_INT, //todo null user creator..
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoAgency {
-		return new DtoAgency($id, $name, $seats, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+		return new DtoAgency($id, $name, $icon,$seats, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
 			$delete);
 	}
 

@@ -50,20 +50,22 @@ class  FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param string $name
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param string $icon
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
 	 *
 	 * @return Agency
 	 */
-	static function createAgency (int $id, $name = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+	static function createAgency (int $id, $name = Values::DEFAULT_STRING, string $icon = Values::DEFAULT_STRING,
+		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Agency {
-		return new Agency($id, $name, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+		return new Agency($id, $name, $icon,$userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 	}
 
 	/**
