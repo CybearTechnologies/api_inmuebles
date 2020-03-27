@@ -20,8 +20,10 @@ class CommandGetAgencyById extends Command {
 	 */
 	public function execute ():void {
 		$dtoAgency = $this->_agencyBuilder
-							->getMinimumById($this->_id)->withSeats()
-							->build();
+									->getMinimumById($this->_id)
+									->withSeats()
+									->clean()
+									->build();
 		$this->setData($dtoAgency);
 	}
 

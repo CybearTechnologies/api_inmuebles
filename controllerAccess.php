@@ -31,7 +31,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetAllAccess();
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (AccessNotFoundException $exception) {

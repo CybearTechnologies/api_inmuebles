@@ -103,7 +103,7 @@ class DaoAccess extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AccessNotFoundException("There are no Access found", 404);
+				Throw new AccessNotFoundException("There are no access found", 404);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
@@ -127,7 +127,7 @@ class DaoAccess extends Dao {
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new AccessNotFoundException("There are no Access found", 404);
+				Throw new AccessNotFoundException("There are no access found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}

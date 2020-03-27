@@ -1,26 +1,24 @@
 <?php
 class CommandGetRolById extends Command {
-	private $_mapperRol;
+	private $_rolBuilder;
+	private $_id;
 
 	/**
 	 * CommandGetRolById constructor.
 	 *
-	 * @param Rol $entity
+	 * @param int $id
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoRol($entity);
-		$this->_mapperRol = FactoryMapper::createMapperRol();
+	public function __construct ($id) {
+		$this->_rolBuilder = new RolBuilder();
+		$this->_id = $id;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws MultipleUserException
 	 * @throws RolNotFoundException
-	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$dtoRol = $this->_mapperRol->fromEntityToDto($this->_dao->getRolById());
-		Tools::setUserToDto($dtoRol,$dtoRol->userCreator,$dtoRol->userModifier);
+		$dtoRol = $this->_rolBuilder->getMinimumById($this->_id)->clean()->build();
 		$this->setData($dtoRol);
 	}
 

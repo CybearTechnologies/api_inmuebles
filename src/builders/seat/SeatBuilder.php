@@ -24,6 +24,23 @@ class SeatBuilder extends Builder {
 	}
 
 	/**
+	 * @param int $id
+	 *
+	 * @return SeatBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	public function getAllSeatsByAgency (int $id) {
+		try {
+			$this->_array = $this->_mapperSeat->fromEntityArrayToDtoArray($this->_dao->getAllSeatsByAgency($id));
+		}
+		catch (SeatNotFoundException $e) {
+			$this->_array = [];
+		}
+
+		return $this;
+	}
+
+	/**
 	 * @return $this
 	 * @throws DatabaseConnectionException
 	 * @throws SeatNotFoundException
@@ -32,8 +49,8 @@ class SeatBuilder extends Builder {
 		$agencyBuilder = new AgencyBuilder();
 		try {
 			$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->agency)
-													->clean()
-													->build();
+				->clean()
+				->build();
 		}
 		catch (AgencyNotFoundException $e) {
 			throw new SeatNotFoundException("Seat not found");

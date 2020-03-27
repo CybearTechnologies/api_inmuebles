@@ -23,17 +23,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 			}
-			catch (CustomException $exception) {
-				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-			}
 			echo json_encode($return);
 		}
 		else {
-			$command = FactoryCommand::createCommandGetAllProperty();
+			$command = FactoryCommand::createCommandListProperties();
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDTOArray($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {

@@ -84,7 +84,7 @@ class DaoRolAccess extends Dao {
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new RolAccessNotFoundException("There are no Access found", 404);
+				Throw new RolAccessNotFoundException("There are no access found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
@@ -112,7 +112,7 @@ class DaoRolAccess extends Dao {
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new RolAccessNotFoundException("There are no Access found", 404);
+				Throw new RolAccessNotFoundException("There are no access found", 404);
 			else
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}

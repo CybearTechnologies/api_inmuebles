@@ -112,9 +112,9 @@ BEGIN
     WHERE pp_property_fk = id_property;
 END$$
 
-DROP PROCEDURE IF EXISTS getPropertyPriceByPropertyId;
+DROP PROCEDURE IF EXISTS getPropertyTwoLastPriceByPropertyId;
 DELIMITER $$
-CREATE PROCEDURE getProperty2LastPriceByPropertyId(id_property int)
+CREATE PROCEDURE getPropertyTwoLastPriceByPropertyId(id_property int)
 BEGIN
     SELECT pp_id id,
            pp_price price,
@@ -127,7 +127,8 @@ BEGIN
            pp_user_modified_fk userModifier,
            pp_date_modified dateModified
     FROM property_price
-    WHERE pp_property_fk = id_property ORDER BY pp_date_created DESC limit 2;
+    WHERE pp_property_fk = id_property
+    ORDER BY pp_date_created DESC limit 2;
 END$$
 
 DROP PROCEDURE IF EXISTS deletePropertyPrice;

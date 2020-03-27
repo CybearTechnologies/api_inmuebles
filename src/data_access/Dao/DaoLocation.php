@@ -17,13 +17,14 @@ class DaoLocation extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return Location
 	 * @throws DatabaseConnectionException
 	 * @throws LocationNotFoundException
 	 */
-	public function getLocationById () {
+	public function getLocationById (int $id) {
 		try {
-			$id = $this->_location->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

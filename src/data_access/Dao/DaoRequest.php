@@ -136,13 +136,14 @@ class DaoRequest extends Dao {
 	}
 
 	/**
+	 * @param $id
+	 *
 	 * @return Request
 	 * @throws DatabaseConnectionException
 	 * @throws RequestNotFoundException
 	 */
-	public function getRequestById () {
+	public function getRequestById ($id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

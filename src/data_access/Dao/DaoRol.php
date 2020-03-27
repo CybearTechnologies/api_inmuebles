@@ -74,10 +74,10 @@ class DaoRol extends Dao {
 	}
 
 	/**
- * @return Rol
- * @throws DatabaseConnectionException
- * @throws RolNotFoundException
- */
+	 * @return Rol
+	 * @throws DatabaseConnectionException
+	 * @throws RolNotFoundException
+	 */
 	public function activeRol () {
 		try {
 			$id = $this->_entity->getId();
@@ -130,13 +130,14 @@ class DaoRol extends Dao {
 	}
 
 	/**
+	 * @param $id
+	 *
 	 * @return Rol
 	 * @throws DatabaseConnectionException
 	 * @throws RolNotFoundException
 	 */
-	public function getRolById () {
+	public function getRolById (int $id) {
 		try {
-			$id = $this->_entity->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

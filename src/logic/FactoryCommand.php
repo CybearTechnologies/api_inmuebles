@@ -684,7 +684,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Extra $extra
+	 * @param int $extra
 	 *
 	 * @return CommandGetExtraById
 	 */
@@ -739,6 +739,16 @@ class FactoryCommand {
 	//------------------------------------------------------------
 	//----------------------------PROPERTY-----------------------
 	//------------------------------------------------------------
+	/**
+	 * @return CommandListProperties
+	 */
+	static function createCommandListProperties ():CommandListProperties {
+		return new CommandListProperties();
+	}
+
+
+	/////////////////////////////VIEJOS PA ABAJO ////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @param Property $property
 	 *

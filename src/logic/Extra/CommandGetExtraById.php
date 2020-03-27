@@ -1,17 +1,16 @@
 <?php
 class CommandGetExtraById extends Command {
-	private $_mapperExtra;
-	private $_mapperUser;
+	private $_extraBuilder;
+	private $_id;
 
 	/**
 	 * CommandGetExtraById constructor.
 	 *
-	 * @param Extra $extra
+	 * @param int $extra
 	 */
 	public function __construct ($extra) {
-		$this->_dao = FactoryDao::createDaoExtra($extra);
-		$this->_mapperExtra = FactoryMapper::createMapperExtra();
-		$this->_mapperUser = FactoryMapper::createMapperUser();
+		$this->_extraBuilder = new ExtraBuilder();
+		$this->_id = $extra;
 	}
 
 	/**
@@ -21,9 +20,10 @@ class CommandGetExtraById extends Command {
 	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$extra = $this->_dao->getExtraById();
-		$dtoExtra = $this->_mapperExtra->fromEntityToDto($extra);
-		Tools::setUserToDto($dtoExtra,$extra->getUserCreator(),$extra->getUserModifier());
+		$dtoExtra = $this->_extraBuilder->getMinimumById($this->_id)
+										->withUsers()
+										->clean()
+										->build();
 		$this->setData($dtoExtra);
 	}
 

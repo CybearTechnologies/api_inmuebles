@@ -1,6 +1,7 @@
 <?php
 class AgencyBuilder extends Builder {
 	private $_mapper;
+	private $_id;
 
 	/**
 	 * AgencyBuilder constructor.
@@ -19,6 +20,7 @@ class AgencyBuilder extends Builder {
 	 */
 	public function getMinimumById (int $id) {
 		$this->_data = $this->_mapper->fromEntityToDto($this->_dao->getAgencyById($id));
+		$this->_id = $id;
 		unset($this->_data->seats);
 
 		return $this;
@@ -28,14 +30,12 @@ class AgencyBuilder extends Builder {
 	 * @throws DatabaseConnectionException
 	 */
 	public function withSeats () {
-		$this->_dao = FactoryDao::createDaoSeat();
-		$this->_mapper = FactoryMapper::createMapperSeat();
-		try {
-			$this->_data->seats = $this->_mapper->fromEntityArrayToDtoArray($this->_dao->getAllSeatsByAgency($this->_data->id));
-		}
-		catch (SeatNotFoundException $e) {
-			$this->_data->seats = [];
-		}
+		$listSeatBuilder = new ListSeatBuilder();
+
+		$this->_data->seats = $listSeatBuilder
+											->getMinimumById($this->_id)
+											->clean()
+											->build();
 
 		return $this;
 	}

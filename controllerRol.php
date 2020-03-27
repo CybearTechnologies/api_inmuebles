@@ -8,7 +8,7 @@ $rol = FactoryEntity::createRol(0);
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
-			$command = FactoryCommand::createCommandGetRolById($rol = FactoryEntity::createRol($get->id));
+			$command = FactoryCommand::createCommandGetRolById($get->id);
 			try {
 				$command->execute();
 				$return = $command->return();
