@@ -32,14 +32,14 @@ class PropertyBuilder extends Builder {
 	 * @throws DatabaseConnectionException
 	 */
 	public function withExtras () {
-		$propertyExtraBuilder = new ListExtraBuilder();
+		$propertyExtraBuilder = new ListPropertyExtraBuilder();
 		try {
 			$this->_data->extras = $propertyExtraBuilder
-				->getMinimumById($this->_id)
-				->clean()
-				->build();
+														->getMinimumById($this->_id)
+														->clean()
+														->build();
 		}
-		catch (ExtraNotFoundException $e) {
+		catch (PropertyExtraNotFoundException $e) {
 			$this->_data->extras = [];
 		}
 
@@ -123,9 +123,9 @@ class PropertyBuilder extends Builder {
 		$propertyPriceBuilder = new ListPropertyPriceBuilder();
 		try {
 			$this->_data->price = $propertyPriceBuilder
-														->getByPropertyId($this->_id)
-														->clean()
-														->build();
+				->getByPropertyId($this->_id)
+				->clean()
+				->build();
 		}
 		catch (InvalidPropertyPriceException $e) {
 			$this->_data->price = [];
@@ -149,6 +149,20 @@ class PropertyBuilder extends Builder {
 			$this->_data->price = [];
 		}
 
+		return $this;
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withType () {
+		$propertyTypeBuilder = new PropertyTypeBuilder();
+		try {
+			$this->_data->type = $propertyTypeBuilder->getMinimumById($this->_data->type)->clean()->build();
+		}
+		catch (PropertyTypeNotFoundException $e) {
+			unset($this->_data->type);
+		}
 		return $this;
 	}
 }

@@ -23,4 +23,32 @@ class ExtraBuilder extends Builder {
 
 		return $this;
 	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	public function withUserCreator () {
+		$userBuilder = new UserBuilder();
+		try {
+
+			$this->_data->userCreator = $userBuilder
+												->getMinimumById($this->_data->userCreator)
+												->clean()
+												->build();
+
+			unset($this->_data->userCreator->seat);
+			unset($this->_data->userCreator->rol);
+			unset($this->_data->userCreator->plan);
+			unset($this->_data->userCreator->location);
+
+		}
+		catch (UserNotFoundException $e) {
+			unset($this->_data->userCreator);
+		}
+		catch (MultipleUserException $e) {
+			unset($this->_data->userCreator);
+		}
+
+		return $this;
+	}
 }

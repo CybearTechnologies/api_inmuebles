@@ -21,14 +21,14 @@ class CommandGetPropertyById extends Command {
 	 */
 	public function execute ():void {
 		$dtoProperty = $this->_builderProperty
-			->getMinimumById($this->_id)
-			->withExtras()
-			->withPrice()
-			->withUserDetail()
-			->withLocation()
-			->withLastTwoPrices()
-			->clean()
-			->build();
+												->getMinimumById($this->_id)
+												->withExtras()
+												->withPrice()
+												->withUserDetail()
+												->withLocation()
+												->withLastTwoPrices()->withType()
+												->clean()
+												->build();
 		$this->setData($dtoProperty);
 	}
 

@@ -40,7 +40,7 @@ BEGIN
     ELSE
         UPDATE extra
         SET ex_name=name, ex_icon=icon, ex_user_modified_fk=user, ex_date_modified=dateModified
-        WHERE ex_id = id AND ex_deleted = 0;;
+        WHERE ex_id = id AND ex_deleted = 0;
     END IF;
     SELECT ex_id id,
            ex_name name,
@@ -52,7 +52,7 @@ BEGIN
            ex_user_modified_fk userModifier,
            ex_date_modified dateModified
     FROM extra
-    WHERE ex_id = id AND ex_deleted = 0;;
+    WHERE ex_id = id AND ex_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllExtras;

@@ -69,4 +69,44 @@ class ListPropertyBuilder extends ListBuilder {
 
 		return $this;
 	}
+
+	/**
+	 * @return ListPropertyBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	function withLocation () {
+		$locationBuilder = new LocationBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$datum->location = $locationBuilder->getMinimumById($datum->id)
+					->clean()
+					->build();
+			}
+			catch (LocationNotFoundException $e) {
+				unset($datum->location);
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return ListPropertyBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	function withType () {
+		$typeBuilder = new PropertyTypeBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$datum->type = $typeBuilder->getMinimumById($datum->id)
+					->clean()
+					->build();
+			}
+			catch (PropertyTypeNotFoundException $e) {
+				unset($datum->type);
+			}
+		}
+
+		return $this;
+	}
 }

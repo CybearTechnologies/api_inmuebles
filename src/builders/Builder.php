@@ -12,18 +12,6 @@ abstract class Builder {
 	public abstract function getMinimumById (int $id);
 
 	/**
-	 * @return $this
-	 * @throws DatabaseConnectionException
-	 * @throws MultipleUserException
-	 * @throws UserNotFoundException
-	 */
-	public function withUsers () {
-		Tools::setUserToDto($this->_data, $this->_data->userCreator, $this->_data->userModifier);
-
-		return $this;
-	}
-
-	/**
 	 * @return Dto
 	 */
 	public function build ():Dto {
@@ -34,7 +22,9 @@ abstract class Builder {
 	 * @return Builder
 	 */
 	public function unsetUsers () {
-		unset($this->_data->userCreator);
+		if (is_numeric($this->_data->userCreator))
+			unset($this->_data->userCreator);
+		if (is_numeric($this->_data->userModifier))
 		unset($this->_data->userModifier);
 
 		return $this;
