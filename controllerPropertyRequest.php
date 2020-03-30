@@ -49,10 +49,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	case "POST":
+		$post = json_decode(file_get_contents('php://input'));
 		if (isset($post->property) && is_numeric($post->property) && isset($post->user) && is_numeric($post->user)) {
 			try {
-				$command = FactoryCommand::createCommandCreateRequest(
-					FactoryEntity::createRequest(-1, $post->property, $post->user));
+				$command = FactoryCommand::createCommandCreateRequest($post->property, $post->user);
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
 				Tools::setResponse();
