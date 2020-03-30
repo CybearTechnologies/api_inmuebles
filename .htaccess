@@ -29,7 +29,9 @@ RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
 RewriteRule ^property/(active|inactive)/([0-9]+)$ controllerProperty.php?action=$1&id=$2 [NC,L]
 RewriteRule ^property$ controllerProperty.php [NC,L]
 # REQUEST
+RewriteRule ^property-request$ controllerPropertyRequest.php [NC,L]
 RewriteRule ^property/([0-9]+)/request$ controllerPropertyRequest.php?property=$1 [NC,L]
+
 
 #   TIPO DE INMUBELE
 RewriteRule ^property-type/?$ controllerPropertyType.php [NC,L]
