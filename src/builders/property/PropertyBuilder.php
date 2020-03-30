@@ -35,9 +35,9 @@ class PropertyBuilder extends Builder {
 		$propertyExtraBuilder = new ListPropertyExtraBuilder();
 		try {
 			$this->_data->extras = $propertyExtraBuilder
-														->getMinimumById($this->_id)
-														->clean()
-														->build();
+				->getMinimumById($this->_id)
+				->clean()
+				->build();
 		}
 		catch (PropertyExtraNotFoundException $e) {
 			$this->_data->extras = [];
@@ -87,15 +87,21 @@ class PropertyBuilder extends Builder {
 	/**
 	 * @return $this
 	 * @throws DatabaseConnectionException
-	 * @throws MultipleUserException
-	 * @throws UserNotFoundException
 	 */
 	public function withUserDetail () {
 		$userBuilder = new UserBuilder();
-		$this->_data->userCreator = $userBuilder->getMinimumById($this->_data->userCreator)
-			->withSeat()
-			->clean()
-			->build();
+		try {
+			$this->_data->userCreator = $userBuilder->getMinimumById($this->_data->userCreator)
+				->withSeat()
+				->clean()
+				->build();
+		}
+		catch (MultipleUserException $e) {
+			unset($this->_data->userCreator);
+		}
+		catch (UserNotFoundException $e) {
+			unset($this->_data->userCreator);
+		}
 
 		return $this;
 	}
@@ -163,6 +169,7 @@ class PropertyBuilder extends Builder {
 		catch (PropertyTypeNotFoundException $e) {
 			unset($this->_data->type);
 		}
+
 		return $this;
 	}
 }
