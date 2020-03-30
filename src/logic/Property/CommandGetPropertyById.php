@@ -15,9 +15,7 @@ class CommandGetPropertyById extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws MultipleUserException
 	 * @throws PropertyNotFoundException
-	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
 		$dtoProperty = $this->_builderProperty
