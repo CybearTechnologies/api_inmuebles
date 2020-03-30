@@ -16,7 +16,10 @@ class CommandListProperties extends Command {
 	public function execute ():void {
 		$dtoProperties = $this->_listBuilder
 											->getAll()
-											->withExtras()->withLastTwoPrices()
+											->withExtras()
+											->withLocation()
+											->withType()
+											->withLastTwoPrices()
 											->clean()
 											->build();
 		$this->setData($dtoProperties);

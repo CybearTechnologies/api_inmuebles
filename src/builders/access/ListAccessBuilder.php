@@ -14,8 +14,12 @@ class ListAccessBuilder extends ListBuilder {
 	 * @param int $id
 	 *
 	 * @return ListAccessBuilder
+	 * @throws AccessNotFoundException
+	 * @throws DatabaseConnectionException
 	 */
 	function getMinimumById (int $id) {
+		$this->_data = $this->_mapper->fromEntityArrayToDtoArray($this->_dao->getAccessByRol($id));
+
 		return $this;
 	}
 

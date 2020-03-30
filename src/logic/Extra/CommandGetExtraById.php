@@ -16,12 +16,10 @@ class CommandGetExtraById extends Command {
 	/**
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
-	 * @throws MultipleUserException
-	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
 		$dtoExtra = $this->_extraBuilder->getMinimumById($this->_id)
-										->withUsers()
+										->withUserCreator()
 										->clean()
 										->build();
 		$this->setData($dtoExtra);

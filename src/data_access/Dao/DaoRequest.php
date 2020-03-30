@@ -43,14 +43,15 @@ class DaoRequest extends Dao {
 	}
 
 	/**
+	 * @param int $property
+	 * @param int $user
+	 *
 	 * @return Request
 	 * @throws DatabaseConnectionException
 	 */
-	public function createRequest () {
+	public function createRequest (int $property,int $user) {
 		try {
-			$property = $this->_entity->getProperty();
-			$user = $this->_entity->getUserCreator();
-			$dateCreated = $this->_entity->getDateCreated();
+			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);

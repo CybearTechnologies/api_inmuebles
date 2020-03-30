@@ -19,9 +19,20 @@ class ListPropertyExtraBuilder extends ListBuilder {
 	 */
 	function getMinimumById (int $id) {
 		$this->_data = $this->_mapper->fromEntityArrayToDtoArray($this->_dao->getPropertyExtraByPropertyId($id));
+		$builderExtra = new ExtraBuilder();
 		foreach ($this->_data as $datum) {
 			unset($datum->property);
+			try {
+				$datum->extra = $builderExtra
+					->getMinimumById($datum->extra)
+					->clean()
+					->build();
+			}
+			catch (ExtraNotFoundException $e) {
+				unset($datum);
+			}
 		}
+
 		return $this;
 	}
 

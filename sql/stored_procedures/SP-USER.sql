@@ -34,10 +34,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us_id = last_insert_id();
 END$$
@@ -122,10 +122,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us,
          plan pl,
          rol ro,
@@ -156,10 +156,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
 END$$
@@ -182,10 +182,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = user_id;
 END$$
@@ -208,10 +208,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE lower(us.us_email) = user_email;
 END$$
@@ -235,10 +235,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us;
 END$$
 
@@ -269,10 +269,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
 
@@ -305,10 +305,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
 
@@ -341,10 +341,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
 
@@ -377,10 +377,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
 END$$
@@ -412,10 +412,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
 
@@ -449,10 +449,10 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
-           us.us_user_created_fk usercreator,
-           us.us_user_modified_fk usermodifier,
-           us.us_date_created datecreated,
-           us.us_date_modified datemodified
+           us.us_user_created_fk userCreator,
+           us.us_user_modified_fk userModifier,
+           us.us_date_created dateCreated,
+           us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
 END$$

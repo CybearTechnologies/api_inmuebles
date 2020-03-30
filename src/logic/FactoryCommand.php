@@ -210,12 +210,13 @@ class FactoryCommand {
 	//----------------------------REQUEST-------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Request $request
+	 * @param int $property
+	 * @param int $user
 	 *
 	 * @return CommandCreateRequest
 	 */
-	static function createCommandCreateRequest ($request):CommandCreateRequest {
-		return new CommandCreateRequest($request);
+	static function createCommandCreateRequest (int $property, int $user):CommandCreateRequest {
+		return new CommandCreateRequest($property, $user);
 	}
 
 	/**

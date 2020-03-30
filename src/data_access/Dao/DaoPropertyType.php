@@ -61,13 +61,14 @@ class DaoPropertyType extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return PropertyType
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyTypeNotFoundException
 	 */
-	public function getPropertyTypeById () {
+	public function getPropertyTypeById (int $id) {
 		try {
-			$id = $this->_propertyType->getId();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();

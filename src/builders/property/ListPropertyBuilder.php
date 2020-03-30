@@ -36,14 +36,14 @@ class ListPropertyBuilder extends ListBuilder {
 	 * @throws DatabaseConnectionException
 	 */
 	function withExtras () {
-		$listExtraBuilder = new ListExtraBuilder();
+		$propertyExtraBuilder = new ListPropertyExtraBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$datum->extras = $listExtraBuilder->getMinimumById($datum->id)
+				$datum->extras = $propertyExtraBuilder->getMinimumById($datum->id)
 					->clean()
 					->build();
 			}
-			catch (ExtraNotFoundException $e) {
+			catch (PropertyExtraNotFoundException $e) {
 				$datum->extras = [];
 			}
 		}
@@ -64,6 +64,46 @@ class ListPropertyBuilder extends ListBuilder {
 			}
 			catch (InvalidPropertyPriceException $e) {
 				$item->price = [];
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return ListPropertyBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	function withLocation () {
+		$locationBuilder = new LocationBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$datum->location = $locationBuilder->getMinimumById($datum->id)
+					->clean()
+					->build();
+			}
+			catch (LocationNotFoundException $e) {
+				unset($datum->location);
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return ListPropertyBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	function withType () {
+		$typeBuilder = new PropertyTypeBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$datum->type = $typeBuilder->getMinimumById($datum->id)
+					->clean()
+					->build();
+			}
+			catch (PropertyTypeNotFoundException $e) {
+				unset($datum->type);
 			}
 		}
 
