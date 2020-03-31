@@ -284,6 +284,15 @@ class Validate {
 	 * @return bool
 	 */
 	static function subscription ($post) {
-		return true;
+		return isset($post->ci) && !empty($post->ci)
+			&& isset($post->firstName) && !empty($post->firstName)
+			&& isset($post->lastName) && !empty($post->lastName)
+			&& isset($post->address) && !empty($post->address)
+			&& isset($post->passport) && !empty($post->passport)
+			&& isset($post->email)  && !empty($post->email)
+			&& isset($post->plan) && is_numeric($post->plan)
+			&& isset($post->seat) && is_numeric($post->seat)
+			&& isset($post->location) && is_numeric($post->location)
+			&& isset($post->detail) && is_array($post->detail);
 	}
 }

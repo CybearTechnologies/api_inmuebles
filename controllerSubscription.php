@@ -70,7 +70,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	case "PUT":
-		if (isset($get->accept) && isset($get->id) && is_numeric($get->id)) {
+		if (isset($get->action) && $get->action = "accept" && isset($get->id) && is_numeric($get->id)) {
 			$command = FactoryCommand::createCommandApproveSubscription($get->id);
 			try {
 				$command->execute();
