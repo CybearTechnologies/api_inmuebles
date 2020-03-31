@@ -42,6 +42,25 @@ BEGIN
     WHERE us_id = last_insert_id();
 END$$
 
+DROP PROCEDURE IF EXISTS createOnlyUser;
+DELIMITER $$
+CREATE PROCEDURE createOnlyUser(firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
+                            password varchar(60), seat int, rol int, plan int, location int, userCreator int,
+                            dateCreated datetime)
+BEGIN
+    IF IsNull(dateCreated) THEN
+        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
+                         us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk)
+        VALUES (firstName, lastName, address, email, password, seat, rol, plan, location, userCreator, userCreator);
+    ELSE
+        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
+                         us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk, us_date_modified,
+                         us_date_created)
+        VALUES (firstName, lastName, address, email, password, seat, rol, plan, location, userCreator, userCreator,
+                dateCreated, dateCreated);
+    END IF;
+END$$
+
 DROP PROCEDURE IF EXISTS createMinUser;
 DELIMITER $$
 CREATE PROCEDURE createMinUser(email varchar(60),

@@ -100,34 +100,26 @@ BEGIN
 END;
 DELIMITER $$ ;
 
-DROP TRIGGER IF EXISTS afterDeleteSubscription;
+DROP TRIGGER IF EXISTS afterModifySubscription;
 DELIMITER $$
-CREATE TRIGGER afterDeleteSubscription
+CREATE TRIGGER afterModifySubscription
     AFTER UPDATE
     ON subscription FOR EACH ROW
 BEGIN
-    IF NEW.su_deleted <> OLD.su_deleted
+    IF NEW.su_status <> OLD.su_status AND NEW.su_status = 1
+    THEN
+        CALL createOnlyUser(OLD.su_first_name,OLD.su_last_name,OLD.su_address,
+            OLD.su_email,OLD.su_password,OLD.su_seat_fk,
+            (Select ro_id FROM rol WHERE ro_name='Corredor'),
+            OLD.su_plan_fk,OLD.su_location_fk,NEW.su_user_modified_fk,
+            NEW.su_date_modified);
+    ELSEIF NEW.su_deleted <> OLD.su_deleted AND NEW.su_deleted = 1
     THEN
         IF NEW.su_deleted=1 THEN
             UPDATE subscription_detail SET sd_deleted=1 WHERE sd_subscription_fk=OLD.su_id;
         ELSEIF NEW.su_deleted=0 THEN
             UPDATE subscription_detail SET sd_deleted=1 WHERE sd_subscription_fk=OLD.su_id;
         END IF;
-    END IF;
-END;
-DELIMITER $$ ;
-
-DROP TRIGGER IF EXISTS afterApproveSubscription;
-DELIMITER $$
-CREATE TRIGGER afterApproveSubscription
-    AFTER UPDATE
-    ON subscription FOR EACH ROW
-BEGIN
-    IF NEW.su_deleted <> OLD.su_deleted AND NEW.su_deleted = 1
-    THEN
-            CALL createUser(OLD.su_email,OLD.su_password,OLD.su_seat_fk,
-                (Select ro_id FROM rol WHERE ro_name='Corredor'),OLD.su_plan_fk,
-                OLD.su_location_fk,OLD.su_user_modified_fk,OLD.su_date_modified);
     END IF;
 END;
 DELIMITER $$ ;
