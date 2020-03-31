@@ -49,6 +49,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		$post = json_decode(file_get_contents('php://input'));
 		if (Validate::subscription($post)) {
 			/** @var DtoSubscription $post */
+			$post->password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
 			$subscription = $mapper->fromDtoToEntity($post);
 			/** @var SubscriptionDetail[] $subscriptionDetail */
 			$subscriptionDetail = $mapperSubDetail->fromDtoArrayToEntityArray($post->detail);
