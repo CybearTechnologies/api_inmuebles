@@ -955,11 +955,12 @@ class FactoryCommand {
 	/**
 	 * @param Subscription         $subscription
 	 * @param SubscriptionDetail[] $subscriptionDetail
+	 * @param                      $images
 	 *
 	 * @return CommandSubscribeUser
 	 */
-	static function createCommandSubscribeUser ($subscription, $subscriptionDetail):CommandSubscribeUser {
-		return new CommandSubscribeUser($subscription, $subscriptionDetail);
+	static function createCommandSubscribeUser ($subscription, $subscriptionDetail, $images):CommandSubscribeUser {
+		return new CommandSubscribeUser($subscription, $subscriptionDetail, $images);
 	}
 
 	/**

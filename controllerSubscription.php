@@ -47,14 +47,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));
-		if (Validate::subscription($post)) {
+		if (Validate::subscription($post) && ImageProcessor::imageFileExist('image')) {
 			/** @var DtoSubscription $post */
 			$post->password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
 			$subscription = $mapper->fromDtoToEntity($post);
 			/** @var SubscriptionDetail[] $subscriptionDetail */
 			$subscriptionDetail = $mapperSubDetail->fromDtoArrayToEntityArray($post->detail);
-			$command = FactoryCommand::createCommandSubscribeUser($subscription, $subscriptionDetail);
+			$images = $_FILES['image'];
+			$command = FactoryCommand::createCommandSubscribeUser($subscription, $subscriptionDetail,$images);
 			try {
+
 				$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
@@ -62,6 +64,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (FileIsNotImageException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
+			}
+			catch (ImageNotFoundException $exception) {
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {

@@ -49,6 +49,11 @@ class ImageProcessor {
 		unlink($fileName);
 	}
 
+	/**
+	 * @param string $inputName
+	 *
+	 * @return bool
+	 */
 	public static function imageFileExist ($inputName = 'image') {
 		return isset($_FILES[$inputName]) && $_FILES[$inputName]['size'] > 0;
 	}
