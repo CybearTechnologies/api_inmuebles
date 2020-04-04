@@ -93,23 +93,23 @@ BEGIN
     WHERE lo_type = 'Municipio' AND lo_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS getLocationsByStateId;
-DELIMITER $$
-CREATE PROCEDURE getLocationsByStateId(id int)
-BEGIN
-    SELECT lo_id id,
-           lo_name name,
-           lo_type type,
-           lo_active active,
-           lo_deleted 'delete',
-           lo_date_created dateCreated,
-           lo_date_modified dateModified,
-           lo_user_created_fk userCreator,
-           lo_user_modified_fk userModifier,
-           lo_location_fk location
-    FROM location
-    WHERE lo_type = 'Municipio' AND lo_location_fk = id;
-END$$
+    DROP PROCEDURE IF EXISTS getLocationsByStateId;
+    DELIMITER $$
+    CREATE PROCEDURE getLocationsByStateId(id int)
+    BEGIN
+        SELECT lo_id id,
+               lo_name name,
+               lo_type type,
+               lo_active active,
+               lo_deleted 'delete',
+               lo_date_created dateCreated,
+               lo_date_modified dateModified,
+               lo_user_created_fk userCreator,
+               lo_user_modified_fk userModifier,
+               lo_location_fk location
+        FROM location
+        WHERE lo_type = 'Municipio' AND lo_location_fk = id;
+    END$$
 
 /**
  ----------------------------------------------------------------------------------------------------------------------
