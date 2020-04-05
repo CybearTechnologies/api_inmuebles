@@ -358,7 +358,9 @@ class  FactoryEntity {
 	 *
 	 * @return RolAccess
 	 */
-	static function createRolAccess (int $id, int $rol = Values::DEFAULT_FOREIGN, int $access = Values::DEFAULT_FOREIGN,
+	static function createRolAccess (int $id,
+		int $rol = Values::DEFAULT_FOREIGN,
+		int $access = Values::DEFAULT_FOREIGN,
 		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,

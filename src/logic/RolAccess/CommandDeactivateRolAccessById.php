@@ -1,12 +1,18 @@
 <?php
 class CommandDeactivateRolAccessById extends Command {
+	private $_rol;
+	private $_access;
+
 	/**
 	 * CommandDeactivateRolAccessById constructor.
 	 *
-	 * @param RolAccess $entity
+	 * @param int $id
+	 * @param int $access
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoRolAccess($entity);
+	public function __construct ($id, $access) {
+		$this->_dao = FactoryDao::createDaoRolAccess();
+		$this->_rol = $id;
+		$this->_access = $access;
 	}
 
 	/**
@@ -14,7 +20,7 @@ class CommandDeactivateRolAccessById extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->deactivateRolAccessById());
+		$this->setData($this->_dao->deactivateRolAccessById($this->_rol,$this->_access));
 	}
 
 	/**

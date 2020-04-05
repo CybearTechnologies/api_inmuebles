@@ -168,7 +168,8 @@ class Validate {
 	 * @return bool
 	 */
 	static function activateRolAccess ($rolAccess) {
-		return isset($rolAccess->id) && is_numeric($rolAccess->id)
+		return isset($rolAccess->rol) && is_numeric($rolAccess->rol)
+			&& isset($rolAccess->access) && is_numeric($rolAccess->access)
 			&& strtolower($rolAccess->action) == "active";
 	}
 
@@ -178,7 +179,8 @@ class Validate {
 	 * @return bool
 	 */
 	static function inactivateRolAccess ($rolAccess) {
-		return isset($rolAccess->id) && is_numeric($rolAccess->id)
+		return isset($rolAccess->rol) && is_numeric($rolAccess->rol)
+			&& isset($rolAccess->access) && is_numeric($rolAccess->access)
 			&& strtolower($rolAccess->action) == "inactive";
 	}
 
@@ -289,7 +291,7 @@ class Validate {
 			&& isset($post->lastName) && !empty($post->lastName)
 			&& isset($post->address) && !empty($post->address)
 			&& isset($post->passport) && !empty($post->passport)
-			&& isset($post->email)  && !empty($post->email)
+			&& isset($post->email) && !empty($post->email)
 			&& isset($post->plan) && is_numeric($post->plan)
 			&& isset($post->seat) && is_numeric($post->seat)
 			&& isset($post->location) && is_numeric($post->location)

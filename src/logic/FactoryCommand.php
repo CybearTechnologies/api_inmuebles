@@ -27,21 +27,23 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param RolAccess $rolAccess
+	 * @param int $rol
+	 * @param int $access
 	 *
 	 * @return CommandActivateRolAccessById
 	 */
-	static function createCommandActivateRolAccess (RolAccess $rolAccess):CommandActivateRolAccessById {
-		return new CommandActivateRolAccessById($rolAccess);
+	static function createCommandActivateRolAccess (int $rol,int $access):CommandActivateRolAccessById {
+		return new CommandActivateRolAccessById($rol,$access);
 	}
 
 	/**
-	 * @param RolAccess $rolAccess
+	 * @param int $rol
+	 * @param int $access
 	 *
 	 * @return CommandDeactivateRolAccessById
 	 */
-	static function createCommandDeactivateRolAccess (RolAccess $rolAccess):CommandDeactivateRolAccessById {
-		return new CommandDeactivateRolAccessById($rolAccess);
+	static function createCommandDeactivateRolAccess ($rol, $access):CommandDeactivateRolAccessById {
+		return new CommandDeactivateRolAccessById($rol, $access);
 	}
 	//------------------------------------------------------------
 	//----------------------------USER----------------------------
