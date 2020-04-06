@@ -1,19 +1,30 @@
 <?php
 class CommandCreateRol extends Command {
+	private $_builder;
+	private $_name;
+	private $_access;
+
 	/**
 	 * CommandCreateRol constructor.
 	 *
-	 * @param Rol $entity
+	 * @param string $name
+	 * @param        $access
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoRol($entity);
+	public function __construct ($name, $access) {
+		$this->_name = $name;
+		$this->_access = $access;
+		$this->_builder = new RolBuilder();
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createRol());
+		$dtoRol = $this->_builder->insertRol($this->_name, $this->_access)
+																			->withAccess()
+																			->clean()
+																			->build();
+		$this->setData($dtoRol);
 	}
 
 	/**

@@ -149,12 +149,13 @@ class FactoryCommand {
 	//----------------------------ROL----------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Rol $rol
+	 * @param $name
+	 * @param $access
 	 *
 	 * @return CommandCreateRol
 	 */
-	static function createCommandCreateRol ($rol):CommandCreateRol {
-		return new CommandCreateRol($rol);
+	static function createCommandCreateRol ($name,$access):CommandCreateRol {
+		return new CommandCreateRol($name,$access);
 	}
 
 	/**
