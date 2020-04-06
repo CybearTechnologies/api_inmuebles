@@ -17,15 +17,16 @@ class DaoRolAccess extends Dao {
 	}
 
 	/**
+	 * @param int $rol
+	 * @param int $access
+	 *
 	 * @return RolAccess
 	 * @throws DatabaseConnectionException
 	 */
-	public function createRolAccess () {
+	public function createRolAccess (int $rol,int $access) {
 		try {
-			$rol = $this->_entity->getRol();
-			$access = $this->_entity->getAccess();
 			$user = 1; // TODO: replace for logged user
-			$dateCreated = $this->_entity->getDateCreated();
+			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INSERT);

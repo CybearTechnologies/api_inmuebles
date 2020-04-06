@@ -48,10 +48,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		$post = json_decode(file_get_contents('php://input'));
 		if (Validate::rol($post)) {
-			$command = FactoryCommand::createCommandCreateRol($mapper->fromDtoToEntity($post));
+			$command = FactoryCommand::createCommandCreateRol($post->name, $post->access);
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityToDto($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {

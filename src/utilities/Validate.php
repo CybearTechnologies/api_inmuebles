@@ -72,7 +72,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function rol ($post) {
-		return isset($post->id) && is_numeric($post->id) && isset($post->name) && !empty($post->name);
+		return isset($post->name) && !empty($post->name);
 	}
 
 	/**
