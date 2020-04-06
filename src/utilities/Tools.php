@@ -137,7 +137,7 @@ class Tools {
 	 * @throws SaveFileException
 	 */
 	static function saveFile ($file, $tmp, $fileName, $destination = '/') {
-		if (!file_exists($file))
+		if (!file_exists($tmp))
 			Throw new FileNotFoundException('File ' . $file . ' can\'t not be found, try another file.', 403);
 		$name = self::cleanString(trim($fileName)) . "-" . date("YmdHis") . '.' . pathinfo($file, PATHINFO_EXTENSION);
 		if (!file_exists(__DIR__ . '/../../' . $destination))

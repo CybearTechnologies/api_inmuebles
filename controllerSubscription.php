@@ -51,16 +51,17 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				// Files processing
 				$details = [];
+				$files = [];
 				if (isset($_FILES['files']) && count($_FILES['files']['size']) > 0) {
 					$i = 0;
 					foreach ($_FILES['files']['name'] as $file) {
+						$path = Tools::saveFile($file, $_FILES['files']['tmp_name'][$i],
+							$post->firstName . $post->lastName, 'files/user');
 						array_push($details,
-							FactoryDto::createDtoSubscriptionDetail(-1,
-								__DIR__ . '/' . Tools::saveFile($file, $_FILES['files']['tmp_name'][$i],
-									$post->firstName . $post->lastName, 'files/user'), -1));
+							FactoryDto::createDtoSubscriptionDetail(-1, Environment::baseURL() . $path, -1));
+						array_push($files, __DIR__ . '/' . $path);
 						$i++;
 					}
-					var_dump($details);
 				}
 				$post->password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
 				/** @var DtoSubscription $post */
@@ -71,20 +72,20 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
-				foreach ($details as $file)
-					Tools::removeFile($file->document);
+				foreach ($files as $file)
+					file_exists($file) ? Tools::removeFile($file) : null;
 				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
 			catch (FileNotFoundException $exception) {
-				foreach ($details as $file)
-					Tools::removeFile($file->document);
+				foreach ($files as $file)
+					file_exists($file) ? Tools::removeFile($file) : null;
 				$return = $exception->getMessage();
 				Tools::setResponse($exception->getCode());
 			}
 			catch (SaveFileException $exception) {
-				foreach ($details as $file)
-					Tools::removeFile($file->document);
+				foreach ($files as $file)
+					file_exists($file) ? Tools::removeFile($file) : null;
 				$return = $exception->getMessage();
 				Tools::setResponse($exception->getCode());
 			}
