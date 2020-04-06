@@ -45,8 +45,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		if (Validate::propertyType($post) && ImageProcessor::imageFileExist('image')) {
 			try {
-				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-						$post->name, 'files/property-type');
+				$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
+					$post->name, 'files/property-type');
 				$dto = FactoryDto::createDtoPropertyType(-1, $post->name, Environment::baseURL() . $tempImage);
 				$command = FactoryCommand::createCommandCreatePropertyType($mapper->fromDTOToEntity($dto));
 				$command->execute();
@@ -54,14 +54,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
+				ImageProcessor::removeImage(__DIR__ . '/' . $tempImage);
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-				ImageProcessor::removeImage($tempImage);
 			}
 			catch (PropetyTypeAlreadyExistException $exception) {
+				ImageProcessor::removeImage(__DIR__ . '/' . $tempImage);
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
 				Tools::setResponse(Values::getValue("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
-				ImageProcessor::removeImage($tempImage);
 			}
 			catch (FileIsNotImageException $exception) {
 				$return = $exception->getMessage();
