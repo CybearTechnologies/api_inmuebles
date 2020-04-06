@@ -2,6 +2,7 @@
 require_once "autoload.php";
 Tools::headers();
 $get = Tools::getObject();
+$post = Tools::postObject();
 $return = null;
 $mapper = FactoryMapper::createMapperSubscription();
 $mapperSubDetail = FactoryMapper::createMapperSubscriptionDetail();
@@ -46,30 +47,44 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	case "POST":
-		$post = json_decode(file_get_contents('php://input'));
-		if (Validate::subscription($post) && ImageProcessor::imageFileExist('image')) {
-			/** @var DtoSubscription $post */
-			$post->password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
-			$subscription = $mapper->fromDtoToEntity($post);
-			/** @var SubscriptionDetail[] $subscriptionDetail */
-			$subscriptionDetail = $mapperSubDetail->fromDtoArrayToEntityArray($post->detail);
-			$images = $_FILES['image'];
-			$command = FactoryCommand::createCommandSubscribeUser($subscription, $subscriptionDetail,$images);
+		if (Validate::subscription($post)) {
 			try {
-
+				// Files processing
+				$details = [];
+				if (isset($_FILES['files']) && count($_FILES['files']['size']) > 0) {
+					$i = 0;
+					foreach ($_FILES['files']['name'] as $file) {
+						array_push($details,
+							FactoryDto::createDtoSubscriptionDetail(-1,
+								__DIR__ . '/' . Tools::saveFile($file, $_FILES['files']['tmp_name'][$i],
+									$post->firstName . $post->lastName, 'files/user'), -1));
+						$i++;
+					}
+					var_dump($details);
+				}
+				$post->password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
+				/** @var DtoSubscription $post */
+				$subscription = $mapper->fromDtoToEntity($post);
+				$command = FactoryCommand::createCommandSubscribeUser($subscription, $details);
 				$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
+				foreach ($details as $file)
+					Tools::removeFile($file->document);
 				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
-			catch (FileIsNotImageException $exception) {
+			catch (FileNotFoundException $exception) {
+				foreach ($details as $file)
+					Tools::removeFile($file->document);
 				$return = $exception->getMessage();
 				Tools::setResponse($exception->getCode());
 			}
-			catch (ImageNotFoundException $exception) {
+			catch (SaveFileException $exception) {
+				foreach ($details as $file)
+					Tools::removeFile($file->document);
 				$return = $exception->getMessage();
 				Tools::setResponse($exception->getCode());
 			}
