@@ -32,8 +32,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandActivateRolAccessById
 	 */
-	static function createCommandActivateRolAccess (int $rol,int $access):CommandActivateRolAccessById {
-		return new CommandActivateRolAccessById($rol,$access);
+	static function createCommandActivateRolAccess (int $rol, int $access):CommandActivateRolAccessById {
+		return new CommandActivateRolAccessById($rol, $access);
 	}
 
 	/**
@@ -154,8 +154,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreateRol
 	 */
-	static function createCommandCreateRol ($name,$access):CommandCreateRol {
-		return new CommandCreateRol($name,$access);
+	static function createCommandCreateRol ($name, $access):CommandCreateRol {
+		return new CommandCreateRol($name, $access);
 	}
 
 	/**
@@ -947,17 +947,18 @@ class FactoryCommand {
 	//								SUBSCRIPTION DETAIL
 	////////////////////////////////////////////////////////////////////////////
 	/**
+	 * @param Subscription         $subscription
 	 * @param SubscriptionDetail[] $subscribeDetail
 	 *
 	 * @return CommandAddSubscribeDetail
 	 */
-	static function createCommandAddSubscribeDetail ($subscribeDetail):CommandAddSubscribeDetail {
-		return new CommandAddSubscribeDetail($subscribeDetail);
+	static function createCommandAddSubscribeDetail ($subscription, $subscribeDetail):CommandAddSubscribeDetail {
+		return new CommandAddSubscribeDetail($subscription,$subscribeDetail);
 	}
 
 	/**
-	 * @param Subscription         $subscription
-	 * @param SubscriptionDetail[] $subscriptionDetail
+	 * @param Subscription            $subscription
+	 * @param DtoSubscriptionDetail[] $subscriptionDetail
 	 *
 	 * @return CommandSubscribeUser
 	 */
