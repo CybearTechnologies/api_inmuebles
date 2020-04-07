@@ -6,7 +6,7 @@ class Auth {
 	private static $encrypt = ['HS256'];
 
 	/**
-	 * @param object $data
+	 * @param mixed  $data
 	 * @param string $encryptKey
 	 *
 	 * @return string
@@ -27,7 +27,7 @@ class Auth {
 	 * @param string $token
 	 * @param string $encryptKey
 	 *
-	 * @return object
+	 * @return mixed
 	 * @throws InvalidJWTException
 	 */
 	public static function getData ($token, $encryptKey) {

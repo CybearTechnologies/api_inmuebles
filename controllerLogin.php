@@ -1,14 +1,16 @@
 <?php
 require_once "vendor/autoload.php";
 Tools::headers();
+$headers = apache_request_headers();
 $return = null;
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		$post = json_decode(file_get_contents("php://input"));
 		if (isset($post->user) && !Validate::isEmpty($post->user) && isset($post->password) &&
-			!Validate::isEmpty($post->password) && isset($post->origin) && !Validate::isEmpty($post->origin)) {
+			!Validate::isEmpty($post->password) && $headers['Application']) {
 			try {
-				$command = FactoryCommand::createCommandGetOriginByPublicKey($post->origin);
+				$command = FactoryCommand::createCommandGetOriginByPublicKey(FactoryEntity::createOrigin(-1, '', '',
+					$headers['Application']));
 				$command->execute();
 				$origin = $command->return();
 				//	Hash the password
@@ -21,8 +23,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$user = $command->return();
 					if (!$user->isBlocked() && !$user->isDelete()) {
 						if (Validate::verifyPassword($password, $user->getPassword())) {
-							$token = Tools::encryptSha256($origin->getPrivateKey());
-							$return = $user;
+							$return->token = Auth::generateJWT($user->getId(), $origin->getPrivateKey());
+							$return->user = $user;
 							Tools::setResponse();
 						}
 						else {
