@@ -5,6 +5,13 @@
   "require": {
     "ext-json": "*",
     "ext-pdo": "*",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "firebase/php-jwt": "^5.2"
+  },
+  "autoload": {
+    "classmap": [
+      "core/",
+      "src/"
+    ]
   }
 }

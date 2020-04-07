@@ -1,5 +1,5 @@
 <?php
-require_once "autoload.php";
+require_once "vendor/autoload.php";
 Tools::headers();
 $return = null;
 switch ($_SERVER["REQUEST_METHOD"]) {
