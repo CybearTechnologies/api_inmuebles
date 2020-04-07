@@ -78,27 +78,10 @@ BEGIN
             UPDATE property SET pr_active=0 WHERE pr_user_created_fk=OLD.us_id;
         ELSEIF NEW.us_blocked=0 THEN
             UPDATE property SET pr_active=1 WHERE pr_user_created_fk=OLD.us_id;
-        END IF;
+         END IF;
     END IF;
 END;
 DELIMITER $$;
-
-DROP TRIGGER IF EXISTS afterChangeActiveSubscription;
-DELIMITER $$
-CREATE TRIGGER afterChangeActiveSubscription
-    AFTER UPDATE
-    ON subscription FOR EACH ROW
-BEGIN
-    IF NEW.su_active <> OLD.su_active
-    THEN
-        IF NEW.su_active=1 THEN
-            UPDATE subscription_detail SET sd_active=1 WHERE sd_subscription_fk=OLD.su_id;
-        ELSEIF NEW.su_active=0 THEN
-            UPDATE subscription_detail SET sd_active=0 WHERE sd_subscription_fk=OLD.su_id;
-        END IF;
-    END IF;
-END;
-DELIMITER $$ ;
 
 DROP TRIGGER IF EXISTS afterModifySubscription;
 DELIMITER $$
