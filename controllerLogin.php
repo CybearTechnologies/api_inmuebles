@@ -7,7 +7,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		$post = json_decode(file_get_contents("php://input"));
 		if (isset($post->user) && !Validate::isEmpty($post->user) && isset($post->password) &&
-			!Validate::isEmpty($post->password) && $headers['Application']) {
+			!Validate::isEmpty($post->password) && isset($headers['Application'])) {
 			try {
 				$command = FactoryCommand::createCommandGetOriginByPublicKey(FactoryEntity::createOrigin(-1, '', '',
 					$headers['Application']));
@@ -23,8 +23,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$user = $command->return();
 					if (!$user->isBlocked() && !$user->isDelete()) {
 						if (Validate::verifyPassword($password, $user->getPassword())) {
-							$return->token = Auth::generateJWT($user->getId(), $origin->getPrivateKey());
 							$return->user = $user;
+							$return->token = Auth::generateJWT($user->getId(), $origin->getPrivateKey());
 							Tools::setResponse();
 						}
 						else {
