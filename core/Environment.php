@@ -4,7 +4,7 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-require_once __DIR__ . "/../autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 class Environment {
 	//	Site settings
 	private const BASE_URL = "http://localhost/";
@@ -14,14 +14,10 @@ class Environment {
 	private const DATABASE = "inmobiliaria";
 	private const USERNAME = "root";
 	private const PASSWORD = "";
-
-	/* REMOTE
-		private const HOST = "160.153.54.65";
-		private const DATABASE = "buscamatch";
-		private const USERNAME = "buscaRoot";
-		private const PASSWORD = "dIo{xi5miupN";
-	*/
-
+	/*private const HOST = "160.153.54.65";
+	private const DATABASE = "buscamatch";
+	private const USERNAME = "josejecr";
+	private const PASSWORD = "chuo1997";*/
 	/**
 	 * @return PDO
 	 */

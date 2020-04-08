@@ -1,19 +1,27 @@
 <?php
 class CommandGetAllTownByState extends Command {
-	private $_mapperLocation;
+	private $_locationBuilder;
 	private $_id;
 
 	/**
 	 * CommandGetAllTownByState constructor.
+	 *
+	 * @param int $id
 	 */
-	public function __construct ($id) {
-		$this->_dao = FactoryDao::createDaoLocation();
-		$this->_mapperLocation = FactoryMapper::createMapperLocation();
+	public function __construct (int $id) {
+		$this->_locationBuilder = new ListLocationBuilder();
 		$this->_id = $id;
 	}
 
+	/**
+	 * @throws DatabaseConnectionException
+	 * @throws LocationNotFoundException
+	 */
 	public function execute ():void {
-		$dtoLocation = $this->_mapperLocation->fromEntityArrayToDtoArray($this->_dao->getLocationByState($this->_id));
+		$dtoLocation = $this->_locationBuilder
+			->getByStateId($this->_id)
+			->clean()
+			->build();
 		$this->setData($dtoLocation);
 	}
 

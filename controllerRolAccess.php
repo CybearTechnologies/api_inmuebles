@@ -1,5 +1,5 @@
 <?php
-require_once "autoload.php";
+require_once "vendor/autoload.php";
 Tools::headers();
 $get = Tools::getObject();
 $return = null;
@@ -54,7 +54,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "PUT":
 		if (Validate::activateRolAccess($get)) {
-			$command = FactoryCommand::createCommandActivateRolAccess(FactoryEntity::createRolAccess($get->id));
+			$command = FactoryCommand::createCommandActivateRolAccess($get->rol,$get->access);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());
@@ -70,7 +70,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 		}
 		elseif (Validate::inactivateRolAccess($get)) {
-			$command = FactoryCommand::createCommandDeactivateRolAccess(FactoryEntity::createRolAccess($get->id));
+			$command = FactoryCommand::createCommandDeactivateRolAccess($get->rol, $get->access);
 			try {
 				$command->execute();
 				$return = $mapper->fromEntityToDto($command->return());

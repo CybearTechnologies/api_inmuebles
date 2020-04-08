@@ -125,4 +125,48 @@ class Tools {
 		unset($dto->userModifier->userCreator);
 		unset($dto->userModifier->userModifier);
 	}
+
+	/**
+	 * @param string $file
+	 * @param string $tmp
+	 * @param string $fileName
+	 * @param string $destination
+	 *
+	 * @return string
+	 * @throws FileNotFoundException
+	 * @throws SaveFileException
+	 */
+	static function saveFile ($file, $tmp, $fileName, $destination = '/') {
+		if (!file_exists($tmp))
+			Throw new FileNotFoundException('File ' . $file . ' can\'t not be found, try another file.', 403);
+		$name = self::cleanString(trim($fileName)) . "-" . date("YmdHis") . '.' . pathinfo($file, PATHINFO_EXTENSION);
+		if (!file_exists(__DIR__ . '/../../' . $destination))
+			mkdir(__DIR__ . '/../../' . $destination . '/', 0777, true);
+		if (!move_uploaded_file($tmp, __DIR__ . '/../../' . $destination . '/' . $name))
+			Throw new SaveFileException('An error occurred trying to save ' . $file, 403);
+
+		return $destination . '/' . $name;
+	}
+
+	private static function cleanString ($name) {
+		$string = str_replace(array ('&aacute;', 'á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+			array ('a', 'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'), $name);
+		$string = str_replace(array ('&eacute;', 'é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+			array ('e', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'), $string);
+		$string = str_replace(array ('&iacute;', 'í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+			array ('i', 'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'), $string);
+		$string = str_replace(array ('&oacute;', 'ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+			array ('o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'), $string);
+		$string = str_replace(array ('&uacute;', 'ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+			array ('u', 'u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'), $string);
+		$string = str_replace(array ('ç', 'Ç'), array ('c', 'C'), $string);
+		$cleanName = str_replace(array ("/", "\\", "-", "+", "'", '"', '(', ')', '{', '}', '[', ']',
+			'.', ',', '?', ';', ':', '#', '@', '~', '`', '|', '&', '%', '^', '*', '_', '='), "", strtolower($string));
+
+		return str_replace(" ", "-", strtolower($cleanName));
+	}
+
+	public static function removeFile ($fileName) {
+		unlink($fileName);
+	}
 }

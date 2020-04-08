@@ -20,7 +20,7 @@ class RolBuilder extends Builder {
 	 */
 	public function getMinimumById (int $id) {
 		$this->_data = $this->_mapperRol->fromEntityToDto($this->_dao->getRolById($id));
-		$this->_id = $id;
+		$this->_data->id = $id;
 		unset($this->_data->access);
 
 		return $this;
@@ -33,10 +33,29 @@ class RolBuilder extends Builder {
 	public function withAccess () {
 		$listAccessBuilder = new ListAccessBuilder();
 		try {
-			$this->_data->access = $listAccessBuilder->getMinimumById($this->_id)->clean()->build();
+			$this->_data->access = $listAccessBuilder->getMinimumById($this->_data->id)->clean()->build();
 		}
 		catch (AccessNotFoundException $e) {
 			$this->_data->access = [];
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param $name
+	 * @param $access
+	 *
+	 * @return RolBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	public function insertRol ($name, $access) {
+		$this->_data = $this->_mapperRol->fromEntityToDto($this->_dao->createRol($name));
+		if (!empty($access)) {
+			$this->_dao = FactoryDao::createDaoRolAccess();
+			foreach ($access as $itm) {
+				$this->_dao->createRolAccess($this->_data->id, $itm);
+			}
 		}
 
 		return $this;

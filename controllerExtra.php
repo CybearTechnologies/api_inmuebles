@@ -1,5 +1,5 @@
 <?php
-require_once "autoload.php";
+require_once "vendor/autoload.php";
 Tools::headers();
 $get = Tools::getObject();
 $post = Tools::postObject();
@@ -72,8 +72,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		if (Validate::extra($post) && ImageProcessor::imageFileExist('image')) {
 			try {
-				$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-						$post->name, 'files/extra');
+				$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
+					$post->name, 'files/extra');
 				$dto = FactoryDto::createDtoExtra(-1, $post->name, Environment::baseURL() . $tempImage);
 				$command = FactoryCommand::createCommandCreateExtra($mapper->fromDTOToEntity($dto));
 				$command->execute();
@@ -81,6 +81,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
+				ImageProcessor::removeImage(__DIR__ . '/' . $tempImage);
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}

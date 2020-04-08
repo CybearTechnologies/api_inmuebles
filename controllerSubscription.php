@@ -1,7 +1,8 @@
 <?php
-require_once "autoload.php";
+require_once "vendor/autoload.php";
 Tools::headers();
 $get = Tools::getObject();
+$post = Tools::postObject();
 $return = null;
 $mapper = FactoryMapper::createMapperSubscription();
 $mapperSubDetail = FactoryMapper::createMapperSubscriptionDetail();
@@ -10,7 +11,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (Validate::id($get)) {
 			$command = FactoryCommand::createCommandGetSubscription($get->id);
 			try {
-				$command->execute();
+					$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
 			}
@@ -31,7 +32,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetAllSubscription();
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
@@ -46,21 +47,47 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		echo json_encode($return);
 		break;
 	case "POST":
-		$post = json_decode(file_get_contents('php://input'));
 		if (Validate::subscription($post)) {
-			/** @var DtoSubscription $post */
-			$subscription = $mapper->fromDtoToEntity($post);
-			/** @var SubscriptionDetail[] $subscriptionDetail */
-			$subscriptionDetail = $mapperSubDetail->fromDtoArrayToEntityArray($post->detail);
-			$command = FactoryCommand::createCommandSubscribeUser($subscription, $subscriptionDetail);
 			try {
+				// Files processing
+				$details = [];
+				$files = [];
+				if (isset($_FILES['files']) && count($_FILES['files']['size']) > 0) {
+					$i = 0;
+					foreach ($_FILES['files']['name'] as $file) {
+						$path = Tools::saveFile($file, $_FILES['files']['tmp_name'][$i],
+							$post->firstName . $post->lastName, 'files/user');
+						array_push($details,
+							FactoryDto::createDtoSubscriptionDetail(-1, Environment::baseURL() . $path, -1));
+						array_push($files, __DIR__ . '/' . $path);
+						$i++;
+					}
+				}
+				$post->password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
+				/** @var DtoSubscription $post */
+				$subscription = $mapper->fromDtoToEntity($post);
+				$command = FactoryCommand::createCommandSubscribeUser($subscription, $details);
 				$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
+				foreach ($files as $file)
+					file_exists($file) ? Tools::removeFile($file) : null;
 				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (FileNotFoundException $exception) {
+				foreach ($files as $file)
+					file_exists($file) ? Tools::removeFile($file) : null;
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
+			}
+			catch (SaveFileException $exception) {
+				foreach ($files as $file)
+					file_exists($file) ? Tools::removeFile($file) : null;
+				$return = $exception->getMessage();
+				Tools::setResponse($exception->getCode());
 			}
 		}
 		else {

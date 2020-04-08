@@ -4,7 +4,7 @@
     #RewriteCond %{HTTPS} off
     #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     #	Uncomment on production
-    #RewriteBase /
+	#RewriteBase /
     RewriteBase /inmobi-houston/
 
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -65,7 +65,7 @@ RewriteRule ^rating/user/([0-9]+)$ controllerRating.php?id_user=$1 [NC,L]
 #   ROL ACCESS
 RewriteRule ^rolaccess$ controllerRolAccess.php [NC,L]
 RewriteRule ^rolaccess/([0-9]+)$ controllerRolAccess.php?id=$1 [NC,L]
-RewriteRule ^rolaccess/(active|inactive)/([0-9]+)$ controllerRolAccess.php?action=$1&id=$2 [NC,L]
+RewriteRule ^rolaccess/(active|inactive)/([0-9]+)-([0-9]+)$ controllerRolAccess.php?action=$1&rol=$2&access=$3 [NC,L]
 #ROL
 RewriteRule ^rol$ controllerRol.php [NC,L]
 RewriteRule ^rol/([0-9]+)$ controllerRol.php?id=$1 [NC,L]

@@ -5,6 +5,15 @@
   "require": {
     "ext-json": "*",
     "ext-pdo": "*",
-    "ext-gd": "*"
+    "ext-gd": "*",
+    "firebase/php-jwt": "^5.2",
+    "phpmailer/phpmailer": "^6.1",
+    "ext-apache": "*"
+  },
+  "autoload": {
+    "classmap": [
+      "core/",
+      "src/"
+    ]
   }
 }

@@ -124,7 +124,7 @@ class DaoPropertyExtra extends Dao {
 	 * @return PropertyExtra
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createPropertyExtra($dbObject->id, $dbObject->name, $dbObject->value, $dbObject->property,
+		return FactoryEntity::createPropertyExtra($dbObject->id, $dbObject->value, $dbObject->property,
 			$dbObject->extra, $dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
 			$dbObject->dateModified, $dbObject->active, $dbObject->delete);
 	}

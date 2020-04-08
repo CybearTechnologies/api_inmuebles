@@ -78,7 +78,7 @@ BEGIN
             UPDATE property SET pr_active=0 WHERE pr_user_created_fk=OLD.us_id;
         ELSEIF NEW.us_blocked=0 THEN
             UPDATE property SET pr_active=1 WHERE pr_user_created_fk=OLD.us_id;
-        END IF;
+         END IF;
     END IF;
 END;
 DELIMITER $$;

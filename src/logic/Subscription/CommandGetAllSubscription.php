@@ -1,10 +1,13 @@
 <?php
 class CommandGetAllSubscription extends Command {
+	private $_builder;
+	private $_id;
+
 	/**
 	 * CommandGetAllSubscription constructor.
 	 */
 	public function __construct () {
-		$this->_dao = FactoryDao::createDaoSubscription();
+		$this->_builder = new ListSubscriptionBuilder();
 	}
 
 	/**
@@ -12,7 +15,12 @@ class CommandGetAllSubscription extends Command {
 	 * @throws SubscriptionNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllSubscription());
+		$dtoSubscriptions = $this->_builder->getAll()
+													->withSeat()
+													->andPlan()
+													->clean()
+													->build();
+		$this->setData($dtoSubscriptions);
 	}
 
 	/**

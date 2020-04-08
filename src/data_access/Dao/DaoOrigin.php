@@ -42,8 +42,8 @@ class DaoOrigin extends Dao {
 	 * @return Origin
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createOrigin($dbObject->id, $dbObject->name, $dbObject->private_key,
-			$dbObject->public_key,
+		return FactoryEntity::createOrigin($dbObject->id, $dbObject->name, $dbObject->privatekey,
+			$dbObject->publickey,
 			$dbObject->active);
 	}
 }

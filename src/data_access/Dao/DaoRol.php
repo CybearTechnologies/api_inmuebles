@@ -20,17 +20,19 @@ class DaoRol extends Dao {
 	}
 
 	/**
+	 * @param string $name
+	 *
+	 * @return Rol
 	 * @throws DatabaseConnectionException
 	 */
-	public function createRol () {
+	public function createRol (string $name) {
 		try {
-			$id = $this->_entity->getName();
 			$user = 1; //TODO change for logged user
-			$dateCreated = $this->_entity->getDateCreated();
+			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ROL);
-			$stmt->bindParam(":name", $id, PDO::PARAM_STR);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();

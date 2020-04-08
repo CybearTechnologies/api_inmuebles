@@ -4,6 +4,7 @@ class DaoLocation extends Dao {
 	private const QUERY_GET_BY_TYPE = "CALL getLocationsByType(:type)";
 	private const QUERY_GET_BY_ID = "CALL getLocationsById(:id)";
 	private const QUERY_GET_ALL_LOCATIONS = "CALL getAllLocations()";
+	const QUERY_GET_BY_STATE = "CALL getLocationsByStateId(:id)";
 	private $_location;
 
 	/**
@@ -71,6 +72,29 @@ class DaoLocation extends Dao {
 			$type = $this->_location->getType();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_TYPE);
 			$stmt->bindParam(":type", $type, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new LocationNotFoundException("There are no Location found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $e) {
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return Location[]
+	 * @throws DatabaseConnectionException
+	 * @throws LocationNotFoundException
+	 */
+	public function getLocationByState ($id) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_STATE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new LocationNotFoundException("There are no Location found", 404);

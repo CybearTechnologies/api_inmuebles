@@ -66,7 +66,7 @@ class DaoSubscriptionDetail extends Dao {
 	/**
 	 * @param int $subscription
 	 *
-	 * @return SubscriptionDetail
+	 * @return SubscriptionDetail[]
 	 * @throws DatabaseConnectionException
 	 * @throws SubscriptionDetailNotFoundException
 	 */
@@ -78,7 +78,7 @@ class DaoSubscriptionDetail extends Dao {
 			if ($stmt->rowCount() == 0)
 				Throw new SubscriptionDetailNotFoundException("There are no Location found", 200);
 			else {
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 			}
 		}
 		catch (PDOException $e) {
