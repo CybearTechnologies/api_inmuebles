@@ -11,7 +11,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (Validate::id($get)) {
 			$command = FactoryCommand::createCommandGetSubscription($get->id);
 			try {
-				$command->execute();
+					$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
 			}
@@ -32,7 +32,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandGetAllSubscription();
 			try {
 				$command->execute();
-				$return = $mapper->fromEntityArrayToDtoArray($command->return());
+				$return = $command->return();
 				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {

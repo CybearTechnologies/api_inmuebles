@@ -19,7 +19,7 @@ class FactoryDao {
 	 *
 	 * @return DaoPropertyExtra
 	 */
-	static function createDaoPropertyExtra($propertyExtra = null):DaoPropertyExtra{
+	static function createDaoPropertyExtra ($propertyExtra = null):DaoPropertyExtra {
 		return new DaoPropertyExtra($propertyExtra);
 	}
 
@@ -159,20 +159,16 @@ class FactoryDao {
 	}
 
 	/**
-	 *
 	 * @return DaoSubscription
 	 */
-	static function  createDaoSubscription($entity = null):DaoSubscription{
-		return new DaoSubscription($entity);
+	static function createDaoSubscription ():DaoSubscription {
+		return new DaoSubscription();
 	}
 
 	/**
-	 *
 	 * @return DaoSubscriptionDetail
 	 */
-	static function createDaoSubscriptionDetail():DaoSubscriptionDetail{
+	static function createDaoSubscriptionDetail ():DaoSubscriptionDetail {
 		return new DaoSubscriptionDetail();
 	}
-
-
 }

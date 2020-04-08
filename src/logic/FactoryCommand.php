@@ -953,7 +953,7 @@ class FactoryCommand {
 	 * @return CommandAddSubscribeDetail
 	 */
 	static function createCommandAddSubscribeDetail ($subscription, $subscribeDetail):CommandAddSubscribeDetail {
-		return new CommandAddSubscribeDetail($subscription,$subscribeDetail);
+		return new CommandAddSubscribeDetail($subscription, $subscribeDetail);
 	}
 
 	/**
@@ -973,6 +973,15 @@ class FactoryCommand {
 	 */
 	static function createCommandApproveSubscription ($subscription):CommandApproveSubscription {
 		return new CommandApproveSubscription($subscription);
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return CommandGetSubscription
+	 */
+	static function createCommandGetSubscription (int $id):CommandGetSubscription {
+		return new CommandGetSubscription($id);
 	}
 
 	/**
