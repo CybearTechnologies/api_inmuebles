@@ -55,6 +55,8 @@ class Values {
 		'ERROR_USER_WITHOUT_REQUEST' => array ('text' => 'Usuario aún no ha realizado peticiones', 'value' => 404),
 		//FAVORITE
 		'ERROR_FAVORITE_NOT_FOUND' => array ('text' => 'Este favorito no ha sido encontrado', 'value' => 404),
+		//MAILER
+		'ERROR_MAILER' => array ('text' => 'Error al enviar email', 'value' => 500)
 	);
 
 	/**

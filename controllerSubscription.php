@@ -6,12 +6,13 @@ $post = Tools::postObject();
 $return = null;
 $mapper = FactoryMapper::createMapperSubscription();
 $mapperSubDetail = FactoryMapper::createMapperSubscriptionDetail();
+$wrapper = new MailerWrapper();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::id($get)) {
 			$command = FactoryCommand::createCommandGetSubscription($get->id);
 			try {
-					$command->execute();
+				$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
 			}
@@ -70,6 +71,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
+				$wrapper->setFrom()->setTo($return->email, $return->firstName . ' ' . $return->lastName)
+					->setSubject('Buscamatch')->setBody('Se ha enviado tu solicitud correctamente. Pronto se dara respuesta!')
+					->sendEmail();
 			}
 			catch (DatabaseConnectionException $exception) {
 				foreach ($files as $file)
@@ -89,6 +93,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = $exception->getMessage();
 				Tools::setResponse($exception->getCode());
 			}
+			catch (MailerException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_MAILER"));
+				Tools::setResponse(Values::getValue("ERROR_MAILER"));
+			}
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
@@ -103,6 +111,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
+				$wrapper->setFrom()->setTo($return->email, $return->firstName . ' ' . $return->lastName)
+					->setSubject('Buscamatch')
+					->setBody('Tu solicitud de registro se ha aceptado exitosamente!
+					 				inicia sesion en https://buscamatch.com')
+					->sendEmail();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
@@ -111,6 +124,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (SubscriptionNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_SUBSCRIPTION_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_SUBSCRIPTION_NOT_FOUND"));
+			}
+			catch (MailerException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_MAILER"));
+				Tools::setResponse(Values::getValue("ERROR_MAILER"));
 			}
 		}
 		if (isset($get->decline) && isset($get->id) && is_numeric($get->id)) {
