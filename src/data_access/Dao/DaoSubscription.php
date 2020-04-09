@@ -78,7 +78,8 @@ class DaoSubscription extends Dao {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -101,7 +102,8 @@ class DaoSubscription extends Dao {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -124,7 +126,8 @@ class DaoSubscription extends Dao {
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -134,6 +137,7 @@ class DaoSubscription extends Dao {
 	 *
 	 * @return Subscription
 	 * @throws DatabaseConnectionException
+	 * @throws SubscriptionNotFoundException
 	 */
 	public function approveSubscription (int $id) {
 		try {
@@ -145,9 +149,14 @@ class DaoSubscription extends Dao {
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			if ($stmt->rowCount() == 0)
+				Throw new SubscriptionNotFoundException("There are no Subscription found", 200);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}

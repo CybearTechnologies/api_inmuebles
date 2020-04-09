@@ -13,7 +13,7 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$ ;
+DELIMITER $$ 
 
 DROP TRIGGER IF EXISTS afterChangeActiveSeat;
 DELIMITER $$
@@ -30,7 +30,7 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$ ;
+DELIMITER $$
 
 DROP TRIGGER IF EXISTS afterChangeActiveUser;
 DELIMITER $$
@@ -47,7 +47,7 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$ ;
+DELIMITER $$
 
 DROP TRIGGER IF EXISTS afterChangeActiveRol;
 DELIMITER $$
@@ -64,7 +64,7 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$ ;
+DELIMITER $$
 
 DROP TRIGGER IF EXISTS afterChangeBlockedUser;
 DELIMITER $$
@@ -81,7 +81,7 @@ BEGIN
          END IF;
     END IF;
 END;
-DELIMITER $$;
+DELIMITER $$
 
 DROP TRIGGER IF EXISTS afterModifySubscription;
 DELIMITER $$
@@ -105,4 +105,4 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$ ;
+DELIMITER $$

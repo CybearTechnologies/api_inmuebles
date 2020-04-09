@@ -23,12 +23,19 @@ class MailerWrapper {
 		SMTP::DEBUG_OFF; //(for production use)
 		// SMTP::DEBUG_CLIENT = client messages
 		// SMTP::DEBUG_SERVER = client and server messages
-		$this->_mail->isSMTP();
 		//$this->_mail->SMTPDebug = SMTP::DEBUG_SERVER;
-		$this->_mail->Host = 'smtp.gmail.com';
+		$this->_mail->isSMTP();
+		//LOCAL
+/*		$this->_mail->Host = 'smtp.gmail.com';
 		$this->_mail->Port = 587;
-		$this->_mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 		$this->_mail->SMTPAuth = true;
+		*/
+		//REMOTE
+		$this->_mail->Host = 'localhost';
+		$this->_mail->SMTPAuth = false;
+		$this->_mail->SMTPAutoTLS = false;
+		$this->_mail->Port = 25;
+		//$this->_mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 	}
 
 	private function smtpAuth () {
@@ -47,8 +54,9 @@ class MailerWrapper {
 		try {
 			$this->_mail->setFrom($email, $name);
 		}
-		catch (\PHPMailer\PHPMailer\Exception $e) {
-			throw new MailerException(Values::getText('ERROR_MAILER'),Values::getValue('ERROR_MAILER'));
+		catch (\PHPMailer\PHPMailer\Exception $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new MailerException($exception->getMessage(),Values::getValue('ERROR_MAILER'));
 		}
 
 		return $this;
@@ -65,8 +73,9 @@ class MailerWrapper {
 		try {
 			$this->_mail->addAddress($email, $name);
 		}
-		catch (\PHPMailer\PHPMailer\Exception $e) {
-			throw new MailerException(Values::getText('ERROR_MAILER'),Values::getValue('ERROR_MAILER'));
+		catch (\PHPMailer\PHPMailer\Exception $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new MailerException($exception->getMessage(),Values::getValue('ERROR_MAILER'));
 		}
 
 		return $this;
@@ -101,7 +110,7 @@ class MailerWrapper {
 	public function sendEmail () {
 		try {
 			if (!$this->_mail->send()) {
-				throw new MailerException(Values::getText('ERROR_MAILER'),Values::getValue('ERROR_MAILER'));
+				throw new MailerException($this->_mail->ErrorInfo,Values::getValue('ERROR_MAILER'));
 			}
 			/*else {
 				//Section 2: IMAP
@@ -113,7 +122,7 @@ class MailerWrapper {
 		}
 		catch (\PHPMailer\PHPMailer\Exception $exception) {
 			Logger::exception($exception, Logger::ERROR);
-			throw new MailerException(Values::getText('ERROR_MAILER'),Values::getValue('ERROR_MAILER'));
+			throw new MailerException($exception->getMessage(),Values::getValue('ERROR_MAILER'));
 		}
 	}
 }

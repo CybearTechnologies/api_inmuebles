@@ -16,6 +16,7 @@ class CommandApproveSubscription extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws SubscriptionNotFoundException
 	 */
 	public function execute ():void {
 		$dtoSubscription = $this->_mapperSubscription->fromEntityToDto($this->_dao->approveSubscription($this->_subscription));

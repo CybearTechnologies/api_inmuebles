@@ -93,8 +93,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = $exception->getMessage();
 				Tools::setResponse($exception->getCode());
 			}
-			catch (MailerException $e) {
-				$return = new ErrorResponse(Values::getText("ERROR_MAILER"));
+			catch (MailerException $exception) {
+				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue("ERROR_MAILER"));
 			}
 		}

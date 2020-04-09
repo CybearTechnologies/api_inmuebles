@@ -10,14 +10,14 @@ class Environment {
 	private const BASE_URL = "http://localhost/";
 	private const SITE_KEY = "";
 	//	Database connections settings
-	private const HOST = "localhost";
-	private const DATABASE = "inmobiliaria";
-	private const USERNAME = "root";
-	private const PASSWORD = "";
-	/*private const HOST = "160.153.54.65";
-	private const DATABASE = "buscamatch";
-	private const USERNAME = "josejecr";
-	private const PASSWORD = "chuo1997";*/
+		private const HOST = "localhost";
+		private const DATABASE = "inmobiliaria";
+		private const USERNAME = "root";
+		private const PASSWORD = "";
+	/*	private const HOST = "160.153.54.65";
+		private const DATABASE = "buscamatch";
+		private const USERNAME = "buscaRoot";
+		private const PASSWORD = "dIo{xi5miupN";*/
 	/**
 	 * @return PDO
 	 */
