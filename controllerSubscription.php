@@ -64,7 +64,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$i++;
 					}
 				}
-				$post->password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
+				$post->password = Validate::passwordHash($post->password . Environment::siteKey() . Tools::siteEncrypt($post->password));
 				/** @var DtoSubscription $post */
 				$subscription = $mapper->fromDtoToEntity($post);
 				$command = FactoryCommand::createCommandSubscribeUser($subscription, $details);
@@ -131,7 +131,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 		}
 		if (isset($get->decline) && isset($get->id) && is_numeric($get->id)) {
-			$command = FactoryCommand::createCommandDenySubscription($get->id);
+			$command = FactoryCommand::createCommandDeleteSubscription($get->id);
 			try {
 				$command->execute();
 				$return = $command->return();
@@ -148,7 +148,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		}
 		echo json_encode($return);
 		break;
-	case "DELETE":
-		echo json_encode($return);
+	default:
+		Tools::setResponse(405);
 		break;
 }

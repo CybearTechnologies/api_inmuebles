@@ -200,7 +200,8 @@ BEGIN
            su_plan_fk plan,
            su_seat_fk seat,
            su_location_fk location
-    FROM subscription;
+    FROM subscription
+    WHERE su_status = FALSE;
 END$$
 
 DROP PROCEDURE IF EXISTS getSubscriptionById;
@@ -226,7 +227,8 @@ BEGIN
            su_seat_fk seat,
            su_location_fk location
     FROM subscription
-    WHERE su_id = id;
+    WHERE su_id = id
+    AND su_status = FALSE;
 END$$
 
 DROP PROCEDURE IF EXISTS getSubscriptionByEmail;

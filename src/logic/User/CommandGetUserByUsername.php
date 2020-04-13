@@ -1,15 +1,17 @@
 <?php
 class CommandGetUserByUsername extends Command {
-	private $_entity;
+	private $_userBuilder;
+	private $_username;
 
 	/**
 	 * CommandGetUserByUsername constructor.
 	 *
-	 * @param User $entity
+	 * @param string $username
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoUser($entity);
-		$this->_entity = $entity;
+	public function __construct ($username) {
+		$this->_dao = FactoryDao::createDaoUser();
+		$this->_username = $username;
+		$this->_userBuilder = new UserBuilder();
 	}
 
 	/**
@@ -18,11 +20,19 @@ class CommandGetUserByUsername extends Command {
 	 * @throws MultipleUserException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getUserByUsername());
+		$dtoUser = $this->_userBuilder
+										->getMinimumByUsername($this->_username)
+										->withPlan()
+										->withRol()
+										->withSeat()
+										->withLocation()
+										->clean()
+										->build();
+		$this->setData($dtoUser);
 	}
 
 	/**
-	 * @return User
+	 * @return DtoUser
 	 */
 	public function return () {
 		return $this->getData();

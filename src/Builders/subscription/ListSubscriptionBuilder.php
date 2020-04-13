@@ -29,7 +29,7 @@ class ListSubscriptionBuilder extends ListBuilder {
 	function getAll () {
 		$this->_data = $this->_mapper->fromEntityArrayToDtoArray($this->_dao->getAllSubscription());
 		foreach ($this->_data as $datum) {
-			unset($datum->subsDetails);
+			unset($datum->detail);
 		}
 		return $this;
 	}

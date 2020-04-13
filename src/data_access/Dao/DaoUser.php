@@ -125,14 +125,15 @@ class DaoUser extends Dao {
 	}
 
 	/**
+	 * @param string $username
+	 *
 	 * @return User
 	 * @throws DatabaseConnectionException
-	 * @throws UserNotFoundException
 	 * @throws MultipleUserException
+	 * @throws UserNotFoundException
 	 */
-	public function getUserByUsername () {
+	public function getUserByUsername (string $username) {
 		try {
-			$username = strtolower($this->_entity->getEmail());
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USERNAME);
 			$stmt->bindParam(":email", $username, PDO::PARAM_STR);
 			$stmt->execute();

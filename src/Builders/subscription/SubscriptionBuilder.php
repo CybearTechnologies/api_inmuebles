@@ -29,10 +29,10 @@ class SubscriptionBuilder extends Builder {
 	public function withDetails () {
 		$detailBuilder = new ListSubscriptionDetailBuilder();
 		try {
-			$this->_data->subsDetails = $detailBuilder->getMinimumById($this->_data->id)->clean()->build();
+			$this->_data->detail = $detailBuilder->getMinimumById($this->_data->id)->clean()->build();
 		}
 		catch (SubscriptionDetailNotFoundException $e) {
-			$this->_data->subsDetails = [];
+			$this->_data->detail = [];
 		}
 
 		return $this;

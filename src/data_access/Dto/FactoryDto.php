@@ -90,7 +90,8 @@ class FactoryDto {
 		$userCreator = Values::DEFAULT_INT, $userModifier = Values::DEFAULT_INT, //todo null user creator..
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoAgency {
-		return new DtoAgency($id, $name, $icon,$seats, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+		return new DtoAgency($id, $name, $icon, $seats, $userCreator, $userModifier, $dateCreated, $dateModified,
+			$active,
 			$delete);
 	}
 
@@ -444,5 +445,15 @@ class FactoryDto {
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoSubscriptionDetail {
 		return new DtoSubscriptionDetail($id, $document, $subscription, $userCreator, $userModifier,
 			$dateCreated, $dateModified, $active, $delete);
+	}
+
+	/**
+	 * @param DtoUser $user
+	 * @param string  $token
+	 *
+	 * @return DtoLogin
+	 */
+	static function createDtoLogin ($user, $token):DtoLogin {
+		return new DtoLogin($user, $token);
 	}
 }

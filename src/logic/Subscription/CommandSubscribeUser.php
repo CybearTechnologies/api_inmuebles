@@ -32,7 +32,7 @@ class CommandSubscribeUser extends Command {
 		if (!empty($this->_subDetail)) {
 			$this->_command = FactoryCommand::createCommandAddSubscribeDetail($subscription, $this->_subDetail);
 			$this->_command->execute();
-			array_push($dtoSubscription->subsDetails, $this->_command->return());
+			array_push($dtoSubscription->detail, $this->_command->return());
 		}
 		$this->setData($dtoSubscription);
 	}

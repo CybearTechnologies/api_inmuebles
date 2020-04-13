@@ -113,6 +113,7 @@ class DaoSubscription extends Dao {
 	 *
 	 * @return Subscription
 	 * @throws DatabaseConnectionException
+	 * @throws SubscriptionNotFoundException
 	 */
 	public function deleteSubscription (int $id) {
 		try {
@@ -123,8 +124,11 @@ class DaoSubscription extends Dao {
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
-
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			if ($stmt->rowCount() == 0)
+				Throw new SubscriptionNotFoundException("There are no Subscription found", 200);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
@@ -148,7 +152,6 @@ class DaoSubscription extends Dao {
 			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
-
 			if ($stmt->rowCount() == 0)
 				Throw new SubscriptionNotFoundException("There are no Subscription found", 200);
 			else {
@@ -180,6 +183,7 @@ class DaoSubscription extends Dao {
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
+
 	/**
 	 * @param $dbObject
 	 *
@@ -187,7 +191,7 @@ class DaoSubscription extends Dao {
 	 */
 	protected function extract ($dbObject) {
 		return FactoryEntity::createSubscription($dbObject->id, $dbObject->firstName,
-			$dbObject-> lastName,$dbObject->address, $dbObject->ci, $dbObject->passport,
+			$dbObject->lastName, $dbObject->address, $dbObject->ci, $dbObject->passport,
 			$dbObject->email, $dbObject->password, $dbObject->plan, $dbObject->seat,
 			$dbObject->location, $dbObject->status, $dbObject->userModifier,
 			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,

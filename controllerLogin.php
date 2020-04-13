@@ -17,14 +17,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$password = $post->password . Environment::siteKey() . Tools::siteEncrypt($post->password);
 				//	Try to get the user
 				try {
-					$command = FactoryCommand::createCommandGetUserByUsername(FactoryEntity::createUser(-1, '', '', '',
-						$post->user));
+					$command = FactoryCommand::createCommandGetUserByUsername($post->user);
 					$command->execute();
 					$user = $command->return();
-					if (!$user->isBlocked() && !$user->isDelete()) {
-						if (Validate::verifyPassword($password, $user->getPassword())) {
-							$return->user = $user;
-							$return->token = Auth::generateJWT($user->getId(), $origin->getPrivateKey());
+					if (!$user->blocked && !$user->delete) {
+						if (Validate::verifyPassword($password, $user->password)) {
+							$token = Auth::generateJWT($user->id, $origin->getPrivateKey());
+							$return = FactoryDto::createDtoLogin($user, $token);
 							Tools::setResponse();
 						}
 						else {
@@ -58,8 +57,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 		}
 		else {
-			$return = new ErrorResponse(Values::getText('ERROR_INCOMPLETE_DATA'));
-			Tools::setResponse(Values::getValue('ERROR_INCOMPLETE_DATA'));
+			$return = new ErrorResponse(Values::getText('ERROR_DATA_INCOMPLETE'));
+			Tools::setResponse(Values::getValue('ERROR_DATA_INCOMPLETE'));
 		}
 		echo json_encode($return);
 		break;

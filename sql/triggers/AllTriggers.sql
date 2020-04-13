@@ -13,8 +13,8 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$ 
 
+DELIMITER $$
 DROP TRIGGER IF EXISTS afterChangeActiveSeat;
 DELIMITER $$
 CREATE TRIGGER afterChangeActiveSeat
@@ -30,8 +30,8 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$
 
+DELIMITER $$
 DROP TRIGGER IF EXISTS afterChangeActiveUser;
 DELIMITER $$
 CREATE TRIGGER afterChangeActiveUser
@@ -47,8 +47,8 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$
 
+DELIMITER $$
 DROP TRIGGER IF EXISTS afterChangeActiveRol;
 DELIMITER $$
 CREATE TRIGGER afterChangeActiveRol
@@ -64,8 +64,8 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$
 
+DELIMITER $$
 DROP TRIGGER IF EXISTS afterChangeBlockedUser;
 DELIMITER $$
 CREATE TRIGGER afterChangeBlockedUser
@@ -81,8 +81,8 @@ BEGIN
          END IF;
     END IF;
 END;
-DELIMITER $$
 
+DELIMITER $$
 DROP TRIGGER IF EXISTS afterModifySubscription;
 DELIMITER $$
 CREATE TRIGGER afterModifySubscription
@@ -105,4 +105,3 @@ BEGIN
         END IF;
     END IF;
 END;
-DELIMITER $$

@@ -58,11 +58,11 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param User $user
+	 * @param string $user
 	 *
 	 * @return CommandGetUserByUsername
 	 */
-	public static function createCommandGetUserByUsername (User $user) {
+	public static function createCommandGetUserByUsername (string $user) {
 		return new CommandGetUserByUsername($user);
 	}
 

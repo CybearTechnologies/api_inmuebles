@@ -26,6 +26,20 @@ class UserBuilder extends Builder {
 	}
 
 	/**
+	 * @param string $username
+	 *
+	 * @return $this
+	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
+	 * @throws UserNotFoundException
+	 */
+	public function getMinimumByUsername (string $username) {
+		$this->_data = $this->_mapper->fromEntityToDto($this->_dao->getUserByUsername($username));
+
+		return $this;
+	}
+
+	/**
 	 * @return UserBuilder
 	 * @throws DatabaseConnectionException
 	 */
