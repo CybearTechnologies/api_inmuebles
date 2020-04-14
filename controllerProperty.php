@@ -108,8 +108,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
-					catch (PropertyExtraNotFoundException $e) {
-					}
 				}
 				else {
 					$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));

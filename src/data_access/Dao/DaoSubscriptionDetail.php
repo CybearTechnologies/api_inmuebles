@@ -58,7 +58,8 @@ class DaoSubscriptionDetail extends Dao {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -81,7 +82,8 @@ class DaoSubscriptionDetail extends Dao {
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 			}
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -104,7 +106,8 @@ class DaoSubscriptionDetail extends Dao {
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
-		catch (PDOException $e) {
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}
@@ -118,9 +121,5 @@ class DaoSubscriptionDetail extends Dao {
 		return FactoryEntity::createSubscriptionDetail($dbObject->id, $dbObject->subscription, $dbObject->document,
 			$dbObject->userModifier, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
 			$dbObject->active, $dbObject->delete);
-		/*
-		return FactoryEntity::createSubscriptionDetail($dbObject->id,$dbObject->subscription,
-			$dbObject->document,$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
-			$dbObject->active, $dbObject->delete);*/
 	}
 }
