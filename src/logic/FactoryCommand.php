@@ -603,12 +603,12 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param PropertyType $propertyType
+	 * @param int $id
 	 *
 	 * @return CommandGetPropertyTypeById
 	 */
-	static function createCommandGetPropertyTypeById ($propertyType):CommandGetPropertyTypeById {
-		return new CommandGetPropertyTypeById($propertyType);
+	static function createCommandGetPropertyTypeById ($id):CommandGetPropertyTypeById {
+		return new CommandGetPropertyTypeById($id);
 	}
 
 	/**
@@ -896,12 +896,12 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Origin $origin
+	 * @param $key
 	 *
 	 * @return GetOriginByPublicKeyCommand
 	 */
-	public static function createCommandGetOriginByPublicKey (Origin $origin) {
-		return new GetOriginByPublicKeyCommand($origin);
+	public static function createCommandGetOriginByPublicKey ($key) {
+		return new GetOriginByPublicKeyCommand($key);
 	}
 
 	/**

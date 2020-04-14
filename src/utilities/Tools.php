@@ -11,7 +11,7 @@ class Tools {
 	public static function headers () {
 		header('Content-Type: application/json');
 		header('access-Control-Allow-Origin: *');
-		header("access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, access-Control-Request-Method");
+		header("access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, access-Control-Request-Method, Application, Bearer");
 		header("access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 		header("Allow: GET, POST, OPTIONS, PUT, DELETE");
 		if ($_SERVER['REQUEST_METHOD'] == "OPTIONS")
@@ -43,6 +43,24 @@ class Tools {
 			$ip = $_SERVER['REMOTE_ADDR'];
 
 		return $ip;
+	}
+
+	/**
+	 * @param $token
+	 * @param $header
+	 *
+	 * @return int
+	 * @throws DatabaseConnectionException
+	 * @throws OriginNotFoundException
+	 * @throws UserNotLoggedException
+	 */
+	static function getUserLogged ($token, $header) {
+		$command = FactoryCommand::createCommandGetOriginByPublicKey($header);
+		$command->execute();
+		$origin = $command->return();
+		$jwt = Auth::getData($token,$origin->getPublicKey());
+
+		return $jwt->id;
 	}
 
 	/**

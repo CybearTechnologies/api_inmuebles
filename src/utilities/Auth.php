@@ -28,14 +28,14 @@ class Auth {
 	 * @param string $encryptKey
 	 *
 	 * @return mixed
-	 * @throws InvalidJWTException
+	 * @throws UserNotLoggedException
 	 */
 	public static function getData ($token, $encryptKey) {
 		if (empty($token))
-			Throw new InvalidJWTException("Invalid token supplied.");
+			Throw new UserNotLoggedException("Invalid token supplied.");
 		$jwt = JWT::decode($token, $encryptKey, self::$encrypt);
 		if ($jwt->aud !== self::aud())
-			Throw new InvalidJWTException("Invalid user logged in.");
+			Throw new UserNotLoggedException("Invalid user logged in.");
 
 		return $jwt;
 	}

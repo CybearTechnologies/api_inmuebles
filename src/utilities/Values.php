@@ -39,6 +39,7 @@ class Values {
 		'ERROR_LOGIN_USER_BLOCK_DELETED' => array ('text' => 'Su usuario se encuentra bloqueado', 'value' => 500),
 		'ERROR_LOGIN_USER_NOT_FOUND' => array ('text' => 'Usuario o contraseña incorrecto', 'value' => 500),
 		'ERROR_LOGIN_USER_WRONG_PASSWORD' => array ('text' => 'Usuario o contraseña incorrecto', 'value' => 500),
+		'ERROR_LOGIN_USER_NOT_LOGGED' => array ('text' => 'Usuario no ha iniciado sesion', 'value' => 401),
 		'ERROR_RATING_NOT_FOUND' => array ('text' => 'Puntuaje no encontrado', 'value' => 404),
 		'ERROR_RATINGS_NOT_FOUND' => array ('text' => 'Puntuajes no encontrados', 'value' => 404),
 		'ERROR_PROPERTY_NOT_FOUND' => array ('text' => 'Propiedad no encontrada', 'value' => 404),

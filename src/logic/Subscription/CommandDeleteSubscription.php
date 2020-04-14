@@ -17,7 +17,7 @@ class CommandDeleteSubscription extends Command {
 	 * @throws SubscriptionNotFoundException
 	 */
 	public function execute ():void {
-		$result =$this->_mapperSubscription->fromEntityToDto($this->_dao->deleteSubscription($this->_id));
+		$result = $this->_mapperSubscription->fromEntityToDto($this->_dao->deleteSubscription($this->_id));
 		$this->setData($result);
 	}
 

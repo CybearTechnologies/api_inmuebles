@@ -14,13 +14,14 @@ class DaoOrigin extends Dao {
 	}
 
 	/**
+	 * @param $publicKey
+	 *
 	 * @return Origin
 	 * @throws DatabaseConnectionException
 	 * @throws OriginNotFoundException
 	 */
-	public function getOriginByPublicKey () {
+	public function getOriginByPublicKey ($publicKey) {
 		try {
-			$publicKey = $this->_entity->getPublicKey();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_PUBLIC_KEY);
 			$stmt->bindParam(":key", $publicKey, PDO::PARAM_STR);
 			$stmt->execute();

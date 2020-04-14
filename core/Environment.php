@@ -14,12 +14,10 @@ class Environment {
 	private const DATABASE = "inmobiliaria";
 	private const USERNAME = "root";
 	private const PASSWORD = "";
-	/*
-	private const HOST = "160.153.54.65";
+	/*private const HOST = "160.153.54.65";
 	private const DATABASE = "buscamatch";
 	private const USERNAME = "buscaRoot";
-	private const PASSWORD = "dIo{xi5miupN";
-	*/
+	private const PASSWORD = "dIo{xi5miupN";*/
 	/**
 	 * @return PDO
 	 */

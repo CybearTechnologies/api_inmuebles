@@ -177,6 +177,7 @@ class DaoAccess extends Dao {
 				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
 	}

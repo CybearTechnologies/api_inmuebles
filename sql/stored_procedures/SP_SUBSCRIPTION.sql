@@ -113,36 +113,9 @@ END$$
 
 DROP PROCEDURE IF EXISTS deleteSubscription;
 DELIMITER $$
-CREATE PROCEDURE deleteSubscription(id int, user int,dateModified datetime)
+CREATE PROCEDURE deleteSubscription(id int)
 BEGIN
-    IF IsNull(dateModified) THEN
-        UPDATE subscription
-        SET su_deleted = 1, su_user_modified_fk= user
-        WHERE su_id=id;
-    ELSE
-        UPDATE subscription
-        SET su_active = 0, su_user_modified_fk= user, su_date_modified = dateModified
-        WHERE su_id=id;
-    END IF;
-    SELECT su_id id,
-           su_ci ci,
-           su_first_name firstName,
-           su_last_name lastName,
-           su_address address,
-           su_passport passport,
-           su_email email,
-           su_password password,
-           su_deleted 'delete',
-           su_status status,
-           su_active active,
-           su_date_created dateCreated,
-           su_user_modified_fk userModifier,
-           su_date_modified dateModified,
-           su_plan_fk plan,
-           su_seat_fk seat,
-           su_location_fk location
-    FROM subscription
-    WHERE su_id = id;
+    DELETE FROM subscription WHERE su_id = id;
 END$$
 
 DROP PROCEDURE IF EXISTS approveSubscription;
@@ -201,7 +174,7 @@ BEGIN
            su_seat_fk seat,
            su_location_fk location
     FROM subscription
-    WHERE su_status = FALSE;
+    WHERE su_status = false;
 END$$
 
 DROP PROCEDURE IF EXISTS getSubscriptionById;

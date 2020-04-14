@@ -9,8 +9,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (isset($post->user) && !Validate::isEmpty($post->user) && isset($post->password) &&
 			!Validate::isEmpty($post->password) && isset($headers['Application'])) {
 			try {
-				$command = FactoryCommand::createCommandGetOriginByPublicKey(FactoryEntity::createOrigin(-1, '', '',
-					$headers['Application']));
+				$command = FactoryCommand::createCommandGetOriginByPublicKey($headers['Application']);
 				$command->execute();
 				$origin = $command->return();
 				//	Hash the password
@@ -47,7 +46,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (DatabaseConnectionException $exception) {
 				Logger::exception($exception, Logger::WARNING);
-				$return = new ErrorResponse(Values::getText('ERROR_ORIGIN_NOT_FOUND'));
+				$return = new ErrorResponse(Values::getText('ERROR_DATABASE'));
 				Tools::setResponse($exception->getCode());
 			}
 			catch (OriginNotFoundException $exception) {

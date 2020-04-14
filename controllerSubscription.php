@@ -40,9 +40,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 			}
-			catch (SubscriptionNotFoundException $e) {
+			catch (SubscriptionNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_SUBSCRIPTION_NOT_FOUND"));
-				Tools::setResponse(Values::getValue("ERROR_SUBSCRIPTION_NOT_FOUND"));
+				Tools::setResponse();
 			}
 		}
 		echo json_encode($return);
@@ -134,8 +134,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			$command = FactoryCommand::createCommandDeleteSubscription($get->id);
 			try {
 				$command->execute();
-				$return = $command->return();
-				Tools::setResponse();
 			}
 			catch (DatabaseConnectionException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
@@ -143,7 +141,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 			catch (SubscriptionNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_SUBSCRIPTION_NOT_FOUND"));
-				Tools::setResponse(Values::getValue("ERROR_SUBSCRIPTION_NOT_FOUND"));
+				Tools::setResponse();
 			}
 		}
 		echo json_encode($return);

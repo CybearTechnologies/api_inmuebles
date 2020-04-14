@@ -7,7 +7,7 @@ class DaoSubscription extends Dao {
                             :dateCreated )";
 	private const QUERY_GET_BY_ID = "CALL getSubscriptionById(:id)";
 	private const QUERY_GET_BY_EMAIL = "CALL getSubscriptionByEmail(:email)";
-	private const QUERY_DELETE = "CALL deleteSubscription(:id,:user,:dateModified)";
+	private const QUERY_DELETE = "CALL deleteSubscription(:id)";
 	private const QUERY_APPROVE = "CALL approveSubscription(:id,:user,:dateModified)";
 
 	/**
@@ -117,12 +117,8 @@ class DaoSubscription extends Dao {
 	 */
 	public function deleteSubscription (int $id) {
 		try {
-			$dateModified = null;
-			$user = 1;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
-			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new SubscriptionNotFoundException("There are no Subscription found", 200);

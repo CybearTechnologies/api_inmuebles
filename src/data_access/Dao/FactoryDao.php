@@ -127,7 +127,7 @@ class FactoryDao {
 	 *
 	 * @return DaoOrigin
 	 */
-	static function createDaoOrigin (Origin $origin):DaoOrigin {
+	static function createDaoOrigin (Origin $origin = null):DaoOrigin {
 		return new DaoOrigin($origin);
 	}
 

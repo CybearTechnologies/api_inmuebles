@@ -2,15 +2,18 @@
 require_once "vendor/autoload.php";
 Tools::headers();
 $get = Tools::getObject();
+
+$headers = apache_request_headers();
 $return = null;
 $mapper = FactoryMapper::createMapperProperty();
 $mapperExtra = FactoryMapper::createMapperPropertyExtra();
 $mapperPropertyPrice = FactoryMapper::createMapperPropertyPrice();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (Validate::id($get)) {
+		if (Validate::id($get) ) {
 			$command = FactoryCommand::createCommandGetPropertyById($get->id);
 			try {
+				$loggedUser = Tools::getUserLogged($headers['Bearer'], $headers['Application']);
 				$command->execute();
 				$return = $command->return();
 				Tools::setResponse();
@@ -22,6 +25,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (PropertyNotFoundException $exception) {
 				$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
 				Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
+			}
+			catch (OriginNotFoundException $exception) {
+				Logger::exception($exception, Logger::ERROR);
+				$return = new ErrorResponse(Values::getText('ERROR_ORIGIN_NOT_FOUND'));
+				Tools::setResponse(Values::getValue('ERROR_ORIGIN_NOT_FOUND'));
+			}
+			catch (UserNotLoggedException $exception) {
+				Logger::exception($exception, Logger::ERROR);
+				$return = new ErrorResponse(Values::getText('ERROR_LOGIN_USER_NOT_LOGGED'));
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 			echo json_encode($return);
 		}
