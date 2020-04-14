@@ -51,16 +51,17 @@ class Tools {
 	 *
 	 * @return int
 	 * @throws DatabaseConnectionException
+	 * @throws InvalidJWTException
 	 * @throws OriginNotFoundException
-	 * @throws UserNotLoggedException
 	 */
 	static function getUserLogged ($token, $header) {
+
 		$command = FactoryCommand::createCommandGetOriginByPublicKey($header);
 		$command->execute();
 		$origin = $command->return();
-		$jwt = Auth::getData($token,$origin->getPublicKey());
+		$jwt = Auth::getData($token,$origin->getPrivateKey());
 
-		return $jwt->id;
+		return $jwt->data;
 	}
 
 	/**

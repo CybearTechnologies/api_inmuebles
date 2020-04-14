@@ -6,7 +6,6 @@
  */
 class Validate {
 	private const OPTIONS = array ('cost' => 10);
-
 	/**
 	 * Headers Control
 	 *
@@ -64,6 +63,14 @@ class Validate {
 	 */
 	static function id ($get) {
 		return isset($get->id) && is_numeric($get->id);
+	}
+
+	/**
+	 * @return bool
+	 */
+	static function headers(){
+		$headers = apache_request_headers();
+		return isset($headers[Values::BEARER_HEADER]) && isset($headers[Values::APPLICATION_HEADER]);
 	}
 
 	/**

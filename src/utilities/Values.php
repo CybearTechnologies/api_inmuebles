@@ -62,7 +62,11 @@ class Values {
 		//
 		'ERROR_SUBSCRIPTION_NOT_FOUND' => array ('text' => 'No se ha encontrado esta subscription', 'value' => 404),
 		//MAILER
-		'ERROR_MAILER' => array ('text' => 'Error al enviar email', 'value' => 500)
+		'ERROR_MAILER' => array ('text' => 'Error al enviar email', 'value' => 500),
+
+		//HEADERS
+		'ERROR_HEADER' => array ('text' => 'Campos de autenticacion imcompletos.', 'value' => 401)
+
 	);
 
 	/**
@@ -87,6 +91,8 @@ class Values {
 		return isset(self::VALUES[$key]) ? self::VALUES[$key]['value'] : null;
 	}
 
+	const APPLICATION_HEADER = "application";
+	const BEARER_HEADER = "bearer";
 	const DEFAULT_STRING = "";
 	const DEFAULT_INT = 0;
 	const DEFAULT_FLOAT = 0.0;

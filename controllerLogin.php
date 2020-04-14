@@ -7,9 +7,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 	case "POST":
 		$post = json_decode(file_get_contents("php://input"));
 		if (isset($post->user) && !Validate::isEmpty($post->user) && isset($post->password) &&
-			!Validate::isEmpty($post->password) && isset($headers['Application'])) {
+			!Validate::isEmpty($post->password) && isset($headers[Values::APPLICATION_HEADER])) {
 			try {
-				$command = FactoryCommand::createCommandGetOriginByPublicKey($headers['Application']);
+				$command = FactoryCommand::createCommandGetOriginByPublicKey($headers[Values::APPLICATION_HEADER]);
 				$command->execute();
 				$origin = $command->return();
 				//	Hash the password
