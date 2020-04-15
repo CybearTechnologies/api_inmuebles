@@ -1,31 +1,28 @@
 <?php
 class CommandCreateAccess extends Command {
-	private $_command;
+	private $_name;
+	private $_abbreviation;
+	private $_user;
 
 	/**
 	 * CommandCreateAccess constructor.
 	 *
-	 * @param Access $entity
+	 * @param $name
+	 * @param $abbreviation
+	 * @param $loggedUser
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoAccess($entity);
-		$this->_command = FactoryCommand::createCommandGetAccessByName($entity);
+	public function __construct ($name, $abbreviation, $loggedUser) {
+		$this->_dao = FactoryDao::createDaoAccess();
+		$this->_name = $name;
+		$this->_abbreviation = $abbreviation;
+		$this->_user = $loggedUser;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws AccessAlreadyExistException
 	 */
 	public function execute ():void {
-		try {
-			$this->_command->execute();
-			$this->_command = FactoryCommand::createCommandGetAccessByAbbreviation($this->_command->return());
-			$this->_command->execute();
-			throw new AccessAlreadyExistException("Este acceso ya existe");
-		}
-		catch (AccessNotFoundException $e) {
-			$this->setData($this->_dao->createAccess());
-		}
+		$this->setData($this->_dao->createAccess($this->_name,$this->_abbreviation,$this->_user));
 	}
 
 	/**

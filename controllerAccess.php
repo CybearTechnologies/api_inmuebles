@@ -77,10 +77,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
-				if (isset($post->name) && isset($post->abbreviation) && isset($post->user)) {
+				if (isset($post->name) && isset($post->abbreviation)) {
 					try {
-						//todo arreglar- permite agregar aun asi el nombre o el abbr se repitan.
-						$command = FactoryCommand::createCommandCreateAccess($mapper->fromDtoToEntity($post));
+						$command = FactoryCommand::createCommandCreateAccess($post->name, $post->abbreviation,
+							$loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
@@ -88,10 +88,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					catch (DatabaseConnectionException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
-					catch (AccessAlreadyExistException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_ACCESS_ALREADY_EXIST"));
-						Tools::setResponse(Values::getValue("ERROR_ACCESS_ALREADY_EXIST"));
 					}
 				}
 				else {
@@ -131,8 +127,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
-					$access = FactoryEntity::createAccess($get->id);
-					$command = FactoryCommand::createCommandDeleteAccessById($access);
+					$command = FactoryCommand::createCommandDeleteAccessById($get->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());

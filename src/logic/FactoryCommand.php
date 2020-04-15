@@ -298,12 +298,14 @@ class FactoryCommand {
 	//----------------------------ACCESS--------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Access $access
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param int    $loggedUser
 	 *
 	 * @return CommandCreateAccess
 	 */
-	static function createCommandCreateAccess ($access):CommandCreateAccess {
-		return new CommandCreateAccess($access);
+	static function createCommandCreateAccess ($name,$abbreviation, $loggedUser):CommandCreateAccess {
+		return new CommandCreateAccess($name,$abbreviation,$loggedUser);
 	}
 
 	/**
@@ -341,12 +343,13 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Access $access
+	 * @param int $id
+	 * @param int $user
 	 *
 	 * @return CommandDeleteAccessById
 	 */
-	static function createCommandDeleteAccessById ($access):CommandDeleteAccessById {
-		return new CommandDeleteAccessById($access);
+	static function createCommandDeleteAccessById (int $id, int $user):CommandDeleteAccessById {
+		return new CommandDeleteAccessById($id,$user);
 	}
 	//------------------------------------------------------------
 	//----------------------------SEAT---------------------------

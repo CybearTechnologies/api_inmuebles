@@ -20,14 +20,16 @@ class DaoAccess extends Dao {
 	}
 
 	/**
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param int    $user
+	 *
+	 * @return Access
 	 * @throws DatabaseConnectionException
 	 */
-	public function createAccess () {
+	public function createAccess ($name, $abbreviation, $user) {
 		try {
-			$name = $this->_entity->getName();
-			$abbreviation = $this->_entity->getAbbreviation();
-			$user = 1; // TODO: replace for logged user
-			$dateCreated = $this->_entity->getDateCreated();
+			$dateCreated = ""; //TODO current date
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_ACCESS);
@@ -140,13 +142,15 @@ class DaoAccess extends Dao {
 	}
 
 	/**
-	 * @throws DatabaseConnectionException
+	 * @param $id
+	 * @param $user
+	 *
+	 * @return Access
 	 * @throws AccessNotFoundException
+	 * @throws DatabaseConnectionException
 	 */
-	public function deleteAccessById () {
+	public function deleteAccessById (int $id, int $user) {
 		try {
-			$id = $this->_entity->getId();
-			$user = 1; //TODO change dis user for user logggggg
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
