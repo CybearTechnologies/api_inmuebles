@@ -27,10 +27,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
-					catch (CustomException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
 				}
 				else {
 					$command = FactoryCommand::createCommandGetAllAccess();
@@ -61,12 +57,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (InvalidJWTException $exception) {
 				Logger::exception($exception, Logger::ERROR);
 				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 			catch (Exception $exception) {
 				Logger::exception($exception, Logger::ERROR);
 				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 		}
 		else {
@@ -115,12 +111,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (InvalidJWTException $exception) {
 				Logger::exception($exception, Logger::ERROR);
 				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 			catch (Exception $exception) {
 				Logger::exception($exception, Logger::ERROR);
 				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 		}
 		else {
@@ -168,12 +164,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (InvalidJWTException $exception) {
 				Logger::exception($exception, Logger::ERROR);
 				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 			catch (Exception $exception) {
 				Logger::exception($exception, Logger::ERROR);
 				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse($exception->getCode());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 		}
 		else {
