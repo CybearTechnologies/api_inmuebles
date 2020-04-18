@@ -57,7 +57,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandGetAllUser();
 					try {
 						$command->execute();
-						$return = $mapper->fromEntityArrayToDtoArray($command->return());
+						$return = $command->return();
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $e) {

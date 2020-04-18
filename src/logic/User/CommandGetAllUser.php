@@ -1,10 +1,12 @@
 <?php
 class CommandGetAllUser extends Command {
+	private $_builder;
+
 	/**
 	 * CommandGetAllUser constructor.
 	 */
 	public function __construct () {
-		$this->_dao = FactoryDao::createDaoUser();
+		$this->_builder = new ListUserBuilder();
 	}
 
 	/**
@@ -12,11 +14,19 @@ class CommandGetAllUser extends Command {
 	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getAllUser());
+		$dtoUsers = $this->_builder
+			->getAll()
+			->withLocation()
+			->withSeat()
+			->withPlan()
+			->withRol()
+			->clean()
+			->build();
+		$this->setData($dtoUsers);
 	}
 
 	/**
-	 * @return User[]
+	 * @return DtoUser[]
 	 */
 	public function return () {
 		return $this->getData();
