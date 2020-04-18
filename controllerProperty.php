@@ -29,6 +29,22 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 					}
 				}
+				if (Validate::id($get) && $get->action = "user") {
+					$command = FactoryCommand::createCommandGetAllUserProperties($get->id);
+					try {
+						$command->execute();
+						$return = $command->return();
+						Tools::setResponse();
+					}
+					catch (DatabaseConnectionException $exception) {
+						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+					}
+					catch (PropertyNotFoundException $exception) {
+						$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_USER_NOT_FOUND"));
+						Tools::setResponse(Values::getValue("ERROR_PROPERTY_USER_NOT_FOUND"));
+					}
+				}
 				else {
 					$command = FactoryCommand::createCommandListProperties();
 					try {
@@ -79,7 +95,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
 				if (isset($post->property) /*&& Validate::property($post->property)*/) {
-					$command = FactoryCommand::createCommandCreateProperty($mapper->fromDTOToEntity($post->property));
+					$property = $mapper->fromDTOToEntity($post->property);
+					$property->setUserCreator($loggedUser);
+					$command = FactoryCommand::createCommandCreateProperty($property);
 					try {
 						$command->execute();
 						$property = $mapper->fromEntityToDto($command->return());
@@ -148,7 +166,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::activeProperty($get)) {
 					try {
-						$command = FactoryCommand::createCommandActiveProperty(FactoryEntity::createProperty($get->id));
+						$command = FactoryCommand::createCommandActiveProperty($get->id, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
@@ -164,7 +182,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				elseif (Validate::inactiveProperty($get)) {
 					try {
-						$command = FactoryCommand::createCommandInactiveProperty(FactoryEntity::createProperty($get->id));
+						$command = FactoryCommand::createCommandInactiveProperty($get->id, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();

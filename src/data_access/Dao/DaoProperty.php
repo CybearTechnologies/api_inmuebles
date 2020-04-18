@@ -121,11 +121,11 @@ class DaoProperty extends Dao {
 			$area = $this->_property->getArea();
 			$floor = $this->_property->getFloor();
 			$type = $this->_property->getType();
-			$dateCreated = $this->_property->getDateCreated();
+			$location = $this->_property->getLocation();
+			$user = $this->_property->getUserCreator();
+			$dateCreated = "";
 			if ($this->_property->getDateCreated() == "")
 				$dateCreated = null;
-			$location = $this->_property->getLocation();
-			$user = 1; //TODO replacefor user logged $this->_property->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":description", $description, PDO::PARAM_STR);
@@ -235,13 +235,14 @@ class DaoProperty extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 *
 	 * @return Property[]
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function getPropertiesByUser () {
+	public function getPropertiesByUser (int $id) {
 		try {
-			$id = $this->_property->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_CREATOR);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
@@ -309,20 +310,21 @@ class DaoProperty extends Dao {
 	}
 
 	/**
+	 * @param int $property
+	 * @param int $user
+	 *
 	 * @return Property
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function inactiveProperty () {
+	public function inactiveProperty ($property, $user) {
 		try {
-			$id = $this->_property->getId();
-			$userModifier = 2; //TODO change for logged user
-			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE_PROPERTY_BY_ID);
-			$dateModified = $this->_property->getDateModified();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE_PROPERTY_BY_ID);
+			$stmt->bindParam(":id", $property, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
@@ -337,20 +339,21 @@ class DaoProperty extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 * @param int $user
+	 *
 	 * @return Property
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function activeProperty () {
+	public function activeProperty ($id, $user) {
 		try {
-			$id = $this->_property->getId();
-			$userModifier = 2; //TODO change for logged user
-			$dateModified = $this->_property->getDateModified();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE_PROPERTY_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)

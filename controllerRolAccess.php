@@ -70,7 +70,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
 				if (Validate::rolAccess($post)) {
-					$command = FactoryCommand::createCommandCreateRolAccess($mapper->fromDtoToEntity($post));
+					$rolAccess = $mapper->fromDtoToEntity($post);
+					$rolAccess->setUserCreator($loggedUser);
+					$command = FactoryCommand::createCommandCreateRolAccess($rolAccess);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());

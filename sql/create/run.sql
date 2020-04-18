@@ -259,11 +259,12 @@ CREATE TABLE origin
     FOREIGN KEY (or_user_modified_fk) REFERENCES user (us_id)
 );
 
-CREATE TABLE favourite
+CREATE TABLE favorite
 (
     fa_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Solicitud',
     fa_property_fk      int(10)    NOT NULL COMMENT 'ID Propiedad',
     fa_deleted          tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
+    fa_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
     fa_user_created_fk  int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     fa_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     fa_user_modified_fk int(10)             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',

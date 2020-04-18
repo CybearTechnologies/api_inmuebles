@@ -1,12 +1,17 @@
 <?php
 class CommandGetAllUserProperties extends Command {
+	private $_builder;
+	private $_id;
+
 	/**
 	 * CommandGetAllUserProperties constructor.
 	 *
-	 * @param Property $entity
+	 * @param int $id
 	 */
-	public function __construct (Property $entity) {
-		$this->_dao = FactoryDao::createDaoProperty($entity);
+	public function __construct (int $id) {
+		$this->_dao = FactoryDao::createDaoProperty();
+		$this->_builder = new ListPropertyBuilder();
+		$this->_id = $id;
 	}
 
 	/**
@@ -14,11 +19,19 @@ class CommandGetAllUserProperties extends Command {
 	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getPropertiesByUser());
+		$dtoProperty = $this->_builder
+			->getMinimumById($this->_id)
+			->withLocation()
+			->withType()
+			->withLastTwoPrices()
+			->withExtras()
+			->clean()
+			->build();
+		$this->setData($dtoProperty);
 	}
 
 	/**
-	 * @return Property[]
+	 * @return DtoProperty[]
 	 */
 	public function return () {
 		return $this->getData();

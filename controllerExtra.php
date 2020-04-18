@@ -108,8 +108,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					try {
 						$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
 							$post->name, 'files/extra');
-						$dto = FactoryDto::createDtoExtra(-1, $post->name, Environment::baseURL() . $tempImage);
-						$command = FactoryCommand::createCommandCreateExtra($mapper->fromDTOToEntity($dto));
+						$command = FactoryCommand::createCommandCreateExtra($post->name,
+							Environment::baseURL() . $tempImage, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
@@ -165,8 +165,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				if (isset($get->id) && is_numeric($get->id)) {
-					$extra = FactoryEntity::createExtra($get->id);
-					$command = FactoryCommand::createCommandDeleteExtraById($extra);
+					$command = FactoryCommand::createCommandDeleteExtraById($get->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
@@ -215,7 +214,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$put = json_decode(file_get_contents('php://input'));
 				if (Validate::putExtra($put)) {
-					$command = FactoryCommand::createCommandUpdateExtraById($mapper->fromDtoToEntity($put));
+					$command = FactoryCommand::createCommandUpdateExtraById($put->id, $put->name, $put->icon,
+						$loggedUser);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
@@ -231,7 +231,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "active") {
-					$command = FactoryCommand::createCommandActiveExtraById(FactoryEntity::createExtra($get->id));
+					$command = FactoryCommand::createCommandActiveExtraById($get->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
@@ -247,7 +247,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "inactive") {
-					$command = FactoryCommand::createCommandInactiveExtraById(FactoryEntity::createExtra($get->id));
+					$command = FactoryCommand::createCommandInactiveExtraById($get->id,$loggedUser);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());

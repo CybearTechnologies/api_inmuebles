@@ -1,4 +1,4 @@
-DROP TABLE favourite;
+DROP TABLE favorite;
 DROP TABLE subscription_detail;
 DROP TABLE subscription;
 DROP TABLE origin;

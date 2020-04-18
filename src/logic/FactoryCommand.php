@@ -151,11 +151,12 @@ class FactoryCommand {
 	/**
 	 * @param $name
 	 * @param $access
+	 * @param $user
 	 *
 	 * @return CommandCreateRol
 	 */
-	static function createCommandCreateRol ($name, $access):CommandCreateRol {
-		return new CommandCreateRol($name, $access);
+	static function createCommandCreateRol ($name, $access,$user):CommandCreateRol {
+		return new CommandCreateRol($name, $access,$user);
 	}
 
 	/**
@@ -304,8 +305,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreateAccess
 	 */
-	static function createCommandCreateAccess ($name,$abbreviation, $loggedUser):CommandCreateAccess {
-		return new CommandCreateAccess($name,$abbreviation,$loggedUser);
+	static function createCommandCreateAccess ($name, $abbreviation, $loggedUser):CommandCreateAccess {
+		return new CommandCreateAccess($name, $abbreviation, $loggedUser);
 	}
 
 	/**
@@ -349,7 +350,7 @@ class FactoryCommand {
 	 * @return CommandDeleteAccessById
 	 */
 	static function createCommandDeleteAccessById (int $id, int $user):CommandDeleteAccessById {
-		return new CommandDeleteAccessById($id,$user);
+		return new CommandDeleteAccessById($id, $user);
 	}
 	//------------------------------------------------------------
 	//----------------------------SEAT---------------------------
@@ -666,12 +667,14 @@ class FactoryCommand {
 	//----------------------------EXTRA---------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Extra $extra
+	 * @param string $name
+	 * @param string $image
+	 * @param int    $user
 	 *
 	 * @return CommandCreateExtra
 	 */
-	static function createCommandCreateExtra ($extra):CommandCreateExtra {
-		return new CommandCreateExtra($extra);
+	static function createCommandCreateExtra ($name, $image, $user):CommandCreateExtra {
+		return new CommandCreateExtra($name, $image, $user);
 	}
 
 	/**
@@ -700,12 +703,13 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Extra $extra
+	 * @param int $id
+	 * @param int $user
 	 *
 	 * @return CommandDeleteExtraById
 	 */
-	static function createCommandDeleteExtraById ($extra):CommandDeleteExtraById {
-		return new CommandDeleteExtraById($extra);
+	static function createCommandDeleteExtraById (int $id, int $user):CommandDeleteExtraById {
+		return new CommandDeleteExtraById($id, $user);
 	}
 
 	/**
@@ -718,30 +722,35 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $extra
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $icon
+	 * @param int    $user
 	 *
 	 * @return CommandUpdateExtra
 	 */
-	static function createCommandUpdateExtraById ($extra):CommandUpdateExtra {
-		return new CommandUpdateExtra($extra);
+	static function createCommandUpdateExtraById (int $id, string $name, string $icon, int $user):CommandUpdateExtra {
+		return new CommandUpdateExtra($id, $name, $icon, $user);
 	}
 
 	/**
-	 * @param $extra
+	 * @param int $extra
+	 * @param int $user
 	 *
 	 * @return CommandActiveExtra
 	 */
-	static function createCommandActiveExtraById ($extra):CommandActiveExtra {
-		return new CommandActiveExtra($extra);
+	static function createCommandActiveExtraById ($extra, $user):CommandActiveExtra {
+		return new CommandActiveExtra($extra, $user);
 	}
 
 	/**
-	 * @param $extra
+	 * @param int $extra
+	 * @param int $user
 	 *
 	 * @return CommandInactiveExtra
 	 */
-	static function createCommandInactiveExtraById ($extra):CommandInactiveExtra {
-		return new CommandInactiveExtra($extra);
+	static function createCommandInactiveExtraById (int $extra, int $user):CommandInactiveExtra {
+		return new CommandInactiveExtra($extra, $user);
 	}
 	//------------------------------------------------------------
 	//----------------------------PROPERTY-----------------------
@@ -766,25 +775,27 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $property
+	 * @param int $property
+	 * @param int $user
 	 *
 	 * @return CommandActiveProperty
 	 */
-	static function createCommandActiveProperty ($property):CommandActiveProperty {
-		return new CommandActiveProperty($property);
+	static function createCommandActiveProperty ($property, $user):CommandActiveProperty {
+		return new CommandActiveProperty($property, $user);
 	}
 
 	/**
-	 * @param $property
+	 * @param int $property
+	 * @param int $user
 	 *
 	 * @return CommandInactiveProperty
 	 */
-	static function createCommandInactiveProperty ($property):CommandInactiveProperty {
-		return new CommandInactiveProperty($property);
+	static function createCommandInactiveProperty ($property, $user):CommandInactiveProperty {
+		return new CommandInactiveProperty($property,$user);
 	}
 
 	/**
-	 * @param Property $property
+	 * @param int $property
 	 *
 	 * @return CommandGetAllUserProperties
 	 */
@@ -920,12 +931,13 @@ class FactoryCommand {
 	//								FAVORITE
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @param Favorite $favorite
+	 * @param int $property
+	 * @param int $user
 	 *
 	 * @return CommandCreateFavorite
 	 */
-	static function createCommandCreateFavorite ($favorite) {
-		return new CommandCreateFavorite($favorite);
+	static function createCommandCreateFavorite ($property, $user) {
+		return new CommandCreateFavorite($property, $user);
 	}
 
 	/**

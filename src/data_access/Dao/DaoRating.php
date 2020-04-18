@@ -29,7 +29,7 @@ class DaoRating extends Dao {
 			$score = $this->_entity->getScore();
 			$user = $this->_entity->getUserTarget();
 			$message = $this->_entity->getMessage();
-			$userCreator = 1; //TODO setear usuario logeado
+			$userCreator = $this->_entity->getUserCreator();
 			$dateCreated = $this->_entity->getDateCreated();
 			if ($dateCreated == "")
 				$dateCreated = null;
@@ -105,7 +105,7 @@ class DaoRating extends Dao {
 			$id = $this->_entity->getId();
 			$score = $this->_entity->getScore();
 			$message = $this->_entity->getMessage();
-			$user = 1; // TODO: replace for logged user user modifier
+			$user = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;
@@ -191,7 +191,7 @@ class DaoRating extends Dao {
 	public function deleteRatingById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = 1; //TODO change for log user
+			$user = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;

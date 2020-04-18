@@ -1,47 +1,29 @@
 <?php
 class CommandGetAllFavoriteByUserId extends Command {
+	private $_builder;
 	private $_id;
-	private $_mapperFavorite;
+
 	/**
 	 * CommandGetAllFavoriteByUserId constructor.
+	 *
+	 * @param $id
 	 */
 	public function __construct ($id) {
-		$this->_dao = FactoryDao::createDaoFavorite();
-		$this->_mapperFavorite = FactoryMapper::createMapperFavorite();
 		$this->_id = $id;
+		$this->_builder = new ListFavoriteBuilder();
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 * @throws FavoriteNotFoundException
-	 * @throws MultipleUserException
-	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
-		$dtoFavorite = $this->_mapperFavorite->fromEntityArrayToDtoArray($this->_dao->getAllFavoriteByUserId($this->_id));
-		Tools::setUserToDto($dtoFavorite,$dtoFavorite->userCreator,$dtoFavorite->userModifier);
-		$this->setPropertyToDto($dtoFavorite);
-		$this->setData($dtoFavorite);
+		$dtoFavorites = $this->_builder->getMinimumById($this->_id)->clean()->build();
+		$this->setData($dtoFavorites);
 	}
 
 	/**
-	 * @param $dtoFavorite
-	 *
-	 * @throws DatabaseConnectionException
-	 */
-	private function setPropertyToDto($dtoFavorite){
-		$command = FactoryCommand::createCommandGetPropertyById(FactoryEntity::createProperty($dtoFavorite->property));
-		try {
-			$command->execute();
-			$dtoFavorite->property = $command->return();
-		}
-		catch (PropertyNotFoundException $e) { //TODO revisar con calma
-			unset($dtoFavorite->property);
-		}
-	}
-
-	/**
-	 * @return Favorite
+	 * @return DtoFavorite
 	 */
 	public function return () {
 		return $this->getData();

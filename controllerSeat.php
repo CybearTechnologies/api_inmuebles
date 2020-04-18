@@ -26,10 +26,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$return = new ErrorResponse(Values::getText("ERROR_SEAT_NOT_FOUND"));
 						Tools::setResponse(Values::getValue("ERROR_SEAT_NOT_FOUND"));
 					}
-					catch (CustomException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
 				}
 				else {
 					$command = FactoryCommand::createCommandGetAllSeats();
@@ -81,7 +77,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
 				if (Validate::seat($post)) {
-					$command = FactoryCommand::createCommandCreateSeat($mapper->fromDtoToEntity($post));
+					$seat = $mapper->fromDtoToEntity($post);
+					$seat->setUserCreator($loggedUser);
+					$command = FactoryCommand::createCommandCreateSeat($seat);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
@@ -134,6 +132,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
 					$seat = FactoryEntity::createSeat($get->id);
+					$seat->setUserModifier($loggedUser);
 					$command = FactoryCommand::createCommandDeleteSeatById($seat);
 					try {
 						$command->execute();
@@ -188,7 +187,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$put = json_decode(file_get_contents('php://input'));
 				if (Validate::putSeat($put)) {
 					try {
-						$command = FactoryCommand::createCommandUpdateSeatById($mapper->fromDtoToEntity($put));
+						$seat = $mapper->fromDtoToEntity($put);
+						$seat->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandUpdateSeatById($seat);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();

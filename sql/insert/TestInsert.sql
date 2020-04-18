@@ -94,10 +94,10 @@ insert into property_extra(pe_value, pe_property_fk,pe_extra_fk,pe_user_created_
                            pe_user_modified_fk) values
 (3,1,2,1,1);
 
-insert into favourite(fa_property_fk, fa_user_created_fk, fa_user_modified_fk)  VALUES
+insert into favorite(fa_property_fk, fa_user_created_fk, fa_user_modified_fk)  VALUES
 (1,2,2);
 
-insert into favourite(fa_property_fk, fa_user_created_fk, fa_user_modified_fk)  VALUES
+insert into favorite(fa_property_fk, fa_user_created_fk, fa_user_modified_fk)  VALUES
 (1,1,1);
 
 insert into subscription(su_ci,su_first_name,su_last_name,su_address,

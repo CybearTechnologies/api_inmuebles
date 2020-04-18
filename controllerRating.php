@@ -86,7 +86,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
 				if (Validate::Rating($post)) {
-					$command = FactoryCommand::createCommandCreateRatingByUserId($mapper->fromDtoToEntity($post));
+					$post = $mapper->fromDtoToEntity($post);
+					$post->setUserCreator($loggedUser);
+					$command = FactoryCommand::createCommandCreateRatingByUserId($post);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
@@ -135,6 +137,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
 					$rating = FactoryEntity::createRating($get->id);
+					$rating->setUserModifier($loggedUser);
 					$command = FactoryCommand::createCommandDeleteRatingById($rating);
 					try {
 						$command->execute();
@@ -188,7 +191,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$put = json_decode(file_get_contents('php://input'));
 				if (Validate::putRating($put)) {
-					$command = FactoryCommand::createCommandUpdateRatingById($mapper->fromDtoToEntity($put));
+					$rating = $mapper->fromDtoToEntity($put);
+					$rating->setUserModifier($rating);
+					$command = FactoryCommand::createCommandUpdateRatingById($rating);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());

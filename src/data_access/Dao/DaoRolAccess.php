@@ -19,13 +19,13 @@ class DaoRolAccess extends Dao {
 	/**
 	 * @param int $rol
 	 * @param int $access
+	 * @param int $user
 	 *
 	 * @return RolAccess
 	 * @throws DatabaseConnectionException
 	 */
-	public function createRolAccess (int $rol,int $access) {
+	public function createRolAccess (int $rol, int $access, int $user) {
 		try {
-			$user = 1; // TODO: replace for logged user
 			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;

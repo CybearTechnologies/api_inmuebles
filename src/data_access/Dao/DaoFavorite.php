@@ -16,14 +16,15 @@ class DaoFavorite extends Dao {
 	}
 
 	/**
+	 * @param int $property
+	 * @param int $user
+	 *
 	 * @return Favorite
 	 * @throws DatabaseConnectionException
 	 */
-	public function createFavorite () {
+	public function createFavorite ($property, $user) {
 		try {
-			$property = $this->_entity->getProperty();
-			$user = $this->_entity->getUserCreator();
-			$dateCreated = $this->_entity->getDateCreated();
+			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
@@ -100,7 +101,6 @@ class DaoFavorite extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->execute();
-
 			if ($stmt->rowCount() == 0)
 				Throw new FavoriteNotFoundException("There are no Favorite found", 200);
 			else

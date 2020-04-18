@@ -43,6 +43,7 @@ class Values {
 		'ERROR_RATING_NOT_FOUND' => array ('text' => 'Puntuaje no encontrado', 'value' => 404),
 		'ERROR_RATINGS_NOT_FOUND' => array ('text' => 'Puntuajes no encontrados', 'value' => 404),
 		'ERROR_PROPERTY_NOT_FOUND' => array ('text' => 'Propiedad no encontrada', 'value' => 404),
+		'ERROR_PROPERTY_USER_NOT_FOUND' => array ('text' => 'Usuario no posee propiedades', 'value' => 404),
 		'ERROR_PROPERTIES_NOT_FOUND' => array ('text' => 'Propiedades no encontradas', 'value' => 404),
 		'ERROR_PROPERTY_TYPE_NOT_FOUND' => array ('text' => 'El tipo de propiedad no se encontrada registrada', 'value' => 404),
 		'ERROR_PROPERTY_TYPES_NOT_FOUND' => array ('text' => 'No se encontraron tipos de propiedades', 'value' => 404),

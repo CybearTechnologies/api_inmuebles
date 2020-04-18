@@ -24,12 +24,12 @@ BEGIN
            fa_user_modified_fk userModifier,
            fa_date_created dateCreated,
            fa_date_modified dateModified
-    FROM favourite
+    FROM favorite
     WHERE fa_id = last_insert_id();
 END $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS activeFavorite;
+DROP PROCEDURE IF EXISTS deleteFavorite;
 DELIMITER $$
 CREATE PROCEDURE deleteFavorite(id int,user int, dateModified datetime)
 BEGIN
@@ -48,14 +48,14 @@ BEGIN
            fa_user_modified_fk userModifier,
            fa_date_created dateCreated,
            fa_date_modified dateModified
-    FROM favourite
+    FROM favorite
     WHERE fa_id = id;
 END $$
 DELIMITER ;
 
-DROP PROCEDURE IF EXISTS getFavoriteByUserId;
+DROP PROCEDURE IF EXISTS getFavoritesByUserId;
 DELIMITER $$
-CREATE PROCEDURE getFavoriteByUserId(id_user int)
+CREATE PROCEDURE getFavoritesByUserId(id_user int)
 BEGIN
     SELECT fa_id id,
            fa_property_fk property,
@@ -65,7 +65,7 @@ BEGIN
            fa_user_modified_fk userModifier,
            fa_date_created dateCreated,
            fa_date_modified dateModified
-    FROM favourite
+    FROM favorite
     WHERE fa_user_created_fk = id_user
       AND fa_deleted = 0;
 END$$

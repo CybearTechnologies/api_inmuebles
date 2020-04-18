@@ -25,7 +25,7 @@ class DaoPropertyType extends Dao {
 		try {
 			$name = $this->_propertyType->getName();
 			$image = $this->_propertyType->getImage();
-			$user = 1; // TODO: replace for logged user
+			$user = $this->_propertyType->getUserCreator();
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":image", $image, PDO::PARAM_STR);

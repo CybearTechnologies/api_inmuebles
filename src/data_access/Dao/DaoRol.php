@@ -21,13 +21,13 @@ class DaoRol extends Dao {
 
 	/**
 	 * @param string $name
+	 * @param int    $user
 	 *
 	 * @return Rol
 	 * @throws DatabaseConnectionException
 	 */
-	public function createRol (string $name) {
+	public function createRol (string $name, $user) {
 		try {
-			$user = 1; //TODO change for logged user
 			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;
@@ -54,7 +54,7 @@ class DaoRol extends Dao {
 		try {
 			$id = $this->_entity->getId();
 			$name = $this->_entity->getName();
-			$userModifier = 1; /*TODO $this->_entity->getUserModifier();*/
+			$userModifier = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;
@@ -83,7 +83,7 @@ class DaoRol extends Dao {
 	public function activeRol () {
 		try {
 			$id = $this->_entity->getId();
-			$userModifier = 1; /*TODO $this->_entity->getUserModifier();*/
+			$userModifier = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;
@@ -111,7 +111,7 @@ class DaoRol extends Dao {
 	public function inactiveRol () {
 		try {
 			$id = $this->_entity->getId();
-			$userModifier = 1; /*TODO $this->_entity->getUserModifier();*/
+			$userModifier = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;
@@ -161,7 +161,7 @@ class DaoRol extends Dao {
 	public function deleteRolById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = 1; //TODO change for logged user
+			$user = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;

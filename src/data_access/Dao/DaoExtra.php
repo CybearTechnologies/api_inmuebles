@@ -22,18 +22,19 @@ class DaoExtra extends Dao {
 	}
 
 	/**
+	 * @param $name
+	 * @param $icon
+	 * @param $user
+	 *
 	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 */
-	public function createExtra () {
+	public function createExtra ($name, $icon, $user) {
 		try {
-			$name = $this->_entity->getName();
-			$icon = $this->_entity->getIcon();
-			$user = 1; // TODO: replace for logged user
-			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-			$dateCreated = $this->_entity->getDateCreated();
+			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":icon", $icon, PDO::PARAM_STR);
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
@@ -137,15 +138,16 @@ class DaoExtra extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 * @param int $user
+	 *
 	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function deleteExtraById () {
+	public function deleteExtraById (int $id, int $user) {
 		try {
-			$id = $this->_entity->getId();
-			$user = 1; // TODO: replace for logged user
-			$dateModified = $this->_entity->getDateModified();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_EXTRA_BY_ID);
@@ -166,15 +168,16 @@ class DaoExtra extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 * @param int $user
+	 *
 	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function inactiveExtraById () {
+	public function inactiveExtraById ($id, $user) {
 		try {
-			$id = $this->_entity->getId();
-			$user = 1; // TODO: replace for logged user
-			$dateModified = $this->_entity->getDateModified();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE_EXTRA_BY_ID);
@@ -194,20 +197,21 @@ class DaoExtra extends Dao {
 	}
 
 	/**
+	 * @param $id
+	 * @param $user
+	 *
 	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function activeExtraById () {
+	public function activeExtraById ($id, $user) {
 		try {
-			$id = $this->_entity->getId();
-			$userModifier = 1; //TODO change for logged user
-			$dateModified = $this->_entity->getDateModified();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE_EXTRA_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
@@ -222,24 +226,25 @@ class DaoExtra extends Dao {
 	}
 
 	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param string $icon
+	 * @param int    $user
+	 *
 	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
 	 */
-	public function updateExtraById () {
+	public function updateExtraById (int $id, string $name, string $icon, int $user) {
 		try {
-			$id = $this->_entity->getId();
-			$name = $this->_entity->getName();
-			$icon = $this->_entity->getIcon();
-			$userModifier = 1; /*$this->_entity->getUserModifier();*/
-			$dateModified = $this->_entity->getDateModified();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":icon", $icon, PDO::PARAM_STR);
-			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)

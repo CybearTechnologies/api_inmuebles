@@ -28,8 +28,8 @@ class DaoPlan extends Dao {
 		try {
 			$name = $this->_entity->getName();
 			$price = $this->_entity->getPrice();
-			$user = 1; // TODO: replace for logged user
-			$dateCreated = $this->_entity->getDateCreated();
+			$user = $this->_entity->getUserCreator();
+			$dateCreated = "";
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
@@ -124,7 +124,7 @@ class DaoPlan extends Dao {
 			$id = $this->_entity->getId();
 			$name = $this->_entity->getName();
 			$price = $this->_entity->getPrice();
-			$user = 1; // TODO: replace for logged user
+			$user = $this->_entity->getUserModifier();
 			$dateModified = $this->_entity->getDateModified();
 			if ($dateModified == "")
 				$dateModified = null;
@@ -154,8 +154,8 @@ class DaoPlan extends Dao {
 	public function deletePlanById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = 1; // TODO: replace for logged user
-			$dateModified = $this->_entity->getDateModified();
+			$user = $this->_entity->getUserModifier();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
@@ -182,8 +182,8 @@ class DaoPlan extends Dao {
 	public function activePlanById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = 1; // TODO: replace for logged user
-			$dateModified = $this->_entity->getDateModified();
+			$user = $this->_entity->getUserModifier();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_ACTIVE);
@@ -210,8 +210,8 @@ class DaoPlan extends Dao {
 	public function inactivePlanById () {
 		try {
 			$id = $this->_entity->getId();
-			$user = 1; // TODO: replace for logged user
-			$dateModified = $this->_entity->getDateModified();
+			$user = $this->_entity->getUserModifier();
+			$dateModified = "";
 			if ($dateModified == "")
 				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_INACTIVE);

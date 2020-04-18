@@ -6,6 +6,7 @@
  */
 class Validate {
 	private const OPTIONS = array ('cost' => 10);
+
 	/**
 	 * Headers Control
 	 *
@@ -68,8 +69,9 @@ class Validate {
 	/**
 	 * @return bool
 	 */
-	static function headers(){
+	static function headers () {
 		$headers = apache_request_headers();
+
 		return isset($headers[Values::BEARER_HEADER]) && isset($headers[Values::APPLICATION_HEADER]);
 	}
 
@@ -283,8 +285,7 @@ class Validate {
 	 * @return bool
 	 */
 	public static function favorite ($post) {
-		return isset($post->id) && is_numeric($post->id)
-			&& isset($post->property) && is_numeric($post->property);
+		return isset($post->property) && is_numeric($post->property);
 	}
 
 	/**

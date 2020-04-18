@@ -82,7 +82,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
 				if (Validate::plan($post)) {
-					$command = FactoryCommand::createCommandCreatePlan($mapper->fromDtoToEntity($post));
+					$plan = $mapper->fromDtoToEntity($post);
+					$plan->setUserCreator($loggedUser);
+					$command = FactoryCommand::createCommandCreatePlan($plan);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
@@ -135,6 +137,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
 					$plan = FactoryEntity::createPlan($get->id);
+					$plan->setUserModifier($loggedUser);
 					$command = FactoryCommand::createCommandDeletePlanById($plan);
 					try {
 						$command->execute();
@@ -189,7 +192,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$put = json_decode(file_get_contents('php://input'));
 				if (Validate::putPlan($put)) {
 					try {
-						$command = FactoryCommand::createCommandUpdatePlanById($mapper->fromDtoToEntity($put));
+						$plan = $mapper->fromDtoToEntity($put);
+						$plan->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandUpdatePlanById($plan);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
@@ -205,7 +210,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
 					try {
-						$command = FactoryCommand::createCommandActivePlanById(FactoryEntity::createPlan($get->id));
+						$plan = FactoryEntity::createPlan($get->id);
+						$plan->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandActivePlanById($plan);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
@@ -221,7 +228,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
 					try {
-						$command = FactoryCommand::createCommandInactivePlanById(FactoryEntity::createPlan($get->id));
+						$plan = FactoryEntity::createPlan($get->id);
+						$plan->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandInactivePlanById($plan);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();

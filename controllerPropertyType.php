@@ -81,7 +81,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
 							$post->name, 'files/property-type');
 						$dto = FactoryDto::createDtoPropertyType(-1, $post->name, Environment::baseURL() . $tempImage);
-						$command = FactoryCommand::createCommandCreatePropertyType($mapper->fromDTOToEntity($dto));
+						$propertyType = $mapper->fromDTOToEntity($dto);
+						$propertyType->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandCreatePropertyType($propertyType);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();

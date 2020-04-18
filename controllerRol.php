@@ -82,7 +82,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
 				if (Validate::rol($post)) {
-					$command = FactoryCommand::createCommandCreateRol($post->name, $post->access);
+					$command = FactoryCommand::createCommandCreateRol($post->name, $post->access,$loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();
@@ -132,7 +132,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$put = json_decode(file_get_contents('php://input'));
 				if (Validate::putRol($put)) {
 					try {
-						$command = FactoryCommand::createCommandUpdateRol($mapper->fromDtoToEntity($put));
+						$rol = $mapper->fromDtoToEntity($put);
+						$rol->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandUpdateRol($rol);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
@@ -148,7 +150,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
 					try {
-						$command = FactoryCommand::createCommandActivateRol(FactoryEntity::createRol($get->id));
+						$rol = FactoryEntity::createRol($get->id);
+						$rol->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandActivateRol($rol);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
@@ -164,7 +168,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "inactive") {
 					try {
-						$command = FactoryCommand::createCommandInactiveRol(FactoryEntity::createRol($get->id));
+						$rol = FactoryEntity::createRol($get->id);
+						$rol->setUserModifier($loggedUser);
+						$command = FactoryCommand::createCommandInactiveRol($rol);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
@@ -215,7 +221,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
-					$command = FactoryCommand::createCommandDeleteRol(FactoryEntity::createRol($get->id));
+					$rol = FactoryEntity::createRol($get->id);
+					$rol->setUserModifier($loggedUser);
+					$command = FactoryCommand::createCommandDeleteRol($rol);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());

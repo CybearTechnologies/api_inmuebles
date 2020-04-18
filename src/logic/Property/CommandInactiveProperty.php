@@ -1,12 +1,18 @@
 <?php
 class CommandInactiveProperty extends Command {
+	private $_property;
+	private $_user;
+
 	/**
 	 * CommandInactiveProperty constructor.
 	 *
-	 * @param Property $entity
+	 * @param int $property
+	 * @param int $user
 	 */
-	public function __construct (Property $entity) {
-		$this->_dao = FactoryDao::createDaoProperty($entity);
+	public function __construct ($property, $user) {
+		$this->_dao = FactoryDao::createDaoProperty();
+		$this->_property = $property;
+		$this->_user = $user;
 	}
 
 	/**
@@ -14,7 +20,7 @@ class CommandInactiveProperty extends Command {
 	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->inactiveProperty());
+		$this->setData($this->_dao->inactiveProperty($this->_property, $this->_user));
 	}
 
 	/**
