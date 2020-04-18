@@ -17,10 +17,14 @@ class ListPropertyBuilder extends ListBuilder {
 	 *
 	 * @return ListPropertyBuilder
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyNotFoundException
 	 */
 	function getMinimumById (int $id) {
-		$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getPropertiesByUser($id));
+		try {
+			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getPropertiesByUser($id));
+		}
+		catch (PropertyNotFoundException $e) {
+			$this->_data = [];
+		}
 
 		return $this;
 	}
