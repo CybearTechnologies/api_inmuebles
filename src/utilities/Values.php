@@ -51,7 +51,7 @@ class Values {
 		'ERROR_ACCESS_NOT_FOUND' => array ('text' => 'Acceso no encontrado', 'value' => 404),
 		'ERROR_ACCESS_ALREADY_EXIST' => array ('text' => 'Este acceso ya existe', 'value' => 200),
 		'ERROR_USER_NOT_FOUND' => array ('text' => 'Usuario no encontrado', 'value' => 404),
-		'ERROR_USER_WRONG_PASSWORD' => array ('text' => 'Contraseña incorrecta', 'value' => 404),
+		'ERROR_USER_WRONG_PASSWORD' => array ('text' => 'Usuario o contraseña incorrecta', 'value' => 404),
 		'ERROR_USER_BLOCK_DELETED' => array ('text' => 'Usuario bloqueado o eliminado', 'value' => 404),
 		'ERROR_ORIGIN_NOT_FOUND' => array ('text' => 'Origen no encontrado', 'value' => 404),
 		//REQUEST

@@ -36,12 +36,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				catch (UserNotFoundException $exception) {
-					$return = new ErrorResponse(Values::getText('ERROR_USER_NOT_FOUND'));
-					Tools::setResponse($exception->getCode());
+					$return = new ErrorResponse(Values::getText('ERROR_USER_WRONG_PASSWORD'));
+					Tools::setResponse(Values::getValue('ERROR_USER_WRONG_PASSWORD'));
 				}
 				catch (MultipleUserException $exception) {
-					$return = new ErrorResponse('ERROR_USER_NOT_FOUND');
-					Tools::setResponse($exception->getCode());
+					Logger::exception($exception,Logger::ERROR);
+					$return = new ErrorResponse(Values::getValue('ERROR_USER_WRONG_PASSWORD'));
+					Tools::setResponse(Values::getValue('ERROR_USER_WRONG_PASSWORD'));
 				}
 			}
 			catch (DatabaseConnectionException $exception) {
