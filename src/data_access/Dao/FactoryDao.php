@@ -5,10 +5,170 @@
  * Time: 12:29 PM
  */
 class FactoryDao {
-    /**
-     * @return DaoPropertyType
-     */
-    public static function createDaoPropertyType() {
-        return new DaoPropertyType();
-    }
+	/**
+	 * @param PropertyType $propertyType
+	 *
+	 * @return DaoPropertyType
+	 */
+	static function createDaoPropertyType ($propertyType = null):DaoPropertyType {
+		return new DaoPropertyType($propertyType);
+	}
+
+	/**
+	 * @param null $propertyExtra
+	 *
+	 * @return DaoPropertyExtra
+	 */
+	static function createDaoPropertyExtra ($propertyExtra = null):DaoPropertyExtra {
+		return new DaoPropertyExtra($propertyExtra);
+	}
+
+	/**
+	 * @param Plan|null $plan
+	 *
+	 * @return DaoPlan
+	 */
+	static function createDaoPlan ($plan = null):DaoPlan {
+		return new DaoPlan($plan);
+	}
+
+	/**
+	 * @param Agency|null $agency
+	 *
+	 * @return DaoAgency
+	 */
+	static function createDaoAgency ($agency = null):DaoAgency {
+		return new DaoAgency($agency);
+	}
+
+	/**
+	 * @param Extra $entity
+	 *
+	 * @return DaoExtra
+	 */
+	static function createDaoExtra ($entity = null):DaoExtra {
+		return new DaoExtra($entity);
+	}
+
+	/**
+	 * @param Location|null $location
+	 *
+	 * @return DaoLocation
+	 */
+	static function createDaoLocation ($location = null):DaoLocation {
+		return new DaoLocation($location);
+	}
+
+	/**
+	 * @param Seat|Agency $entity
+	 *
+	 * @return DaoSeat
+	 */
+	static function createDaoSeat ($entity = null):DaoSeat {
+		return new DaoSeat($entity);
+	}
+
+	/**
+	 * @param Request|Property|User $entity
+	 *
+	 * @return DaoRequest
+	 */
+	static function createDaoRequest ($entity = null):DaoRequest {
+		return new DaoRequest($entity);
+	}
+
+	/**
+	 * @param PropertyPrice $entity
+	 *
+	 * @return DaoPropertyPrice
+	 */
+	static function createDaoPropertyPrice ($entity = null):DaoPropertyPrice {
+		return new DaoPropertyPrice($entity);
+	}
+
+	/**
+	 * @param Property|null $property
+	 *
+	 * @return DaoProperty
+	 */
+	static function createDaoProperty ($property = null):DaoProperty {
+		return new DaoProperty($property);
+	}
+
+	/**
+	 * @param Rating|User $entity
+	 *
+	 * @return DaoRating
+	 */
+	static function createDaoRating ($entity):DaoRating {
+		return new DaoRating($entity);
+	}
+
+	/**
+	 * @param Access|null $entity
+	 *
+	 * @return DaoAccess
+	 */
+	static function createDaoAccess ($entity = null):DaoAccess {
+		return new DaoAccess($entity);
+	}
+
+	/**
+	 * @param Rol $entity
+	 *
+	 * @return DaoRol
+	 */
+	static function createDaoRol ($entity = null):DaoRol {
+		return new DaoRol($entity);
+	}
+
+	/**
+	 * @param Origin $origin
+	 *
+	 * @return DaoOrigin
+	 */
+	static function createDaoOrigin (Origin $origin = null):DaoOrigin {
+		return new DaoOrigin($origin);
+	}
+
+	/**
+	 * @param User $user
+	 *
+	 * @return DaoUser|null
+	 */
+	static function createDaoUser ($user = null):DaoUser {
+		return new DaoUser($user);
+	}
+
+	/**
+	 * @param RolAccess $entity
+	 *
+	 * @return DaoRolAccess
+	 */
+	static function createDaoRolAccess ($entity = null):DaoRolAccess {
+		return new DaoRolAccess($entity);
+	}
+
+	/**
+	 * @param Favorite $entity
+	 *
+	 * @return DaoFavorite
+	 */
+	static function createDaoFavorite ($entity = null):DaoFavorite {
+		return new DaoFavorite($entity);
+	}
+
+	/**
+	 * @return DaoSubscription
+	 */
+	static function createDaoSubscription ():DaoSubscription {
+		return new DaoSubscription();
+	}
+
+	/**
+	 * @return DaoSubscriptionDetail
+	 */
+	static function createDaoSubscriptionDetail ():DaoSubscriptionDetail {
+		return new DaoSubscriptionDetail();
+	}
 }

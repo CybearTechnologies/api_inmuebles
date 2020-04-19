@@ -9,21 +9,13 @@ class Tools {
 	 * Headers Control
 	 */
 	public static function headers () {
-		header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 		header('Content-Type: application/json');
-		switch ($_SERVER['REQUEST_METHOD']) {
-			case 'GET':
-				header("Access-Control-Allow-Headers: access");
-				header("Access-Control-Allow-Origin: *");
-				header("Access-Control-Allow-Credentials: true");
-				break;
-			case 'POST' | 'PUT' | 'DELETE':
-				header("Access-Control-Allow-Origin: *");
-				header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-				header("Access-Control-Max-Age: 3600");
-				header("Content-Type: application/json; charset=UTF-8");
-				break;
-		}
+		header('access-Control-Allow-Origin: *');
+		header("access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, access-Control-Request-Method, Application, Bearer");
+		header("access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+		header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+		if ($_SERVER['REQUEST_METHOD'] == "OPTIONS")
+			die;
 	}
 
 	/**
@@ -51,5 +43,149 @@ class Tools {
 			$ip = $_SERVER['REMOTE_ADDR'];
 
 		return $ip;
+	}
+
+	/**
+	 * @param $token
+	 * @param $header
+	 *
+	 * @return int
+	 * @throws DatabaseConnectionException
+	 * @throws InvalidJWTException
+	 * @throws OriginNotFoundException
+	 */
+	static function getUserLogged ($token, $header) {
+
+		$command = FactoryCommand::createCommandGetOriginByPublicKey($header);
+		$command->execute();
+		$origin = $command->return();
+		$jwt = Auth::getData($token,$origin->getPrivateKey());
+
+		return $jwt->data;
+	}
+
+	/**
+	 * @return object
+	 */
+	static function getObject () {
+		return (object) $_GET;
+	}
+
+	/**
+	 * @return object
+	 */
+	static function postObject () {
+		return (object) $_POST;
+	}
+
+	/**
+	 * @param $date
+	 *
+	 * @return string
+	 */
+	static function formatDate ($date) {
+		try {
+			$date = new DateTime($date);
+
+			return $date->format('d-m-Y h:iA');
+		}
+		catch (Exception $exception) {
+			Logger::exception($exception, Logger::WARNING);
+
+			return $date = "";
+		}
+	}
+
+	/**
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	static function encryptSha256 (string $string) {
+		return hash('sha256', $string);
+	}
+
+	/**
+	 * @param string $string
+	 *
+	 * @return string
+	 */
+	static function siteEncrypt ($string) {
+		$key = Environment::siteKey();
+		for ($i = 0; $i < strlen($key); $i++)
+			$string = str_replace($key[$i], $i, $string);
+
+		return $string;
+	}
+
+	/**
+	 * @param int $responseCode
+	 */
+	public static function setResponse ($responseCode = 200) {
+		http_response_code($responseCode);
+	}
+
+	/**
+	 * @param Dto $dto
+	 * @param int $creator
+	 * @param int $modifier
+	 *
+	 * @throws DatabaseConnectionException
+	 * @throws MultipleUserException
+	 * @throws UserNotFoundException
+	 */
+	static function setUserToDto (Dto $dto, int $creator, int $modifier):void {
+		$dao = FactoryDao::createDaoUser();
+		$mapperUser = FactoryMapper::createMapperUser();
+		$dto->userCreator = $mapperUser->fromEntityToDto($dao->getUserById($creator));
+		$dto->userModifier = $mapperUser->fromEntityToDto($dao->getUserById($modifier));
+		unset($dto->userCreator->userCreator);
+		unset($dto->userCreator->userModifier);
+		unset($dto->userModifier->userCreator);
+		unset($dto->userModifier->userModifier);
+	}
+
+	/**
+	 * @param string $file
+	 * @param string $tmp
+	 * @param string $fileName
+	 * @param string $destination
+	 *
+	 * @return string
+	 * @throws FileNotFoundException
+	 * @throws SaveFileException
+	 */
+	static function saveFile ($file, $tmp, $fileName, $destination = '/') {
+		if (!file_exists($tmp))
+			Throw new FileNotFoundException('File ' . $file . ' can\'t not be found, try another file.', 403);
+		$name = self::cleanString(trim($fileName)) . "-" . date("YmdHis") . '.' . pathinfo($file, PATHINFO_EXTENSION);
+		if (!file_exists(__DIR__ . '/../../' . $destination))
+			mkdir(__DIR__ . '/../../' . $destination . '/', 0777, true);
+		if (!move_uploaded_file($tmp, __DIR__ . '/../../' . $destination . '/' . $name))
+			Throw new SaveFileException('An error occurred trying to save ' . $file, 403);
+
+		return $destination . '/' . $name;
+	}
+
+	private static function cleanString ($name) {
+		$string = str_replace(array ('&aacute;', 'á', 'à', 'ä', 'â', 'ª', 'Á', 'À', 'Â', 'Ä'),
+			array ('a', 'a', 'a', 'a', 'a', 'a', 'A', 'A', 'A', 'A'), $name);
+		$string = str_replace(array ('&eacute;', 'é', 'è', 'ë', 'ê', 'É', 'È', 'Ê', 'Ë'),
+			array ('e', 'e', 'e', 'e', 'e', 'E', 'E', 'E', 'E'), $string);
+		$string = str_replace(array ('&iacute;', 'í', 'ì', 'ï', 'î', 'Í', 'Ì', 'Ï', 'Î'),
+			array ('i', 'i', 'i', 'i', 'i', 'I', 'I', 'I', 'I'), $string);
+		$string = str_replace(array ('&oacute;', 'ó', 'ò', 'ö', 'ô', 'Ó', 'Ò', 'Ö', 'Ô'),
+			array ('o', 'o', 'o', 'o', 'o', 'O', 'O', 'O', 'O'), $string);
+		$string = str_replace(array ('&uacute;', 'ú', 'ù', 'ü', 'û', 'Ú', 'Ù', 'Û', 'Ü'),
+			array ('u', 'u', 'u', 'u', 'u', 'U', 'U', 'U', 'U'), $string);
+		$string = str_replace(array ('ç', 'Ç'), array ('c', 'C'), $string);
+		$cleanName = str_replace(array ("/", "\\", "-", "+", "'", '"', '(', ')', '{', '}', '[', ']',
+			'.', ',', '?', ';', ':', '#', '@', '~', '`', '|', '&', '%', '^', '*', '_', '='), "", strtolower($string));
+
+		return str_replace(" ", "-", strtolower($cleanName));
+	}
+
+	public static function removeFile ($fileName) {
+		unlink($fileName);
 	}
 }

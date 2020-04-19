@@ -4,7 +4,7 @@
     #RewriteCond %{HTTPS} off
     #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
     #	Uncomment on production
-    #RewriteBase /
+	#RewriteBase /
     RewriteBase /inmobi-houston/
 
     RewriteCond %{REQUEST_FILENAME} !-d
@@ -13,13 +13,79 @@
 #---------------------------------------------------------------------------------
 #   CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
-# INMUEBLE
-RewriteRule ^property-type$ controllerPropertyType.php [NC,L]
-RewriteRule ^property-type/id/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
+#	USER
+RewriteRule ^user/([0-9]+)/request$ controllerPropertyRequest.php?user=$1 [NC,L]
+RewriteRule ^user/([0-9]+)$ controllerUser.php?id=$1 [NC,L]
+RewriteRule ^user/plan$ controllerUser.php [NC,L]
+RewriteRule ^user/password$ controllerUser.php [NC,L]
+RewriteRule ^user controllerUser.php [NC,L]
+#	ACCESS
+RewriteRule ^access$ controllerAccess.php [NC,L]
+RewriteRule ^access/([0-9]+)$ controllerAccess.php?id=$1 [NC,L]
+#	LOGIN
+RewriteRule ^login$ controllerLogin.php [NC,L]
+#	INMUEBLE
+RewriteRule ^property/user/([0-9]+)$ controllerProperty.php?id=$1&action=user [NC,L]
+RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
+RewriteRule ^property/(active|inactive)/([0-9]+)$ controllerProperty.php?action=$1&id=$2 [NC,L]
+RewriteRule ^property$ controllerProperty.php [NC,L]
+# REQUEST
+RewriteRule ^property-request$ controllerPropertyRequest.php [NC,L]
+RewriteRule ^property/([0-9]+)/request$ controllerPropertyRequest.php?property=$1 [NC,L]
+
+
+#   TIPO DE INMUBELE
+RewriteRule ^property-type/?$ controllerPropertyType.php [NC,L]
+RewriteRule ^property-type/([0-9]+)$ controllerPropertyType.php?id=$1 [NC,L]
+#	PLAN
+RewriteRule ^plan$ controllerPlan.php [NC,L]
+RewriteRule ^plan/([0-9]+)$ controllerPlan.php?id=$1 [NC,L]
+RewriteRule ^plan/(active|inactive)/([0-9]+)$ controllerPlan.php?action=$1&id=$2 [NC,L]
+#	AGENCIES
+RewriteRule ^agency$ controllerAgencies.php [NC,L]
+RewriteRule ^agency/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
+RewriteRule ^agency/seats/([0-9]+)$ controllerAgencies.php?seats=true&id=$1 [NC,L]
+RewriteRule ^agency/(active|inactive)/([0-9]+)$ controllerAgencies.php?action=$1&id=$2 [NC,L]
+#	EXTRA
+RewriteRule ^extra/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
+RewriteRule ^extra/(active|inactive)/([0-9]+)$ controllerExtra.php?action=$1&id=$2 [NC,L]
+RewriteRule ^extra/(active|inactive)$ controllerExtra.php?state=$1 [NC,L]
+RewriteRule ^extra$ controllerExtra.php [NC,L]
+#   LOCATION
+RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]
+RewriteRule ^location/type/(Estado|Municipio|Pais)$ controllerLocation.php?type=$1 [NC,L]
+RewriteRule ^location/state/([0-9]+)$ controllerLocation.php?state=$1 [NC,L]
+#	SEAT
+RewriteRule ^seat$ controllerSeat.php [NC,L]
+RewriteRule ^seat/([0-9]+)$ controllerSeat.php?id=$1 [NC,L]
+RewriteRule ^seat/(active|inactive)/([0-9]+)$ controllerSeat.php?action=$1&id=$2 [NC,L]
+#   RATING
+RewriteRule ^rating/$ controllerRating.php [NC,L]
+RewriteRule ^rating/([0-9]+)$ controllerRating.php?id=$1 [NC,L]
+RewriteRule ^rating/user/([0-9]+)$ controllerRating.php?id_user=$1 [NC,L]
+#   ROL ACCESS
+RewriteRule ^rolaccess$ controllerRolAccess.php [NC,L]
+RewriteRule ^rolaccess/([0-9]+)$ controllerRolAccess.php?id=$1 [NC,L]
+RewriteRule ^rolaccess/(active|inactive)/([0-9]+)-([0-9]+)$ controllerRolAccess.php?action=$1&rol=$2&access=$3 [NC,L]
+#ROL
+RewriteRule ^rol$ controllerRol.php [NC,L]
+RewriteRule ^rol/([0-9]+)$ controllerRol.php?id=$1 [NC,L]
+RewriteRule ^rol/(active|inactive)/([0-9]+)$ controllerRol.php?action=$1&id=$2 [NC,L]
+#FAVORITE
+RewriteRule ^favorite/([0-9]+)$ controllerFavorite.php?id=$1 [NC,L]
+RewriteRule ^favorite$ controllerFavorite.php [NC,L]
+#SUBSCRIPTION
+RewriteRule ^subscription/([0-9]+)$ controllerSubscription.php?id=$1 [NC,L]
+RewriteRule ^subscription/(accept|decline)/([0-9]+)$ controllerSubscription.php?action=$1&id=$2 [NC,L]
+RewriteRule ^subscription$ controllerSubscription.php [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
 <Files .htaccess>
+    order allow,deny
+    deny from all
+</Files>
+<Files systemLog.log>
     order allow,deny
     deny from all
 </Files>

@@ -5,16 +5,17 @@
  * Time: 12:29 PM
  */
 /**
- * @param string        $class
- * @param string|null   $dir
+ * @param string      $class
+ * @param string|null $dir
  */
 function autoload ($class, $dir = null) {
+	$excludedDirectories = ['houston', 'vendor', 'Test', 'sql'];
 	if (is_null($dir))
 		$dir = __DIR__ . '/';
 	foreach (scandir($dir) as $file) {
 		$path = $dir . $file;
 		// Is a directory and doesn't start with '.' (Ex: .idea)
-		if (is_dir($path) && substr($file, 0, 1) !== '.' && $file != "Houston")
+		if (is_dir($path) && substr($file, 0, 1) !== '.' && !in_array($file, $excludedDirectories))
 			autoload($class, $path . '/');
 		// Is a valid php file
 		if (substr($file, 0, 2) !== '._' && preg_match("/.php$/i", $file)) {

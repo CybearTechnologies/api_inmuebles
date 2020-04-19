@@ -3,18 +3,21 @@ class MapperPropertyType extends Mapper {
 	/**
 	 * @param DtoPropertyType $dto
 	 *
-	 * @return Entity
+	 * @return PropertyType
 	 */
 	public function fromDTOToEntity ($dto):Entity {
-		return FactoryEntity::createPropertyType($dto->id, $dto->name);
+		return FactoryEntity::createPropertyType($dto->id, $dto->name, $dto->image);
 	}
 
 	/**
 	 * @param PropertyType $entity
 	 *
-	 * @return Dto
+	 * @return DtoPropertyType
 	 */
 	public function fromEntityToDTO ($entity):Dto {
-		return FactoryDto::createDtoPropertyType($entity->getId(), $entity->getName());
+		return FactoryDto::createDtoPropertyType($entity->getId(), $entity->getName(), $entity->getImage(),
+			$entity->getUserCreator(), $entity->getUserModifier(), $entity->getDateCreated(),
+			$entity->getDateModified(),
+			$entity->isActive(), $entity->isDelete());
 	}
 }

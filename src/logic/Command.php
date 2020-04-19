@@ -6,6 +6,7 @@
  */
 abstract class Command {
 	private $_data = null;
+	protected $_dao = null;
 
 	public abstract function execute ():void;
 
@@ -23,5 +24,19 @@ abstract class Command {
 	 */
 	protected function setData ($data):void {
 		$this->_data = $data;
+	}
+
+	/**
+	 * @return Dao
+	 */
+	public function getDao () {
+		return $this->_dao;
+	}
+
+	/**
+	 * @param Dao $dao
+	 */
+	public function setDao ($dao):void {
+		$this->_dao = $dao;
 	}
 }

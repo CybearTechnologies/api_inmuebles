@@ -4,24 +4,27 @@
  * Date: 19-Nov-19
  * Time: 12:29 PM
  */
-require_once __DIR__ . "/../autoload.php";
+require_once __DIR__ . "/../vendor/autoload.php";
 class Environment {
 	//	Site settings
 	private const BASE_URL = "http://localhost/";
-	private const SITE_KEY = "";
+	private const SITE_KEY = "coronavirus";
 	//	Database connections settings
 	private const HOST = "localhost";
-	private const DATABASE = "new";
-	private const USERNAME = "admin";
-	private const PASSWORD = "chuo1997";
-
+	private const DATABASE = "inmobiliaria";
+	private const USERNAME = "root";
+	private const PASSWORD = "";
+	/*private const HOST = "160.153.54.65";
+	private const DATABASE = "buscamatch";
+	private const USERNAME = "buscaRoot";
+	private const PASSWORD = "dIo{xi5miupN";*/
 	/**
 	 * @return PDO
 	 */
 	public static function database ():PDO {
 		try {
 			$PDO = new PDO("mysql:host=" . self::HOST . ";dbname=" . self::DATABASE, self::USERNAME,
-					self::PASSWORD);
+				self::PASSWORD);
 			$PDO->exec("set names utf8");
 			$PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -29,17 +32,19 @@ class Environment {
 		}
 		catch (Exception $exception) {
 			Logger::exception($exception, Logger::ERROR);
+			echo $exception->getMessage();
 		}
 
 		return null;
 	}
+
 	/**
 	 * @return string
 	 */
 	public static function baseURL ():string {
 		return self::BASE_URL;
 	}
-				
+
 	/**
 	 * @return string
 	 */

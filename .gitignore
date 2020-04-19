@@ -1,7 +1,11 @@
 #   GitIgnore for basic api usage
 .DS_Store
 .idea
+vendor
+core
 houston
 *.log
-sql
+*.lock
+.phpunit.result.cache
 *.sqlite
+files

@@ -6,4 +6,31 @@
  */
 abstract class Dto {
 	public $id;
+	public $userCreator;
+	public $userModifier;
+	public $dateCreated;
+	public $dateModified;
+	public $active;
+	public $delete;
+
+	/**
+	 * Dto constructor.
+	 *
+	 * @param $id
+	 * @param $userCreator
+	 * @param $userModifier
+	 * @param $dateCreated
+	 * @param $dateModified
+	 * @param $active
+	 * @param $delete
+	 */
+	public function __construct ($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete) {
+		$this->id = $id;
+		$this->userCreator = $userCreator;
+		$this->userModifier = $userModifier;
+		$this->dateCreated = $dateCreated;
+		$this->dateModified = $dateModified;
+		$this->active = $active;
+		$this->delete = $delete;
+	}
 }

@@ -7,7 +7,67 @@
 class Values {
 	private const VALUES = array (
 		'ACTIVE' => array ('text' => 'Active', 'value' => 1),
-		'INACTIVE' => array ('text' => 'Inactive', 'value' => 0)
+		'INACTIVE' => array ('text' => 'Inactive', 'value' => 0),
+		//IMAGE
+		'ERROR_FILE_IS_NOT_IMAGE' => array ('text' => 'El archivo no es una imagen', 'value' => 400),
+		'ERROR_IMAGE_NOT_FOUND' => array ('text' => 'Imagen no encontrada', 'value' => 404),
+		//GENERAL ERRORS
+		'ERROR_DATA_INCOMPLETE' => array ('text' => 'Datos incompletos', 'value' => 400),
+		'ERROR_DATABASE' => array ('text' => 'Error de comunicación', 'value' => 403),
+		//ROL
+		'ERROR_ROL_NOT_FOUND' => array ('text' => 'Rol no existente', 'value' => 404),
+		//ROL ACCESS
+		'ERROR_ROL_ACCESS_NOT_FOUND' => array ('text' => 'Este rol no tiene este acceso ', 'value' => 404),
+		//	AGENCY ERRORS
+		'ERROR_AGENCY_NOT_FOUND' => array ('text' => 'Agencia no encontrada', 'value' => 404),
+		'ERROR_AGENCIES_NOT_FOUND' => array ('text' => 'No se han encontrado agencias registradas', 'value' => 404),
+		'ERROR_AGENCY_ALREADY_EXIST' => array ('text' => 'Esta agencia ya se encuentra registrada', 'value' => 403),
+		//	SEAT ERRORS
+		'ERROR_SEAT_NOT_FOUND' => array ('text' => 'Sede no encontrada', 'value' => 404),
+		'ERROR_SEATS_NOT_FOUND' => array ('text' => 'Sedes no encontradas', 'value' => 404),
+		'ERROR_SEAT_ALREADY_EXIST' => array ('text' => 'Esta sede ya se encuentra registrada', 'value' => 403),
+		//	EXTRA ERRORS
+		'ERROR_EXTRA_NOT_FOUND' => array ('text' => 'Extra no encontrado', 'value' => 404),
+		'ERROR_EXTRAS_NOT_FOUND' => array ('text' => 'Extras no encontrados', 'value' => 404),
+		'ERROR_EXTRA_ALREADY_EXIST' => array ('text' => 'Este extra ya se encuentra registrado', 'value' => 403),
+		//	PLAN ERRORS
+		'ERROR_PLAN_NOT_FOUND' => array ('text' => 'Plan no encontrado', 'value' => 404),
+		'ERROR_PLANS_NOT_FOUND' => array ('text' => 'Planes no encontrados', 'value' => 404),
+		'ERROR_PLAN_ALREADY_EXIST' => array ('text' => 'Este plan ya se encuentra registrado', 'value' => 403),
+		'ERROR_LOCATION_NOT_FOUND' => array ('text' => 'Ubicacion no encontrada', 'value' => 404),
+		'ERROR_LOGIN_ORIGIN_NOT_FOUND' => array ('text' => 'Error al iniciar sesión', 'value' => 500),
+		'ERROR_LOGIN_USER_BLOCK_DELETED' => array ('text' => 'Su usuario se encuentra bloqueado', 'value' => 500),
+		'ERROR_LOGIN_USER_NOT_FOUND' => array ('text' => 'Usuario o contraseña incorrecto', 'value' => 500),
+		'ERROR_LOGIN_USER_WRONG_PASSWORD' => array ('text' => 'Usuario o contraseña incorrecto', 'value' => 500),
+		'ERROR_LOGIN_USER_NOT_LOGGED' => array ('text' => 'Usuario no ha iniciado sesion', 'value' => 401),
+		'ERROR_RATING_NOT_FOUND' => array ('text' => 'Puntuaje no encontrado', 'value' => 404),
+		'ERROR_RATINGS_NOT_FOUND' => array ('text' => 'Puntuajes no encontrados', 'value' => 404),
+		'ERROR_PROPERTY_NOT_FOUND' => array ('text' => 'Propiedad no encontrada', 'value' => 404),
+		'ERROR_PROPERTY_USER_NOT_FOUND' => array ('text' => 'Usuario no posee propiedades', 'value' => 404),
+		'ERROR_PROPERTIES_NOT_FOUND' => array ('text' => 'Propiedades no encontradas', 'value' => 404),
+		'ERROR_PROPERTY_TYPE_NOT_FOUND' => array ('text' => 'El tipo de propiedad no se encontrada registrada', 'value' => 404),
+		'ERROR_PROPERTY_TYPES_NOT_FOUND' => array ('text' => 'No se encontraron tipos de propiedades', 'value' => 404),
+		'ERROR_PROPERTY_TYPE_ALREADY_EXIST' => array ('text' => 'Tipo de propiedad ya existe', 'value' => 403),
+		'ERROR_ACCESS_NOT_FOUND' => array ('text' => 'Acceso no encontrado', 'value' => 404),
+		'ERROR_ACCESS_ALREADY_EXIST' => array ('text' => 'Este acceso ya existe', 'value' => 200),
+		'ERROR_USER_NOT_FOUND' => array ('text' => 'Usuario no encontrado', 'value' => 404),
+		'ERROR_USER_WRONG_PASSWORD' => array ('text' => 'Usuario o contraseña incorrecta', 'value' => 404),
+		'ERROR_USER_BLOCK_DELETED' => array ('text' => 'Usuario bloqueado o eliminado', 'value' => 404),
+		'ERROR_ORIGIN_NOT_FOUND' => array ('text' => 'Origen no encontrado', 'value' => 404),
+		//REQUEST
+		'ERROR_REQUEST_NOT_FOUND' => array ('text' => 'Petición no encontrada', 'value' => 404),
+		'ERROR_PROPERTY_WITHOUT_REQUEST' => array ('text' => 'Esta propiedad aun no tiene peticiones', 'value' => 404),
+		'ERROR_USER_WITHOUT_REQUEST' => array ('text' => 'Usuario aún no ha realizado peticiones', 'value' => 404),
+		//FAVORITE
+		'ERROR_FAVORITE_NOT_FOUND' => array ('text' => 'Este favorito no ha sido encontrado', 'value' => 404),
+		//
+		'ERROR_SUBSCRIPTION_NOT_FOUND' => array ('text' => 'No se ha encontrado esta subscription', 'value' => 404),
+		//MAILER
+		'ERROR_MAILER' => array ('text' => 'Error al enviar email', 'value' => 500),
+
+		//HEADERS
+		'ERROR_HEADER' => array ('text' => 'Campos de autenticacion imcompletos.', 'value' => 401)
+
 	);
 
 	/**
@@ -31,4 +91,16 @@ class Values {
 	public static function getValue ($key) {
 		return isset(self::VALUES[$key]) ? self::VALUES[$key]['value'] : null;
 	}
+
+	const APPLICATION_HEADER = "application";
+	const BEARER_HEADER = "bearer";
+	const DEFAULT_STRING = "";
+	const DEFAULT_INT = 0;
+	const DEFAULT_FLOAT = 0.0;
+	const DEFAULT_FOREIGN = -1;
+	const DEFAULT_DATE = "";
+	const DEFAULT_ACTIVE = true;
+	const DEFAULT_DELETE = false;
+	const DEFAULT_STATUS = false;
+	const DEFAULT_ARRAY = [];
 }
