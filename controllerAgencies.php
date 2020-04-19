@@ -9,7 +9,7 @@ $mapper = FactoryMapper::createMapperAgency();
 $mapperSeat = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
-		if (Validate::headers()) {
+		if (Validate::application()) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
@@ -27,11 +27,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					catch (AgencyNotFoundException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
 						Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
-					}
-					catch (CustomException $exception) {
-						$return = $exception->getMessage();
-						//$return = new ErrorResponse(Values::getText("ERROR_DATABASE")); // TODO colocar mensaje error inesperado.
-						Tools::setResponse(Values::getValue("ERROR_DATABASE")); //TODO ERROR POR MULTIPLEUSERS
 					}
 				}
 				else {
