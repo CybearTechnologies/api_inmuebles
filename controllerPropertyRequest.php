@@ -51,6 +51,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
 				}
+				if (isset($get->pending) && ($get->pending == true)) {
+					$command = FactoryCommand::createCommandGetAllPendingRequest($loggedUser);
+					$command->execute();
+					$return = $command->return();
+					Tools::setResponse();
+				}
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));

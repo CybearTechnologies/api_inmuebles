@@ -15,6 +15,7 @@
 #---------------------------------------------------------------------------------
 #	USER
 RewriteRule ^user/([0-9]+)/request$ controllerPropertyRequest.php?user=$1 [NC,L]
+RewriteRule ^user/pending/request$ controllerPropertyRequest.php?pending=true [NC,L]
 RewriteRule ^user/([0-9]+)$ controllerUser.php?id=$1 [NC,L]
 RewriteRule ^user/plan$ controllerUser.php [NC,L]
 RewriteRule ^user/password$ controllerUser.php [NC,L]

@@ -70,6 +70,24 @@ BEGIN
     WHERE re_deleted = 0;
 END$$
 
+DROP PROCEDURE IF EXISTS getPendingRequest;
+DELIMITER $$
+CREATE PROCEDURE getPendingRequest(id_user int)
+BEGIN
+    SELECT re_id id,
+           re_property_fk property,
+           re_active active,
+           re_deleted 'delete',
+           re_user_created_fk userCreator,
+           re_user_modified_fk userModifier,
+           re_date_created dateCreated,
+           re_date_modified dateModified
+    FROM property,
+         request
+    WHERE re_property_fk = pr_id
+      AND pr_user_created_fk = id_user;
+END$$
+
 DROP PROCEDURE IF EXISTS getRequestById;
 DELIMITER $$
 CREATE PROCEDURE getRequestById(id_req int)

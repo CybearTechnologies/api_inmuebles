@@ -155,8 +155,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreateRol
 	 */
-	static function createCommandCreateRol ($name, $access,$user):CommandCreateRol {
-		return new CommandCreateRol($name, $access,$user);
+	static function createCommandCreateRol ($name, $access, $user):CommandCreateRol {
+		return new CommandCreateRol($name, $access, $user);
 	}
 
 	/**
@@ -228,6 +228,15 @@ class FactoryCommand {
 	 */
 	static function createCommandGetAllRequest ():CommandGetAllRequest {
 		return new CommandGetAllRequest();
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandGetAllPendingRequest
+	 */
+	static function createCommandGetAllPendingRequest ($user):CommandGetAllPendingRequest {
+		return new CommandGetAllPendingRequest($user);
 	}
 
 	/**
@@ -791,7 +800,7 @@ class FactoryCommand {
 	 * @return CommandInactiveProperty
 	 */
 	static function createCommandInactiveProperty ($property, $user):CommandInactiveProperty {
-		return new CommandInactiveProperty($property,$user);
+		return new CommandInactiveProperty($property, $user);
 	}
 
 	/**
