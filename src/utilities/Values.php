@@ -66,8 +66,8 @@ class Values {
 		'ERROR_MAILER' => array ('text' => 'Error al enviar email', 'value' => 500),
 
 		//HEADERS
-		'ERROR_HEADER' => array ('text' => 'Campos de autenticacion imcompletos.', 'value' => 401)
-
+		'ERROR_HEADER' => array ('text' => 'Campos de autenticacion imcompletos.', 'value' => 401),
+		//'ERROR_HEADER' => array ('text' => 'Campos de autenticacion imcompletos.', 'value' => 401)
 	);
 
 	/**
