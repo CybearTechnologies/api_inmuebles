@@ -31,6 +31,7 @@ class ListSubscriptionBuilder extends ListBuilder {
 		foreach ($this->_data as $datum) {
 			unset($datum->detail);
 		}
+
 		return $this;
 	}
 
@@ -81,6 +82,43 @@ class ListSubscriptionBuilder extends ListBuilder {
 			}
 			catch (PlanNotFoundException $e) {
 				unset($datum->plan);
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	public function andDetails () {
+		$detailBuilder = new ListSubscriptionDetailBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$datum->detail = $detailBuilder->getMinimumById($datum->id)->clean()->build();
+			}
+			catch (SubscriptionDetailNotFoundException $e) {
+				$datum->detail = [];
+			}
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	public function andIdentity () {
+		$subscriptionBuilder = new SubscriptionBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$subscription = $subscriptionBuilder->getMinimumByEmail($datum->email)->clean()->build();
+				$datum->identity = $subscription->ci;
+				$datum->passport = $subscription->passport;
+			}
+			catch (SubscriptionNotFoundException $e) {
+				$datum->identity = "";
+				$datum->passport = "";
 			}
 		}
 

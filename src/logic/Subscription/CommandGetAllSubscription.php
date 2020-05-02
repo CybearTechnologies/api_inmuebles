@@ -18,6 +18,9 @@ class CommandGetAllSubscription extends Command {
 		$dtoSubscriptions = $this->_builder->getAll()
 													->withSeat()
 													->andPlan()
+													->andDetails()
+													->andLocation()
+													->andIdentity()
 													->clean()
 													->build();
 		$this->setData($dtoSubscriptions);

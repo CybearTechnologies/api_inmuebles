@@ -109,4 +109,21 @@ class UserBuilder extends Builder {
 
 		return $this;
 	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withIdentity(){
+		$subscriptionBuilder = new SubscriptionBuilder();
+		try {
+			$subscription = $subscriptionBuilder->getMinimumByEmail($this->_data->email)->clean()->build();
+			$this->_data->identity = $subscription->ci;
+			$this->_data->passport = $subscription->passport;
+		}
+		catch (SubscriptionNotFoundException $e) {
+			$this->_data->email = "";
+			$this->_data->passport = "";
+		}
+		return $this;
+	}
 }

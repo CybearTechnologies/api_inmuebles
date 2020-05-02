@@ -17,6 +17,11 @@ class MapperUser extends Mapper {
 	 * @return DtoUser
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoUser($entity->getId(),$entity->getFirstName(),$entity->getLastName(),$entity->getAddress(),$entity->getEmail(),$entity->getPassword(),$entity->getUserCreator(),$entity->getUserModifier(),$entity->isActive(),$entity->isBlocked(),$entity->isDelete(),$entity->getSeat(),$entity->getRol(),$entity->getPlan(),$entity->getLocation(),$entity->getDateCreated(),$entity->getDateModified());
+		return FactoryDto::createDtoUser($entity->getId(),$entity->getFirstName(),$entity->getLastName(),
+			$entity->getAddress(),$entity->getEmail(),$entity->getPassword(),Values::DEFAULT_INT,Values::DEFAULT_STRING,
+			$entity->getUserCreator(),$entity->getUserModifier(),
+			$entity->isActive(),$entity->isBlocked(),$entity->isDelete(),
+			$entity->getSeat(),$entity->getRol(),$entity->getPlan(),
+			$entity->getLocation(),$entity->getDateCreated(),$entity->getDateModified());
 	}
 }

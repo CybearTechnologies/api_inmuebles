@@ -18,6 +18,7 @@ class CommandGetAllUser extends Command {
 			->getAll()
 			->withLocation()
 			->withSeat()
+			->withIdentity()
 			->withPlan()
 			->withRol()
 			->clean()

@@ -4,6 +4,8 @@ class DtoUser extends Dto {
 	public $lastName;
 	public $address;
 	public $email;
+	public $identity; // cedula
+	public $passport;
 	public $password;
 	public $blocked;
 	public $seat;
@@ -20,6 +22,8 @@ class DtoUser extends Dto {
 	 * @param string          $address
 	 * @param string          $email
 	 * @param string          $password
+	 * @param int             $identity
+	 * @param string          $passport
 	 * @param DtoUser|int     $userCreator
 	 * @param DtoUser|int     $userModifier
 	 * @param bool            $active
@@ -33,8 +37,8 @@ class DtoUser extends Dto {
 	 * @param string          $dateModified
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, $userCreator, $userModifier, bool $active, bool $blocked, bool $deleted, $seat,
-		$rol, $plan, $location, string $dateCreated, string $dateModified) {
+		string $password, int $identity, string $passport, $userCreator, $userModifier, bool $active, bool $blocked,
+		bool $deleted, $seat, $rol, $plan, $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->firstName = $firstName;
 		$this->lastName = $lastName;
@@ -44,6 +48,8 @@ class DtoUser extends Dto {
 		$this->blocked = $blocked;
 		$this->seat = $seat;
 		$this->rol = $rol;
+		$this->identity = $identity;
+		$this->passport = $passport;
 		$this->plan = $plan;
 		$this->location = $location;
 	}
