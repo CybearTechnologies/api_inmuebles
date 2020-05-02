@@ -109,6 +109,25 @@ class ListUserBuilder extends ListBuilder {
 	}
 
 	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withIdentity () {
+		$subscriptionBuilder = new SubscriptionBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$subscription = $subscriptionBuilder->getMinimumByEmail($datum->email)->clean()->build();
+				$datum->passport = $subscription->passport;
+				$datum->identity = $subscription->ci;
+			}
+			catch (SubscriptionNotFoundException $e) {
+				$datum->passport = "";
+				$datum->identity = "";
+			}
+		}
+		return $this;
+	}
+
+	/**
 	 * @return ListBuilder
 	 */
 	public function clean () {

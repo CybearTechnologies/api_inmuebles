@@ -24,6 +24,19 @@ class SubscriptionBuilder extends Builder {
 	}
 
 	/**
+	 * @param string $email
+	 *
+	 * @return $this
+	 * @throws DatabaseConnectionException
+	 * @throws SubscriptionNotFoundException
+	 */
+	public function getMinimumByEmail(string $email){
+		$this->_data = $this->_mapper->fromEntityToDto($this->_dao->getSubscriptionByEmail($email));
+
+		return $this;
+	}
+
+	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function withDetails () {

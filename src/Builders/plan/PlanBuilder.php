@@ -5,7 +5,7 @@ class PlanBuilder extends Builder {
 	/**
 	 * PlanBuilder constructor.
 	 */
-	public function __construct () {
+	public function  __construct () {
 		$this->_dao = FactoryDao::createDaoPlan();
 		$this->_mapper = FactoryMapper::createMapperPlan();
 	}
