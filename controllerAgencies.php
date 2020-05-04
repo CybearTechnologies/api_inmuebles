@@ -41,7 +41,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$return = new ErrorResponse(Values::getText("ERROR_AGENCIES_NOT_FOUND"));
 					Tools::setResponse(Values::getValue("ERROR_AGENCIES_NOT_FOUND"));
 				}
-				echo json_encode($return);
 			}
 		}
 		else {

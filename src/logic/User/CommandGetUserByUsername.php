@@ -26,7 +26,7 @@ class CommandGetUserByUsername extends Command {
 										->withRol()
 										->withSeat()
 										->withLocation()
-			->withIdentity()
+										->withIdentity()
 										->clean()
 										->build();
 		$this->setData($dtoUser);
