@@ -115,6 +115,25 @@ DROP PROCEDURE IF EXISTS deleteSubscription;
 DELIMITER $$
 CREATE PROCEDURE deleteSubscription(id int)
 BEGIN
+    SELECT su_id id,
+           su_ci ci,
+           su_first_name firstName,
+           su_last_name lastName,
+           su_address address,
+           su_passport passport,
+           su_email email,
+           su_password password,
+           su_deleted 'delete',
+           su_status status,
+           su_active active,
+           su_date_created dateCreated,
+           su_user_modified_fk userModifier,
+           su_date_modified dateModified,
+           su_plan_fk plan,
+           su_seat_fk seat,
+           su_location_fk location
+    FROM subscription
+    WHERE su_id = id;
     DELETE FROM subscription WHERE su_id = id;
 END$$
 
