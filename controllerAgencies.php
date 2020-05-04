@@ -6,7 +6,6 @@ $post = Tools::postObject();
 $headers = apache_request_headers();
 $return = null;
 $mapper = FactoryMapper::createMapperAgency();
-$mapperSeat = FactoryMapper::createMapperSeat();
 switch ($_SERVER["REQUEST_METHOD"]) {
 	case "GET":
 		if (Validate::application()) {
@@ -24,6 +23,18 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				catch (AgencyNotFoundException $exception) {
 					$return = new ErrorResponse(Values::getText("ERROR_AGENCY_NOT_FOUND"));
 					Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
+				}
+			}
+			if (Validate::id($get) && isset($get->seats)) {
+				$command = FactoryCommand::createCommandGetAllSeatsByAgency($get->id);
+				try {
+					$command->execute();
+					$return = $command->return();
+					Tools::setResponse();
+				}
+				catch (DatabaseConnectionException $exception) {
+					$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+					Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 				}
 			}
 			else {

@@ -390,7 +390,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Agency $agency
+	 * @param int $agency
 	 *
 	 * @return CommandGetAllSeatsByAgency
 	 */

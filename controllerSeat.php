@@ -10,7 +10,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (Validate::headers()) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
-					$headers[Values::APPLICATION_HEADER]);
+				$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
 					$command = FactoryCommand::createCommandGetSeatById($get->id);
 					try {
