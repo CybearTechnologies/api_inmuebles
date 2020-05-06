@@ -306,6 +306,7 @@ class FactoryDto {
 	 * @param string          $password
 	 * @param int             $identity
 	 * @param string          $passport
+	 * @param array           $documents
 	 * @param DtoUser|int     $userCreator
 	 * @param DtoUser|int     $userModifier
 	 * @param bool            $active
@@ -324,15 +325,16 @@ class FactoryDto {
 		string $lastName = Values::DEFAULT_STRING, string $address = Values::DEFAULT_STRING,
 		string $email = Values::DEFAULT_STRING, string $password = Values::DEFAULT_STRING,
 		int $identity = Values::DEFAULT_INT, string $passport = Values::DEFAULT_STRING,
-		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
-		bool $active = Values::DEFAULT_ACTIVE, bool $blocked = Values::DEFAULT_STATUS,
+		$documents = Values::DEFAULT_ARRAY, $userCreator = Values::DEFAULT_FOREIGN,
+		$userModifier = Values::DEFAULT_FOREIGN, bool $active = Values::DEFAULT_ACTIVE,
+		bool $blocked = Values::DEFAULT_STATUS,
 		bool $deleted = Values::DEFAULT_DELETE, $seat = Values::DEFAULT_FOREIGN, $rol = Values::DEFAULT_FOREIGN,
 		$plan = Values::DEFAULT_FOREIGN, $location = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE):DtoUser {
-		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $identity, $passport, $userCreator,
-			$userModifier,
-			$active, $blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
+		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $identity, $passport, $documents,
+			$userCreator,$userModifier, $active, $blocked, $deleted, $seat, $rol, $plan,
+			$location, $dateCreated, $dateModified);
 	}
 
 	/**
