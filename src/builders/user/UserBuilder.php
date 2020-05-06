@@ -116,13 +116,28 @@ class UserBuilder extends Builder {
 	function withIdentity(){
 		$subscriptionBuilder = new SubscriptionBuilder();
 		try {
-			$subscription = $subscriptionBuilder->getMinimumByEmail($this->_data->email)->clean()->build();
+			$subscription = $subscriptionBuilder->getMinimumByEmail($this->_data->email)->withDetails()->clean()->build();
+			$this->_data->documents = $subscription->detail;
 			$this->_data->identity = $subscription->ci;
 			$this->_data->passport = $subscription->passport;
 		}
 		catch (SubscriptionNotFoundException $e) {
 			$this->_data->email = "";
 			$this->_data->passport = "";
+		}
+		return $this;
+	}
+
+	/**
+	 * @return UserBuilder
+	 */
+	public function clean () {
+		parent::clean();
+		foreach ($this->_data->documents as $document){
+			unset($document->subscription);
+			unset($document->id);
+			unset($document->active);
+			unset($document->delete);
 		}
 		return $this;
 	}

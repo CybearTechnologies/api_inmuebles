@@ -24,7 +24,7 @@ class CommandGetUserById extends Command {
 																	->withPlan()
 																	->withLocation()
 																	->withSeat()
-			->withIdentity()
+																	->withIdentity()
 																	->clean()
 																	->build();
 		$this->setData($dtoUser);

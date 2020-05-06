@@ -115,7 +115,12 @@ class ListUserBuilder extends ListBuilder {
 		$subscriptionBuilder = new SubscriptionBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$subscription = $subscriptionBuilder->getMinimumByEmail($datum->email)->clean()->build();
+				$subscription = $subscriptionBuilder
+					->getMinimumByEmail($datum->email)
+					->withDetails()
+					->clean()
+					->build();
+				$datum->documents = $subscription->detail;
 				$datum->passport = $subscription->passport;
 				$datum->identity = $subscription->ci;
 			}
@@ -134,6 +139,13 @@ class ListUserBuilder extends ListBuilder {
 		parent::clean();
 		foreach ($this->_data as $datum) {
 			unset($datum->password);
+			foreach ($datum->documents as $document) {
+				unset($document->subscription);
+				unset($document->id);
+				unset($document->active);
+				unset($document->delete);
+			}
+
 		}
 
 		return $this;
