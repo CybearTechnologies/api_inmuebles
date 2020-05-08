@@ -94,38 +94,38 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
-				if (isset($post->property) /*&& Validate::property($post->property)*/) {
-					$property = $mapper->fromDTOToEntity($post->property);
+				if (isset($post->name) && !empty($post->name)
+					&& isset($post->area) && is_numeric($post->area)
+					&& isset($post->description) && !empty($post->description)
+					&& isset($post->state) && is_numeric($post->state)
+					&& isset($post->floor) && is_numeric($post->floor)
+					&& isset($post->type) && is_numeric($post->type)
+					&& isset($post->location) && is_numeric($post->location)
+					&& isset($post->price) && is_numeric($post->price)) {
+					$property = FactoryEntity::createProperty(-1,
+						$post->name, $post->area, $post->description,
+						$post->state, $post->floor, $post->type, $post->location);
 					$property->setUserCreator($loggedUser);
+
 					$command = FactoryCommand::createCommandCreateProperty($property);
-					try {
-						$command->execute();
-						$property = $mapper->fromEntityToDto($command->return());
-						/** @var PropertyPrice[] $propertyPrice */
-						$propertyPrice = $mapperPropertyPrice->fromDtoArrayToEntityArray($post->property->price);
-						$propertyPrice[0]->setPropertyId($property->id);
-						/** @var PropertyPrice[] $propertyPrice */
-						$command = FactoryCommand::createCommandCreatePropertyPrice($propertyPrice[0]);
-						$command->execute();
-						$property->price = $mapperPropertyPrice->fromEntityToDto($command->return());
-						if (isset($post->property->extras)) {
-							/** @var PropertyExtra[] $propertyExtra */
-							$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);
-							foreach ($propertyExtra as $extra) {
-								$extra->setPropertyId($property->id);
-							}
-							$command = FactoryCommand::createCommandCreatePropertyExtra($propertyExtra);
+					$command->execute();
+					echo 'paso';
+					$property = $mapper->fromEntityToDto($command->return());
+					if (isset($post->extras) && is_array($post->extras) && !empty($post->extras)) {
+						foreach ($post->extras as $extra) {
+							$command = FactoryCommand::createCommandCreatePropertyExtra($extra->extra, $extra->amount,
+								$property->id, $loggedUser);
 							$command->execute();
-							/** @var PropertyExtra[] $post ->property->extras */
-							$property->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
+							array_push($property->extras, $mapperExtra->fromEntityToDto($command->return()));
 						}
-						$return = $property;
-						Tools::setResponse();
 					}
-					catch (DatabaseConnectionException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
+					$command = FactoryCommand::createCommandCreatePropertyPrice($post->price, $property->id,
+						$loggedUser);
+					$command->execute();
+					$price = $mapperPropertyPrice->fromEntityToDto($command->return());
+					array_push($property->price, $price);
+					$return = $property;
+					Tools::setResponse();
 				}
 				else {
 					$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
@@ -146,11 +146,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
-			catch (Exception $exception) {
-				Logger::exception($exception, Logger::ERROR);
-				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
-			}
+			/*			catch (Exception $exception) {
+							Logger::exception($exception, Logger::ERROR);
+							$return = new ErrorResponse($exception->getMessage());
+							Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
+						}*/
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_HEADER"));

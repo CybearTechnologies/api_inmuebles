@@ -138,14 +138,15 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
 					}
-					catch (DatabaseConnectionException $e) {
-						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
 					catch (UserNotFoundException $e) {
 						$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
 						Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 					}
+				}
+				elseif (isset($put->user) && is_numeric($put->user) && isset($put->rol) && is_numeric($put->rol)) {
+					$command = FactoryCommand::createCommandUpdateUserRol($put->user, $put->rol, $loggedUser);
+					$command->execute();
+					$return = $command->return();
 				}
 				elseif (isset($put->password) && !empty($put->password)) {
 					try {
@@ -171,6 +172,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			catch (DatabaseConnectionException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
+			catch (UserNotFoundException $e) {
+				$return = new ErrorResponse(Values::getText("ERROR_USER_NOT_FOUND"));
+				Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 			}
 			catch (OriginNotFoundException $exception) {
 				Logger::exception($exception, Logger::ERROR);
@@ -221,7 +226,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				if (isset($get->profile) && $get->profile = true) {
-
 					$command = FactoryCommand::createCommandGetUserById($loggedUser);
 					try {
 						$command->execute();

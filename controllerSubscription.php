@@ -47,7 +47,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 					catch (SubscriptionNotFoundException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_SUBSCRIPTION_NOT_FOUND"));
-						Tools::setResponse();
+						Tools::setResponse(404);
 					}
 				}
 			}

@@ -646,12 +646,15 @@ class FactoryCommand {
 	//-----------------------PROPERTY PRICE-----------------------
 	//------------------------------------------------------------
 	/**
-	 * @param PropertyPrice $propertyPrice
+	 * @param     $price
+	 * @param int $propertyId
+	 * @param int $creator
 	 *
 	 * @return CommandCreatePropertyPrice
 	 */
-	static function createCommandCreatePropertyPrice ($propertyPrice):CommandCreatePropertyPrice {
-		return new CommandCreatePropertyPrice($propertyPrice);
+	static function createCommandCreatePropertyPrice ($price, int $propertyId,
+		int $creator):CommandCreatePropertyPrice {
+		return new CommandCreatePropertyPrice($price, $propertyId, $creator);
 	}
 
 	/**
@@ -928,12 +931,11 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param PropertyExtra[] $propertyExtra
-	 *
 	 * @return CommandCreatePropertyExtra
 	 */
-	static function createCommandCreatePropertyExtra ($propertyExtra):CommandCreatePropertyExtra {
-		return new CommandCreatePropertyExtra($propertyExtra);
+	static function createCommandCreatePropertyExtra (int $id, int $amount, int $property,
+		int $creator):CommandCreatePropertyExtra {
+		return new CommandCreatePropertyExtra($id, $amount, $property, $creator);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1022,5 +1024,18 @@ class FactoryCommand {
 	 */
 	static function createCommandDeleteSubscription (int $entity):CommandDeleteSubscription {
 		return new CommandDeleteSubscription($entity);
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $rol
+	 * @param int $userModifier
+	 * @param     $dateModified
+	 *
+	 * @return CommandUpdateUserRol
+	 */
+	static function createCommandUpdateUserRol (int $id, int $rol, int $userModifier,
+		string $dateModified = null):CommandUpdateUserRol {
+		return new CommandUpdateUserRol($id, $rol, $userModifier, $dateModified);
 	}
 }

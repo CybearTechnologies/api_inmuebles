@@ -24,22 +24,22 @@ class DaoPropertyExtra extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 * @param int $amount
+	 * @param int $property
+	 * @param int $creator
+	 *
 	 * @return PropertyExtra
 	 * @throws DatabaseConnectionException
 	 */
-	public function createPropertyExtra () {
+	public function createPropertyExtra (int $id, int $amount, int $property, int $creator) {
 		try {
-			$value = $this->_entity->getValue();
-			$property = $this->_entity->getPropertyId();
-			$extra = $this->_entity->getExtraId();
-			$user = 1; // TODO: replace for logged user
-			if ($this->_entity->getDateCreated() == "")
-				$dateCreated = null;
+			$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
-			$stmt->bindParam(":value", $value, PDO::PARAM_STR);
+			$stmt->bindParam(":value", $amount, PDO::PARAM_INT);
 			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
-			$stmt->bindParam(":extra", $extra, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":extra", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $creator, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 

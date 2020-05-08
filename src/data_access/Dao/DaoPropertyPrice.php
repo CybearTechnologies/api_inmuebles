@@ -19,22 +19,22 @@ class DaoPropertyPrice extends Dao {
 	}
 
 	/**
+	 * @param     $price
+	 * @param int $propertyId
+	 * @param int $creator
+	 *
 	 * @return PropertyPrice
 	 * @throws DatabaseConnectionException
 	 */
-	public function createPropertyPrice () {
+	public function createPropertyPrice ($price, int $propertyId, int $creator) {
 		try {
-			$price = $this->_entity->getPrice();
-			$final = $this->_entity->isFinal();
-			$property = $this->_entity->getPropertyId();
-			$user = 1; // TODO: replace for logged user
-			if ($this->_entity->getDateCreated() == "")
-				$dateCreated = null;
+			$final = true;
+			$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":price", $price, PDO::PARAM_STR);
 			$stmt->bindParam(":final", $final, PDO::PARAM_BOOL);
-			$stmt->bindParam(":property", $property, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":property", $propertyId, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $creator, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
 

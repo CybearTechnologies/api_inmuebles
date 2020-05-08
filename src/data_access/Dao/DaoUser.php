@@ -14,6 +14,7 @@ class DaoUser extends Dao {
 	:location,:user,:dateModified)";
 	private const QUERY_SET_PLAN = "CALL setUserPlan(:id,:plan,:user,:dateModified)";
 	private const QUERY_CHANGE_PASSWORD = "CALL changePassword(:id,:password,:user,:dateModified)";
+	private const QUERY_CHANGE_ROL = "CALL changeRol(:id,:rol,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -379,6 +380,36 @@ class DaoUser extends Dao {
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param      $id
+	 * @param      $rol
+	 * @param      $userModifier
+	 * @param      $dateModified
+	 *
+	 * @return User
+	 * @throws DatabaseConnectionException
+	 * @throws UserNotFoundException
+	 */
+	public function changeRol ($id, $rol, $userModifier, $dateModified) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_CHANGE_ROL);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new UserNotFoundException("Usuario no encontrado", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch
+		(PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
 			Throw new DatabaseConnectionException("Database connection problem.", 500);
 		}
