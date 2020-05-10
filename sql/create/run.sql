@@ -313,6 +313,18 @@ CREATE TABLE subscription_detail
     FOREIGN KEY (sd_subscription_fk) REFERENCES subscription (su_id)
 );
 
+CREATE TABLE password_token
+(
+    pt_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Token',
+    pt_token            varchar(500) NOT NULL COMMENT 'Token',
+    pt_user_creator_fk  int             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    pt_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    pt_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    pt_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    FOREIGN KEY (pt_user_creator_fk) REFERENCES user (us_id),
+    FOREIGN KEY (pt_user_modified_fk) REFERENCES user (us_id)
+)
+
 
 
 
