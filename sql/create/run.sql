@@ -317,6 +317,8 @@ CREATE TABLE password_token
 (
     pt_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID Token',
     pt_token            varchar(500) NOT NULL COMMENT 'Token',
+    pt_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
+    pt_delete           tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Eliminado',
     pt_user_creator_fk  int             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     pt_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     pt_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',

@@ -1,6 +1,6 @@
 <?php
 class DaoAccess extends Dao {
-	private const QUERY_CREATE_ACCESS = "CALL insertAccess(:name,:abbreviation,:user:dateCreated)";
+	private const QUERY_CREATE_ACCESS = "CALL insertAccess(:name,:abbreviation,:user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllAccess()";
 	private const QUERY_GET_BY_ID = "CALL getAccessByid(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteAccessById(:id,:user)";
