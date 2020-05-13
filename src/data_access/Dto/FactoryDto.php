@@ -468,4 +468,24 @@ class FactoryDto {
 	static function createDtoLogin ($user, $token):DtoLogin {
 		return new DtoLogin($user, $token);
 	}
+
+	/**
+	 * @param int         $id
+	 * @param string      $token
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
+	 *
+	 * @return DtoPasswordToken
+	 */
+	static function createDtoPasswordToken (int $id, string $token,
+		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoPasswordToken {
+		return new DtoPasswordToken($id, $token, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
+	}
 }
