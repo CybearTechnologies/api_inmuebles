@@ -5,7 +5,7 @@
  */
 DROP PROCEDURE IF EXISTS insertExtra;
 DELIMITER $$
-CREATE PROCEDURE insertExtra(name varchar(45), icon varchar(45), user int, dateCreated datetime)
+CREATE PROCEDURE insertExtra(name varchar(450), icon varchar(255), user int, dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
         INSERT INTO extra (ex_name, ex_icon, ex_user_created_fk, ex_user_modified_fk)
@@ -31,7 +31,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS updateExtra;
 DELIMITER $$
-CREATE PROCEDURE updateExtra(id int, name varchar(45), icon varchar(45), user int, dateModified datetime)
+CREATE PROCEDURE updateExtra(id int, name varchar(450), icon varchar(255), user int, dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE extra

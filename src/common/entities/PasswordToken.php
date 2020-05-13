@@ -8,4 +8,20 @@ class PasswordToken extends Entity {
 		$this->_token = $token;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getToken ():string {
+		return $this->_token;
+	}
+
+	/**
+	 * @param string $token
+	 */
+	public function setToken (string $token):void {
+		$this->_token = $token;
+	}
+
+
+
 }

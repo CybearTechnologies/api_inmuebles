@@ -117,3 +117,10 @@ insert into subscription_detail(sd_subscription_fk,sd_document,sd_user_modified_
 
 insert into subscription_detail(sd_subscription_fk,sd_document,sd_user_modified_fk) values
 (2,'D:/',1);
+
+INSERT INTO origin (or_id, or_name, or_private_key, or_public_key, or_active, or_deleted,
+                    or_user_created_fk, or_date_created, or_user_modified_fk, or_date_modified)
+        VALUES
+                    (1, 'Browser', '5efcef0186887afb02f425fc0f787e4eff6b95f068828a312e2b0756485a19ba',
+                     '4a4d4a4341acbccae132bc912d91f0d0bbfa2843d27775e14930143bce44aabb', 1, 0, 1,
+                     '2020-04-06 22:40:52', 1, '2020-04-06 22:40:52');
