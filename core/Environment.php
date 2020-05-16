@@ -10,14 +10,14 @@ class Environment {
 	private const BASE_URL = "http://api.cybear.io/";
 	private const SITE_KEY = "coronavirus";
 	//	Database connections settings
-			private const HOST = "localhost";
-			private const DATABASE = "inmobiliaria";
-			private const USERNAME = "root";
-			private const PASSWORD = "";
-/*	private const HOST = "160.153.54.65";
-	private const DATABASE = "buscamatch";
-	private const USERNAME = "buscaRoot";
-	private const PASSWORD = "dIo{xi5miupN";*/
+	private const HOST = "localhost";
+	private const DATABASE = "inmobiliaria";
+	private const USERNAME = "root";
+	private const PASSWORD = "";
+	/*		private const HOST = "160.153.54.65";
+			private const DATABASE = "buscamatch";
+			private const USERNAME = "buscaRoot";
+			private const PASSWORD = "dIo{xi5miupN";*/
 	/**
 	 * @return PDO
 	 */

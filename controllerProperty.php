@@ -106,10 +106,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$post->name, $post->area, $post->description,
 						$post->state, $post->floor, $post->type, $post->location);
 					$property->setUserCreator($loggedUser);
-
 					$command = FactoryCommand::createCommandCreateProperty($property);
 					$command->execute();
-					echo 'paso';
 					$property = $mapper->fromEntityToDto($command->return());
 					if (isset($post->extras) && is_array($post->extras) && !empty($post->extras)) {
 						foreach ($post->extras as $extra) {
@@ -164,7 +162,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::activeProperty($get)) {
+				if (isset($put->price) && isset($put->property) && isset($get->price)) {
+					$command = FactoryCommand::createCommandCreatePropertyPrice($put->price, $put->property,
+						$loggedUser);
+					$command->execute();
+					$return = $mapperPropertyPrice->fromEntityToDto($command->return());
+				}
+				elseif (Validate::activeProperty($get)) {
 					try {
 						$command = FactoryCommand::createCommandActiveProperty($get->id, $loggedUser);
 						$command->execute();

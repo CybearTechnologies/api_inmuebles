@@ -30,6 +30,7 @@ RewriteRule ^login$ controllerLogin.php [NC,L]
 RewriteRule ^property/user/([0-9]+)$ controllerProperty.php?id=$1&action=user [NC,L]
 RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
 RewriteRule ^property/(active|inactive)/([0-9]+)$ controllerProperty.php?action=$1&id=$2 [NC,L]
+RewriteRule ^property/price$ controllerProperty.php?price [NC,L]
 RewriteRule ^property$ controllerProperty.php [NC,L]
 # REQUEST
 RewriteRule ^property-request$ controllerPropertyRequest.php [NC,L]
