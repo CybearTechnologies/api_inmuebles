@@ -49,10 +49,12 @@ RewriteRule ^agency/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
 RewriteRule ^agency/seats/([0-9]+)$ controllerAgencies.php?seats=true&id=$1 [NC,L]
 RewriteRule ^agency/(active|inactive)/([0-9]+)$ controllerAgencies.php?action=$1&id=$2 [NC,L]
 #	EXTRA
+RewriteRule ^extra$ controllerExtra.php [NC,L]
+RewriteRule ^extra/create$ controllerExtra.php?create=true [NC,L]
+RewriteRule ^extra/update$ controllerExtra.php?update=true [NC,L]
 RewriteRule ^extra/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
 RewriteRule ^extra/(active|inactive)/([0-9]+)$ controllerExtra.php?action=$1&id=$2 [NC,L]
 RewriteRule ^extra/(active|inactive)$ controllerExtra.php?state=$1 [NC,L]
-RewriteRule ^extra$ controllerExtra.php [NC,L]
 #   LOCATION
 RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]
 RewriteRule ^location/type/(Estado|Municipio|Pais)$ controllerLocation.php?type=$1 [NC,L]
