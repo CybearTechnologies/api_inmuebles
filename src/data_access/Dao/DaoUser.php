@@ -15,6 +15,7 @@ class DaoUser extends Dao {
 	private const QUERY_SET_PLAN = "CALL setUserPlan(:id,:plan,:user,:dateModified)";
 	private const QUERY_CHANGE_PASSWORD = "CALL changePassword(:id,:password,:user,:dateModified)";
 	private const QUERY_CHANGE_ROL = "CALL changeRol(:id,:rol,:user,:dateModified)";
+	private const QUERY_UPDATE_PROFILE = "CALL updateUserProfile(:id,:firstName,:lastName,:address,:email,:userModifier,:dateModified)";
 	private $_entity;
 
 	/**
@@ -63,7 +64,42 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new UserNotFoundException("Agency not found", 404);
+				Throw new UserNotFoundException("User not found", 404);
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param $id
+	 * @param $firstName
+	 * @param $lastName
+	 * @param $address
+	 * @param $email
+	 * @param $modifier
+	 *
+	 * @return User
+	 * @throws DatabaseConnectionException
+	 * @throws UserNotFoundException
+	 */
+	public function updateUserProfile ($id, $firstName, $lastName, $address, $email, $modifier) {
+		try {
+			$dateModified = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE_PROFILE);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":firstName", $firstName, PDO::PARAM_STR);
+			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
+			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
+			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
+			$stmt->bindParam(":userModifier", $modifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new UserNotFoundException("User not found not found", 404);
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}

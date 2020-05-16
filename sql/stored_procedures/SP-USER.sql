@@ -156,10 +156,10 @@ END$$
 DROP PROCEDURE IF EXISTS updateUserProfile;
 DELIMITER $$
 CREATE PROCEDURE updateUserProfile(id int, firstName varchar(45), lastName varchar(45),
-                            address varchar(200))
+                            address varchar(200),email varchar(255),user int,dateModified datetime)
 BEGIN
     UPDATE user
-        SET us_first_name = firstName, us_last_name = lastName, us_address = address
+        SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email)
     WHERE us_id = id;
     SELECT us.us_id id,
            us.us_first_name first_name,
@@ -234,7 +234,6 @@ BEGIN
     FROM user us
     WHERE lower(us.us_email) = user_email;
 END$$
-
 
 DROP PROCEDURE IF EXISTS getAllUsers;
 DELIMITER $$
@@ -509,7 +508,6 @@ BEGIN
     WHERE us.us_id = id;
 
 END$$
-
 
 DROP PROCEDURE IF EXISTS unlockUser;
 DELIMITER $$

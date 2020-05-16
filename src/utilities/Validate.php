@@ -249,8 +249,7 @@ class Validate {
 	 */
 	static function putExtra ($extra) {
 		return isset($extra->id) && is_numeric($extra->id)
-			&& isset($extra->name) && !empty($extra->name)
-			&& isset($extra->icon) && !empty($extra->icon);
+			&& isset($extra->name) && !empty($extra->name);
 	}
 
 	/**

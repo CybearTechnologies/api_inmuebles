@@ -128,6 +128,21 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param $_id
+	 * @param $_firstName
+	 * @param $_lastName
+	 * @param $_address
+	 * @param $_email
+	 * @param $modifier
+	 *
+	 * @return CommandUpdateUserProfile
+	 */
+	static function createCommandUpdateUserProfile ($_id, $_firstName, $_lastName, $_address, $_email,
+		$modifier):CommandUpdateUserProfile {
+		return new CommandUpdateUserProfile($_id, $_firstName, $_lastName, $_address, $_email, $modifier);
+	}
+
+	/**
 	 * @param $user
 	 *
 	 * @return CommandSetUserPlan

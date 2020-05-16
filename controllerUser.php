@@ -98,6 +98,15 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 					}
 				}
+				elseif (isset($put->firstName) && !empty($put->firstName) &&
+					isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put	->address) &&
+					isset($put->email) && !empty($put->email) && isset($get->profile)) {
+					$command = FactoryCommand::createCommandUpdateUserProfile($loggedUser, $put->firstName, $put->lastName,
+						$put->address, $put->email, $loggedUser);
+					$command->execute();
+					$return = $command->return();
+					unset($return->password);
+				}
 				elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "active") {
 					try {
 						$command = FactoryCommand::createCommandActivateUser(FactoryEntity::createUser($get->id));
