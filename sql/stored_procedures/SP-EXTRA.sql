@@ -31,7 +31,7 @@ END$$
 
 DROP PROCEDURE IF EXISTS updateExtra;
 DELIMITER $$
-CREATE PROCEDURE updateExtra(id int, name varchar(450), icon varchar(255), user int, dateModified datetime)
+CREATE PROCEDURE updateExtra(id int, name varchar(450), icon varchar(450), user int, dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE extra
