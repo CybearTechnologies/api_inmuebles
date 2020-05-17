@@ -69,10 +69,8 @@ abstract class ListBuilder implements IBuilder {
 	 */
 	public function unsetUsers () {
 		foreach ($this->_data as $item) {
-			if (is_numeric($item->userCreator))
-				unset($item->userCreator);
-			elseif (is_numeric($item->userModifier))
-				unset($item->userModifier);
+			unset($item->userCreator);
+			unset($item->userModifier);
 		}
 
 		return $this;

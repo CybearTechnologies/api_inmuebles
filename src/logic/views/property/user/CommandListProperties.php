@@ -18,10 +18,10 @@ class CommandListProperties extends Command {
 			->getAll()
 			->withExtras()
 			->withLocation()
-			->withUserCreator()
 			->withType()
 			->withLastTwoPrices()
 			->clean()
+			->withUserCreator()
 			->build();
 		$this->setData($dtoProperties);
 	}
