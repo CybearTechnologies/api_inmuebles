@@ -77,7 +77,6 @@ RewriteRule ^rol$ controllerRol.php [NC,L]
 RewriteRule ^rol/([0-9]+)$ controllerRol.php?id=$1 [NC,L]
 RewriteRule ^rol/(active|inactive)/([0-9]+)$ controllerRol.php?action=$1&id=$2 [NC,L]
 #FAVORITE
-RewriteRule ^favorite/([0-9]+)$ controllerFavorite.php?id=$1 [NC,L]
 RewriteRule ^favorite$ controllerFavorite.php [NC,L]
 #SUBSCRIPTION
 RewriteRule ^subscription/([0-9]+)$ controllerSubscription.php?id=$1 [NC,L]
