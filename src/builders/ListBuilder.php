@@ -29,6 +29,35 @@ abstract class ListBuilder implements IBuilder {
 	}
 
 	/**
+	 * @return $this
+	 * @throws DatabaseConnectionException
+	 */
+	public function withUserCreator () {
+		$userBuilder = new UserBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$datum->userCreator = $userBuilder->getMinimumById($datum->userCreator)
+					->withRol()
+					->withSeat()
+					->withPlan()
+					->withLocation()
+					->clean()
+					->build();
+			}
+			catch (MultipleUserException $e) {
+				$datum->userCreator = null;
+				$datum->userModifier = null;
+			}
+			catch (UserNotFoundException $e) {
+				$datum->userCreator = null;
+				$datum->userModifier = null;
+			}
+		}
+
+		return $this;
+	}
+
+	/**
 	 * @return Dto[]
 	 */
 	public function build () {
@@ -40,8 +69,10 @@ abstract class ListBuilder implements IBuilder {
 	 */
 	public function unsetUsers () {
 		foreach ($this->_data as $item) {
-			unset($item->userCreator);
-			unset($item->userModifier);
+			if (is_numeric($item->userCreator))
+				unset($item->userCreator);
+			elseif (is_numeric($item->userModifier))
+				unset($item->userModifier);
 		}
 
 		return $this;

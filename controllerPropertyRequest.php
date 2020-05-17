@@ -90,9 +90,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
-				if (isset($post->property) && is_numeric($post->property) && isset($post->user) && is_numeric($post->user)) {
+				if (isset($post->property) && is_numeric($post->property)) {
 					try {
-						$command = FactoryCommand::createCommandCreateRequest($post->property, $post->user);
+						$command = FactoryCommand::createCommandCreateRequest($post->property, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
