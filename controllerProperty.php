@@ -29,22 +29,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 					}
 				}
-				if (Validate::id($get) && $get->action = "user") {
-					$command = FactoryCommand::createCommandGetAllUserProperties($get->id);
-					try {
-						$command->execute();
-						$return = $command->return();
-						Tools::setResponse();
-					}
-					catch (DatabaseConnectionException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
-					catch (PropertyNotFoundException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_USER_NOT_FOUND"));
-						Tools::setResponse(Values::getValue("ERROR_PROPERTY_USER_NOT_FOUND"));
-					}
-				}
 				else {
 					$command = FactoryCommand::createCommandListProperties();
 					try {
@@ -124,6 +108,18 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					array_push($property->price, $price);
 					$return = $property;
 					Tools::setResponse();
+				}
+				elseif ($get->action = "user") {
+					$command = FactoryCommand::createCommandGetAllUserProperties($post->id);
+					try {
+						$command->execute();
+						$return = $command->return();
+						Tools::setResponse();
+					}
+					catch (DatabaseConnectionException $exception) {
+						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+					}
 				}
 				else {
 					$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
