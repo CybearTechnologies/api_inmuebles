@@ -17,11 +17,15 @@ class ListFavoriteBuilder extends ListBuilder {
 	 *
 	 * @return ListFavoriteBuilder
 	 * @throws DatabaseConnectionException
-	 * @throws FavoriteNotFoundException
 	 */
 	function getMinimumById (int $id) {
-		$this->_data = $this->_mapper->fromEntityArrayToDtoArray($this->_dao->getAllFavoriteByUserId($id));
-		
+		try {
+			$this->_data = $this->_mapper->fromEntityArrayToDtoArray($this->_dao->getAllFavoriteByUserId($id));
+		}
+		catch (FavoriteNotFoundException $e) {
+			$this->_data = [];
+		}
+
 		return $this;
 	}
 
