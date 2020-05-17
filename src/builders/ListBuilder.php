@@ -58,6 +58,28 @@ abstract class ListBuilder implements IBuilder {
 	}
 
 	/**
+	 * @return $this
+	 */
+	public function unsetUserCreator () {
+		foreach ($this->_data as $datum) {
+			unset($datum->userCreator);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function unsetUserModifier () {
+		foreach ($this->_data as $datum) {
+			unset($datum->userModifier);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * @return Dto[]
 	 */
 	public function build () {

@@ -20,8 +20,8 @@ class CommandListProperties extends Command {
 			->withLocation()
 			->withType()
 			->withLastTwoPrices()
-			->clean()
 			->withUserCreator()
+			->unsetUserModifier()
 			->build();
 		$this->setData($dtoProperties);
 	}
