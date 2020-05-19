@@ -109,7 +109,8 @@ BEGIN
            pp_user_modified_fk userModifier,
            pp_date_modified dateModified
     FROM property_price
-    WHERE pp_property_fk = id_property;
+    WHERE pp_property_fk = id_property
+    ORDER BY pp_date_created LIMIT 2;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertyTwoLastPriceByPropertyId;

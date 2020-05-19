@@ -162,6 +162,7 @@ CREATE TABLE property
     pr_area             double(20, 2) NOT NULL COMMENT 'Area',
     pr_description      varchar(500) COMMENT 'Descripcion',
     pr_floor            tinyint(1) COMMENT 'Piso',
+    pr_destiny_fk       int           NOT NULL           COMMENT 'Fk Destino',
     pr_status           tinyint(1)    NOT NULL DEFAULT 0 COMMENT 'Estatus',
     pr_type_fk          int(10)       NOT NULL COMMENT 'ID Tipo de propiedad',
     pr_active           tinyint(1)    NOT NULL DEFAULT 1 COMMENT 'Activo',
@@ -325,6 +326,15 @@ CREATE TABLE password_token
     pt_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (pt_user_creator_fk) REFERENCES user (us_id),
     FOREIGN KEY (pt_user_modified_fk) REFERENCES user (us_id)
+);
+
+CREATE TABLE property_destiny(
+    pd_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID destino',
+    pd_name             varchar(20) NOT NULL COMMENT 'Nombre',
+    pd_user_creator_fk  int             DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
+    pd_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
+    pd_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
+    pd_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
 )
 
 
