@@ -32,14 +32,18 @@ class ListPropertyBuilder extends ListBuilder {
 	/**
 	 * @return ListPropertyBuilder
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyNotFoundException
 	 */
 	function getAll () {
-		$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllProperty());
-		foreach ($this->_data as $datum) {
-			unset($datum->extras);
-			unset($datum->request);
-			unset($datum->price);
+		try {
+			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllProperty());
+			foreach ($this->_data as $datum) {
+				unset($datum->extras);
+				unset($datum->request);
+				unset($datum->price);
+			}
+		}
+		catch (PropertyNotFoundException $e) {
+			$this->_data = [];
 		}
 
 		return $this;

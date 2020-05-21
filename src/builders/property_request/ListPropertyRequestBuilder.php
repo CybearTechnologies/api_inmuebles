@@ -54,6 +54,23 @@ class ListPropertyRequestBuilder extends ListBuilder {
 	}
 
 	/**
+	 * @param int $id
+	 *
+	 * @return ListPropertyRequestBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	public function getUserRequest (int $id) {
+		try {
+			$this->_data = $this->_mapperRequest->fromEntityArrayToDtoArray($this->_dao->getAllRequestByUserId($id));
+		}
+		catch (RequestNotFoundException $e) {
+			$this->_data = [];
+		}
+
+		return $this;
+	}
+
+	/**
 	 * @return ListPropertyRequestBuilder
 	 * @throws DatabaseConnectionException
 	 */
@@ -61,7 +78,13 @@ class ListPropertyRequestBuilder extends ListBuilder {
 		$builder = new PropertyBuilder();
 		try {
 			foreach ($this->_data as $datum) {
-				$datum->property = $builder->getMinimumById($datum->property)->clean()->build();
+				$datum->property = $builder->getMinimumById($datum->property)
+					->withLocation()
+					->withExtras()
+					->withType()
+					->withLastTwoPrices()
+					->clean()
+					->build();
 			}
 		}
 		catch (PropertyNotFoundException $e) {
@@ -79,7 +102,10 @@ class ListPropertyRequestBuilder extends ListBuilder {
 		try {
 			foreach ($this->_data as $datum) {
 				$datum->userCreator = $builder->getMinimumById($datum->userCreator)
-					->withRol()->withPlan()->withSeat()->withLocation()
+					->withRol()
+					->withPlan()
+					->withSeat()
+					->withLocation()
 					->clean()
 					->build();
 				unset($datum->userModifier);
