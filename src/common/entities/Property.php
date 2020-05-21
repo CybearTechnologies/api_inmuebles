@@ -7,29 +7,32 @@ class Property extends Entity {
 	private $_floor;
 	private $_type;
 	private $_location;
+	private $_favorite;
 
 	/**
 	 * Property constructor.
 	 *
-	 * @param int     $id
-	 * @param string  $name
-	 * @param float   $area
-	 * @param string  $description
-	 * @param int     $state
-	 * @param int     $floor
-	 * @param int     $type
-	 * @param int     $location
-	 * @param bool    $active
-	 * @param bool    $delete
-	 * @param int     $userCreator
-	 * @param int     $userModifier
-	 * @param string  $dateCreated
-	 * @param string  $dateModified
+	 * @param int    $id
+	 * @param int    $favorite
+	 * @param string $name
+	 * @param float  $area
+	 * @param string $description
+	 * @param int    $state
+	 * @param int    $floor
+	 * @param int    $type
+	 * @param int    $location
+	 * @param bool   $active
+	 * @param bool   $delete
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
 	 */
-	public function __construct (int $id, string $name, float $area, string $description,
+	public function __construct (int $id, int $favorite,string $name, float $area, string $description,
 		int $state, int $floor, int $type, int $location, bool $active, bool $delete,
 		int $userCreator, int $userModifier, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+		$this->_favorite = $favorite;
 		$this->_name = $name;
 		$this->_area = $area;
 		$this->_description = $description;
@@ -136,4 +139,20 @@ class Property extends Entity {
 	public function setLocation (int $location):void {
 		$this->_location = $location;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getFavorite ():int {
+		return $this->_favorite;
+	}
+
+	/**
+	 * @param int $favorite
+	 */
+	public function setFavorite (int $favorite):void {
+		$this->_favorite = $favorite;
+	}
+
+
 }

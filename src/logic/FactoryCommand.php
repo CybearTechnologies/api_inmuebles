@@ -864,11 +864,12 @@ class FactoryCommand {
 
 	/**
 	 * @param int $property
+	 * @param     $loggedUser
 	 *
 	 * @return CommandGetPropertyById
 	 */
-	static function createCommandGetPropertyById ($property):CommandGetPropertyById {
-		return new CommandGetPropertyById($property);
+	static function createCommandGetPropertyById ($property,$loggedUser):CommandGetPropertyById {
+		return new CommandGetPropertyById($property,$loggedUser);
 	}
 	//------------------------------------------------------------
 	//----------------------------RATING---------------------------

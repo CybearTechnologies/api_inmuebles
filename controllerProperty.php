@@ -14,7 +14,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
-					$command = FactoryCommand::createCommandGetPropertyById($get->id);
+					$command = FactoryCommand::createCommandGetPropertyById($get->id,$loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();

@@ -80,7 +80,7 @@ insert into request(re_user_created_fk,re_user_modified_fk,re_property_fk) value
 
 insert into property_price(pp_price,pp_property_fk,pp_final,pp_user_created_fk,
                            pp_user_modified_fk) values
-(5000.23,1,0,1,1);
+(2222.23,1,0,1,1);
 
 insert into property_extra(pe_value, pe_property_fk,pe_extra_fk,pe_user_created_fk,
                            pe_user_modified_fk) values
@@ -124,3 +124,5 @@ INSERT INTO origin (or_id, or_name, or_private_key, or_public_key, or_active, or
                     (1, 'Browser', '5efcef0186887afb02f425fc0f787e4eff6b95f068828a312e2b0756485a19ba',
                      '4a4d4a4341acbccae132bc912d91f0d0bbfa2843d27775e14930143bce44aabb', 1, 0, 1,
                      '2020-04-06 22:40:52', 1, '2020-04-06 22:40:52');
+
+CALL insertFavorite(19,13,null)

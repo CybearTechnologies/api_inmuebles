@@ -202,6 +202,7 @@ class FactoryDto {
 	//		int $state, int $floor, $extras, $request, $user, $price
 	/**
 	 * @param int                      $id
+	 * @param int                      $favorite
 	 * @param string                   $userCreator
 	 * @param string                   $userModifier
 	 * @param string                   $dateCreated
@@ -221,11 +222,11 @@ class FactoryDto {
 	 *
 	 * @return DtoProperty
 	 */
-	static function createDtoProperty (int $id, $userCreator = "", $userModifier = "", $dateCreated = "",
+	static function createDtoProperty (int $id, int $favorite=0,$userCreator = "", $userModifier = "", $dateCreated = "",
 		$dateModified = "", $active = 0, $delete = 0, $name = "", $area = 0.0, $description = "",
 		$state = 0, $floor = 0, $type = 0, $location = 0, $extras = [], $request = [],
 		$propertyPrice = []):DtoProperty {
-		return new DtoProperty($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+		return new DtoProperty($id, $favorite,$userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
 			$area, $description, $state, $floor, $type, $location, $extras, $request, $propertyPrice);
 	}
 

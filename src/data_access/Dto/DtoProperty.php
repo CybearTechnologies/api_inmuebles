@@ -11,11 +11,13 @@ class DtoProperty extends Dto {
 	public $price;
 	public $type;
 	public $location;
+	public $favorite;
 
 	/**
 	 * DtoProperty constructor.
 	 *
 	 * @param int                $id
+	 * @param int                $favorite
 	 * @param DtoUser|int        $userCreator
 	 * @param DtoUser|int        $userModifier
 	 * @param string             $dateCreated
@@ -33,11 +35,12 @@ class DtoProperty extends Dto {
 	 * @param DtoRequest[]       $request
 	 * @param DtoPropertyPrice[] $price
 	 */
-	public function __construct (int $id, int $userCreator, int $userModifier, string $dateCreated,
+	public function __construct (int $id, int $favorite,int $userCreator, int $userModifier, string $dateCreated,
 		string $dateModified, bool $active, bool $delete, string $name, float $area, string $description,
 		int $state, int $floor, int $type, int $location, $extras, $request, $price) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->id = $id;
+		$this->favorite = $favorite;
 		$this->name = $name;
 		$this->area = $area;
 		$this->description = $description;

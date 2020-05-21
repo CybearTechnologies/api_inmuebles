@@ -146,11 +146,13 @@ class DaoProperty extends Dao {
 	}
 
 	/**
+	 * @param int $userRequestId
+	 *
 	 * @return Property[]
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function getAllProperty () {
+	public function getAllProperty (int $userRequestId) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL_PROPERTIES);
 			$stmt->execute();
@@ -373,7 +375,7 @@ class DaoProperty extends Dao {
 	 * @return Property
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createProperty($dbObject->id, $dbObject->name,
+		return FactoryEntity::createProperty($dbObject->id, $dbObject->favorite,$dbObject->name,
 			$dbObject->area, $dbObject->description, $dbObject->status, $dbObject->floor, $dbObject->type,
 			$dbObject->location, $dbObject->active, $dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
 			$dbObject->dateCreated, $dbObject->dateModified);

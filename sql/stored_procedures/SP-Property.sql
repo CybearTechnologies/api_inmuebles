@@ -18,6 +18,7 @@ BEGIN
         VALUES (name, area, description, floor, type, location, user, user, dateCreated, dateCreated);
     END IF;
     SELECT pr_id id,
+           0 favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -32,6 +33,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property
+    LEFT JOIN favorite ON (pr_id)
     WHERE pr_id = last_insert_id();
 END$$
 
@@ -53,6 +55,7 @@ BEGIN
         WHERE pr_id = id;
     END IF;
     SELECT pr_id id,
+           0 favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -74,9 +77,10 @@ DROP PROCEDURE IF EXISTS getAllPropertyActives;
 
 DROP PROCEDURE IF EXISTS getAllProperty;
 DELIMITER $$
-CREATE PROCEDURE getAllProperty()
+CREATE PROCEDURE getAllProperty(userRequestId int)
 BEGIN
     SELECT pr_id id,
+           IF(NOT(fa_property_fk IS NULL) AND fa_user_created_fk=userRequestId, TRUE, FALSE) favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -90,15 +94,16 @@ BEGIN
            pr_date_created dateCreated,
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
-    FROM property
+    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk)
     WHERE pr_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertyById;
 DELIMITER $$
-CREATE PROCEDURE getPropertyById(id_pro int)
+CREATE PROCEDURE getPropertyById(id_pro int,userRequestId int)
 BEGIN
     SELECT pr_id id,
+           IF(NOT(fa_property_fk IS NULL) AND fa_user_created_fk=userRequestId, TRUE, FALSE) favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -112,15 +117,16 @@ BEGIN
            pr_date_created dateCreated,
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
-    FROM property
+    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk)
     WHERE id_pro = pr_id AND pr_deleted = 0;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertiesByType;
 DELIMITER $$
-CREATE PROCEDURE getPropertiesByType(id_type int)
+CREATE PROCEDURE getPropertiesByType(id_type int,userRequestId int)
 BEGIN
     SELECT pr_id id,
+           IF(NOT(fa_property_fk IS NULL) AND fa_user_created_fk=userRequestId, TRUE, FALSE) favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -134,15 +140,16 @@ BEGIN
            pr_date_created dateCreated,
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
-    FROM property
+    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk)
     WHERE pr_type_fk = id_type AND pr_deleted = 0 AND pr_active = 1;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertiesByUserCreator;
 DELIMITER $$
-CREATE PROCEDURE getPropertiesByUserCreator(id_user int)
+CREATE PROCEDURE getPropertiesByUserCreator(id_user int,userRequestId int)
 BEGIN
     SELECT pr_id id,
+           IF(NOT(fa_property_fk IS NULL) AND fa_user_created_fk=userRequestId, TRUE, FALSE) favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -156,7 +163,7 @@ BEGIN
            pr_date_created dateCreated,
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
-    FROM property
+    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk)
     WHERE pr_user_created_fk = id_user AND pr_deleted = 0;
 END$$
 
@@ -179,6 +186,7 @@ BEGIN
         WHERE pr_id = id_pro;
     END IF;
     SELECT pr_id id,
+           0 favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -212,6 +220,7 @@ BEGIN
         WHERE pr_id = id_pro;
     END IF;
     SELECT pr_id id,
+           0 favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -245,6 +254,7 @@ BEGIN
         WHERE pr_id = id_pro;
     END IF;
     SELECT pr_id id,
+           0 favorite,
            pr_name name,
            pr_area area,
            pr_description description,
