@@ -11,7 +11,6 @@ class CommandListProperties extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
 		$dtoProperties = $this->_listBuilder

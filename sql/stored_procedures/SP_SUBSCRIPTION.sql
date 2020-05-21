@@ -42,7 +42,7 @@ BEGIN
     FROM subscription
     WHERE su_id = last_insert_id();
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS inactiveSubscription;
 DELIMITER $$
 CREATE PROCEDURE inactiveSubscription(id int, user int,dateModified datetime)
@@ -76,7 +76,7 @@ BEGIN
     FROM subscription
     WHERE su_id = id;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS activeSubscription;
 DELIMITER $$
 CREATE PROCEDURE activeSubscription(id int, user int,dateModified datetime)
@@ -110,7 +110,7 @@ BEGIN
     FROM subscription
     WHERE su_id = id;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS deleteSubscription;
 DELIMITER $$
 CREATE PROCEDURE deleteSubscription(id int)
@@ -136,7 +136,7 @@ BEGIN
     WHERE su_id = id;
     DELETE FROM subscription WHERE su_id = id;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS approveSubscription;
 DELIMITER $$
 CREATE PROCEDURE approveSubscription(id int, user int,dateModified datetime)
@@ -170,7 +170,7 @@ BEGIN
     FROM subscription
     WHERE su_id = id;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS getAllSubscription;
 DELIMITER $$
 CREATE PROCEDURE getAllSubscription()
@@ -195,7 +195,7 @@ BEGIN
     FROM subscription
     WHERE su_status = false;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS getSubscriptionById;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionById(id int)
@@ -222,7 +222,7 @@ BEGIN
     WHERE su_id = id
     AND su_status = FALSE;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS getSubscriptionByEmail;
 DELIMITER $$
 CREATE PROCEDURE getSubscriptionByEmail(email varchar(50))

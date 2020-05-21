@@ -87,6 +87,7 @@ BEGIN
     WHERE re_property_fk = pr_id
       AND pr_user_created_fk = id_user;
 END$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getRequestById;
 DELIMITER $$
@@ -103,7 +104,7 @@ BEGIN
     FROM request
     WHERE re_id = id_req AND re_deleted = 0;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS getRequestByUserId;
 DELIMITER $$
 CREATE PROCEDURE getRequestByUserId(id_user int)
@@ -120,7 +121,7 @@ BEGIN
     WHERE re_user_created_fk = id_user
     AND re_deleted = 0;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS getRequestByPropertyId;
 DELIMITER $$
 CREATE PROCEDURE getRequestByPropertyId(id_property int)
@@ -137,7 +138,7 @@ BEGIN
     WHERE re_property_fk = id_property
         AND re_deleted = 0;
 END$$
-
+DELIMITER ;
 DROP PROCEDURE IF EXISTS deleteRequest;
 DELIMITER $$
 CREATE PROCEDURE deleteRequest(id int,user int, dateModified datetime)
@@ -160,7 +161,6 @@ BEGIN
     FROM request
     WHERE re_id = id AND re_deleted = 0;
 END$$
-
 /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---
