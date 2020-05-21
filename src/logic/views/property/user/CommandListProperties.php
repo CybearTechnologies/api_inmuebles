@@ -16,8 +16,8 @@ class CommandListProperties extends Command {
 		$dtoProperties = $this->_listBuilder
 			->getAll()
 			->withExtras()
-			->withLocation()
 			->withType()
+			->withLocation()
 			->withLastTwoPrices()
 			->withUserCreator()
 			->unsetUserModifier()
