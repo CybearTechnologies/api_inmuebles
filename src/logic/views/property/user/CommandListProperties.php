@@ -4,9 +4,11 @@ class CommandListProperties extends Command {
 
 	/**
 	 * CommandListProperties constructor.
+	 *
+	 * @param int $loggedUser
 	 */
-	public function __construct () {
-		$this->_listBuilder = new ListPropertyBuilder();
+	public function __construct (int $loggedUser) {
+		$this->_listBuilder = new ListPropertyBuilder($loggedUser);
 	}
 
 	/**

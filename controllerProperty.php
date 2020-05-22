@@ -30,7 +30,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				else {
-					$command = FactoryCommand::createCommandListProperties();
+					$command = FactoryCommand::createCommandListProperties($loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();

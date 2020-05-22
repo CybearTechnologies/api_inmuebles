@@ -2,13 +2,17 @@
 class PropertyBuilder extends Builder {
 	private $_mapperProperty;
 	private $_id;
+	private $_loggedUser;
 
 	/**
 	 * PropertyBuilder constructor.
+	 *
+	 * @param $loggedUser
 	 */
-	public function __construct () {
+	public function __construct ($loggedUser) {
 		$this->_mapperProperty = FactoryMapper::createMapperProperty();
 		$this->_dao = FactoryDao::createDaoProperty();
+		$this->_loggedUser=$loggedUser;
 	}
 
 	/**
@@ -19,7 +23,7 @@ class PropertyBuilder extends Builder {
 	 * @throws PropertyNotFoundException
 	 */
 	public function getMinimumById (int $id) {
-		$this->_data = $this->_mapperProperty->fromEntityToDto($this->_dao->getPropertyById($id));
+		$this->_data = $this->_mapperProperty->fromEntityToDto($this->_dao->getPropertyById($id,$this->_loggedUser));
 		$this->_id = $id;
 		unset($this->_data->extras);
 		unset($this->_data->request);

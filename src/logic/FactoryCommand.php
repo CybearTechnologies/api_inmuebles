@@ -783,10 +783,12 @@ class FactoryCommand {
 	//----------------------------PROPERTY-----------------------
 	//------------------------------------------------------------
 	/**
+	 * @param int $loggedUser
+	 *
 	 * @return CommandListProperties
 	 */
-	static function createCommandListProperties ():CommandListProperties {
-		return new CommandListProperties();
+	static function createCommandListProperties (int $loggedUser):CommandListProperties {
+		return new CommandListProperties($loggedUser);
 	}
 
 
