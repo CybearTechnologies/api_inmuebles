@@ -28,6 +28,7 @@ BEGIN
     FROM property_type
     WHERE pt_id = last_insert_id();
 END$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS updatePropertyType;
 DELIMITER $$
@@ -54,6 +55,7 @@ BEGIN
     FROM property_type
     WHERE pt_id = id;
 END$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getPropertyTypebyId;
 DELIMITER $$
@@ -71,7 +73,7 @@ BEGIN
     FROM property_type
     WHERE pt_id = id;
 END$$
-
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getAllPropertyType;
 DELIMITER $$
@@ -88,6 +90,7 @@ BEGIN
            pt_date_modified dateModified
     FROM property_type;
 END$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getPropertyTypeByName;
 DELIMITER $$
@@ -105,6 +108,7 @@ BEGIN
     FROM property_type
     WHERE lower(pt_name) = name;
 END$$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS deletePropertyType;
 DELIMITER $$
@@ -133,6 +137,7 @@ BEGIN
     FROM property_type
     WHERE pt_id = id;
 END$$
+DELIMITER ;
 /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---

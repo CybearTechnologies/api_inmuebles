@@ -9,7 +9,7 @@ class PropertyBuilder extends Builder {
 	 *
 	 * @param $loggedUser
 	 */
-	public function __construct ($loggedUser) {
+	public function __construct ($loggedUser = 0) {
 		$this->_mapperProperty = FactoryMapper::createMapperProperty();
 		$this->_dao = FactoryDao::createDaoProperty();
 		$this->_loggedUser=$loggedUser;

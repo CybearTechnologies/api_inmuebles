@@ -49,7 +49,6 @@ class ListPropertyBuilder extends ListBuilder {
 		catch (PropertyNotFoundException $e) {
 			$this->_data = [];
 		}
-
 		return $this;
 	}
 
