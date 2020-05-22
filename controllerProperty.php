@@ -86,7 +86,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					&& isset($post->type) && is_numeric($post->type)
 					&& isset($post->location) && is_numeric($post->location)
 					&& isset($post->price) && is_numeric($post->price)) {
-					$property = FactoryEntity::createProperty(-1,
+					$property = FactoryEntity::createProperty(-1,0,
 						$post->name, $post->area, $post->description,
 						$post->state, $post->floor, $post->type, $post->location);
 					$property->setUserCreator($loggedUser);
