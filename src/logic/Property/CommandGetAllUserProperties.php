@@ -10,7 +10,7 @@ class CommandGetAllUserProperties extends Command {
 	 */
 	public function __construct (int $id) {
 		$this->_dao = FactoryDao::createDaoProperty();
-		$this->_builder = new ListPropertyBuilder();
+		$this->_builder = new ListPropertyBuilder(0);
 		$this->_id = $id;
 	}
 
