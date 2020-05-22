@@ -2,7 +2,7 @@
 class DaoProperty extends Dao {
 	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,
 								  :user,:dateCreated)";
-	private const QUERY_GET_ALL_PROPERTIES = "CALL getAllProperty()";
+	private const QUERY_GET_ALL_PROPERTIES = "CALL getAllProperty(:loggedUser)";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id,:loggedUser)";
 	private const QUERY_GET_BY_USER_CREATOR = "CALL getPropertiesByUserCreator(:id)";
 	private const QUERY_GET_BY_TYPE = "CALL getPropertiesByType(:id)";
