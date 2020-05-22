@@ -101,6 +101,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 							array_push($property->extras, $mapperExtra->fromEntityToDto($command->return()));
 						}
 					}
+
 					$command = FactoryCommand::createCommandCreatePropertyPrice($post->price, $property->id,
 						$loggedUser);
 					$command->execute();
