@@ -80,7 +80,7 @@ DELIMITER $$
 CREATE PROCEDURE getAllProperty(userRequestId int)
 BEGIN
     SELECT pr_id id,
-           IF(NOT(fa_property_fk IS NULL) AND fa_user_created_fk=userRequestId, TRUE, FALSE) favorite,
+           IF(fa_property_fk IS NOT NULL, TRUE,FALSE ) favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -94,7 +94,7 @@ BEGIN
            pr_date_created dateCreated,
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
-    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk)
+    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk AND fa_user_created_fk=userRequestId)
     WHERE pr_deleted = 0;
 END$$
 
