@@ -10,8 +10,8 @@ class CommandGetPropertyById extends Command {
 	 * @param int $property
 	 * @param     $loggedUser
 	 */
-	public function __construct ($property,$loggedUser) {
-		$this->_builderProperty = new PropertyBuilder($loggedUser);
+	public function __construct ($property, $loggedUser) {
+		$this->_builderProperty = new PropertyBuilder();
 		$this->_id = $property;
 		$this->_loggerUser = $loggedUser;
 	}
@@ -22,7 +22,7 @@ class CommandGetPropertyById extends Command {
 	 */
 	public function execute ():void {
 		$dtoProperty = $this->_builderProperty
-												->getMinimumById($this->_id)
+												->getMinimumById($this->_id, $this->_loggerUser)
 												->withExtras()
 												->withPrice()
 												->withUserDetail()
