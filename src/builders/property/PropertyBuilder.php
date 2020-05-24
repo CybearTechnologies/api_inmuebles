@@ -2,7 +2,6 @@
 class PropertyBuilder extends Builder {
 	private $_mapperProperty;
 	private $_id;
-	private $_loggedUser;
 
 	/**
 	 * PropertyBuilder constructor.
