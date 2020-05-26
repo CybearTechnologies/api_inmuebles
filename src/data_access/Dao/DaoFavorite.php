@@ -91,7 +91,7 @@ class DaoFavorite extends Dao {
 	 * @param int $id
 	 * @param int $user
 	 *
-	 * @return Request
+	 * @return Favorite
 	 * @throws DatabaseConnectionException
 	 * @throws FavoriteNotFoundException
 	 */
@@ -103,6 +103,7 @@ class DaoFavorite extends Dao {
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+
 			if ($stmt->rowCount() == 0)
 				Throw new FavoriteNotFoundException("There are no Favorite found", 200);
 			else
