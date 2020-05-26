@@ -39,6 +39,7 @@ class ListFavoriteBuilder extends ListBuilder {
 				$datum->property = $propertyBuilder
 					->getMinimumById($datum->property)
 					->withLastTwoPrices()
+					->setFavorite()
 					->withType()
 					->withLocation()
 					->withExtras()
