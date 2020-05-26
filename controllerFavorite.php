@@ -101,7 +101,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$put = json_decode(file_get_contents('php://input'));
 				if (Validate::id($put)) {
-					$command = FactoryCommand::createCommandDeleteFavorite($put->id);
+					$command = FactoryCommand::createCommandDeleteFavorite($put->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();

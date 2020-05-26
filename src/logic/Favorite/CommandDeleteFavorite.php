@@ -1,15 +1,18 @@
 <?php
 class CommandDeleteFavorite extends Command {
 	private $_id;
+	private $_user;
 
 	/**
 	 * CommandDeleteFavorite constructor.
 	 *
 	 * @param $id
+	 * @param $user
 	 */
-	public function __construct ($id) {
+	public function __construct ($id, $user) {
 		$this->_dao = FactoryDao::createDaoFavorite();
 		$this->_id = $id;
+		$this->_user = $user;
 	}
 
 	/**
@@ -17,7 +20,7 @@ class CommandDeleteFavorite extends Command {
 	 * @throws FavoriteNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->deleteFavorite($this->_id));
+		$this->setData($this->_dao->deleteFavorite($this->_id, $this->_user));
 	}
 
 	/**
