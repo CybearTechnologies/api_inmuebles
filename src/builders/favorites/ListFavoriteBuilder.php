@@ -43,7 +43,8 @@ class ListFavoriteBuilder extends ListBuilder {
 					->withType()
 					->withLocation()
 					->withExtras()
-					->clean()
+					->withUserDetail()
+					->unsetUserModifier()
 					->build();
 			}
 			catch (PropertyNotFoundException $e) {
