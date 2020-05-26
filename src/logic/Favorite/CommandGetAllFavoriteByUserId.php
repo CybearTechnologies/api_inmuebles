@@ -17,7 +17,7 @@ class CommandGetAllFavoriteByUserId extends Command {
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$dtoFavorites = $this->_builder->getMinimumById($this->_id)->clean()->build();
+		$dtoFavorites = $this->_builder->getMinimumById($this->_id)->withProperties()->clean()->build();
 		$this->setData($dtoFavorites);
 	}
 

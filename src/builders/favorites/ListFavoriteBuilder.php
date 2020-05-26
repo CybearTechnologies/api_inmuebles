@@ -49,6 +49,8 @@ class ListFavoriteBuilder extends ListBuilder {
 				$this->_data = [];
 			}
 		}
+
+		return $this;
 	}
 
 	/**
