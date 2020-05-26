@@ -102,7 +102,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command->execute();
 					$return = $command->return();
 					Tools::setResponse();
-					$wrapper->setFrom()->setTo($return->email, $return->firstName . ' ' . $return->lastName)
+					$wrapper
+						->setFrom()
+						->setTo($return->email, $return->firstName . ' ' . $return->lastName)
 						->setSubject('Buscamatch')
 						->setBody('Se ha enviado tu solicitud correctamente. Pronto se dara respuesta!')
 						->sendEmail();
