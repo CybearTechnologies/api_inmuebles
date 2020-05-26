@@ -59,7 +59,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandCreateFavorite($post->property, $loggedUser);
 					try {
 						$command->execute();
-						$return = $mapper->fromEntityToDto($command->return());
+						$return = $command->return();
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $e) {
