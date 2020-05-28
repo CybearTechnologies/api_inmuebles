@@ -8,6 +8,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 class Environment {
 	//	Site settings
 	private const BASE_URL = "http://api.cybear.io/";
+	private const BASE_FRONT_URL = "http://buscamatch.cybear.io/";
 	private const SITE_KEY = "coronavirus";
 	//	Database connections settings
 	private const HOST = "localhost";
@@ -50,5 +51,12 @@ class Environment {
 	 */
 	public static function siteKey ():string {
 		return self::SITE_KEY;
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function baseFrontURL ():string {
+		return self::BASE_FRONT_URL;
 	}
 }

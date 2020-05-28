@@ -1056,4 +1056,13 @@ class FactoryCommand {
 		string $dateModified = null):CommandUpdateUserRol {
 		return new CommandUpdateUserRol($id, $rol, $userModifier, $dateModified);
 	}
+
+	/**
+	 * @param PasswordToken $passwordToken
+	 *
+	 * @return CommandCreatePasswordToken
+	 */
+	static function createCommandCreatePasswordToken($passwordToken):CommandCreatePasswordToken{
+		return new CommandCreatePasswordToken($passwordToken);
+	}
 }

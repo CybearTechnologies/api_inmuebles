@@ -79,7 +79,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "POST":
 		if (Validate::application()) {
-			if (Validate::subscription($post)) {
+			if (Validate::passwordToken($post)) {
 				try {
 					// Files processing
 					$details = [];
@@ -110,7 +110,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				catch (DatabaseConnectionException $exception) {
 					foreach ($files as $file)
 						file_exists($file) ? Tools::removeFile($file) : null;
-					$return = new ErrorResponse($exception->getMessage());
+						$return = new ErrorResponse($exception->getMessage());
 					Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 				}
 				catch (FileNotFoundException $exception) {
