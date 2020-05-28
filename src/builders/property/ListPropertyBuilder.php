@@ -1,17 +1,14 @@
 <?php
 class ListPropertyBuilder extends ListBuilder {
 	private $_mapperProperty;
-	private $_loggedUser;
 
 	/**
 	 * ListPropertyBuilder constructor.
 	 *
-	 * @param int $loggedUser
 	 */
-	public function __construct (int $loggedUser) {
+	public function __construct () {
 		$this->_mapperProperty = FactoryMapper::createMapperProperty();
 		$this->_dao = FactoryDao::createDaoProperty();
-		$this->_loggedUser = $loggedUser;
 	}
 
 	/**
@@ -34,12 +31,14 @@ class ListPropertyBuilder extends ListBuilder {
 	}
 
 	/**
+	 * @param int $loggedUser
+	 *
 	 * @return ListPropertyBuilder
 	 * @throws DatabaseConnectionException
 	 */
-	function getAll () {
+	function getAll (int $loggedUser = Values::DEFAULT_FOREIGN) {
 		try {
-			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllProperty($this->_loggedUser));
+			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllProperty($loggedUser));
 			foreach ($this->_data as $datum) {
 				unset($datum->extras);
 				unset($datum->request);
@@ -49,6 +48,7 @@ class ListPropertyBuilder extends ListBuilder {
 		catch (PropertyNotFoundException $e) {
 			$this->_data = [];
 		}
+
 		return $this;
 	}
 

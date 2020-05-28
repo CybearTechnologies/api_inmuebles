@@ -30,6 +30,32 @@ class ListFavoriteBuilder extends ListBuilder {
 	}
 
 	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withProperties () {
+		$propertyBuilder = new PropertyBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$datum->property = $propertyBuilder
+					->getMinimumById($datum->property)
+					->withLastTwoPrices()
+					->setFavorite()
+					->withType()
+					->withLocation()
+					->withExtras()
+					->withUserDetail()
+					->unsetUserModifier()
+					->build();
+			}
+			catch (PropertyNotFoundException $e) {
+				$this->_data = [];
+			}
+		}
+
+		return $this;
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	function getAll () {

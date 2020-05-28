@@ -78,7 +78,7 @@ class Validate {
 	/**
 	 * @return bool
 	 */
-	static function application () {
+	static function 	application () {
 		$headers = apache_request_headers();
 
 		return isset($headers[Values::APPLICATION_HEADER]);

@@ -2,7 +2,7 @@
 class DaoFavorite extends Dao {
 	private const QUERY_CREATE = "CALL insertFavorite(:property,:user,:dateCreated)";
 	private const QUERY_GET_BY_USER_ID = "CALL getFavoritesByUserId(:id)";
-	private const QUERY_DELETE = "CALL deleteFavorite(:id)";
+	private const QUERY_DELETE = "CALL deleteFavorite(:id,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -89,18 +89,21 @@ class DaoFavorite extends Dao {
 
 	/**
 	 * @param int $id
+	 * @param int $user
 	 *
-	 * @return Request
+	 * @return Favorite
 	 * @throws DatabaseConnectionException
 	 * @throws FavoriteNotFoundException
 	 */
-	public function deleteFavorite ($id) {
+	public function deleteFavorite ($id, $user) {
 		try {
-			$user = 1; // TODO change for logged user
+			$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
+
 			if ($stmt->rowCount() == 0)
 				Throw new FavoriteNotFoundException("There are no Favorite found", 200);
 			else

@@ -870,8 +870,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandGetPropertyById
 	 */
-	static function createCommandGetPropertyById ($property,$loggedUser):CommandGetPropertyById {
-		return new CommandGetPropertyById($property,$loggedUser);
+	static function createCommandGetPropertyById ($property, $loggedUser):CommandGetPropertyById {
+		return new CommandGetPropertyById($property, $loggedUser);
 	}
 	//------------------------------------------------------------
 	//----------------------------RATING---------------------------
@@ -971,11 +971,12 @@ class FactoryCommand {
 
 	/**
 	 * @param int $id
+	 * @param     $user
 	 *
 	 * @return CommandDeleteFavorite
 	 */
-	static function createCommandDeleteFavorite ($id) {
-		return new CommandDeleteFavorite($id);
+	static function createCommandDeleteFavorite ($id, $user) {
+		return new CommandDeleteFavorite($id, $user);
 	}
 
 	/**

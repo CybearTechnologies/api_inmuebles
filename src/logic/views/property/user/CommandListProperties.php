@@ -1,6 +1,7 @@
 <?php
 class CommandListProperties extends Command {
 	private $_listBuilder;
+	private $_loggedUser;
 
 	/**
 	 * CommandListProperties constructor.
@@ -8,7 +9,8 @@ class CommandListProperties extends Command {
 	 * @param int $loggedUser
 	 */
 	public function __construct (int $loggedUser) {
-		$this->_listBuilder = new ListPropertyBuilder($loggedUser);
+		$this->_listBuilder = new ListPropertyBuilder();
+		$this->_loggedUser = $loggedUser;
 	}
 
 	/**
@@ -16,7 +18,7 @@ class CommandListProperties extends Command {
 	 */
 	public function execute ():void {
 		$dtoProperties = $this->_listBuilder
-			->getAll()
+			->getAll($this->_loggedUser)
 			->withExtras()
 			->withType()
 			->withLocation()

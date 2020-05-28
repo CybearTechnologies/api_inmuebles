@@ -173,4 +173,13 @@ class PropertyBuilder extends Builder {
 
 		return $this;
 	}
+
+	/**
+	 * @return $this
+	 */
+	function setFavorite () {
+		$this->_data->favorite = 1;
+
+		return $this;
+	}
 }
