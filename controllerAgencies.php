@@ -25,7 +25,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
 				}
 			}
-			if (Validate::id($get) && isset($get->seats)) {
+			elseif (Validate::id($get) && isset($get->seats)) {
 				$command = FactoryCommand::createCommandGetAllSeatsByAgency($get->id);
 				try {
 					$command->execute();
