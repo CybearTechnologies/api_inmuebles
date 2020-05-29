@@ -17,7 +17,7 @@ class DaoPasswordToken extends Dao {
 	 * @param $userCreator
 	 * @param $dateCreated
 	 *
-	 * @return Access
+	 * @return PasswordToken
 	 * @throws DatabaseConnectionException
 	 */
 	public function createPasswordToken ($token, $userCreator, $dateCreated) {
@@ -41,18 +41,17 @@ class DaoPasswordToken extends Dao {
 	/**
 	 * @param $userId
 	 *
-	 * @return Access
+	 * @return PasswordToken
 	 * @throws DatabaseConnectionException
 	 * @throws PasswordTokenNotFoundException
 	 */
 	public function getTokenPasswordByUserId ($userId) {
 		try {
-			$abbreviation = strtolower($this->_entity->getAbbreviation());
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_USER_ID);
 			$stmt->bindParam(":userId", $userId, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PasswordTokenNotFoundException("There are no acces with this '{$abbreviation}' found", 404);
+				Throw new PasswordTokenNotFoundException("There are no acces with this  found", 404);
 			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 			}
@@ -66,7 +65,7 @@ class DaoPasswordToken extends Dao {
 	/**
 	 * @param int $id
 	 *
-	 * @return Access
+	 * @return PasswordToken
 	 * @throws DatabaseConnectionException
 	 * @throws PasswordTokenNotFoundException
 	 */
@@ -90,7 +89,7 @@ class DaoPasswordToken extends Dao {
 	/**
 	 * @param int $id
 	 *
-	 * @return Access
+	 * @return PasswordToken
 	 * @throws DatabaseConnectionException
 	 * @throws PasswordTokenNotFoundException
 	 */
@@ -113,11 +112,12 @@ class DaoPasswordToken extends Dao {
 	/**
 	 * @param $dbObject
 	 *
-	 * @return Access
+	 * @return PasswordToken
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createAccess($dbObject->id, $dbObject->name, $dbObject->abbreviation,
-			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
+		return FactoryEntity::createPasswordToken($dbObject->id, $dbObject->token,
+			$dbObject->userCreator, $dbObject->userModifier, $dbObject->dateCreated,
+			$dbObject->dateModified,
 			$dbObject->active, $dbObject->delete);
 	}
 }

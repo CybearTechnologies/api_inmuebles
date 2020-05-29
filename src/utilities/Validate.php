@@ -313,4 +313,13 @@ class Validate {
 			&& isset($post->seat) && is_numeric($post->seat)
 			&& isset($post->location) && is_numeric($post->location);
 	}
+
+	/**
+	 * @param $post
+	 *
+	 * @return bool
+	 */
+	public static function passwordToken($post){
+		return isset($post->email) && !empty($post->email);
+	}
 }
