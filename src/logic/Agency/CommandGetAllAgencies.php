@@ -16,6 +16,7 @@ class CommandGetAllAgencies extends Command {
 	public function execute ():void {
 		$dtoAgency = $this->_builder
 									->getAll()
+									->withSeats()
 									->clean()
 									->build();
 		$this->setData($dtoAgency);
