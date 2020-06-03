@@ -22,16 +22,17 @@ class DaoSeat extends Dao {
 	}
 
 	/**
+	 * @param $name
+	 * @param $rif
+	 * @param $location
+	 * @param $agency
+	 * @param $user
+	 *
 	 * @return Seat
 	 * @throws DatabaseConnectionException
 	 */
-	public function createSeat () {
+	public function createSeat ($name, $rif, $location, $agency, $user) {
 		try {
-			$name = $this->_entity->getName();
-			$rif = $this->_entity->getRif();
-			$location = $this->_entity->getLocation();
-			$agency = $this->_entity->getAgency();
-			$user = $this->_entity->getUserCreator();
 			$dateCreated = "";
 			if ($this->_entity->getDateCreated() == "")
 				$dateCreated = null;

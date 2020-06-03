@@ -10,7 +10,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		if (Validate::headers()) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
-				$headers[Values::APPLICATION_HEADER]);
+					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
 					$command = FactoryCommand::createCommandGetSeatById($get->id);
 					try {
@@ -77,9 +77,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
 				if (Validate::seat($post)) {
-					$seat = $mapper->fromDtoToEntity($post);
-					$seat->setUserCreator($loggedUser);
-					$command = FactoryCommand::createCommandCreateSeat($seat);
+					$command = FactoryCommand::createCommandCreateSeat($post->name, $post->rif,
+						$post->location, $post->agency, $loggedUser);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());

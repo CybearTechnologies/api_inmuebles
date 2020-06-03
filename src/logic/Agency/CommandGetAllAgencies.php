@@ -23,6 +23,7 @@ class CommandGetAllAgencies extends Command {
 	}
 
 	/**
+	 *
 	 * @return Agency[]
 	 */
 	public function return () {

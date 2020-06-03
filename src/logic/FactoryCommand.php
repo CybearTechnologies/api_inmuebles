@@ -380,12 +380,16 @@ class FactoryCommand {
 	//----------------------------SEAT---------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Seat $seat
+	 * @param string $name
+	 * @param string $rif
+	 * @param string $location
+	 * @param string $agency
+	 * @param int    $user
 	 *
 	 * @return CommandCreateSeat
 	 */
-	static function createCommandCreateSeat (Seat $seat):CommandCreateSeat {
-		return new CommandCreateSeat($seat);
+	static function createCommandCreateSeat ($name, $rif, $location, $agency, $user):CommandCreateSeat {
+		return new CommandCreateSeat($name, $rif, $location, $agency, $user);
 	}
 
 	/**
@@ -1063,7 +1067,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreatePasswordToken
 	 */
-	static function createCommandCreatePasswordToken($passwordToken):CommandCreatePasswordToken{
+	static function createCommandCreatePasswordToken ($passwordToken):CommandCreatePasswordToken {
 		return new CommandCreatePasswordToken($passwordToken);
 	}
 }
