@@ -33,9 +33,7 @@ class DaoSeat extends Dao {
 	 */
 	public function createSeat ($name, $rif, $location, $agency, $user) {
 		try {
-			$dateCreated = "";
-			if ($this->_entity->getDateCreated() == "")
-				$dateCreated = null;
+			$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 			$stmt->bindParam(":rif", $rif, PDO::PARAM_STR);

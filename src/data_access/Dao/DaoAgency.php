@@ -1,6 +1,6 @@
 <?php
 class DaoAgency extends Dao {
-	private const QUERY_CREATE_AGENCY = "CALL insertAgency(:name,:user,:dateCreated)";
+	private const QUERY_CREATE_AGENCY = "CALL insertAgency(:name,:icon,user,:dateCreated)";
 	private const QUERY_GET_ALL = "CALL getAllAgencies()";
 	private const QUERY_GET_BY_ID = "CALL getAgencyById(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deleteAgency(:id,:user,:dateModified)";
@@ -28,11 +28,13 @@ class DaoAgency extends Dao {
 		try {
 			$user = 1; // TODO: replace for logged user
 			$name = $this->_entity->getName();
+			$icon = $this->_entity->getIcon();
 			$dateCreated = $this->_entity->getDateCreated();
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE_AGENCY);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":icon", $icon, PDO::PARAM_STR);
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
@@ -229,7 +231,7 @@ class DaoAgency extends Dao {
 	 * @return Agency
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createAgency($dbObject->id, $dbObject->name, $dbObject->icon,$dbObject->userCreator,
+		return FactoryEntity::createAgency($dbObject->id, $dbObject->name, $dbObject->icon, $dbObject->userCreator,
 			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified, $dbObject->active,
 			$dbObject->delete);
 	}

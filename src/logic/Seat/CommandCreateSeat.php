@@ -14,7 +14,6 @@ class CommandCreateSeat extends Command {
 	 * @param $rif
 	 * @param $location
 	 * @param $agency
-	 * @param $user
 	 */
 	public function __construct ($name, $rif, $location, $agency, $user) {
 		$this->_dao = FactoryDao::createDaoSeat();
