@@ -91,17 +91,37 @@ class DaoPasswordToken extends Dao {
 	 *
 	 * @return PasswordToken
 	 * @throws DatabaseConnectionException
-	 * @throws PasswordTokenNotFoundException
 	 */
 	public function deletePasswordTokenById (int $id) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param String $token
+	 *
+	 * @return PasswordToken
+	 * @throws DatabaseConnectionException
+	 * @throws PasswordTokenNotFoundException
+	 */
+	public function getPasswordTokenByToken (String $token) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
 			if ($stmt->rowCount() == 0)
-				Throw new PasswordTokenNotFoundException("There are no access found", 404);
-			else
+				Throw new PasswordTokenNotFoundException("There are no token found", 404);
+			else {
 				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

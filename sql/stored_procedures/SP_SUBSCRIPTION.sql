@@ -134,9 +134,11 @@ BEGIN
            su_location_fk location
     FROM subscription
     WHERE su_id = id;
+    DELETE FROM subscription_detail WHERE sd_subscription_fk = id;
     DELETE FROM subscription WHERE su_id = id;
 END$$
 DELIMITER ;
+
 DROP PROCEDURE IF EXISTS approveSubscription;
 DELIMITER $$
 CREATE PROCEDURE approveSubscription(id int, user int,dateModified datetime)
