@@ -380,12 +380,16 @@ class FactoryCommand {
 	//----------------------------SEAT---------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Seat $seat
+	 * @param string $name
+	 * @param string $rif
+	 * @param string $location
+	 * @param string $agency
+	 * @param int    $user
 	 *
 	 * @return CommandCreateSeat
 	 */
-	static function createCommandCreateSeat (Seat $seat):CommandCreateSeat {
-		return new CommandCreateSeat($seat);
+	static function createCommandCreateSeat ($name, $rif, $location, $agency, $user):CommandCreateSeat {
+		return new CommandCreateSeat($name, $rif, $location, $agency, $user);
 	}
 
 	/**
@@ -1060,29 +1064,10 @@ class FactoryCommand {
 
 	/**
 	 * @param PasswordToken $passwordToken
-	 * @param               $user
 	 *
 	 * @return CommandCreatePasswordToken
 	 */
-	static function createCommandCreatePasswordToken($passwordToken,$user):CommandCreatePasswordToken{
-		return new CommandCreatePasswordToken($passwordToken,$user);
-	}
-
-	/**
-	 * @param String $token
-	 *
-	 * @return CommandGetPasswordTokenByToken
-	 */
-	static function createCommandGetPasswordTokenByToken(String $token): CommandGetPasswordTokenByToken{
-		return new CommandGetPasswordTokenByToken($token);
-	}
-
-	/**
-	 * @param int $user
-	 *
-	 * @return CommandDeletePasswordTokenByUserId
-	 */
-	static function createCommandDeletePasswordTokenByUserId(int $user):CommandDeletePasswordTokenByUserId{
-		return new CommandDeletePasswordTokenByUserId($user);
+	static function createCommandCreatePasswordToken($passwordToken):CommandCreatePasswordToken{
+		return new CommandCreatePasswordToken($passwordToken);
 	}
 }

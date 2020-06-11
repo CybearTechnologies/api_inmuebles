@@ -25,7 +25,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					Tools::setResponse(Values::getValue("ERROR_AGENCY_NOT_FOUND"));
 				}
 			}
-			if (Validate::id($get) && isset($get->seats)) {
+			elseif (Validate::id($get) && isset($get->seats)) {
 				$command = FactoryCommand::createCommandGetAllSeatsByAgency($get->id);
 				try {
 					$command->execute();
@@ -70,7 +70,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
 								$post->name, 'files/agency');
 						$dto = FactoryDto::createDtoAgency(-1, $post->name, Environment::baseURL() . $tempImage);
-						$command = FactoryCommand::createCommandCreateAgency($mapper->fromDtoToEntity($dto));
+						$agency = $mapper->fromDtoToEntity($dto);
+						$agency->setUserCreator($loggedUser);
+						$command = FactoryCommand::createCommandCreateAgency($agency);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
