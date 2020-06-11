@@ -19,11 +19,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandCreatePasswordToken($passwordToken,$loggedUser);
 					$command->execute();
 					$passwordToken = $command->return();
-					/*$wrapper->setFrom()->setTo($user->email, $user->firstName . ' ' . $user->lastName)
+					$wrapper->setFrom()->setTo($user->email, $user->firstName . ' ' . $user->lastName)
 						->setSubject('Buscamatch - Recuperar Contraseña')
 						->setBody('Para realizar el cambio de contraseña acceda al siguiente enlace'
-							. Environment::baseFrontURL() . 'change-password/' . $passwordToken->token)
-						->sendEmail();*/
+							. Environment::baseFrontURL() . 'change-password/' . $passwordToken->token."_".$user->email)
+						->sendEmail();
 					Tools::setResponse();
 				}
 				else {
@@ -67,9 +67,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "GET":
 		if (Validate::application()) {
-			if (Validate::validPasswordToken($post)) {
+			$get = Tools::getObject();
+			if (Validate::validPasswordToken($get)) {
 				try{
-					$command=FactoryCommand::createCommandGetPasswordTokenByToken($post->token);
+					$values = explode("_",$get->token);
+					$command=FactoryCommand::createCommandGetPasswordTokenByToken($values[0],$values[1]);
 					$command->execute();
 					Tools::setResponse();
 				}

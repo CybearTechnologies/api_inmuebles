@@ -1073,19 +1073,20 @@ class FactoryCommand {
 
 	/**
 	 * @param $token
+	 * @param $user
 	 *
 	 * @return CommandGetPasswordTokenByToken
 	 */
-	static function createCommandGetPasswordTokenByToken($token):CommandGetPasswordTokenByToken{
-		return new CommandGetPasswordTokenByToken($token);
+	static function createCommandGetPasswordTokenByToken($token,$user):CommandGetPasswordTokenByToken{
+		return new CommandGetPasswordTokenByToken($token,$user);
 	}
 
 	/**
-	 * @param $token
+	 * @param $user
 	 *
-	 * @return CommandGetPasswordTokenByToken
+	 * @return CommandDeletePasswordTokenByUserId
 	 */
-	static function createCommandDeletePasswordTokenByUserId($user):CommandGetPasswordTokenByToken{
-		return new CommandGetPasswordTokenByToken($user);
+	static function createCommandDeletePasswordTokenByUserId($user):CommandDeletePasswordTokenByUserId{
+		return new CommandDeletePasswordTokenByUserId($user);
 	}
 }

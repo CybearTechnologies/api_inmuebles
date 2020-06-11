@@ -324,11 +324,11 @@ class Validate {
 	}
 
 	/**
-	 * @param $post
+	 * @param $get
 	 *
 	 * @return bool
 	 */
-	public static function validPasswordToken($post){
-		return isset($post->token) && !empty($post->token);
+	public static function validPasswordToken($get){
+		return isset($get->token) && !empty($get->token);
 	}
 }

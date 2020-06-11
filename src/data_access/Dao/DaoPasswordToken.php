@@ -4,6 +4,7 @@ class DaoPasswordToken extends Dao {
 	private const QUERY_GET_BY_ID = "CALL getPasswordTokenById(:id)";
 	private const QUERY_GET_BY_USER_ID = "CALL getAccessById(:userId)";
 	private const QUERY_DELETE_BY_ID = "CALL deletePasswordToken(:id)";
+	private const QUERY_GET_BY_TOKEN= "CALL getPasswordToken(:token,:user)";
 
 	/**
 	 * DaoAccess constructor.
@@ -104,15 +105,17 @@ class DaoPasswordToken extends Dao {
 
 	/**
 	 * @param String $token
+	 * @param string $user
 	 *
 	 * @return PasswordToken
 	 * @throws DatabaseConnectionException
 	 * @throws PasswordTokenNotFoundException
 	 */
-	public function getPasswordTokenByToken (String $token) {
+	public function getPasswordTokenByToken (String $token,string $user) {
 		try {
-			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
-			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_TOKEN);
+			$stmt->bindParam(":token", $token, PDO::PARAM_STR);
+			$stmt->bindParam(":user", $user, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new PasswordTokenNotFoundException("There are no token found", 404);

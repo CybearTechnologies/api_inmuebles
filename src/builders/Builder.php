@@ -41,15 +41,6 @@ abstract class Builder {
 	}
 
 	/**
-	 * @return $this
-	 */
-	public  function unsetUserModifier () {
-		unset($this->_data->userModifier);
-
-		return $this;
-	}
-
-	/**
 	 * @return Builder
 	 */
 	public function unsetDate () {

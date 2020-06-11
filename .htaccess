@@ -86,6 +86,7 @@ RewriteRule ^subscription/(accept|decline)/([0-9]+)$ controllerSubscription.php?
 RewriteRule ^subscription$ controllerSubscription.php [NC,L]
 #PASSWORD TOKEN
 RewriteRule ^recover-password$ controllerPasswordToken.php [NC,L]
+RewriteRule ^recover-password/([A-Za-z0-9._@]+)$ controllerPasswordToken.php?token=$1 [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------

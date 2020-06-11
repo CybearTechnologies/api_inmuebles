@@ -33,7 +33,9 @@ BEGIN
            pt_user_creator_fk userCreator,
            pt_date_created dateCreated,
            pt_user_modified_fk userModifier,
-           pt_date_modified dateModified
+           pt_date_modified dateModified,
+           pt_active active,
+           pt_delete 'delete'
     FROM password_token
     WHERE pt_user_creator_fk=user;
 END$$
@@ -47,23 +49,27 @@ BEGIN
            pt_user_creator_fk userCreator,
            pt_date_created dateCreated,
            pt_user_modified_fk userModifier,
-           pt_date_modified dateModified
+           pt_date_modified dateModified,
+           pt_active active,
+           pt_delete 'delete'
     FROM password_token
     WHERE pt_id = id;
 END$$
 
-DROP PROCEDURE IF EXISTS getPasswordTokenByToken;
+DROP PROCEDURE IF EXISTS getPasswordToken;
 DELIMITER $$
-CREATE PROCEDURE getPasswordTokenByToken(token VARCHAR(500))
+CREATE PROCEDURE getPasswordToken(token VARCHAR(500),username varchar(50))
 BEGIN
     SELECT pt_id id,
            pt_token token,
            pt_user_creator_fk userCreator,
            pt_date_created dateCreated,
            pt_user_modified_fk userModifier,
-           pt_date_modified dateModified
-    FROM password_token
-    WHERE pt_token = token;
+           pt_date_modified dateModified,
+           pt_active active,
+           pt_delete 'delete'
+    FROM password_token, user us
+    WHERE pt_token = token AND pt_user_creator_fk=us_id AND us_email=username;
 END$$
 
 DROP PROCEDURE IF EXISTS deletePasswordToken;
