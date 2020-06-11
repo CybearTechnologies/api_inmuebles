@@ -19,6 +19,7 @@ class CommandCreatePasswordToken extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
+	 * @throws PasswordTokenNotFoundException
 	 */
 	public function execute ():void {
 			$this->_commandDeletePasswordToken->execute();

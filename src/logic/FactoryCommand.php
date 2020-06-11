@@ -1070,4 +1070,22 @@ class FactoryCommand {
 	static function createCommandCreatePasswordToken($passwordToken,$user):CommandCreatePasswordToken{
 		return new CommandCreatePasswordToken($passwordToken,$user);
 	}
+
+	/**
+	 * @param $token
+	 *
+	 * @return CommandGetPasswordTokenByToken
+	 */
+	static function createCommandGetPasswordTokenByToken($token):CommandGetPasswordTokenByToken{
+		return new CommandGetPasswordTokenByToken($token);
+	}
+
+	/**
+	 * @param $token
+	 *
+	 * @return CommandGetPasswordTokenByToken
+	 */
+	static function createCommandDeletePasswordTokenByUserId($user):CommandGetPasswordTokenByToken{
+		return new CommandGetPasswordTokenByToken($user);
+	}
 }
