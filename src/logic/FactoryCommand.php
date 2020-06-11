@@ -1067,7 +1067,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreatePasswordToken
 	 */
-	static function createCommandCreatePasswordToken($passwordToken):CommandCreatePasswordToken{
-		return new CommandCreatePasswordToken($passwordToken);
+	static function createCommandCreatePasswordToken($passwordToken,$user):CommandCreatePasswordToken{
+		return new CommandCreatePasswordToken($passwordToken,$user);
 	}
 }
