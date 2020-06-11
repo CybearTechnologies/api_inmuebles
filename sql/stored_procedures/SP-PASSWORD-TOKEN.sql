@@ -17,7 +17,9 @@ BEGIN
            pt_user_creator_fk userCreator,
            pt_date_created dateCreated,
            pt_user_modified_fk userModifier,
-           pt_date_modified dateModified
+           pt_date_modified dateModified,
+           pt_active active,
+           pt_delete 'delete'
     FROM password_token
     WHERE pt_id = last_insert_id();
 END$$

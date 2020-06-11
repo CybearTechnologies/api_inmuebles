@@ -13,19 +13,17 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandGetUserByUsername($post->email);
 					$command->execute();
 					$user = $command->return();
-					$randomString = md5(uniqid($post->email, true));;
+					$loggedUser=$user->id;
+					$randomString = md5(uniqid($post->email, true));
 					$passwordToken = FactoryEntity::createPasswordToken(-1, $randomString, $user->id);
-					echo 'pre';
-					var_dump($passwordToken);
-					die();
-					$command = FactoryCommand::createCommandCreatePasswordToken($passwordToken);
+					$command = FactoryCommand::createCommandCreatePasswordToken($passwordToken,$loggedUser);
 					$command->execute();
 					$passwordToken = $command->return();
-					$wrapper->setFrom()->setTo($user->email, $user->firstName . ' ' . $user->lastName)
+					/*$wrapper->setFrom()->setTo($user->email, $user->firstName . ' ' . $user->lastName)
 						->setSubject('Buscamatch - Recuperar Contraseña')
 						->setBody('Para realizar el cambio de contraseña acceda al siguiente enlace'
 							. Environment::baseFrontURL() . 'change-password/' . $passwordToken->token)
-						->sendEmail();
+						->sendEmail();*/
 					Tools::setResponse();
 				}
 				else {
@@ -53,6 +51,16 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				Logger::exception($exception,Logger::ERROR);
 				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue("ERROR_MAILER"));
+			}
+			catch (InvalidJWTException $e) {
+				Logger::exception($e, Logger::ERROR);
+				$return = new ErrorResponse($e->getMessage());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
+			}
+			catch (OriginNotFoundException $e) {
+				Logger::exception($e, Logger::ERROR);
+				$return = new ErrorResponse($e->getMessage());
+				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
 		}
 		echo json_encode($return);

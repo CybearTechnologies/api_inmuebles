@@ -88,8 +88,6 @@ class DaoPasswordToken extends Dao {
 
 	/**
 	 * @param int $id
-	 *
-	 * @return PasswordToken
 	 * @throws DatabaseConnectionException
 	 */
 	public function deletePasswordTokenById (int $id) {
@@ -97,7 +95,6 @@ class DaoPasswordToken extends Dao {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_ID);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->execute();
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
