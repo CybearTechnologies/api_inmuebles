@@ -172,6 +172,7 @@ CREATE TABLE property
     pr_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     pr_user_modified_fk int(10)                DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     pr_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
+    FOREIGN KEY (pr_destiny_fk) REFERENCES property_destiny(pd_id),
     FOREIGN KEY (pr_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (pr_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (pr_type_fk) REFERENCES property_type (pt_id),
@@ -282,7 +283,7 @@ CREATE TABLE subscription
     su_first_name       varchar(45)  NOT NULL COMMENT 'Nombre',
     su_last_name        varchar(45)  NOT NULL COMMENT 'Apellido',
     su_address          varchar(200) NOT NULL COMMENT 'Dirección',
-    su_passport         varchar(50) NOT NULL COMMENT 'Documento de identidad',
+    su_passport         varchar(50)  COMMENT 'Documento de identidad',
     su_email            varchar(50)  NOT NULL COMMENT 'Email',
     su_active           tinyint(1) NOT NULL DEFAULT 1 COMMENT 'Activo',
     su_status           tinyint(1) NOT NULL DEFAULT 0 COMMENT 'Aprobado',
@@ -335,7 +336,9 @@ CREATE TABLE property_destiny(
     pd_date_created     datetime   NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
     pd_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     pd_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-)
+    FOREIGN KEY (pd_user_creator_fk) REFERENCES user (us_id),
+    FOREIGN KEY (pd_user_modified_fk) REFERENCES user (us_id)
+);
 
 
 

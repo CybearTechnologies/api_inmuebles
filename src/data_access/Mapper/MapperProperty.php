@@ -9,7 +9,7 @@ class MapperProperty extends Mapper {
 	 * @return Property
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createProperty($dto->id, $dto->favorite,$dto->name, $dto->area, $dto->description, $dto->state,
+		return FactoryEntity::createProperty($dto->id, $dto->destiny,$dto->favorite,$dto->name, $dto->area, $dto->description, $dto->state,
 			$dto->floor, $dto->type, $dto->location);
 	}
 
@@ -19,7 +19,7 @@ class MapperProperty extends Mapper {
 	 * @return DtoProperty
 	 */
 	public function fromEntityToDto ($entity):Dto {
-		return FactoryDto::createDtoProperty($entity->getId(),
+		return FactoryDto::createDtoProperty($entity->getId(),$entity->getDestiny(),
 			$entity->getFavorite(),
 			$entity->getUserCreator(),
 			$entity->getUserModifier(),

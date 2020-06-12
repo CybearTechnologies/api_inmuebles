@@ -8,11 +8,13 @@ class Property extends Entity {
 	private $_type;
 	private $_location;
 	private $_favorite;
+	private $_destiny;
 
 	/**
 	 * Property constructor.
 	 *
 	 * @param int    $id
+	 * @param 	     $destiny
 	 * @param int    $favorite
 	 * @param string $name
 	 * @param float  $area
@@ -28,11 +30,12 @@ class Property extends Entity {
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
-	public function __construct (int $id, int $favorite,string $name, float $area, string $description,
+	public function __construct (int $id, $destiny,int $favorite,string $name, float $area,string $description,
 		int $state, int $floor, int $type, int $location, bool $active, bool $delete,
 		int $userCreator, int $userModifier, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_favorite = $favorite;
+		$this->_destiny = $destiny;
 		$this->_name = $name;
 		$this->_area = $area;
 		$this->_description = $description;
@@ -153,6 +156,22 @@ class Property extends Entity {
 	public function setFavorite (int $favorite):void {
 		$this->_favorite = $favorite;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getDestiny () {
+		return $this->_destiny;
+	}
+
+	/**
+	 * @param mixed $destiny
+	 */
+	public function setDestiny ($destiny):void {
+		$this->_destiny = $destiny;
+	}
+
+
 
 
 }
