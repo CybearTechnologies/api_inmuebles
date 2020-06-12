@@ -62,6 +62,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse($e->getMessage());
 				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
+			catch (PasswordTokenNotFoundException $e) {
+				//no se debe devolver que no se encontró el usuario
+				Logger::exception($e,Logger::ERROR);
+				$return = new ErrorResponse($e->getMessage());
+				Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+			}
 		}
 		echo json_encode($return);
 		break;
