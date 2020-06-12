@@ -102,6 +102,20 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
 				}
+				if (isset($get->cancel) && isset($post->id)) {
+					$command = FactoryCommand::createCommandGetRequestById($post->id);
+					try {
+						$command->execute();
+						$command = FactoryCommand::createCommandDeleteRequestById($post->id, $loggedUser);
+						$command->execute();
+						$return = true;
+					}
+					catch (RequestNotFoundException $e) {
+						echo "aqui";
+						$return = new ErrorResponse(Values::getText("ERROR_REQUEST_NOT_FOUND"));
+						Tools::setResponse(Values::getValue("ERROR_REQUEST_NOT_FOUND"));
+					}
+				}
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));

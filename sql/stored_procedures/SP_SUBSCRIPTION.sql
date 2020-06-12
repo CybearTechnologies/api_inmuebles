@@ -111,6 +111,7 @@ BEGIN
     WHERE su_id = id;
 END$$
 DELIMITER ;
+
 DROP PROCEDURE IF EXISTS deleteSubscription;
 DELIMITER $$
 CREATE PROCEDURE deleteSubscription(id int)

@@ -1,26 +1,33 @@
 <?php
 class CommandDeleteRequestById extends Command {
+	private $_id;
+	private $_user;
+	private $_mapper;
+
 	/**
 	 * CommandDeleteRequestById constructor.
 	 *
-	 * @param Request $entity
+	 * @param int $id
+	 * @param     $user
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoRequest($entity);
+	public function __construct (int $id, int $user) {
+		$this->_dao = FactoryDao::createDaoRequest();
+		$this->_mapper = FactoryMapper::createMapperRequest();
+		$this->_id = $id;
+		$this->_user = $user;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		//TODO	falta este metodo en el dao
-		$this->setData($this->_dao->deleteRequestById());
+		$this->_dao->deleteRequest($this->_id, $this->_user);
 	}
 
 	/**
-	 * @return Request
+	 * @return bool
 	 */
 	public function return () {
-		return $this->getData();
+		return true;
 	}
 }
