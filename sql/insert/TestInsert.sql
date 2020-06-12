@@ -30,10 +30,10 @@ insert into user(us_first_name, us_last_name, us_address, us_email,
                  us_user_created_fk,us_user_modified_fk) values
 ('Jose','Cedeno','Cumbres de Curumo','josejecr97@gmail.com','123456',1,1,1,1,1,1,1);
 
-insert into property(pr_name,pr_area,pr_description,pr_status,
+insert into property(pr_name,pr_destiny_fk,pr_area,pr_description,pr_status,
                      pr_floor,pr_type_fk,pr_user_created_fk,pr_location_fk,
                      pr_user_modified_fk) values
-('Apartamento en los palos grandes',125.23,'bonito apartamento',1,0,1,1,1,1);
+('Apartamento en los palos grandes',1,125.23,'bonito apartamento',1,0,1,1,1,1);
 
 insert into request(re_user_created_fk,re_user_modified_fk,re_property_fk) values
 (1,1,1);
@@ -67,10 +67,10 @@ insert into user(us_first_name, us_last_name, us_address, us_email,
                  us_user_created_fk,us_user_modified_fk) values
 ('Jose','Cedeno','Cumbres de Curumo','josejecr97@gmail.com','123456',1,1,1,1,1,1,1);
 
-insert into property(pr_name,pr_area,pr_description,pr_status,
+insert into property(pr_name,pr_destiny_fk,pr_area,pr_description,pr_status,
                      pr_floor,pr_type_fk,pr_user_created_fk,pr_location_fk,
                      pr_user_modified_fk) values
-('Apartamento en los palos grandes',125.23,'bonito apartamento',1,0,1,1,1,1);
+('Apartamento en los palos grandes',2,125.23,'bonito apartamento',1,0,1,1,1,1);
 
 insert into request(re_user_created_fk,re_user_modified_fk,re_property_fk) values
 (1,1,1);
@@ -124,5 +124,3 @@ INSERT INTO origin (or_id, or_name, or_private_key, or_public_key, or_active, or
                     (1, 'Browser', '5efcef0186887afb02f425fc0f787e4eff6b95f068828a312e2b0756485a19ba',
                      '4a4d4a4341acbccae132bc912d91f0d0bbfa2843d27775e14930143bce44aabb', 1, 0, 1,
                      '2020-04-06 22:40:52', 1, '2020-04-06 22:40:52');
-
-CALL insertFavorite(19,13,null)

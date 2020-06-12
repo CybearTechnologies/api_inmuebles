@@ -1,6 +1,6 @@
 <?php
 class DaoProperty extends Dao {
-	private const QUERY_CREATE = "call insertProperty(:name,:area,:description,:floor,:type,:location,
+	private const QUERY_CREATE = "call insertProperty(:name,:destiny,:area,:description,:floor,:type,:location,
 								  :user,:dateCreated)";
 	private const QUERY_GET_ALL_PROPERTIES = "CALL getAllProperty(:loggedUser)";
 	private const QUERY_GET_BY_ID = "CALL getPropertyById(:id,:loggedUser)";
@@ -123,11 +123,13 @@ class DaoProperty extends Dao {
 			$type = $this->_property->getType();
 			$location = $this->_property->getLocation();
 			$user = $this->_property->getUserCreator();
+			$destiny = $this->_property->getDestiny();
 			$dateCreated = "";
 			if ($this->_property->getDateCreated() == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
 			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":destiny", $destiny, PDO::PARAM_INT);
 			$stmt->bindParam(":description", $description, PDO::PARAM_STR);
 			$stmt->bindParam(":area", $area, PDO::PARAM_STR);
 			$stmt->bindParam(":floor", $floor, PDO::PARAM_INT);

@@ -645,7 +645,7 @@ BEGIN
 END $$*/
 
 INSERT INTO property_type(pt_name, pt_image)
-VALUES ('Apartamento','Apartamento.jpg');
+                                                  VALUES ('Apartamento','Apartamento.jpg');
 INSERT INTO property_type(pt_name, pt_image)
 VALUES ('Casa','Casa.jpg');
 INSERT INTO property_type(pt_name, pt_image)
@@ -678,6 +678,8 @@ INSERT INTO agency(ag_name,ag_icon)
 VALUES ('Rent a House','Ruta 3');
 INSERT INTO agency(ag_name,ag_icon)
 VALUES ('Sinergia','Ruta 4');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Otro','Ruta 5');
 
 INSERT INTO plan(pl_name, pl_price)
 VALUES ('Regular', 5);
@@ -838,3 +840,6 @@ ALTER TABLE property_extra
 ALTER TABLE origin
     ALTER COLUMN or_user_created_fk DROP DEFAULT,
     ALTER COLUMN or_user_modified_fk DROP DEFAULT;
+
+insert into property_destiny(pd_name, pd_user_creator_fk,pd_user_modified_fk) VALUES ('Venta',1,1);
+insert into property_destiny(pd_name, pd_user_creator_fk,pd_user_modified_fk) VALUES ('Alquiler',1,1);

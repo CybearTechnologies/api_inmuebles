@@ -9,11 +9,11 @@ CREATE PROCEDURE insertProperty(name varchar(45), destiny int,area double(20, 2)
                                 floor tinyint, type int, location int, user int, dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
-        INSERT INTO property(pr_name, pr_destiny,pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
+        INSERT INTO property(pr_name, pr_destiny_fk,pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
                              pr_user_created_fk, pr_user_modified_fk)
         VALUES (name, destiny,area, description, floor, type, location, user, user);
     ELSE
-        INSERT INTO property(pr_name, pr_destiny,pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
+        INSERT INTO property(pr_name, pr_destiny_fk,pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
                              pr_user_created_fk, pr_user_modified_fk, pr_date_created, pr_date_modified)
         VALUES (name, destiny,area, description, floor, type, location, user, user, dateCreated, dateCreated);
     END IF;
@@ -34,8 +34,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property, property_destiny pd
-    LEFT JOIN favorite ON (pr_id)
-    WHERE pr_id = last_insert_id() AND pr_destiny=pd_id;
+    WHERE pr_id = last_insert_id() AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS updateProperty;
@@ -45,13 +44,13 @@ CREATE PROCEDURE updateProperty(id int, destiny int,name varchar(45), area doubl
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE property
-        SET pr_name=name, pr_destiny = destiny,pr_area = area, pr_description= description, pr_floor = floor,
+        SET pr_name=name, pr_destiny_fk = destiny,pr_area = area, pr_description= description, pr_floor = floor,
             pr_type_fk= type, pr_location_fk= location,
             pr_user_modified_fk=user
         WHERE pr_id = id;
     ELSE
         UPDATE property
-        SET pr_name=name, pr_destiny=destiny,pr_area = area, pr_description= description, pr_floor = floor, pr_type_fk= type,
+        SET pr_name=name, pr_destiny_fk=destiny,pr_area = area, pr_description= description, pr_floor = floor, pr_type_fk= type,
             pr_location_fk= location, pr_user_modified_fk=user, pr_date_modified= dateModified
         WHERE pr_id = id;
     END IF;
@@ -72,7 +71,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property, property_destiny pd
-    WHERE pr_id = id AND pr_destiny=pd_id;
+    WHERE pr_id = id AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS getAllPropertyActives;
@@ -98,7 +97,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk AND fa_user_created_fk=userRequestId), property_destiny pd
-    WHERE pr_deleted = 0 AND pr_destiny=pd_id;
+    WHERE pr_deleted = 0 AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertyById;
@@ -122,7 +121,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk), property_destiny pd
-    WHERE id_pro = pr_id AND pr_deleted = 0 AND pr_destiny=pd_id;
+    WHERE id_pro = pr_id AND pr_deleted = 0 AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertiesByType;
@@ -146,7 +145,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk), property_destiny pd
-    WHERE pr_type_fk = id_type AND pr_deleted = 0 AND pr_active = 1 AND pr_destiny=pd_id;
+    WHERE pr_type_fk = id_type AND pr_deleted = 0 AND pr_active = 1 AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertiesByUserCreator;
@@ -170,7 +169,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk), property_destiny pd
-    WHERE pr_user_created_fk = id_user AND pr_deleted = 0 AND pr_destiny=pd_id;
+    WHERE pr_user_created_fk = id_user AND pr_deleted = 0 AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertiesByUserCreatorAndState;
@@ -208,7 +207,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property, property_destiny pd
-    WHERE id_pro = pr_id AND pr_destiny=pd_id;
+    WHERE id_pro = pr_id AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS inactivePropertyById;
@@ -243,7 +242,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property, property_destiny pd
-    WHERE id_pro = pr_id AND pr_destiny=pd_id;
+    WHERE id_pro = pr_id AND pr_destiny_fk=pd_id;
 END$$
 
 DROP PROCEDURE IF EXISTS activePropertyById;
@@ -278,7 +277,7 @@ BEGIN
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
     FROM property, property_destiny pd
-    WHERE id_pro = pr_id AND pr_destiny=pd_id;
+    WHERE id_pro = pr_id AND pr_destiny_fk=pd_id;
 END$$
 /**
  ----------------------------------------------------------------------------------------------------------------------
