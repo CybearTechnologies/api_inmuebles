@@ -7,7 +7,7 @@ class MailerWrapper {
 	private $_mail;
 	private const USERNAME = "admin@cybear.io";
 	private const PASSWORD = "%Jafj25CR943*";
-	private const FULL_NAME = "Administrador";
+	private const FULL_NAME = "";
 
 	/**
 	 * MailerWrapper constructor.
@@ -22,15 +22,15 @@ class MailerWrapper {
 		SMTP::DEBUG_OFF;
 		$this->_mail->isSMTP();
 		//REMOTE
-		/*$this->_mail->Host = 'localhost';
-		$this->_mail->SMTPAuth = false;
-		$this->_mail->SMTPAutoTLS = false;
-		$this->_mail->Port = 25;*/
+				$this->_mail->Host = 'localhost';
+				$this->_mail->SMTPAuth = false;
+				$this->_mail->SMTPAutoTLS = false;
+				$this->_mail->Port = 25;
 		//LOCAL
-		$this->_mail->Host = 'smtp.gmail.com';
-		$this->_mail->Port = 587;
-		$this->_mail->SMTPAuth = true;
-		$this->_mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+		/*		$this->_mail->Host = 'smtp.gmail.com';
+				$this->_mail->Port = 587;
+				$this->_mail->SMTPAuth = true;
+				$this->_mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;*/
 	}
 
 	private function smtpAuth () {

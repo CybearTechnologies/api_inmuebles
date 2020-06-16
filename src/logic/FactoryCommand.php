@@ -255,12 +255,12 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Request $request
+	 * @param int $id
 	 *
 	 * @return CommandGetRequestById
 	 */
-	static function createCommandGetRequestById ($request):CommandGetRequestById {
-		return new CommandGetRequestById($request);
+	static function createCommandGetRequestById ($id):CommandGetRequestById {
+		return new CommandGetRequestById($id);
 	}
 
 	/**
@@ -273,12 +273,13 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $request
+	 * @param $id
+	 * @param $user
 	 *
 	 * @return CommandDeleteRequestById
 	 */
-	static function createCommandDeleteRequestById ($request):CommandDeleteRequestById {
-		return new CommandDeleteRequestById($request);
+	static function createCommandDeleteRequestById (int $id, int $user):CommandDeleteRequestById {
+		return new CommandDeleteRequestById($id, $user);
 	}
 
 	/**
@@ -1067,8 +1068,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreatePasswordToken
 	 */
-	static function createCommandCreatePasswordToken($passwordToken,$user):CommandCreatePasswordToken{
-		return new CommandCreatePasswordToken($passwordToken,$user);
+	static function createCommandCreatePasswordToken ($passwordToken, $user):CommandCreatePasswordToken {
+		return new CommandCreatePasswordToken($passwordToken, $user);
 	}
 
 	/**
@@ -1077,8 +1078,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandGetPasswordTokenByToken
 	 */
-	static function createCommandGetPasswordTokenByToken($token,$user):CommandGetPasswordTokenByToken{
-		return new CommandGetPasswordTokenByToken($token,$user);
+	static function createCommandGetPasswordTokenByToken ($token, $user):CommandGetPasswordTokenByToken {
+		return new CommandGetPasswordTokenByToken($token, $user);
 	}
 
 	/**
@@ -1086,7 +1087,7 @@ class FactoryCommand {
 	 *
 	 * @return CommandDeletePasswordTokenByUserId
 	 */
-	static function createCommandDeletePasswordTokenByUserId($user):CommandDeletePasswordTokenByUserId{
+	static function createCommandDeletePasswordTokenByUserId ($user):CommandDeletePasswordTokenByUserId {
 		return new CommandDeletePasswordTokenByUserId($user);
 	}
 }

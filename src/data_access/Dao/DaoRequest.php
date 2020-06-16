@@ -6,7 +6,7 @@ class DaoRequest extends Dao {
 	private const QUERY_GET_BY_USER_ID = "CALL getRequestByUserId(:id)";
 	private const QUERY_GET_PENDING_REQUEST = "CALL getPendingRequest(:id)";
 	private const QUERY_GET_REQUEST_BY_PROPERTY_ID = "CALL getRequestByPropertyId(:id)";
-	private const QUERY_DELETE = "CALL deleteRequest(:id,:user)";
+	private const QUERY_DELETE = "CALL deleteRequest(:id,:user,:dateModified)";
 	private const QUERY_UPDATE = "CALL updateRequest(:id,:property,:user,:dateModified)";
 	private $_entity;
 
@@ -185,19 +185,21 @@ class DaoRequest extends Dao {
 	}
 
 	/**
+	 * @param int $id
+	 * @param int $userModifier
+	 *
 	 * @return Request
 	 * @throws DatabaseConnectionException
 	 */
-	public function deleteRequest () {
+	public function deleteRequest (int $id, int $userModifier) {
 		try {
-			$id = $this->_entity->getId();
-			$user = $this->_entity->getUserModifier();
+			$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
-			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_INT);
 			$stmt->execute();
 
-			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

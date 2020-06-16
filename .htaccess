@@ -36,6 +36,7 @@ RewriteRule ^property/price$ controllerProperty.php?price [NC,L]
 RewriteRule ^property$ controllerProperty.php [NC,L]
 # REQUEST
 RewriteRule ^property-request$ controllerPropertyRequest.php [NC,L]
+RewriteRule ^property-request/cancel$ controllerPropertyRequest.php?cancel=true [NC,L]
 RewriteRule ^property/([0-9]+)/request$ controllerPropertyRequest.php?property=$1 [NC,L]
 
 
