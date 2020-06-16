@@ -21,7 +21,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$passwordToken = $command->return();
 					$wrapper->setFrom()->setTo($user->email, $user->firstName . ' ' . $user->lastName)
 						->setSubject('Buscamatch - Recuperar Contraseña')
-						->setBody('Para realizar el cambio de contraseña acceda al siguiente enlace'
+						->setBody('Para realizar el cambio de contraseña acceda al siguiente enlace '
 							. Environment::baseFrontURL() . 'change-password/' . $passwordToken->token."_".$user->email)
 						->sendEmail();
 					Tools::setResponse();

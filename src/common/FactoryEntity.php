@@ -481,4 +481,25 @@ class  FactoryEntity {
 		return new PasswordToken($id,$token,$userCreator, $userModifier,
 			$dateCreated, $dateModified, $active, $delete);
 	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return PropertyDestiny
+	 */
+	static function createPropertyDestiny(int $id, string $name,
+		int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE){
+		return new PropertyDestiny($id,$name,$userCreator, $userModifier,
+			$dateCreated, $dateModified, $active, $delete);
+	}
 }
