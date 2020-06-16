@@ -178,4 +178,11 @@ class FactoryDao {
 	static function createDaoPasswordToken():DaoPasswordToken{
 		return new DaoPasswordToken();
 	}
+
+	/**
+	 * @return DaoPropertyDestiny
+	 */
+	static function createDaoPropertyDestiny():DaoPropertyDestiny{
+		return new DaoPropertyDestiny();
+	}
 }
