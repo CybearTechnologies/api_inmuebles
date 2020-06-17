@@ -150,11 +150,11 @@ END$$
 
 DROP PROCEDURE IF EXISTS getPropertiesByUserCreator;
 DELIMITER $$
-CREATE PROCEDURE getPropertiesByUserCreator(id_user int,userRequestId int)
+CREATE PROCEDURE getPropertiesByUserCreator(id_user int)
 BEGIN
     SELECT pr_id id,
            pd.pd_name destiny,
-           IF(NOT(fa_property_fk IS NULL) AND fa_user_created_fk=userRequestId, TRUE, FALSE) favorite,
+           0 favorite,
            pr_name name,
            pr_area area,
            pr_description description,
@@ -168,7 +168,7 @@ BEGIN
            pr_date_created dateCreated,
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
-    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk), property_destiny pd
+    FROM property, property_destiny pd
     WHERE pr_user_created_fk = id_user AND pr_deleted = 0 AND pr_destiny_fk=pd_id;
 END$$
 
