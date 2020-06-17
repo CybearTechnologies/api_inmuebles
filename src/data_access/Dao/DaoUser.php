@@ -51,12 +51,12 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":firstName", $firstName, PDO::PARAM_STR);
 			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
-			$stmt->bindParam(":address", $address, PDO::PARAM_INT);
+			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
 			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
-			$stmt->bindParam(":userModifier", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)

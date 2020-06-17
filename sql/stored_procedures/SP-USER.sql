@@ -111,19 +111,19 @@ END$$
 DROP PROCEDURE IF EXISTS updateUser;
 DELIMITER $$
 CREATE PROCEDURE updateUser(id int, firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
-                            seat int, location int, user int,
+                            seat int,plan int, location int, user int,
                             dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE user
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
-            us_email = email, us_seat_fk=seat,
+            us_email = email, us_seat_fk=seat, us_plan_fk = plan,
             us_location_fk = location, us_user_modified_fk = user
         WHERE us_id = id;
     ELSE
         UPDATE user
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
-            us_email = email, us_seat_fk=seat,
+            us_email = email, us_seat_fk=seat,us_plan_fk = plan,
             us_location_fk = location, us_user_modified_fk = user, us_date_modified=dateModified
         WHERE us_id = id;
     END IF;
