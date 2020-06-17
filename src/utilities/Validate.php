@@ -78,7 +78,7 @@ class Validate {
 	/**
 	 * @return bool
 	 */
-	static function 	application () {
+	static function application () {
 		$headers = apache_request_headers();
 
 		return isset($headers[Values::APPLICATION_HEADER]);
@@ -252,6 +252,13 @@ class Validate {
 			&& isset($extra->name) && !empty($extra->name);
 	}
 
+	static function putUser ($put) {
+		return isset($put->id) && is_numeric($put->id) && isset($put->firstName) && !empty($put->firstName) &&
+			isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put->address) &&
+			isset($put->email) && !empty($put->email) && isset($put->seat) && is_numeric($put->seat) &&
+			isset($put->plan) && is_numeric($put->plan) && isset($put->location) && is_numeric($put->location);
+	}
+
 	/**
 	 * @param $plan
 	 *
@@ -318,7 +325,7 @@ class Validate {
 	 *
 	 * @return bool
 	 */
-	public static function passwordToken($post){
+	public static function passwordToken ($post) {
 		return isset($post->email) && !empty($post->email);
 	}
 
@@ -327,7 +334,7 @@ class Validate {
 	 *
 	 * @return bool
 	 */
-	public static function validPasswordToken($get){
+	public static function validPasswordToken ($get) {
 		return isset($get->token) && !empty($get->token);
 	}
 }

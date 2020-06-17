@@ -119,12 +119,23 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $user
+	 * @param      $id
+	 * @param      $firstName
+	 * @param      $lastName
+	 * @param      $address
+	 * @param      $email
+	 * @param      $seat
+	 * @param      $plan
+	 * @param      $location
+	 * @param      $userModifier
+	 * @param      $dateModified
 	 *
 	 * @return CommandUpdateUser
 	 */
-	static function createCommandUpdateUser ($user):CommandUpdateUser {
-		return new CommandUpdateUser($user);
+	static function createCommandUpdateUser ($id, $firstName, $lastName, $address, $email, $seat, $plan, $location,
+		$userModifier, $dateModified = null):CommandUpdateUser {
+		return new CommandUpdateUser($id, $firstName, $lastName, $address, $email, $seat, $plan, $location,
+			$userModifier, $dateModified);
 	}
 
 	/**
