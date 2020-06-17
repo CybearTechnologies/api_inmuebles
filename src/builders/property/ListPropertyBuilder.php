@@ -119,7 +119,7 @@ class ListPropertyBuilder extends ListBuilder {
 		foreach ($this->_data as $datum) {
 			try {
 				$datum->type = $typeBuilder
-					->getMinimumById($datum->id)
+					->getMinimumById($datum->type)
 					->clean()
 					->build();
 			}
