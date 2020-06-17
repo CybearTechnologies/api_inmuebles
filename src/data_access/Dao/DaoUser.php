@@ -10,7 +10,7 @@ class DaoUser extends Dao {
 	private const QUERY_BLOCK = "CALL blockUser(:id,:user,:dateModified)";
 	private const QUERY_UNBLOCK = "CALL unblockUser(:id,:user,:dateModified)";
 	private const QUERY_GET_ALL = "CALL getAllUsers()";
-	private const QUERY_UPDATE = "CALL updateUser(:id,:firstName,:lastName,:address,:email,:password,:seat,:rol,:plan,
+	private const QUERY_UPDATE = "CALL updateUser(:id,:firstName,:lastName,:address,:email,:seat,:plan,
 	:location,:user,:dateModified)";
 	private const QUERY_SET_PLAN = "CALL setUserPlan(:id,:plan,:user,:dateModified)";
 	private const QUERY_CHANGE_PASSWORD = "CALL changePassword(:id,:password,:user,:dateModified)";
@@ -29,38 +29,34 @@ class DaoUser extends Dao {
 	}
 
 	/**
+	 * @param      $id
+	 * @param      $firstName
+	 * @param      $lastName
+	 * @param      $address
+	 * @param      $email
+	 * @param      $seat
+	 * @param      $plan
+	 * @param      $location
+	 * @param      $userModifier
+	 * @param      $dateModified
+	 *
 	 * @return User
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 */
-	public function updateUser () {
+	public function updateUser ($id, $firstName, $lastName, $address, $email, $seat, $plan, $location, $userModifier,
+		$dateModified) {
 		try {
-			$id = $this->_entity->getId();
-			$firstName = $this->_entity->getFirstName();
-			$lastName = $this->_entity->getLastName();
-			$address = $this->_entity->getAddress();
-			$email = $this->_entity->getEmail();
-			$password = $this->_entity->getPassword();
-			$seat = $this->_entity->getSeat();
-			$rol = $this->_entity->getRol();
-			$plan = $this->_entity->getPlan();
-			$location = $this->_entity->getLocation();
-			$userModifier = 1; /*TODO $this->_entity->getUserModifier();*/
-			$dateModified = $this->_entity->getDateModified();
-			if ($dateModified == "")
-				$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":firstName", $firstName, PDO::PARAM_STR);
 			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
-			$stmt->bindParam(":address", $address, PDO::PARAM_INT);
+			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
-			$stmt->bindParam(":password", $password, PDO::PARAM_STR);
 			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
-			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
-			$stmt->bindParam(":userModifier", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)

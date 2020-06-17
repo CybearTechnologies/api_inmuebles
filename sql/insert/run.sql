@@ -679,7 +679,9 @@ VALUES ('Rent a House','Ruta 3');
 INSERT INTO agency(ag_name,ag_icon)
 VALUES ('Sinergia','Ruta 4');
 INSERT INTO agency(ag_name,ag_icon)
-VALUES ('Otro','Ruta 5');
+VALUES ('Agente Independiente','Ruta 5');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Otro','Ruta 6');
 
 INSERT INTO plan(pl_name, pl_price)
 VALUES ('Regular', 5);

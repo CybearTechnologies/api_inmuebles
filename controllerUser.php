@@ -82,9 +82,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::putRol($put)) { //TODO condition validate (???)
+				if (Validate::putUser($put)) {
 					try {
-						$command = FactoryCommand::createCommandUpdateUser($mapper->fromDtoToEntity($put));
+						$command = FactoryCommand::createCommandUpdateUser($put->id, $put->firstName, $put->lastName,
+							$put->address, $put->email, $put->seat, $put->plan, $put->location,
+							$loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
 						Tools::setResponse();
@@ -99,9 +101,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				elseif (isset($put->firstName) && !empty($put->firstName) &&
-					isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put	->address) &&
+					isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put->address) &&
 					isset($put->email) && !empty($put->email) && isset($get->profile)) {
-					$command = FactoryCommand::createCommandUpdateUserProfile($loggedUser, $put->firstName, $put->lastName,
+					$command = FactoryCommand::createCommandUpdateUserProfile($loggedUser, $put->firstName,
+						$put->lastName,
 						$put->address, $put->email, $loggedUser);
 					$command->execute();
 					$return = $command->return();
