@@ -22,10 +22,10 @@ class MailerWrapper {
 		SMTP::DEBUG_OFF;
 		$this->_mail->isSMTP();
 		//REMOTE
-				$this->_mail->Host = 'localhost';
-				$this->_mail->SMTPAuth = false;
-				$this->_mail->SMTPAutoTLS = false;
-				$this->_mail->Port = 25;
+		$this->_mail->Host = 'localhost';
+		$this->_mail->SMTPAuth = false;
+		$this->_mail->SMTPAutoTLS = false;
+		$this->_mail->Port = 25;
 		//LOCAL
 		/*		$this->_mail->Host = 'smtp.gmail.com';
 				$this->_mail->Port = 587;
