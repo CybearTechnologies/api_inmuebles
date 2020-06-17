@@ -11,11 +11,11 @@ BEGIN
     IF IsNull(dateCreated) THEN
         INSERT INTO property(pr_name, pr_destiny_fk,pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
                              pr_user_created_fk, pr_user_modified_fk)
-        VALUES (name, destiny,area, description, floor, type, location, user, user);
+        VALUES (name, 1,area, description, floor, type, location, user, user);
     ELSE
         INSERT INTO property(pr_name, pr_destiny_fk,pr_area, pr_description, pr_floor, pr_type_fk, pr_location_fk,
                              pr_user_created_fk, pr_user_modified_fk, pr_date_created, pr_date_modified)
-        VALUES (name, destiny,area, description, floor, type, location, user, user, dateCreated, dateCreated);
+        VALUES (name, 1,area, description, floor, type, location, user, user, dateCreated, dateCreated);
     END IF;
     SELECT pr_id id,
            pd.pd_name destiny,
