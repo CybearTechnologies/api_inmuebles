@@ -56,10 +56,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
 					}
 				}
-				elseif(isset($get->property)&& is_numeric($get->property))
-				{
-					echo "endpoint property extra all";
-					$command= FactoryCommand::createCommandGetAllExtrasByPropertyId($get->property);
+				elseif (isset($get->property) && is_numeric($get->property)) {
+					$command = FactoryCommand::createCommandGetAllExtrasByPropertyId($get->property);
 					$command->execute();
 					$return = $command->return();
 					Tools::setResponse();

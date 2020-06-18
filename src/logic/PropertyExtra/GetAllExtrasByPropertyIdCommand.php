@@ -23,7 +23,7 @@ class GetAllExtrasByPropertyIdCommand extends Command {
 		$dtoPropertyExtra = $this->_mapperPropExtra->fromEntityArrayToDtoArray($this->_dao->getPropertyExtraByPropertyId($this->_propertyId));
 		//SET EXTRA
 		foreach ($dtoPropertyExtra as $item) {
-			$command = FactoryCommand::createCommandGetExtraById(FactoryEntity::createExtra($item->extra));
+			$command = FactoryCommand::createCommandGetExtraById(($item->extra));
 			$command->execute();
 			$item->extra = $command->return();
 		}
