@@ -58,6 +58,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				}
 				elseif(isset($get->property)&& is_numeric($get->property))
 				{
+					echo "endpoint property extra all";
 					$command= FactoryCommand::createCommandGetAllExtrasByPropertyId($get->property);
 					$command->execute();
 					$return = $command->return();
