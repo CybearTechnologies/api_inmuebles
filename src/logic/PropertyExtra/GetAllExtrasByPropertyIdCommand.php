@@ -17,9 +17,7 @@ class GetAllExtrasByPropertyIdCommand extends Command {
 	/**
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
-	 * @throws MultipleUserException
 	 * @throws PropertyExtraNotFoundException
-	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
 		$dtoPropertyExtra = $this->_mapperPropExtra->fromEntityArrayToDtoArray($this->_dao->getPropertyExtraByPropertyId($this->_propertyId));
