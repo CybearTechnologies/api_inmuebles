@@ -65,10 +65,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::agency($post) && ImageProcessor::imageFileExist('image')) {
+				if (Validate::agency($post) && FileHandler::fileExist('image')) {
 					try {
-						$tempImage = __DIR__ . '/' . ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-								$post->name, 'files/agency');
+						$tempImage = FileHandler::save('image', $post->name, 'files/agency');
 						$dto = FactoryDto::createDtoAgency(-1, $post->name, Environment::baseURL() . $tempImage);
 						$agency = $mapper->fromDtoToEntity($dto);
 						$agency->setUserCreator($loggedUser);
@@ -84,14 +83,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					catch (DatabaseConnectionException $exception) {
 						$return = new ErrorResponse(Values::getText('ERROR_DATABASE'));
 						Tools::setResponse(Values::getValue('ERROR_DATABASE'));
-					}
-					catch (FileIsNotImageException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
-					}
-					catch (ImageNotFoundException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
 					}
 				}
 				else {

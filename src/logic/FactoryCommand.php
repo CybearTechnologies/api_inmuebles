@@ -965,6 +965,11 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param int $id
+	 * @param int $amount
+	 * @param int $property
+	 * @param int $creator
+	 *
 	 * @return CommandCreatePropertyExtra
 	 */
 	static function createCommandCreatePropertyExtra (int $id, int $amount, int $property,

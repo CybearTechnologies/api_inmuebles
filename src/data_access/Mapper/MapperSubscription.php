@@ -8,7 +8,8 @@ class MapperSubscription extends Mapper {
 	public function fromDtoToEntity ($dto):Entity {
 		if (!isset($dto->id))
 			$dto->id = -1;
-
+		if (!isset($dto->passport))
+			$dto->passport ="";
 		return FactoryEntity::createSubscription($dto->id, $dto->firstName,$dto->lastName,
 			$dto->address, $dto->ci, $dto->passport, $dto->email, $dto->password,
 			$dto->plan, $dto->seat, $dto->location);

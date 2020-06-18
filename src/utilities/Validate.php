@@ -99,7 +99,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function extra ($extra) {
-		return isset($extra->name) && !empty($extra->name);
+		return isset($extra->name) && !empty($extra->name) && FileHandler::hasFiles();
 	}
 
 	/**
@@ -108,7 +108,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function propertyType ($propertyType) {
-		return isset($propertyType->name) && !empty($propertyType->name);
+		return isset($propertyType->name) && !empty($propertyType->name) && FileHandler::hasFiles();
 	}
 
 	/**
@@ -154,7 +154,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function agency ($agency) {
-		return isset($agency->name) && !empty($agency->name);
+		return isset($agency->name) && !empty($agency->name) && FileHandler::hasFiles();
 	}
 
 	/**
@@ -318,7 +318,6 @@ class Validate {
 			&& isset($post->firstName) && !empty($post->firstName)
 			&& isset($post->lastName) && !empty($post->lastName)
 			&& isset($post->address) && !empty($post->address)
-			&& isset($post->passport) && !empty($post->passport)
 			&& isset($post->password) && !empty($post->password)
 			&& isset($post->email) && !empty($post->email)
 			&& isset($post->plan) && is_numeric($post->plan)

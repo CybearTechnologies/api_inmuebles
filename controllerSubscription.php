@@ -79,7 +79,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 		break;
 	case "POST":
 		if (Validate::application()) {
-			if (Validate::passwordToken($post)) {
+			if (Validate::subscription($post)) {
 				try {
 					// Files processing
 					$details = [];

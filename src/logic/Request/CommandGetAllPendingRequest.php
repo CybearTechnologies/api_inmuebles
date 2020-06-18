@@ -5,6 +5,8 @@ class CommandGetAllPendingRequest extends Command {
 
 	/**
 	 * CommandGetAllPendingRequest constructor.
+	 *
+	 * @param $id
 	 */
 	public function __construct ($id) {
 		$this->_builder = new ListPropertyRequestBuilder();

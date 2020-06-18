@@ -104,42 +104,29 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::extra($post) && ImageProcessor::imageFileExist('image') && isset($get->create)) {
+				if (Validate::extra($post) && FileHandler::fileExist('image') && isset($get->create)) {
 					try {
-						$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-							$post->name, 'files/extra');
-						$command = FactoryCommand::createCommandCreateExtra($post->name,
-							Environment::baseURL() . $tempImage, $loggedUser);
+						$tempImage = FileHandler::save('image', $post->name, 'files/extra');
+						$command = FactoryCommand::createCommandCreateExtra($post->name, $tempImage, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $exception) {
-						ImageProcessor::removeImage(__DIR__ . '/' . $tempImage);
+						FileHandler::remove($tempImage);
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
-					catch (FileIsNotImageException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
-					}
-					catch (ImageNotFoundException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
-					}
 				}
-				elseif (Validate::putExtra($post) && ImageProcessor::imageFileExist('image') && isset($get->update)) {
+				elseif (Validate::putExtra($post) && FileHandler::fileExist('image') && isset($get->update)) {
 					$command = FactoryCommand::createCommandGetExtraById($post->id);
 					try {
 						$command->execute();
 						$extra = $command->return();
 						$length = strlen(Environment::baseURL()) - 1;
-						ImageProcessor::removeImage(__DIR__ . substr_replace($extra->icon, '', 0, $length));
-						$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-							$post->name, 'files/extra');
+						$tempImage = FileHandler::replace($extra->icon, 'image', $post->name, 'files/extra');
 						$command = FactoryCommand::createCommandUpdateExtraById($post->id, $post->name,
-							Environment::baseURL() . $tempImage,
-							$loggedUser);
+							Environment::baseURL() . $tempImage, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
@@ -258,14 +245,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				$put = json_decode(file_get_contents('php://input'));
-				if (Validate::putExtra($put)) {
+				if (Validate::putExtra($put) && FileHandler::fileExist('image')) {
 					$command = FactoryCommand::createCommandGetExtraById($put->id);
 					try {
 						$command->execute();
 						$extra = $command->return();
-						ImageProcessor::removeImage($extra->icon);
-						$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-							$post->name, 'files/extra');
+						$tempImage = FileHandler::replace($extra->icon, 'image', $post->name, 'files/extra');
 						$command = FactoryCommand::createCommandUpdateExtraById($put->id, $put->name, $tempImage,
 							$loggedUser);
 						$command->execute();
