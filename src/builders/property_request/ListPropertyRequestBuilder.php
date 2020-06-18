@@ -83,7 +83,7 @@ class ListPropertyRequestBuilder extends ListBuilder {
 					->withExtras()
 					->withType()
 					->withLastTwoPrices()
-					->clean()
+					->withUserDetail()
 					->build();
 			}
 		}

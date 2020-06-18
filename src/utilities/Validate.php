@@ -252,6 +252,11 @@ class Validate {
 			&& isset($extra->name) && !empty($extra->name);
 	}
 
+	/**
+	 * @param $put
+	 *
+	 * @return bool
+	 */
 	static function putUser ($put) {
 		return isset($put->id) && is_numeric($put->id) && isset($put->firstName) && !empty($put->firstName) &&
 			isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put->address) &&
