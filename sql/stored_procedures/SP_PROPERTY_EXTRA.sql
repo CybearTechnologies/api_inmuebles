@@ -49,3 +49,11 @@ CREATE PROCEDURE deletePropertyExtraByPropertyId(id int)
 BEGIN
     DELETE FROM property_extra WHERE pe_id = id;
 END$$
+
+DROP PROCEDURE IF EXISTS deleteAllExtraByPropertyId;
+DELIMITER $$
+CREATE PROCEDURE deleteAllExtraByPropertyId(id int)
+BEGIN
+    DELETE FROM property_extra WHERE pe_property_fk = id;
+END;
+DELIMITER $$;
