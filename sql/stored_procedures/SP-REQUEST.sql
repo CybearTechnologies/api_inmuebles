@@ -82,10 +82,8 @@ BEGIN
            re_user_modified_fk userModifier,
            re_date_created dateCreated,
            re_date_modified dateModified
-    FROM property,
-         request
-    WHERE re_property_fk = pr_id
-      AND pr_user_created_fk = id_user;
+    FROM   request
+    WHERE re_user_created_fk = id_user;
 END$$
 DELIMITER ;
 
