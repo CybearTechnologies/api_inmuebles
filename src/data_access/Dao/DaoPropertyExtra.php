@@ -4,6 +4,7 @@ class DaoPropertyExtra extends Dao {
 	private const QUERY_GET_BY_ID = "CALL getPropertyExtraById(:id)";
 	private const QUERY_GET_BY_PROPERTY_ID = "CALL getPropertyExtraByPropertyId(:id)";
 	private const QUERY_DELETE = "CALL getPropertyExtraByPropertyId(:id)";
+	private const QUERY_DELETE_BY_PROPERTY_ID = "CALL deleteExtrasByPropertyId(:id,:user,:dateModified)";
 	private $_entity;
 
 	/**
@@ -111,6 +112,27 @@ class DaoPropertyExtra extends Dao {
 			$stmt->execute();
 
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param int    $id
+	 * @param int    $user
+	 * @param string $dateModified
+	 *
+	 * @throws DatabaseConnectionException
+	 */
+	public function deleteExtrasByPropertyId (int $id, int $user, string $dateModified) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_BY_PROPERTY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);
