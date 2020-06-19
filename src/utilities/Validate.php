@@ -99,7 +99,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function extra ($extra) {
-		return isset($extra->name) && !empty($extra->name) && FileHandler::hasFiles();
+		return isset($extra->name) && !empty($extra->name);
 	}
 
 	/**
@@ -252,6 +252,11 @@ class Validate {
 			&& isset($extra->name) && !empty($extra->name);
 	}
 
+	/**
+	 * @param $put
+	 *
+	 * @return bool
+	 */
 	static function putUser ($put) {
 		return isset($put->id) && is_numeric($put->id) && isset($put->firstName) && !empty($put->firstName) &&
 			isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put->address) &&
@@ -268,6 +273,22 @@ class Validate {
 		return isset($plan->id) && is_numeric($plan->id)
 			&& isset($plan->name) && !empty($plan->name)
 			&& isset($plan->price) && is_numeric($plan->price);
+	}
+
+	/**
+	 * @param $property
+	 *
+	 * @return bool
+	 */
+	static function putProperty ($property) {
+		return isset($property->area) && is_numeric($property->area)
+			&& isset($property->description) && !empty($property->description)
+			&& isset($property->destiny) && is_numeric($property->destiny)
+			&& isset($property->floor) && is_numeric($property->floor)
+			&& isset($property->id) && is_numeric($property->id)
+			&& isset($property->location) && is_numeric($property->location)
+			&& isset($property->name) && !empty($property->name)
+			&& isset($property->type) && is_numeric($property->type);
 	}
 
 	/**

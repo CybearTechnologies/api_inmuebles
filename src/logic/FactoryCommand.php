@@ -865,6 +865,27 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param      $id
+	 * @param      $destiny
+	 * @param      $name
+	 * @param      $area
+	 * @param      $description
+	 * @param      $floor
+	 * @param      $type
+	 * @param      $location
+	 * @param      $user
+	 * @param      $dateModified
+	 *
+	 * @return CommandUpdateProperty
+	 */
+	static function createCommandUpdateProperty ($id, $destiny, $name, $area, $description, $floor, $type, $location,
+		$user,
+		$dateModified = null):CommandUpdateProperty {
+		return new CommandUpdateProperty($id, $destiny, $name, $area, $description, $floor, $type, $location, $user,
+			$dateModified);
+	}
+
+	/**
 	 * @param Property $property
 	 *
 	 * @return CommandDeletePropertyById
@@ -977,6 +998,30 @@ class FactoryCommand {
 		return new CommandCreatePropertyExtra($id, $amount, $property, $creator);
 	}
 
+	/**
+	 * @param int $id
+	 * @param int $userModified
+	 * @param     $dateModified
+	 *
+	 * @return CommandDeleteExtrasByPropertyId
+	 */
+	static function createCommandDeleteExtrasByPropertyId (
+		int $id, int $userModified, $dateModified = null):CommandDeleteExtrasByPropertyId {
+		return new CommandDeleteExtrasByPropertyId($id, $userModified, $dateModified);
+	}
+
+	/**
+	 * @param int         $id
+	 * @param             $extras
+	 * @param int         $user
+	 * @param string|null $dateModified
+	 *
+	 * @return CommandUpdatePropertyExtras
+	 */
+	static function createCommandUpdatePropertyExtras (int $id, $extras, int $user,
+		string $dateModified = null):CommandUpdatePropertyExtras {
+		return new CommandUpdatePropertyExtras($id, $extras, $user, $dateModified);
+	}
 	////////////////////////////////////////////////////////////////////////////
 	//								FAVORITE
 	////////////////////////////////////////////////////////////////////////////
@@ -1105,5 +1150,12 @@ class FactoryCommand {
 	 */
 	static function createCommandDeletePasswordTokenByUserId ($user):CommandDeletePasswordTokenByUserId {
 		return new CommandDeletePasswordTokenByUserId($user);
+	}
+
+	/**
+	 * @return CommandGetAllPropertyDestiny
+	 */
+	static function createCommandGetAllPropertyDestiny():CommandGetAllPropertyDestiny{
+		return new CommandGetAllPropertyDestiny();
 	}
 }

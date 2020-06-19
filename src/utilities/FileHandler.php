@@ -63,9 +63,6 @@ class FileHandler {
 		return null;
 	}
 
-	public static function absolutePath (string $relativePath) {
-	}
-
 	/**
 	 * Remove a file if exists
 	 *

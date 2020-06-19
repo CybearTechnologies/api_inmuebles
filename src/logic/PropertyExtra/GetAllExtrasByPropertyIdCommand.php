@@ -17,15 +17,13 @@ class GetAllExtrasByPropertyIdCommand extends Command {
 	/**
 	 * @throws DatabaseConnectionException
 	 * @throws ExtraNotFoundException
-	 * @throws MultipleUserException
 	 * @throws PropertyExtraNotFoundException
-	 * @throws UserNotFoundException
 	 */
 	public function execute ():void {
 		$dtoPropertyExtra = $this->_mapperPropExtra->fromEntityArrayToDtoArray($this->_dao->getPropertyExtraByPropertyId($this->_propertyId));
 		//SET EXTRA
 		foreach ($dtoPropertyExtra as $item) {
-			$command = FactoryCommand::createCommandGetExtraById(FactoryEntity::createExtra($item->extra));
+			$command = FactoryCommand::createCommandGetExtraById(($item->extra));
 			$command->execute();
 			$item->extra = $command->return();
 		}
