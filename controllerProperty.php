@@ -14,7 +14,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
-					$command = FactoryCommand::createCommandGetPropertyById($get->id,$loggedUser);
+					$command = FactoryCommand::createCommandGetPropertyById($get->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();
@@ -86,7 +86,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					&& isset($post->type) && is_numeric($post->type)
 					&& isset($post->location) && is_numeric($post->location)
 					&& isset($post->price) && is_numeric($post->price)) {
-					$property = FactoryEntity::createProperty(-1,$post->destiny,0,
+					$property = FactoryEntity::createProperty(-1, $post->destiny, 0,
 						$post->name, $post->area, $post->description,
 						$post->state, $post->floor, $post->type, $post->location);
 					$property->setUserCreator($loggedUser);
@@ -101,7 +101,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 							array_push($property->extras, $mapperExtra->fromEntityToDto($command->return()));
 						}
 					}
-
 					$command = FactoryCommand::createCommandCreatePropertyPrice($post->price, $property->id,
 						$loggedUser);
 					$command->execute();
@@ -196,6 +195,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
 						Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 					}
+				}
+				elseif (Validate::putProperty($put)) {
+					$command = FactoryCommand::createCommandUpdateProperty($put->id, $put->destiny, $put->name,
+						$put->area, $put->description, $put->floor, $put->type, $put->location, $put->user);
+					$command->execute();
+					$return = $command->return();
 				}
 				else {
 					$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));

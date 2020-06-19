@@ -7,6 +7,7 @@ class DaoProperty extends Dao {
 	private const QUERY_GET_BY_USER_CREATOR = "CALL getPropertiesByUserCreator(:id)";
 	private const QUERY_GET_BY_TYPE = "CALL getPropertiesByType(:id)";
 	private const QUERY_DELETE_BY_ID = "CALL deletePropertyById(:id,:user,:dateModified)";
+	private const QUERY_UPDATE_BY_ID = "CALL updateProperty(:id,:destiny,:name,:area,:description,:floor,:type,:location,:user,:dateModified)";
 	private const QUERY_INACTIVE_PROPERTY_BY_ID = "CALL inactivePropertyById(:id,:user,:dateModified)";
 	private const QUERY_ACTIVE_PROPERTY_BY_ID = "CALL activePropertyById(:id,:user,:dateModified)";
 	private $_genericQuery = "SELECT pr.pr_id id, pr.pr_name 'name', pr.pr_area area, 
@@ -148,6 +149,46 @@ class DaoProperty extends Dao {
 	}
 
 	/**
+	 * @param $id
+	 * @param $destiny
+	 * @param $name
+	 * @param $area
+	 * @param $description
+	 * @param $floor
+	 * @param $type
+	 * @param $location
+	 * @param $user
+	 * @param $dateModified
+	 *
+	 * @return Property
+	 * @throws DatabaseConnectionException
+	 */
+	public function updateProperty ($id, $destiny, $name, $area, $description, $floor, $type, $location, $user,
+		$dateModified) {
+		try {
+			$dateCreated = null;
+			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE_BY_ID);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->bindParam(":destiny", $destiny, PDO::PARAM_INT);
+			$stmt->bindParam(":description", $description, PDO::PARAM_STR);
+			$stmt->bindParam(":area", $area, PDO::PARAM_STR);
+			$stmt->bindParam(":floor", $floor, PDO::PARAM_INT);
+			$stmt->bindParam(":type", $type, PDO::PARAM_INT);
+			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
+			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+
+			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
 	 * @param int $userRequestId
 	 *
 	 * @return Property[]
@@ -200,7 +241,7 @@ class DaoProperty extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function getPropertyById ($property,$loggedUser) {
+	public function getPropertyById ($property, $loggedUser) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_ID);
 			$stmt->bindParam(":id", $property, PDO::PARAM_INT);
@@ -380,7 +421,7 @@ class DaoProperty extends Dao {
 	 * @return Property
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createProperty($dbObject->id, $dbObject->destiny,$dbObject->favorite,$dbObject->name,
+		return FactoryEntity::createProperty($dbObject->id, $dbObject->destiny, $dbObject->favorite, $dbObject->name,
 			$dbObject->area, $dbObject->description, $dbObject->status, $dbObject->floor, $dbObject->type,
 			$dbObject->location, $dbObject->active, $dbObject->delete, $dbObject->userCreator, $dbObject->userModifier,
 			$dbObject->dateCreated, $dbObject->dateModified);

@@ -276,6 +276,22 @@ class Validate {
 	}
 
 	/**
+	 * @param $property
+	 *
+	 * @return bool
+	 */
+	static function putProperty ($property) {
+		return isset($property->area) && is_numeric($property->area)
+			&& isset($property->description) && !empty($property->description)
+			&& isset($property->destiny) && is_numeric($property->destiny)
+			&& isset($property->floor) && is_numeric($property->floor)
+			&& isset($property->id) && is_numeric($property->id)
+			&& isset($property->location) && is_numeric($property->location)
+			&& isset($property->name) && !empty($property->name)
+			&& isset($property->type) && is_numeric($property->type);
+	}
+
+	/**
 	 * @param $rating
 	 *
 	 * @return bool

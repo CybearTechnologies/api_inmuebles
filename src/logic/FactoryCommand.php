@@ -865,6 +865,27 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param      $id
+	 * @param      $destiny
+	 * @param      $name
+	 * @param      $area
+	 * @param      $description
+	 * @param      $floor
+	 * @param      $type
+	 * @param      $location
+	 * @param      $user
+	 * @param      $dateModified
+	 *
+	 * @return CommandUpdateProperty
+	 */
+	static function createCommandUpdateProperty ($id, $destiny, $name, $area, $description, $floor, $type, $location,
+		$user,
+		$dateModified = null):CommandUpdateProperty {
+		return new CommandUpdateProperty($id, $destiny, $name, $area, $description, $floor, $type, $location, $user,
+			$dateModified);
+	}
+
+	/**
 	 * @param Property $property
 	 *
 	 * @return CommandDeletePropertyById
