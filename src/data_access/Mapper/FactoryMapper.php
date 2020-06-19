@@ -137,4 +137,11 @@ class FactoryMapper {
 	static function createMapperPasswordToken():MapperPasswordToken{
 		return new MapperPasswordToken();
 	}
+
+	/**
+	 * @return MapperPropertyDestiny
+	 */
+	static function createMapperPropertyDestiny():MapperPropertyDestiny{
+		return new MapperPropertyDestiny();
+	}
 }

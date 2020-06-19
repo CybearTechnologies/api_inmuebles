@@ -91,6 +91,8 @@ RewriteRule ^recover-password$ controllerPasswordToken.php [NC,L]
 RewriteRule ^recover-password/([A-Za-z0-9._@]+)$ controllerPasswordToken.php?token=$1 [NC,L]
 #PROPERTY EXTRA
 RewriteRule ^property-extra$ controllerPropertyExtra.php?token=$1 [NC,L]
+#PROPERTY DESTINY
+RewriteRule ^property-destiny$ controllerPropertyDestiny.php [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
