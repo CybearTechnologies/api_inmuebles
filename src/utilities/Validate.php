@@ -99,7 +99,7 @@ class Validate {
 	 * @return bool
 	 */
 	static function extra ($extra) {
-		return isset($extra->name) && !empty($extra->name) && FileHandler::hasFiles();
+		return isset($extra->name) && !empty($extra->name);
 	}
 
 	/**

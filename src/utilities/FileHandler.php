@@ -17,8 +17,8 @@ class FileHandler {
 	 *
 	 * @return bool True if exist, otherwise false
 	 */
-	public static function fileExist (string $variable) {
-		return !file_exists($_FILES[$variable]['tmp_name']) || !is_uploaded_file($_FILES[$variable]['tmp_name']);
+	public static function 	fileExist (string $variable) {
+		return file_exists($_FILES[$variable]['tmp_name']) || is_uploaded_file($_FILES[$variable]['tmp_name']);
 	}
 
 	/**

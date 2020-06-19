@@ -200,7 +200,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandUpdateProperty($put->id, $put->destiny, $put->name,
 						$put->area, $put->description, $put->floor, $put->type, $put->location, $put->user);
 					$command->execute();
-					$return = $command->return();
+					$return = $mapper->fromEntityToDto($command->return());
 				}
 				else {
 					$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));
