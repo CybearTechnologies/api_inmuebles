@@ -1130,4 +1130,11 @@ class FactoryCommand {
 	static function createCommandDeletePasswordTokenByUserId ($user):CommandDeletePasswordTokenByUserId {
 		return new CommandDeletePasswordTokenByUserId($user);
 	}
+
+	/**
+	 * @return CommandGetAllPropertyDestiny
+	 */
+	static function createCommandGetAllPropertyDestiny():CommandGetAllPropertyDestiny{
+		return new CommandGetAllPropertyDestiny();
+	}
 }
