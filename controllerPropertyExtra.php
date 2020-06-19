@@ -46,7 +46,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$extras = $mapper->fromDtoArrayToEntityArray($put->extras);
 				$command = FactoryCommand::createCommandUpdatePropertyExtras($put->property, $extras, $loggedUser);
 				$command->execute();
-				$return = $command->return();
+				$return = $mapper->fromEntityArrayToDtoArray($command->return());
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
