@@ -18,7 +18,7 @@ class FileHandler {
 	 * @return bool True if exist, otherwise false
 	 */
 	public static function fileExist (string $variable) {
-		return !file_exists($_FILES[$variable]['tmp_name']) || !is_uploaded_file($_FILES[$variable]['tmp_name']);
+		return file_exists($_FILES[$variable]['tmp_name']) && is_uploaded_file($_FILES[$variable]['tmp_name']);
 	}
 
 	/**
@@ -32,7 +32,7 @@ class FileHandler {
 	 */
 	public static function save ($variable, $filename, $path = 'files') {
 		$info = pathinfo($_FILES[$variable]['name']);
-		$newFilePath = $path . '/' . self::slug($filename) . self::identifier() . $info['extension'];
+		$newFilePath = $path . '/' . self::slug($filename) . self::identifier() . '.' . $info['extension'];
 		if (self::makeDirectory($path)
 			&& move_uploaded_file($_FILES[$variable]['tmp_name'], self::ROOT . $newFilePath)) {
 			return $newFilePath;
@@ -53,14 +53,17 @@ class FileHandler {
 	 */
 	public static function replace ($old, $variable, $filename, $path = 'files') {
 		$info = pathinfo($_FILES[$variable]['name']);
-		$newFilePath = $path . self::slug($filename) . self::identifier() . $info['extension'];
+		$newFilePath = $path . self::slug($filename) . self::identifier() . '.' . $info['extension'];
 		if (self::makeDirectory($path)
-		&& move_uploaded_file($_FILES[$variable]['tmp_name'], self::ROOT . $newFilePath)
-		&& self::remove($old)) {
+			&& move_uploaded_file($_FILES[$variable]['tmp_name'], self::ROOT . $newFilePath)
+			&& self::remove($old)) {
 			return $newFilePath;
 		}
 
 		return null;
+	}
+
+	public static function absolutePath (string $relativePath) {
 	}
 
 	/**
