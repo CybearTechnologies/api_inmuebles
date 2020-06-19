@@ -8,11 +8,11 @@ class CommandDeleteExtrasByPropertyId extends Command {
 	/**
 	 * CommandDeleteExtrasByPropertyId constructor.
 	 *
-	 * @param int    $id
-	 * @param int    $userModifier
-	 * @param string $dateModified
+	 * @param int $id
+	 * @param int $userModifier
+	 * @param     $dateModified
 	 */
-	public function __construct (int $id, int $userModifier, string $dateModified) {
+	public function __construct (int $id, int $userModifier, $dateModified) {
 		$this->_id = $id;
 		$this->_userModifier = $userModifier;
 		$this->_dateModified = $dateModified;

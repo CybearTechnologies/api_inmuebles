@@ -978,14 +978,14 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param int    $userModified
-	 * @param string $dateModified
+	 * @param int $id
+	 * @param int $userModified
+	 * @param     $dateModified
 	 *
 	 * @return CommandDeleteExtrasByPropertyId
 	 */
 	static function createCommandDeleteExtrasByPropertyId (
-		int $id, int $userModified, string $dateModified = null):CommandDeleteExtrasByPropertyId {
+		int $id, int $userModified, $dateModified = null):CommandDeleteExtrasByPropertyId {
 		return new CommandDeleteExtrasByPropertyId($id, $userModified, $dateModified);
 	}
 
@@ -999,6 +999,7 @@ class FactoryCommand {
 	 */
 	static function createCommandUpdatePropertyExtras (int $id, $extras, int $user,
 		string $dateModified = null):CommandUpdatePropertyExtras {
+		return new CommandUpdatePropertyExtras($id, $extras, $user, $dateModified);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	//								FAVORITE

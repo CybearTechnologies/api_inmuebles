@@ -42,9 +42,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$put = json_decode(file_get_contents('php://input'));
 				foreach ($put->extras as $item) {
 					$item->property = $put->property;
+					echo '<pre>';
+					var_dump($item);
+					die();
 				}
 				$extras = $mapper->fromDtoArrayToEntityArray($put->extras);
-				$command = FactoryCommand::createCommandUpdatePropertyExtras($put->id, $extras, $loggedUser);
+				$command = FactoryCommand::createCommandUpdatePropertyExtras($put->property, $extras, $loggedUser);
 				$command->execute();
 				$return = $command->return();
 			}
