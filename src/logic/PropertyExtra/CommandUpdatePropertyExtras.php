@@ -35,7 +35,7 @@ class CommandUpdatePropertyExtras extends Command {
 		//Se borran todos los extras de la propiedad.
 		//Luego se recorre toda la lista de los extras y se insertan.
 		foreach ($this->_extras as $extra) {
-			$this->_command = FactoryCommand::createCommandCreatePropertyExtra($extra->getId(), $extra->getValue(),
+			$this->_command = FactoryCommand::createCommandCreatePropertyExtra($extra->getExtraId(), $extra->getValue(),
 				$this->_id, $this->_user);
 			$this->_command->execute();
 			array_push($this->_responseList, $this->_command->return());
