@@ -90,7 +90,7 @@ BEGIN
            lo_user_modified_fk userModifier,
            lo_location_fk location
     FROM location
-    WHERE lo_type = 'Estado' AND lo_id = id;
+    WHERE lo_type = 'Estado' AND lo_location_fk = id;
 END$$
 
     DROP PROCEDURE IF EXISTS getLocationsByStateId;
