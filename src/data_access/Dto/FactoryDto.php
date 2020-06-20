@@ -127,6 +127,8 @@ class FactoryDto {
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
+	 * @param String $nameS
+	 * @param int    $idS
 	 *
 	 * @return DtoLocation
 	 */
@@ -134,9 +136,9 @@ class FactoryDto {
 		string $type = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE):DtoLocation {
+		bool $delete = Values::DEFAULT_DELETE,String $nameS = Values::DEFAULT_STRING,int $idS = Values::DEFAULT_INT ):DtoLocation {
 		return new DtoLocation($id, $name, $type, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
-			$delete);
+			$delete,$nameS,$idS);
 	}
 
 	/**
