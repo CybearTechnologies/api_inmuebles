@@ -34,9 +34,9 @@ class Subscription extends Entity {
 	 * @param bool   $active
 	 * @param bool   $delete
 	 */
-	public function __construct (int $id, string $ci, string $firstName,string $lastName,
-		string $address,string $_passport, string $email, string $password,
-		int $plan, int $seat, int $location, bool $status, int $userCreator, int $userModifier,
+	public function __construct (int $id, string $ci, string $firstName, string $lastName,
+		string $address, string $_passport, string $email, string $password,
+		int $plan, $seat, int $location, bool $status, int $userCreator, int $userModifier,
 		string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
 			$delete);
@@ -108,8 +108,6 @@ class Subscription extends Entity {
 	public function setAddress (string $address):void {
 		$this->_address = $address;
 	}
-
-
 
 	/**
 	 * @return mixed
@@ -208,6 +206,4 @@ class Subscription extends Entity {
 	public function setStatus (bool $status):void {
 		$this->_status = $status;
 	}
-
-
 }
