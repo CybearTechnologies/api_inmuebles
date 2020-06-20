@@ -376,10 +376,8 @@ VALUES (1, 'Admin', '', 'N/A', 'admin@test.com', '$2y$10$43DlSVjruhwwlvJJ.sKxjuQ
 ALTER TABLE rol
     ADD COLUMN ro_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     ADD COLUMN ro_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
-    /*ADD COLUMN ro_date_created datetime COMMENT 'Fecha de creación',*/
     ADD COLUMN ro_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     ADD COLUMN ro_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    /*ADD COLUMN ro_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (ro_user_created_fk) REFERENCES user (us_id),
     ADD FOREIGN KEY (ro_user_modified_fk) REFERENCES user (us_id);
 

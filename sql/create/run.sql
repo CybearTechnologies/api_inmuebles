@@ -13,7 +13,7 @@ CREATE TABLE user
     us_rol_fk      int(10)      NOT NULL COMMENT 'ID Rol',
     us_plan_fk     int(10) COMMENT 'ID Plan',
     us_location_fk int(10)      NOT NULL COMMENT 'ID Lugar'
-);
+) ENGINE=InnoDB;
 
 
 CREATE TABLE location
@@ -25,7 +25,7 @@ CREATE TABLE location
     lo_deleted     tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado',
     lo_location_fk int(10) COMMENT 'ID lugar',
     FOREIGN KEY (lo_location_fk) REFERENCES location (lo_id)
-);
+)ENGINE=InnoDB ;
 
 CREATE TABLE agency
 (
@@ -40,7 +40,7 @@ CREATE TABLE agency
     ag_date_modified    datetime    NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (ag_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (ag_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE seat
 (
@@ -59,7 +59,7 @@ CREATE TABLE seat
     FOREIGN KEY (se_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (se_location_fk) REFERENCES location (lo_id),
     FOREIGN KEY (se_agency_fk) REFERENCES agency (ag_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE rol
 (
@@ -67,7 +67,7 @@ CREATE TABLE rol
     ro_name    varchar(45) NOT NULL COMMENT 'Nombre',
     ro_active  tinyint(10) NOT NULL DEFAULT 1 COMMENT 'Activo',
     ro_deleted tinyint(1)  NOT NULL DEFAULT 0 COMMENT 'Eliminado'
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE plan
 (
@@ -82,7 +82,7 @@ CREATE TABLE plan
     pl_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (pl_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (pl_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 ALTER TABLE user
     ADD FOREIGN KEY (us_seat_fk) REFERENCES seat (se_id),
@@ -103,7 +103,7 @@ CREATE TABLE access
     ac_date_modified    datetime    NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (ac_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (ac_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE rol_access
 (
@@ -120,7 +120,7 @@ CREATE TABLE rol_access
     FOREIGN KEY (ra_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (ra_rol_fk) REFERENCES rol (ro_id),
     FOREIGN KEY (ra_access_fk) REFERENCES access (ac_id)
-);
+)ENGINE=InnoDB;
 
 
 CREATE TABLE rating
@@ -138,7 +138,7 @@ CREATE TABLE rating
     FOREIGN KEY (ra_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (ra_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (ra_user_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE property_type
 (
@@ -153,7 +153,7 @@ CREATE TABLE property_type
     pt_date_modified    datetime    NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (pt_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (pt_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE property_destiny(
     pd_id               int AUTO_INCREMENT PRIMARY KEY COMMENT 'ID destino',
@@ -166,7 +166,7 @@ CREATE TABLE property_destiny(
     pd_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (pd_user_creator_fk) REFERENCES user (us_id),
     FOREIGN KEY (pd_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE property
 (
@@ -191,7 +191,7 @@ CREATE TABLE property
     FOREIGN KEY (pr_type_fk) REFERENCES property_type (pt_id),
     FOREIGN KEY (pr_location_fk) REFERENCES location (lo_id)
 
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE request
 (
@@ -206,7 +206,7 @@ CREATE TABLE request
     FOREIGN KEY (re_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (re_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (re_property_fk) REFERENCES property (pr_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE property_price
 (
@@ -223,7 +223,7 @@ CREATE TABLE property_price
     FOREIGN KEY (pp_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (pp_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (pp_property_fk) REFERENCES property (pr_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE extra
 (
@@ -238,7 +238,7 @@ CREATE TABLE extra
     ex_date_modified    datetime     NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (ex_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (ex_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE property_extra
 (
@@ -256,7 +256,7 @@ CREATE TABLE property_extra
     FOREIGN KEY (pe_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (pe_property_fk) REFERENCES property (pr_id),
     FOREIGN KEY (pe_extra_fk) REFERENCES extra (ex_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE origin
 (
@@ -272,7 +272,7 @@ CREATE TABLE origin
     or_date_modified    datetime        NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (or_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (or_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE favorite
 (
@@ -287,7 +287,7 @@ CREATE TABLE favorite
     FOREIGN KEY (fa_user_created_fk) REFERENCES user (us_id),
     FOREIGN KEY (fa_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (fa_property_fk) REFERENCES property (pr_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE subscription
 (
@@ -312,7 +312,7 @@ CREATE TABLE subscription
     FOREIGN KEY (su_plan_fk)          REFERENCES plan (pl_id),
     FOREIGN KEY (su_seat_fk)          REFERENCES seat (se_id),
     FOREIGN KEY (su_location_fk)      REFERENCES location (lo_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE subscription_detail
 (
@@ -326,7 +326,7 @@ CREATE TABLE subscription_detail
     sd_subscription_fk  int            DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     FOREIGN KEY (sd_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (sd_subscription_fk) REFERENCES subscription (su_id)
-);
+)ENGINE=InnoDB;
 
 CREATE TABLE password_token
 (
@@ -340,7 +340,7 @@ CREATE TABLE password_token
     pt_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     FOREIGN KEY (pt_user_creator_fk) REFERENCES user (us_id),
     FOREIGN KEY (pt_user_modified_fk) REFERENCES user (us_id)
-);
+)ENGINE=InnoDB;
 
 
 
