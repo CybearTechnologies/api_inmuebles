@@ -1,7 +1,6 @@
 <?php
 class LocationBuilder extends Builder {
 	private $_mapper;
-
 	/**
 	 * LocationBuilder constructor.
 	 */

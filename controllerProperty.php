@@ -29,6 +29,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 					}
 				}
+				elseif (isset($get->admin)) {
+					$command = FactoryCommand::createCommandGetAllPropertyAdmin($loggedUser);
+					$command->execute();
+					$return = $command->return();
+				}
 				else {
 					$command = FactoryCommand::createCommandListProperties($loggedUser);
 					try {
@@ -39,10 +44,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					catch (DatabaseConnectionException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
-					catch (PropertyNotFoundException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_PROPERTIES_NOT_FOUND"));
-						Tools::setResponse(Values::getValue("ERROR_PROPERTIES_NOT_FOUND"));
 					}
 				}
 			}

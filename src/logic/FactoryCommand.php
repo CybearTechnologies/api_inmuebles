@@ -895,10 +895,12 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @return CommandGetAllProperty
+	 * @param $loggedUser
+	 *
+	 * @return CommandGetAllPropertyAdmin
 	 */
-	static function createCommandGetAllProperty ():CommandGetAllProperty {
-		return new CommandGetAllProperty();
+	static function createCommandGetAllPropertyAdmin ($loggedUser):CommandGetAllPropertyAdmin {
+		return new CommandGetAllPropertyAdmin($loggedUser);
 	}
 
 	/**
@@ -1155,7 +1157,7 @@ class FactoryCommand {
 	/**
 	 * @return CommandGetAllPropertyDestiny
 	 */
-	static function createCommandGetAllPropertyDestiny():CommandGetAllPropertyDestiny{
+	static function createCommandGetAllPropertyDestiny ():CommandGetAllPropertyDestiny {
 		return new CommandGetAllPropertyDestiny();
 	}
 }

@@ -10,17 +10,17 @@ require_once __DIR__ . './../src/data_access/Dao/Dao.php';
 require_once __DIR__ . './../core/Environment.php';
 //-----------------------------------------------------------------------
 require_once __DIR__ . './../src/data_access/Dao/DaoProperty.php';
-require_once __DIR__ . './../src/logic/Property/CommandGetAllProperty.php';
+require_once __DIR__ . './../src/logic/Property/CommandGetAllPropertyAdmin.php';
 /**
  * Class GetAllPropertyCommandTest
- * @covers CommandGetAllProperty
+ * @covers CommandGetAllPropertyAdmin
  */
 class GetAllPropertyCommandTest extends TestCase {
 	private $_command;
 
 	protected function setUp ():void {
 		parent::setUp();
-		$this->_command = FactoryCommand::createCommandGetAllProperty();
+		$this->_command = FactoryCommand::createCommandGetAllPropertyAdmin();
 	}
 
 	public function testReturn () {

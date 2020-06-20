@@ -96,8 +96,34 @@ BEGIN
            pr_date_created dateCreated,
            pr_user_modified_fk userModifier,
            pr_date_modified dateModified
-    FROM property LEFT JOIN favorite ON (pr_id=fa_property_fk AND fa_user_created_fk=userRequestId), property_destiny pd
-    WHERE pr_deleted = 0 AND pr_destiny_fk=pd_id;
+    FROM property
+             LEFT JOIN favorite ON (pr_id=fa_property_fk AND fa_user_created_fk=userRequestId), property_destiny pd
+    WHERE pr_deleted = 0 AND pr_destiny_fk=pd_id AND pr_active = true;
+END$$
+
+DROP PROCEDURE IF EXISTS getAllPropertyAdmin;
+DELIMITER $$
+CREATE PROCEDURE getAllPropertyAdmin(userRequestId int)
+BEGIN
+    SELECT pr_id id,
+           pd.pd_name destiny,
+           IF(fa_property_fk IS NOT NULL, TRUE,FALSE ) favorite,
+           pr_name name,
+           pr_area area,
+           pr_description description,
+           pr_floor floor,
+           pr_status status,
+           pr_type_fk type,
+           pr_active active,
+           pr_deleted 'delete',
+           pr_location_fk location,
+           pr_user_created_fk userCreator,
+           pr_date_created dateCreated,
+           pr_user_modified_fk userModifier,
+           pr_date_modified dateModified
+    FROM property
+             LEFT JOIN favorite ON (pr_id=fa_property_fk AND fa_user_created_fk=userRequestId), property_destiny pd
+    WHERE pr_deleted = 0 AND pr_destiny_fk=pd_id ;
 END$$
 
 DROP PROCEDURE IF EXISTS getPropertyById;
