@@ -9,10 +9,11 @@ CREATE TABLE user
     us_active      tinyint(1)   NOT NULL DEFAULT 1 COMMENT 'Activo',
     us_blocked     tinyint(1)   NOT NULL DEFAULT 0 COMMENT 'Bloqueado',
     us_deleted     tinyint(1)   NOT NULL DEFAULT 0 COMMENT 'Eliminado',
-    us_seat_fk     int(10) COMMENT 'ID Sede',
-    us_rol_fk      int(10)      NOT NULL COMMENT 'ID Rol',
-    us_plan_fk     int(10) COMMENT 'ID Plan',
-    us_location_fk int(10)      NOT NULL COMMENT 'ID Lugar'
+    us_seat_fk     int                             COMMENT 'ID Sede',
+    us_agency_fk   int                             COMMENT 'ID Agency',
+    us_rol_fk      int          NOT NULL COMMENT 'ID Rol',
+    us_plan_fk     int                             COMMENT 'ID Plan',
+    us_location_fk int          NOT NULL COMMENT 'ID Lugar'
 ) ENGINE=InnoDB;
 
 
@@ -86,6 +87,7 @@ CREATE TABLE plan
 
 ALTER TABLE user
     ADD FOREIGN KEY (us_seat_fk) REFERENCES seat (se_id),
+    ADD FOREIGN KEY (us_agency_fk) REFERENCES agency(ag_id),
     ADD FOREIGN KEY (us_rol_fk) REFERENCES rol (ro_id),
     ADD FOREIGN KEY (us_plan_fk) REFERENCES plan (pl_id),
     ADD FOREIGN KEY (us_location_fk) REFERENCES location (lo_id);
@@ -306,11 +308,13 @@ CREATE TABLE subscription
     su_user_modified_fk int             DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     su_date_modified    datetime   NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
     su_plan_fk          int        NOT NULL COMMENT 'Plan',
-    su_seat_fk          int        NOT NULL COMMENT 'Seat',
+    su_seat_fk          int                 COMMENT 'Seat',
+    su_agency_fk        int                 COMMENT 'Agency',
     su_location_fk      int        NOT NULL COMMENT 'Location',
     FOREIGN KEY (su_user_modified_fk) REFERENCES user (us_id),
     FOREIGN KEY (su_plan_fk)          REFERENCES plan (pl_id),
     FOREIGN KEY (su_seat_fk)          REFERENCES seat (se_id),
+    FOREIGN KEY (su_agency_fk)        REFERENCES agency(ag_id),
     FOREIGN KEY (su_location_fk)      REFERENCES location (lo_id)
 )ENGINE=InnoDB;
 
