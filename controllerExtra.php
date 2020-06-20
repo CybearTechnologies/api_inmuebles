@@ -208,6 +208,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
+
 					}
 					catch (DatabaseConnectionException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
@@ -240,6 +241,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			}
 		}
 		else {
+			echo "mano paso por aqui7";
 			$return = new ErrorResponse(Values::getText("ERROR_HEADER"));
 			Tools::setResponse(Values::getValue("ERROR_HEADER"));
 		}

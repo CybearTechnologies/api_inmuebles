@@ -40,6 +40,7 @@ class DaoExtra extends Dao {
 			$stmt->bindParam(':user', $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
+
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -142,7 +143,6 @@ class DaoExtra extends Dao {
 	 *
 	 * @return Extra
 	 * @throws DatabaseConnectionException
-	 * @throws ExtraNotFoundException
 	 */
 	public function deleteExtraById (int $id, int $user) {
 		try {
@@ -154,11 +154,6 @@ class DaoExtra extends Dao {
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();
-			if ($stmt->rowCount() == 0)
-				Throw new ExtraNotFoundException("There are no Extra found", 404);
-			else
-
-				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
 			Logger::exception($exception, Logger::ERROR);

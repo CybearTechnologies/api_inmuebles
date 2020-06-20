@@ -34,7 +34,25 @@ abstract class Builder {
 	 * @return Builder
 	 */
 	public function unsetUsers () {
-		unset($this->_data->userCreator);
+		self::unsetUserModifier();
+		self::unsetUserCreator();
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function unsetUserModifier () {
+		unset($this->_data->userModifier);
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function unsetUserCreator () {
 		unset($this->_data->userModifier);
 
 		return $this;

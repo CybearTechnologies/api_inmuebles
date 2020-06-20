@@ -337,7 +337,7 @@ class Validate {
 			&& isset($post->password) && !empty($post->password)
 			&& isset($post->email) && !empty($post->email)
 			&& isset($post->plan) && is_numeric($post->plan)
-			&& isset($post->seat) && is_numeric($post->seat)
+			&& isset($post->seat)
 			&& isset($post->location) && is_numeric($post->location);
 	}
 
