@@ -1,3 +1,4 @@
+DROP TABLE password_token;
 DROP TABLE favorite;
 DROP TABLE subscription_detail;
 DROP TABLE subscription;
@@ -7,6 +8,7 @@ DROP TABLE extra;
 DROP TABLE property_price;
 DROP TABLE request;
 DROP TABLE property;
+DROP TABLE property_destiny;
 DROP TABLE property_type;
 DROP TABLE rating;
 DROP TABLE rol_access;
