@@ -142,6 +142,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 					}
 				}
+				elseif (isset($get->id) && is_numeric($get->id) && isset($get->block)) {
+					$command = FactoryCommand::createCommandBlockUser($get->id, $loggedUser);
+					$command->execute();
+					$return = $command->return();
+				}
 				elseif (isset($put->user) && is_numeric($put->user) && isset($put->plan) && is_numeric($put->plan)) {
 					$put = json_decode(file_get_contents('php://input'));
 					$command = FactoryCommand::createCommandSetUserPlan($put->user, $put->plan);

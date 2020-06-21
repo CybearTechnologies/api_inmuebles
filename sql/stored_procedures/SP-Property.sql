@@ -101,9 +101,9 @@ BEGIN
     WHERE pr_deleted = 0 AND pr_destiny_fk=pd_id AND pr_active = true;
 END$$
 
-DROP PROCEDURE IF EXISTS getAllPropertyAdmin;
+DROP PROCEDURE IF EXISTS getAllPropertiesAdmin;
 DELIMITER $$
-CREATE PROCEDURE getAllPropertyAdmin(userRequestId int)
+CREATE PROCEDURE getAllPropertiesAdmin(userRequestId int)
 BEGIN
     SELECT pr_id id,
            pd.pd_name destiny,

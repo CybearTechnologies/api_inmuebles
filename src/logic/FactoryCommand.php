@@ -101,12 +101,13 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $user
+	 * @param $id
+	 * @param $userModifier
 	 *
 	 * @return CommandBlockUser
 	 */
-	static function createCommandBlockUser ($user):CommandBlockUser {
-		return new CommandBlockUser($user);
+	static function createCommandBlockUser ($id, $userModifier):CommandBlockUser {
+		return new CommandBlockUser($id, $userModifier);
 	}
 
 	/**

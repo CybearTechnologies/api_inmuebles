@@ -10,7 +10,7 @@ class DaoProperty extends Dao {
 	private const QUERY_UPDATE_BY_ID = "CALL updateProperty(:id,:destiny,:name,:area,:description,:floor,:type,:location,:user,:dateModified)";
 	private const QUERY_INACTIVE_PROPERTY_BY_ID = "CALL inactivePropertyById(:id,:user,:dateModified)";
 	private const QUERY_ACTIVE_PROPERTY_BY_ID = "CALL activePropertyById(:id,:user,:dateModified)";
-	private const QUERY_GET_ALL_PROPERTIES_ADMIN = "CALL getAllPropertiesAdmin(:id)";
+	private const QUERY_GET_ALL_PROPERTIES_ADMIN = "CALL getAllPropertiesAdmin(:loggedUser)";
 	private $_genericQuery = "SELECT pr.pr_id id, pr.pr_name 'name', pr.pr_area area, 
 								     pr.pr_description description, pr.pr_floor floor, 
 								     pr.pr_status 'status', pr.pr_active active, pr.pr_type_fk 'type', 
