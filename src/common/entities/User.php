@@ -7,6 +7,7 @@ class User extends Entity {
 	private $_password;
 	private $_blocked;
 	private $_seat;
+	private $_agency;
 	private $_rol;
 	private $_plan;
 	private $_location;
@@ -25,16 +26,17 @@ class User extends Entity {
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param int $seat
-	 * @param int $rol
-	 * @param int $plan
-	 * @param int $location
+	 * @param int    $seat
+	 * @param int    $agency
+	 * @param int    $rol
+	 * @param int    $plan
+	 * @param int    $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
 		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
-		int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
+		int $agency,int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->_firstName = $firstName;
 		$this->_lastName = $lastName;
@@ -46,6 +48,7 @@ class User extends Entity {
 		$this->_rol = $rol;
 		$this->_plan = $plan;
 		$this->_location = $location;
+		$this->_agency = $agency;
 	}
 
 	/**
@@ -187,5 +190,21 @@ class User extends Entity {
 	public function setLocation (int $location):void {
 		$this->_location = $location;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getAgency ():int {
+		return $this->_agency;
+	}
+
+	/**
+	 * @param int $agency
+	 */
+	public function setAgency (int $agency):void {
+		$this->_agency = $agency;
+	}
+
+
 
 }

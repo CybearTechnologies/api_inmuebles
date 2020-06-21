@@ -6,18 +6,18 @@
 DROP PROCEDURE IF EXISTS createUser;
 DELIMITER $$
 CREATE PROCEDURE createUser(firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
-                            password varchar(60), seat int, rol int, plan int, location int, userCreator int,
+                            password varchar(60), seat int, agency int,rol int, plan int, location int, userCreator int,
                             dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
-        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
+        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_agency_fk,us_rol_fk,
                          us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk)
-        VALUES (firstName, lastName, address, email, password, seat, rol, plan, location, userCreator, userCreator);
+        VALUES (firstName, lastName, address, email, password, seat, agency,rol, plan, location, userCreator, userCreator);
     ELSE
-        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
+        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_agency_fk,us_rol_fk,
                          us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk, us_date_modified,
                          us_date_created)
-        VALUES (firstName, lastName, address, email, password, seat, rol, plan, location, userCreator, userCreator,
+        VALUES (firstName, lastName, address, email, password, seat, agency,rol, plan, location, userCreator, userCreator,
                 dateCreated, dateCreated);
     END IF;
     SELECT us.us_id id,
@@ -34,6 +34,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -45,18 +46,18 @@ END$$
 DROP PROCEDURE IF EXISTS createOnlyUser;
 DELIMITER $$
 CREATE PROCEDURE createOnlyUser(firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
-                            password varchar(60), seat int, rol int, plan int, location int, userCreator int,
+                            password varchar(60), seat int, agency int,rol int, plan int, location int, userCreator int,
                             dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
-        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
+        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_agency_fk ,us_rol_fk,
                          us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk)
-        VALUES (firstName, lastName, address, email, password, seat, rol, plan, location, userCreator, userCreator);
+        VALUES (firstName, lastName, address, email, password, seat, agency,rol, plan, location, userCreator, userCreator);
     ELSE
-        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_rol_fk,
+        INSERT INTO user(us_first_name, us_last_name, us_address, us_email, us_password, us_seat_fk, us_agency_fk ,us_rol_fk,
                          us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk, us_date_modified,
                          us_date_created)
-        VALUES (firstName, lastName, address, email, password, seat, rol, plan, location, userCreator, userCreator,
+        VALUES (firstName, lastName, address, email, password, seat, agency,rol, plan, location, userCreator, userCreator,
                 dateCreated, dateCreated);
     END IF;
 END$$
@@ -64,18 +65,18 @@ END$$
 DROP PROCEDURE IF EXISTS createMinUser;
 DELIMITER $$
 CREATE PROCEDURE createMinUser(email varchar(60),
-                            password varchar(60), seat int, rol int, plan int, location int, userCreator int,
+                            password varchar(60), seat int, agency int,rol int, plan int, location int, userCreator int,
                             dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
-        INSERT INTO user(us_email, us_password, us_seat_fk, us_rol_fk,
+        INSERT INTO user(us_email, us_password, us_seat_fk, us_agency_fk,us_rol_fk,
                          us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk)
-        VALUES (email, password, seat, rol, plan, location, userCreator, userCreator);
+        VALUES (email, password, seat, agency,rol, plan, location, userCreator, userCreator);
     ELSE
-        INSERT INTO user( us_email, us_password, us_seat_fk, us_rol_fk,
+        INSERT INTO user( us_email, us_password, us_seat_fk, us_agency_fk,us_rol_fk,
                          us_plan_fk, us_location_fk, us_user_created_fk, us_user_modified_fk, us_date_modified,
                          us_date_created)
-        VALUES (email, password, seat, rol, plan, location, userCreator, userCreator,
+        VALUES (email, password, seat, agency,rol, plan, location, userCreator, userCreator,
                 dateCreated, dateCreated);
     END IF;
     SELECT us.us_id id,
@@ -92,6 +93,7 @@ BEGIN
            ro.ro_name rol,
            lo.lo_name location,
            se.se_name seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -111,19 +113,19 @@ END$$
 DROP PROCEDURE IF EXISTS updateUser;
 DELIMITER $$
 CREATE PROCEDURE updateUser(id int, firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
-                            seat int,plan int, location int, user int,
+                            seat int, agency int ,plan int, location int, user int,
                             dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE user
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
-            us_email = email, us_seat_fk=seat, us_plan_fk = plan,
+            us_email = email, us_seat_fk=seat, us_agency_fk=agency,us_plan_fk = plan,
             us_location_fk = location, us_user_modified_fk = user
         WHERE us_id = id;
     ELSE
         UPDATE user
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
-            us_email = email, us_seat_fk=seat,us_plan_fk = plan,
+            us_email = email, us_seat_fk=seat, us_agency_fk=agency ,us_plan_fk = plan,
             us_location_fk = location, us_user_modified_fk = user, us_date_modified=dateModified
         WHERE us_id = id;
     END IF;
@@ -141,6 +143,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -158,9 +161,15 @@ DELIMITER $$
 CREATE PROCEDURE updateUserProfile(id int, firstName varchar(45), lastName varchar(45),
                             address varchar(200),email varchar(255),user int,dateModified datetime)
 BEGIN
-    UPDATE user
-        SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email)
-    WHERE us_id = id;
+    IF IsNull(dateModified) THEN
+        UPDATE user
+            SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email)
+        WHERE us_id = id;
+    ELSE
+        UPDATE user
+        SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email), us_date_modified=dateModified
+        WHERE us_id = id;
+    END IF;
     SELECT us.us_id id,
            us.us_first_name first_name,
            us.us_last_name last_name,
@@ -175,6 +184,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -201,6 +211,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -227,6 +238,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -253,6 +265,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -287,6 +300,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -323,6 +337,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -359,6 +374,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -395,6 +411,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -430,6 +447,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -465,6 +483,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -500,6 +519,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,
@@ -536,6 +556,7 @@ BEGIN
            us.us_rol_fk rol,
            us.us_location_fk location,
            us.us_seat_fk seat,
+           us.us_agency_fk agency,
            us.us_user_created_fk userCreator,
            us.us_user_modified_fk userModifier,
            us.us_date_created dateCreated,

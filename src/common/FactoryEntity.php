@@ -221,10 +221,11 @@ class  FactoryEntity {
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param string $seat
-	 * @param string $rol
-	 * @param string $plan
-	 * @param string $location
+	 * @param int    $seat
+	 * @param int    $agency
+	 * @param int    $rol
+	 * @param int    $plan
+	 * @param int    $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 *
@@ -242,13 +243,14 @@ class  FactoryEntity {
 		bool $blocked = Values::DEFAULT_INT,
 		bool $deleted = Values::DEFAULT_DELETE,
 		int $seat = Values::DEFAULT_FOREIGN,
+		int $agency = Values::DEFAULT_FOREIGN,
 		int $rol = Values::DEFAULT_FOREIGN,
 		int $plan = Values::DEFAULT_FOREIGN,
 		int $location = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE):User {
 		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
-			$blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
+			$blocked, $deleted, $seat, $agency,$rol, $plan, $location, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -418,6 +420,7 @@ class  FactoryEntity {
 	 * @param string   $password
 	 * @param int      $plan
 	 * @param int|null $seat
+	 * @param int      $agency
 	 * @param int      $location
 	 * @param bool     $status
 	 * @param int      $userCreator
@@ -432,13 +435,13 @@ class  FactoryEntity {
 	static function createSubscription (int $id, string $firstName, string $lastName, string $address,
 		string $ci = Values::DEFAULT_STRING, string $passport = Values::DEFAULT_STRING,
 		string $email = Values::DEFAULT_STRING, string $password = Values::DEFAULT_STRING,
-		int $plan = Values::DEFAULT_FOREIGN, $seat = Values::DEFAULT_FOREIGN,
+		int $plan = Values::DEFAULT_FOREIGN, $seat = Values::DEFAULT_FOREIGN, $agency = Values::DEFAULT_FOREIGN,
 		int $location = Values::DEFAULT_FOREIGN, bool $status = Values::DEFAULT_STATUS,
 		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Subscription {
 		return new Subscription($id, $ci, $firstName, $lastName, $address, $passport, $email, $password,
-			$plan, $seat, $location, $status, $userCreator, $userModifier, $dateCreated,
+			$plan, $seat, $agency,$location, $status, $userCreator, $userModifier, $dateCreated,
 			$dateModified, $active, $delete);
 	}
 

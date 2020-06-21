@@ -8,7 +8,7 @@ class MapperUser extends Mapper {
 	public function fromDtoToEntity ($dto):Entity {
 		return FactoryEntity::createUser($dto->id, $dto->firstName, $dto->lastName, $dto->address, $dto->email,
 			$dto->password, $dto->userCreator, $dto->userModifier, $dto->active, $dto->blocked, $dto->delete,
-			$dto->seat, $dto->rol, $dto->plan, $dto->location, $dto->dateCreated, $dto->dateModified);
+			$dto->seat, $dto->agency,$dto->rol, $dto->plan, $dto->location, $dto->dateCreated, $dto->dateModified);
 	}
 
 	/**
@@ -22,7 +22,7 @@ class MapperUser extends Mapper {
 			Values::DEFAULT_STRING, Values::DEFAULT_ARRAY,
 			$entity->getUserCreator(),$entity->getUserModifier(),
 			$entity->isActive(),$entity->isBlocked(),$entity->isDelete(),
-			$entity->getSeat(),$entity->getRol(),$entity->getPlan(),
+			$entity->getSeat(),$entity->getAgency(),$entity->getRol(),$entity->getPlan(),
 			$entity->getLocation(),$entity->getDateCreated(),$entity->getDateModified());
 	}
 }

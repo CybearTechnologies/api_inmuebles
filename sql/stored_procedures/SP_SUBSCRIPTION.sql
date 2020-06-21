@@ -8,18 +8,18 @@ DROP PROCEDURE IF EXISTS createSubscription;
 DELIMITER $$
 CREATE PROCEDURE createSubscription(ci int(10), firstName varchar(45),lastName varchar(45),
                             address varchar(200),passport varchar(50), email varchar(60),
-                            password varchar(60), seat int, plan int, location int,
+                            password varchar(60), seat int, agency int,plan int, location int,
                             dateCreated datetime)
 BEGIN
     IF IsNull(dateCreated) THEN
         INSERT INTO subscription(su_ci, su_first_name,su_last_name,su_address,su_passport,
-                                 su_email, su_password, su_seat_fk, su_plan_fk,su_location_fk)
-        VALUES (ci, firstName,lastName,address,passport, email, password, seat, plan, location);
+                                 su_email, su_password, su_seat_fk, su_agency_fk,su_plan_fk,su_location_fk)
+        VALUES (ci, firstName,lastName,address,passport, email, password, seat, agency,plan, location);
     ELSE
         INSERT INTO subscription(su_ci, su_first_name, su_last_name, su_address,
                                  su_passport, su_email, su_password,
-                                 su_seat_fk, su_plan_fk,su_location_fk, su_date_created)
-        VALUES (ci, firstName,lastName,address,passport, email, password, seat, plan, location,
+                                 su_seat_fk, su_agency_fk,su_plan_fk,su_location_fk, su_date_created)
+        VALUES (ci, firstName,lastName,address,passport, email, password, seat, agency,plan, location,
                 dateCreated);
     END IF;
     SELECT su_id id,
@@ -38,6 +38,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_id = last_insert_id();
@@ -72,6 +73,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_id = id;
@@ -106,6 +108,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_id = id;
@@ -132,6 +135,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_id = id;
@@ -169,6 +173,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_id = id;
@@ -194,6 +199,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_status = false;
@@ -220,6 +226,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_id = id
@@ -246,6 +253,7 @@ BEGIN
            su_date_modified dateModified,
            su_plan_fk plan,
            su_seat_fk seat,
+           su_agency_fk agency,
            su_location_fk location
     FROM subscription
     WHERE su_email = email;
