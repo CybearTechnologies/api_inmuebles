@@ -98,7 +98,7 @@ class ListPropertyBuilder extends ListBuilder {
 		$locationBuilder = new LocationBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$datum->location = $locationBuilder->getMinimumById($datum->id)
+				$datum->location = $locationBuilder->getMinimumById($datum->location)
 					->clean()
 					->build();
 			}
