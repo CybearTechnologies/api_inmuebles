@@ -10,6 +10,7 @@ class DaoProperty extends Dao {
 	private const QUERY_UPDATE_BY_ID = "CALL updateProperty(:id,:destiny,:name,:area,:description,:floor,:type,:location,:user,:dateModified)";
 	private const QUERY_INACTIVE_PROPERTY_BY_ID = "CALL inactivePropertyById(:id,:user,:dateModified)";
 	private const QUERY_ACTIVE_PROPERTY_BY_ID = "CALL activePropertyById(:id,:user,:dateModified)";
+	private const QUERY_GET_ALL_PROPERTIES_ADMIN = "CALL getAllPropertiesAdmin(:loggedUser)";
 	private $_genericQuery = "SELECT pr.pr_id id, pr.pr_name 'name', pr.pr_area area, 
 								     pr.pr_description description, pr.pr_floor floor, 
 								     pr.pr_status 'status', pr.pr_active active, pr.pr_type_fk 'type', 
@@ -198,6 +199,30 @@ class DaoProperty extends Dao {
 	public function getAllProperty (int $userRequestId) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL_PROPERTIES);
+			$stmt->bindParam(":loggedUser", $userRequestId, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new PropertyNotFoundException("There are no property found", 404);
+			else {
+				return $this->extractAll($stmt->fetchAll(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param int $userRequestId
+	 *
+	 * @return array
+	 * @throws DatabaseConnectionException
+	 * @throws PropertyNotFoundException
+	 */
+	public function getAllPropertiesAdmin (int $userRequestId) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_ALL_PROPERTIES_ADMIN);
 			$stmt->bindParam(":loggedUser", $userRequestId, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
