@@ -312,18 +312,20 @@ class DaoUser extends Dao {
 	}
 
 	/**
-	 * @param $id
-	 * @param $userModifier
+	 * @param      $id
+	 * @param      $userModifier
+	 * @param      $dateModified
 	 *
 	 * @return User
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 */
-	public function blockUser ($id, $userModifier) {
+	public function blockUser ($id, $userModifier, $dateModified = null) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_BLOCK);
 			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
+			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new UserNotFoundException("Usuario no encontrado", 404);

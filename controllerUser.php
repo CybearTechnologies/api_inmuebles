@@ -142,7 +142,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_USER_NOT_FOUND"));
 					}
 				}
-				elseif (isset($get->id) && is_numeric($get->id) && isset($get->block)) {
+				elseif (isset($get->id) && is_numeric($get->id) && strtolower($get->action) == "block") {
 					$command = FactoryCommand::createCommandBlockUser($get->id, $loggedUser);
 					$command->execute();
 					$return = $command->return();
