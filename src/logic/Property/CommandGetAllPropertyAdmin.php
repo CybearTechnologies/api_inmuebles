@@ -1,7 +1,7 @@
 <?php
 class CommandGetAllPropertyAdmin extends Command {
 	private $_loggedUser;
-	private $_mapperProperty;
+	private $_builder;
 
 	/**
 	 * CommandGetAllPropertyAdmin constructor.
@@ -10,16 +10,22 @@ class CommandGetAllPropertyAdmin extends Command {
 	 */
 	public function __construct ($user) {
 		$this->_dao = FactoryDao::createDaoProperty();
-		$this->_mapperProperty = FactoryMapper::createMapperProperty();
+		$this->_builder = new ListPropertyBuilder();
 		$this->_loggedUser = $user;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllPropertiesAdmin($this->_loggedUser)));
+		$this->setData($this->_builder->getAllAdmin($this->_loggedUser)
+			->withLocation()
+			->withType()
+			->withLastTwoPrices()
+			->withExtras()
+			->withUserCreator()
+			->unsetUserModifier()
+			->build());
 	}
 
 	/**
