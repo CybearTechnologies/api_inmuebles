@@ -1,6 +1,6 @@
 <?php
 class DaoUser extends Dao {
-	private const QUERY_CREATE = "CALL getUserById(:firstName,:lastName,:address,:email,:password,:seat,:rol,
+	private const QUERY_CREATE = "CALL getUserById(:firstName,:lastName,:address,:email,:password,:seat,:agency,:rol,
 	:plan,:location,:userCreator, :userModifier,:dateModified,:dateCreated)";
 	private const QUERY_GET_BY_USERNAME = "CALL getUserByEmail(:email)";
 	private const QUERY_GET_BY_ID = "CALL getUserById(:id)";
@@ -10,7 +10,7 @@ class DaoUser extends Dao {
 	private const QUERY_BLOCK = "CALL blockUser(:id,:user,:dateModified)";
 	private const QUERY_UNBLOCK = "CALL unblockUser(:id,:user,:dateModified)";
 	private const QUERY_GET_ALL = "CALL getAllUsers()";
-	private const QUERY_UPDATE = "CALL updateUser(:id,:firstName,:lastName,:address,:email,:seat,:plan,
+	private const QUERY_UPDATE = "CALL updateUser(:id,:firstName,:lastName,:address,:email,:seat,:agency,:plan,
 	:location,:user,:dateModified)";
 	private const QUERY_SET_PLAN = "CALL setUserPlan(:id,:plan,:user,:dateModified)";
 	private const QUERY_CHANGE_PASSWORD = "CALL changePassword(:id,:password,:user,:dateModified)";
@@ -35,6 +35,7 @@ class DaoUser extends Dao {
 	 * @param      $address
 	 * @param      $email
 	 * @param      $seat
+	 * @param      $agency
 	 * @param      $plan
 	 * @param      $location
 	 * @param      $userModifier
@@ -44,7 +45,7 @@ class DaoUser extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 */
-	public function updateUser ($id, $firstName, $lastName, $address, $email, $seat, $plan, $location, $userModifier,
+	public function updateUser ($id, $firstName, $lastName, $address, $email, $seat, $agency,$plan, $location, $userModifier,
 		$dateModified) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
@@ -53,7 +54,14 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
 			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
-			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
+			if(isset($seat)){
+				$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
+				$stmt->bindParam(":agency", $agency, PDO::PARAM_NULL);
+			}
+			else{
+				$stmt->bindParam(":seat", $seat, PDO::PARAM_NULL);
+				$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
+			}
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);
@@ -117,6 +125,7 @@ class DaoUser extends Dao {
 			$email = strtolower($this->_entity->getEmail());
 			$password = $this->_entity->getPassword();
 			$seat = $this->_entity->getSeat();
+			$agency = $this->_entity->getAgency();
 			$rol = $this->_entity->getRol();
 			$plan = $this->_entity->getPlan();
 			$location = $this->_entity->getLocation();
@@ -131,7 +140,6 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
 			$stmt->bindParam(":password", $password, PDO::PARAM_STR);
-			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
 			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
@@ -146,6 +154,14 @@ class DaoUser extends Dao {
 			else
 				$stmt->bindParam(":dateModified", $nullDate
 					, PDO::PARAM_INT);
+			if(isset($agency)){
+				$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
+				$stmt->bindParam(":agency", $agency, PDO::PARAM_NULL);
+			}
+			else{
+				$stmt->bindParam(":seat", $seat, PDO::PARAM_NULL);
+				$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
+			}
 			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->execute();
 
@@ -458,7 +474,7 @@ class DaoUser extends Dao {
 	protected function extract ($dbObject):User {
 		return FactoryEntity::createUser($dbObject->id, $dbObject->first_name, $dbObject->last_name, $dbObject->address,
 			$dbObject->email, $dbObject->password, $dbObject->userCreator, $dbObject->userModifier, $dbObject->active,
-			$dbObject->blocked, $dbObject->delete, $dbObject->seat, $dbObject->rol, $dbObject->plan,
+			$dbObject->blocked, $dbObject->delete, $dbObject->seat, $dbObject->agency,$dbObject->rol, $dbObject->plan,
 			$dbObject->location, $dbObject->dateCreated, $dbObject->dateModified);
 	}
 }

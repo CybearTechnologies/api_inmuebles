@@ -85,7 +85,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				if (Validate::putUser($put)) {
 					try {
 						$command = FactoryCommand::createCommandUpdateUser($put->id, $put->firstName, $put->lastName,
-							$put->address, $put->email, $put->seat, $put->plan, $put->location,
+							$put->address, $put->email, $put->seat, $put->agency,$put->plan, $put->location,
 							$loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());

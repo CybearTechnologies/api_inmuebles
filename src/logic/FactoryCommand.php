@@ -133,9 +133,9 @@ class FactoryCommand {
 	 *
 	 * @return CommandUpdateUser
 	 */
-	static function createCommandUpdateUser ($id, $firstName, $lastName, $address, $email, $seat, $plan, $location,
+	static function createCommandUpdateUser ($id, $firstName, $lastName, $address, $email, $seat, $agency,$plan, $location,
 		$userModifier, $dateModified = null):CommandUpdateUser {
-		return new CommandUpdateUser($id, $firstName, $lastName, $address, $email, $seat, $plan, $location,
+		return new CommandUpdateUser($id, $firstName, $lastName, $address, $email, $seat, $agency,$plan, $location,
 			$userModifier, $dateModified);
 	}
 

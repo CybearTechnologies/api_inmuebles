@@ -10,6 +10,7 @@ class CommandUpdateUser extends Command {
 	private $_location;
 	private $_userModifier;
 	private $_dateModified;
+	private $_agency;
 
 	/**
 	 * CommandUpdateUser constructor.
@@ -20,12 +21,13 @@ class CommandUpdateUser extends Command {
 	 * @param $address
 	 * @param $email
 	 * @param $seat
+	 * @param $agency
 	 * @param $plan
 	 * @param $location
 	 * @param $userModifier
 	 * @param $dateModified
 	 */
-	public function __construct ($id, $firstName, $lastName, $address, $email, $seat, $plan, $location, $userModifier,
+	public function __construct ($id, $firstName, $lastName, $address, $email, $seat, $agency,$plan, $location, $userModifier,
 		$dateModified) {
 		$this->_dao = FactoryDao::createDaoUser();
 		$this->_id = $id;
@@ -38,6 +40,7 @@ class CommandUpdateUser extends Command {
 		$this->_location = $location;
 		$this->_userModifier = $userModifier;
 		$this->_dateModified = $dateModified;
+		$this->_agency= $agency;
 	}
 
 	/**

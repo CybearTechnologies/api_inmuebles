@@ -3,7 +3,7 @@ class DaoSubscription extends Dao {
 	private const QUERY_GET_ALL = "CALL getAllSubscription()";
 	private $_entity;
 	private const QUERY_CREATE = "CALL createSubscription(:ci, :firstName , :lastName , :address, 
-							:passport , :email , :password , :seat , :plan , :location ,
+							:passport , :email , :password , :seat , :agency,:plan , :location ,
                             :dateCreated )";
 	private const QUERY_GET_BY_ID = "CALL getSubscriptionById(:id)";
 	private const QUERY_GET_BY_EMAIL = "CALL getSubscriptionByEmail(:email)";
@@ -33,6 +33,7 @@ class DaoSubscription extends Dao {
 			$email = $entity->getEmail();
 			$password = $entity->getPassword();
 			$seat = $entity->getSeat();
+			$agency = $entity->getAgency();
 			$plan = $entity->getPlan();
 			$location = $entity->getLocation();
 			$dateCreated = $entity->getDateCreated();
@@ -46,12 +47,18 @@ class DaoSubscription extends Dao {
 			$stmt->bindParam(":passport", $passport, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
 			$stmt->bindParam(":password", $password, PDO::PARAM_STR);
-			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
+			if(isset($seat)) {
+				$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
+				$stmt->bindParam(":agency", $agency, PDO::PARAM_NULL);
+			}
+			else{
+				$stmt->bindParam(":seat", $seat, PDO::PARAM_NULL);
+				$stmt->bindParam(":agency", $seat, PDO::PARAM_INT);
+			}
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);
 			$stmt->execute();
-
 			return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
 		}
 		catch (PDOException $exception) {
@@ -188,7 +195,7 @@ class DaoSubscription extends Dao {
 	protected function extract ($dbObject) {
 		return FactoryEntity::createSubscription($dbObject->id, $dbObject->firstName,
 			$dbObject->lastName, $dbObject->address, $dbObject->ci, $dbObject->passport,
-			$dbObject->email, $dbObject->password, $dbObject->plan, $dbObject->seat,
+			$dbObject->email, $dbObject->password, $dbObject->plan, $dbObject->seat,$dbObject->agency,
 			$dbObject->location, $dbObject->status, $dbObject->userModifier,
 			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified,
 			$dbObject->active, $dbObject->delete);
