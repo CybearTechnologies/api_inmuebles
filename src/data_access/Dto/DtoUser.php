@@ -4,12 +4,13 @@ class DtoUser extends Dto {
 	public $lastName;
 	public $address;
 	public $email;
-	public $identity; // cedula
+	public $identity;
 	public $passport;
 	public $documents;
 	public $password;
 	public $blocked;
 	public $seat;
+	public $agency;
 	public $rol;
 	public $plan;
 	public $location;
@@ -32,6 +33,7 @@ class DtoUser extends Dto {
 	 * @param bool            $blocked
 	 * @param bool            $deleted
 	 * @param DtoSeat|int     $seat
+	 * @param DtoAgency|int   $agency
 	 * @param DtoRol|int      $rol
 	 * @param DtoPlan|int     $plan
 	 * @param DtoLocation|int $location
@@ -40,7 +42,7 @@ class DtoUser extends Dto {
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
 		string $password, int $identity, string $passport,$documents, $userCreator, $userModifier, bool $active, bool $blocked,
-		bool $deleted, $seat, $rol, $plan, $location, string $dateCreated, string $dateModified) {
+		bool $deleted, $seat, $agency,$rol, $plan, $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->firstName = $firstName;
 		$this->lastName = $lastName;
@@ -55,5 +57,6 @@ class DtoUser extends Dto {
 		$this->documents = $documents;
 		$this->plan = $plan;
 		$this->location = $location;
+		$this->agency = $agency;
 	}
 }
