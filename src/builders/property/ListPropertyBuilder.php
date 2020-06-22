@@ -4,7 +4,6 @@ class ListPropertyBuilder extends ListBuilder {
 
 	/**
 	 * ListPropertyBuilder constructor.
-	 *
 	 */
 	public function __construct () {
 		$this->_mapperProperty = FactoryMapper::createMapperProperty();
@@ -39,6 +38,28 @@ class ListPropertyBuilder extends ListBuilder {
 	function getAll (int $loggedUser = Values::DEFAULT_FOREIGN) {
 		try {
 			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllProperty($loggedUser));
+			foreach ($this->_data as $datum) {
+				unset($datum->extras);
+				unset($datum->request);
+				unset($datum->price);
+			}
+		}
+		catch (PropertyNotFoundException $e) {
+			$this->_data = [];
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param int $loggedUser
+	 *
+	 * @return ListPropertyBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	function getAllAdmin (int $loggedUser = Values::DEFAULT_FOREIGN) {
+		try {
+			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllPropertiesAdmin($loggedUser));
 			foreach ($this->_data as $datum) {
 				unset($datum->extras);
 				unset($datum->request);
