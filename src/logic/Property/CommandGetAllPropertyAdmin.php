@@ -23,7 +23,8 @@ class CommandGetAllPropertyAdmin extends Command {
 			->withType()
 			->withLastTwoPrices()
 			->withExtras()
-			->clean()
+			->withUserCreator()
+			->unsetUserModifier()
 			->build());
 	}
 
