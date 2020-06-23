@@ -41,28 +41,30 @@ class UserBuilder extends Builder {
 
 	/**
 	 * @return UserBuilder
-	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function withSeat () {
 		$seatBuilder = new SeatBuilder();
 		$agencyBuilder = new AgencyBuilder();
 		try {
-			if(isset($this->_data->seat)) {
+			if (isset($this->_data->seat)) {
 				$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
 					->clean()
 					->build();
-				$this->_data->agency= $agencyBuilder->getMinimumById($this->_data->seat->agency)
+				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->seat->agency)
 					->clean()
 					->build();
 			}
-			else if(isset($this->_data->agency))
-			$this->_data->agency= $agencyBuilder->getMinimumById($this->_data->agency)
-				->clean()
-				->build();
+			elseif (isset($this->_data->agency))
+				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->agency)
+					->clean()
+					->build();
 		}
 		catch (SeatNotFoundException $e) {
 			unset($this->_data->seat);
+		}
+		catch (AgencyNotFoundException $e) {
+			unset($this->_data->agency);
 		}
 
 		return $this;
@@ -123,10 +125,11 @@ class UserBuilder extends Builder {
 	/**
 	 * @throws DatabaseConnectionException
 	 */
-	function withIdentity(){
+	function withIdentity () {
 		$subscriptionBuilder = new SubscriptionBuilder();
 		try {
-			$subscription = $subscriptionBuilder->getMinimumByEmail($this->_data->email)->withDetails()->clean()->build();
+			$subscription = $subscriptionBuilder->getMinimumByEmail($this->_data->email)->withDetails()->clean()
+				->build();
 			$this->_data->documents = $subscription->detail;
 			$this->_data->identity = $subscription->ci;
 			$this->_data->passport = $subscription->passport;
@@ -135,6 +138,7 @@ class UserBuilder extends Builder {
 			$this->_data->email = "";
 			$this->_data->passport = "";
 		}
+
 		return $this;
 	}
 
@@ -143,12 +147,13 @@ class UserBuilder extends Builder {
 	 */
 	public function clean () {
 		parent::clean();
-		foreach ($this->_data->documents as $document){
+		foreach ($this->_data->documents as $document) {
 			unset($document->subscription);
 			unset($document->id);
 			unset($document->active);
 			unset($document->delete);
 		}
+
 		return $this;
 	}
 }
