@@ -92,7 +92,7 @@ BEGIN
     IF NEW.su_status <> OLD.su_status AND NEW.su_status = 1
     THEN
         CALL createOnlyUser(OLD.su_first_name,OLD.su_last_name,OLD.su_address,
-            OLD.su_email,OLD.su_password,OLD.su_seat_fk,
+            OLD.su_email,OLD.su_password,OLD.su_seat_fk,OLD.su_agency_fk,
             (Select ro_id FROM rol WHERE ro_name='Corredor'),
             OLD.su_plan_fk,OLD.su_location_fk,NEW.su_user_modified_fk,
             NEW.su_date_modified);

@@ -54,14 +54,8 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
 			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
-			if(isset($seat)){
-				$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
-				$stmt->bindParam(":agency", $agency, PDO::PARAM_NULL);
-			}
-			else{
-				$stmt->bindParam(":seat", $seat, PDO::PARAM_NULL);
-				$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
-			}
+			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
+			$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $userModifier, PDO::PARAM_INT);

@@ -221,8 +221,8 @@ class  FactoryEntity {
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param int    $seat
-	 * @param int    $agency
+	 * @param	     $seat
+	 * @param	     $agency
 	 * @param int    $rol
 	 * @param int    $plan
 	 * @param int    $location
@@ -242,8 +242,8 @@ class  FactoryEntity {
 		bool $active = Values::DEFAULT_ACTIVE,
 		bool $blocked = Values::DEFAULT_INT,
 		bool $deleted = Values::DEFAULT_DELETE,
-		int $seat = Values::DEFAULT_FOREIGN,
-		int $agency = Values::DEFAULT_FOREIGN,
+		$seat = Values::DEFAULT_FOREIGN,
+		$agency = Values::DEFAULT_FOREIGN,
 		int $rol = Values::DEFAULT_FOREIGN,
 		int $plan = Values::DEFAULT_FOREIGN,
 		int $location = Values::DEFAULT_FOREIGN,
@@ -333,7 +333,6 @@ class  FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param int    $value
-	 * @param string $name
 	 * @param int    $propertyId
 	 * @param int    $extraId
 	 * @param int    $userCreator
@@ -393,7 +392,7 @@ class  FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param int    $property
-	 * @param string $userCreator
+	 * @param int    $userCreator
 	 * @param string $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
@@ -419,8 +418,8 @@ class  FactoryEntity {
 	 * @param string   $email
 	 * @param string   $password
 	 * @param int      $plan
-	 * @param int|null $seat
-	 * @param int      $agency
+	 * @param 		   $seat
+	 * @param		   $agency
 	 * @param int      $location
 	 * @param bool     $status
 	 * @param int      $userCreator

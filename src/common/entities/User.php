@@ -26,8 +26,8 @@ class User extends Entity {
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param int    $seat
-	 * @param int    $agency
+	 * @param	     $seat
+	 * @param 	     $agency
 	 * @param int    $rol
 	 * @param int    $plan
 	 * @param int    $location
@@ -35,8 +35,8 @@ class User extends Entity {
 	 * @param string $dateModified
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
-		int $agency,int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
+		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted,$seat,
+		$agency,int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->_firstName = $firstName;
 		$this->_lastName = $lastName;
@@ -136,9 +136,9 @@ class User extends Entity {
 	}
 
 	/**
-	 * @return int
+	 * @return mixed
 	 */
-	public function getSeat ():int {
+	public function getSeat (){
 		return $this->_seat;
 	}
 
@@ -191,10 +191,8 @@ class User extends Entity {
 		$this->_location = $location;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getAgency ():int {
+
+	public function getAgency () {
 		return $this->_agency;
 	}
 

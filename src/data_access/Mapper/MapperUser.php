@@ -6,6 +6,10 @@ class MapperUser extends Mapper {
 	 * @return User
 	 */
 	public function fromDtoToEntity ($dto):Entity {
+		if ($dto->seat == "")
+			$dto->seat = null;
+		if ($dto->agency == "")
+			$dto->agency = null;
 		return FactoryEntity::createUser($dto->id, $dto->firstName, $dto->lastName, $dto->address, $dto->email,
 			$dto->password, $dto->userCreator, $dto->userModifier, $dto->active, $dto->blocked, $dto->delete,
 			$dto->seat, $dto->agency,$dto->rol, $dto->plan, $dto->location, $dto->dateCreated, $dto->dateModified);

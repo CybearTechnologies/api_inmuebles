@@ -41,7 +41,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE us_id = last_insert_id();
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS createOnlyUser;
 DELIMITER $$
@@ -60,7 +61,8 @@ BEGIN
         VALUES (firstName, lastName, address, email, password, seat, agency,rol, plan, location, userCreator, userCreator,
                 dateCreated, dateCreated);
     END IF;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS createMinUser;
 DELIMITER $$
@@ -108,7 +110,8 @@ BEGIN
       AND us.us_rol_fk = ro.ro_id
       AND us.us_seat_fk = se.se_id
       AND us_id = last_insert_id();
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS updateUser;
 DELIMITER $$
@@ -154,7 +157,8 @@ BEGIN
          location lo,
          seat se
     WHERE us.us_id = id;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS updateUserProfile;
 DELIMITER $$
@@ -191,7 +195,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getUserById;
 DELIMITER $$
@@ -218,7 +223,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = user_id;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getUserByEmail;
 DELIMITER $$
@@ -245,7 +251,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE lower(us.us_email) = user_email;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS getAllUsers;
 DELIMITER $$
@@ -271,7 +278,8 @@ BEGIN
            us.us_date_created dateCreated,
            us.us_date_modified dateModified
     FROM user us;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS deleteUser;
 DELIMITER $$
@@ -308,7 +316,8 @@ BEGIN
     FROM user us
     WHERE us.us_id = id;
 
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS activeUser;
 DELIMITER $$
@@ -345,7 +354,8 @@ BEGIN
     FROM user us
     WHERE us.us_id = id;
 
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS inactiveUser;
 DELIMITER $$
@@ -382,7 +392,8 @@ BEGIN
     FROM user us
     WHERE us.us_id = id;
 
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS changePassword;
 DELIMITER $$
@@ -418,7 +429,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS changeRol;
 DELIMITER $$
@@ -454,7 +466,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS recoverPassword;
 DELIMITER $$
@@ -490,7 +503,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE us.us_email = email;
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS blockUser;
 DELIMITER $$
@@ -527,7 +541,8 @@ BEGIN
     FROM user us
     WHERE us.us_id = id;
 
-END$$
+END $$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS unlockUser;
 DELIMITER $$
@@ -563,7 +578,8 @@ BEGIN
            us.us_date_modified dateModified
     FROM user us
     WHERE us.us_id = id;
-END$$
+END $$
+DELIMITER ;
 
 /**
  ----------------------------------------------------------------------------------------------------------------------

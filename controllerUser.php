@@ -84,6 +84,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::putUser($put)) {
 					try {
+						if ($put->seat == "")
+							$put->seat = null;
+						if ($put->agency == "")
+							$put->agency = null;
 						$command = FactoryCommand::createCommandUpdateUser($put->id, $put->firstName, $put->lastName,
 							$put->address, $put->email, $put->seat, $put->agency,$put->plan, $put->location,
 							$loggedUser);

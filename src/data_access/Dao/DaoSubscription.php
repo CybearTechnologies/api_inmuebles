@@ -47,14 +47,8 @@ class DaoSubscription extends Dao {
 			$stmt->bindParam(":passport", $passport, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
 			$stmt->bindParam(":password", $password, PDO::PARAM_STR);
-			if(isset($seat)) {
-				$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
-				$stmt->bindParam(":agency", $agency, PDO::PARAM_NULL);
-			}
-			else{
-				$stmt->bindParam(":seat", $seat, PDO::PARAM_NULL);
-				$stmt->bindParam(":agency", $seat, PDO::PARAM_INT);
-			}
+			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
+			$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
 			$stmt->bindParam(":location", $location, PDO::PARAM_INT);
 			$stmt->bindParam(":dateCreated", $dateCreated, PDO::PARAM_STR);

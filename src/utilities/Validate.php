@@ -260,7 +260,8 @@ class Validate {
 	static function putUser ($put) {
 		return isset($put->id) && is_numeric($put->id) && isset($put->firstName) && !empty($put->firstName) &&
 			isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put->address) &&
-			isset($put->email) && !empty($put->email) && isset($put->seat) && is_numeric($put->seat) &&
+			isset($put->email) && !empty($put->email) && isset($put->seat) && isset($put->agency) &&
+			(is_numeric($put->seat) || is_numeric($put->agency) ) &&
 			isset($put->plan) && is_numeric($put->plan) && isset($put->location) && is_numeric($put->location);
 	}
 
@@ -338,6 +339,7 @@ class Validate {
 			&& isset($post->email) && !empty($post->email)
 			&& isset($post->plan) && is_numeric($post->plan)
 			&& isset($post->seat)
+			&& isset($post->agency) && (is_numeric($post->seat) || is_numeric($post->agency))
 			&& isset($post->location) && is_numeric($post->location);
 	}
 

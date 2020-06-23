@@ -25,8 +25,8 @@ class Subscription extends Entity {
 	 * @param string $email
 	 * @param string $password
 	 * @param int    $plan
-	 * @param int    $seat
-	 * @param int    $agency
+	 * @param 	     $seat
+	 * @param	     $agency
 	 * @param int    $location
 	 * @param bool   $status
 	 * @param int    $userCreator
@@ -211,9 +211,9 @@ class Subscription extends Entity {
 	}
 
 	/**
-	 * @return int
+	 * @return mixed
 	 */
-	public function getAgency ():int {
+	public function getAgency () {
 		return $this->_agency;
 	}
 

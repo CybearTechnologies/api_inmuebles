@@ -41,13 +41,23 @@ class UserBuilder extends Builder {
 
 	/**
 	 * @return UserBuilder
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function withSeat () {
 		$seatBuilder = new SeatBuilder();
+		$agencyBuilder = new AgencyBuilder();
 		try {
-			$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
-				->withAgency()
+			if(isset($this->_data->seat)) {
+				$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
+					->clean()
+					->build();
+				$this->_data->agency= $agencyBuilder->getMinimumById($this->_data->seat->agency)
+					->clean()
+					->build();
+			}
+			else if(isset($this->_data->agency))
+			$this->_data->agency= $agencyBuilder->getMinimumById($this->_data->agency)
 				->clean()
 				->build();
 		}
