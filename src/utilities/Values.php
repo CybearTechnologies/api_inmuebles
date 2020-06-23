@@ -51,6 +51,7 @@ class Values {
 		'ERROR_ACCESS_NOT_FOUND' => array ('text' => 'Acceso no encontrado', 'value' => 404),
 		'ERROR_ACCESS_ALREADY_EXIST' => array ('text' => 'Este acceso ya existe', 'value' => 200),
 		'ERROR_USER_NOT_FOUND' => array ('text' => 'Usuario no encontrado', 'value' => 404),
+		'ERROR_USER_ALREADY_EXIST' => array ('text' => 'Este correo ya se encuentra asociado a una cuenta', 'value' => 401),
 		'ERROR_USER_WRONG_PASSWORD' => array ('text' => 'Usuario o contraseña incorrecta', 'value' => 404),
 		'ERROR_USER_BLOCK_DELETED' => array ('text' => 'Usuario bloqueado o eliminado', 'value' => 404),
 		'ERROR_ORIGIN_NOT_FOUND' => array ('text' => 'Origen no encontrado', 'value' => 404),
@@ -64,7 +65,6 @@ class Values {
 		'ERROR_SUBSCRIPTION_NOT_FOUND' => array ('text' => 'No se ha encontrado esta subscription', 'value' => 404),
 		//MAILER
 		'ERROR_MAILER' => array ('text' => 'Error al enviar email', 'value' => 500),
-
 		//HEADERS
 		'ERROR_HEADER' => array ('text' => 'Campos de autenticacion imcompletos.', 'value' => 401),
 		//'ERROR_HEADER' => array ('text' => 'Campos de autenticacion imcompletos.', 'value' => 401)
@@ -103,4 +103,11 @@ class Values {
 	const DEFAULT_DELETE = false;
 	const DEFAULT_STATUS = false;
 	const DEFAULT_ARRAY = [];
+	/**
+	 * MAILER
+	 * REGISTRO
+	 */
+	const MAILER_ADMIN_EMAIL = "admin@cybear.io";
+	const REGISTER_SUBJECT = "Buscamatch";
+	const REGISTER_BODY = "Se ha enviado tu solicitud correctamente. Pronto se dara respuesta!";
 }

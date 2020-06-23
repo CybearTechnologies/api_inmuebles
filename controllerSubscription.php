@@ -84,35 +84,47 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					// Files processing
 					$details = [];
 					$files = [];
-					if (isset($_FILES['files']) && count($_FILES['files']['size']) > 0) {
-						$i = 0;
-						foreach ($_FILES['files']['name'] as $file) {
-							$path = Tools::saveFile($file, $_FILES['files']['tmp_name'][$i],
-								$post->firstName . $post->lastName, 'files/user');
-							array_push($details,
-								FactoryDto::createDtoSubscriptionDetail(-1, Environment::baseURL() . $path, -1));
-							array_push($files, __DIR__ . '/' . $path);
-							$i++;
-						}
+					$command = FactoryCommand::createCommandGetUserByUsername($post->email);
+					try {
+						$command->execute();
+						$return = new ErrorResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
+						Tools::setResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
 					}
-					$post->password = Validate::passwordHash($post->password . Environment::siteKey() . Tools::siteEncrypt($post->password));
-					/** @var DtoSubscription $post */
-					$subscription = $mapper->fromDtoToEntity($post);
-					$command = FactoryCommand::createCommandSubscribeUser($subscription, $details);
-					$command->execute();
-					$return = $command->return();
-					Tools::setResponse();
-					$wrapper
-						->setFrom()
-						->setTo($return->email, $return->firstName . ' ' . $return->lastName)
-						->setSubject('Buscamatch')
-						->setBody('Se ha enviado tu solicitud correctamente. Pronto se dara respuesta!')
-						->sendEmail();
+					catch (UserNotFoundException $e) {
+						if (isset($_FILES['files']) && count($_FILES['files']['size']) > 0) {
+							$i = 0;
+							foreach ($_FILES['files']['name'] as $file) {
+								$path = Tools::saveFile($file, $_FILES['files']['tmp_name'][$i],
+									$post->firstName . $post->lastName, 'files/user');
+								array_push($details,
+									FactoryDto::createDtoSubscriptionDetail(-1, Environment::baseURL() . $path, -1));
+								array_push($files, __DIR__ . '/' . $path);
+								$i++;
+							}
+						}
+						$post->password = Validate::passwordHash($post->password . Environment::siteKey() . Tools::siteEncrypt($post->password));
+						/** @var DtoSubscription $post */
+						$subscription = $mapper->fromDtoToEntity($post);
+						$command = FactoryCommand::createCommandSubscribeUser($subscription, $details);
+						$command->execute();
+						$return = $command->return();
+						Tools::setResponse();
+						$wrapper
+							->setFrom()
+							->setTo($return->email, $return->firstName . ' ' . $return->lastName)
+							->setSubject(Values::REGISTER_SUBJECT)
+							->setBody(Values::REGISTER_BODY)
+							->sendEmail();
+					}
+					catch (MultipleUserException $e) {
+						$return = new ErrorResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
+						Tools::setResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
+					}
 				}
 				catch (DatabaseConnectionException $exception) {
 					foreach ($files as $file)
 						file_exists($file) ? Tools::removeFile($file) : null;
-						$return = new ErrorResponse($exception->getMessage());
+					$return = new ErrorResponse($exception->getMessage());
 					Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 				}
 				catch (FileNotFoundException $exception) {
@@ -130,6 +142,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				catch (MailerException $exception) {
 					$return = new ErrorResponse($exception->getMessage());
 					Tools::setResponse(Values::getValue("ERROR_MAILER"));
+				}
+				catch (Exception $exception) {
+					$return = new ErrorResponse($exception->getMessage());
+					Logger::exception($exception, Logger::ERROR);
+					Tools::setResponse(500);
 				}
 			}
 			else {

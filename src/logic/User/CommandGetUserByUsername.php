@@ -18,7 +18,6 @@ class CommandGetUserByUsername extends Command {
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 * @throws MultipleUserException
-	 * @throws AgencyNotFoundException
 	 */
 	public function execute ():void {
 		$dtoUser = $this->_userBuilder
