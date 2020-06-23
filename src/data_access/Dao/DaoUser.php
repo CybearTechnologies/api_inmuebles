@@ -10,12 +10,13 @@ class DaoUser extends Dao {
 	private const QUERY_BLOCK = "CALL blockUser(:id,:user,:dateModified)";
 	private const QUERY_UNBLOCK = "CALL unblockUser(:id,:user,:dateModified)";
 	private const QUERY_GET_ALL = "CALL getAllUsers()";
-	private const QUERY_UPDATE = "CALL updateUser(:id,:firstName,:lastName,:address,:email,:seat,:agency,:plan,
+	private const QUERY_UPDATE = "CALL updateUser(:id,:firstName,:lastName,:address,:email,:phone,:seat,:agency,:plan,
 	:location,:user,:dateModified)";
 	private const QUERY_SET_PLAN = "CALL setUserPlan(:id,:plan,:user,:dateModified)";
 	private const QUERY_CHANGE_PASSWORD = "CALL changePassword(:id,:password,:user,:dateModified)";
 	private const QUERY_CHANGE_ROL = "CALL changeRol(:id,:rol,:user,:dateModified)";
-	private const QUERY_UPDATE_PROFILE = "CALL updateUserProfile(:id,:firstName,:lastName,:address,:email,:userModifier,:dateModified)";
+	private const QUERY_UPDATE_PROFILE = "CALL updateUserProfile(:id,:firstName,:lastName,:address,:email,
+	:phone,:userModifier,:dateModified)";
 	private $_entity;
 
 	/**
@@ -34,6 +35,7 @@ class DaoUser extends Dao {
 	 * @param      $lastName
 	 * @param      $address
 	 * @param      $email
+	 * @param      $phone
 	 * @param      $seat
 	 * @param      $agency
 	 * @param      $plan
@@ -45,7 +47,7 @@ class DaoUser extends Dao {
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 */
-	public function updateUser ($id, $firstName, $lastName, $address, $email, $seat, $agency,$plan, $location, $userModifier,
+	public function updateUser ($id, $firstName, $lastName, $address, $email, $phone,$seat, $agency,$plan, $location, $userModifier,
 		$dateModified) {
 		try {
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE);
@@ -54,6 +56,7 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
 			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
+			$stmt->bindParam(":phone", $phone, PDO::PARAM_STR);
 			$stmt->bindParam(":seat", $seat, PDO::PARAM_INT);
 			$stmt->bindParam(":agency", $agency, PDO::PARAM_INT);
 			$stmt->bindParam(":plan", $plan, PDO::PARAM_INT);
@@ -78,13 +81,14 @@ class DaoUser extends Dao {
 	 * @param $lastName
 	 * @param $address
 	 * @param $email
+	 * @param $phone
 	 * @param $modifier
 	 *
 	 * @return User
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 */
-	public function updateUserProfile ($id, $firstName, $lastName, $address, $email, $modifier) {
+	public function updateUserProfile ($id, $firstName, $lastName, $address, $email, $phone,$modifier) {
 		try {
 			$dateModified = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_UPDATE_PROFILE);
@@ -93,6 +97,7 @@ class DaoUser extends Dao {
 			$stmt->bindParam(":lastName", $lastName, PDO::PARAM_STR);
 			$stmt->bindParam(":address", $address, PDO::PARAM_STR);
 			$stmt->bindParam(":email", $email, PDO::PARAM_STR);
+			$stmt->bindParam(":phone", $phone, PDO::PARAM_STR);
 			$stmt->bindParam(":userModifier", $modifier, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
 			$stmt->execute();

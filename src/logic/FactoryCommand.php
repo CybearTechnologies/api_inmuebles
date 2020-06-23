@@ -125,7 +125,9 @@ class FactoryCommand {
 	 * @param      $lastName
 	 * @param      $address
 	 * @param      $email
+	 * @param      $phone
 	 * @param      $seat
+	 * @param      $agency
 	 * @param      $plan
 	 * @param      $location
 	 * @param      $userModifier
@@ -133,9 +135,9 @@ class FactoryCommand {
 	 *
 	 * @return CommandUpdateUser
 	 */
-	static function createCommandUpdateUser ($id, $firstName, $lastName, $address, $email, $seat, $agency,$plan, $location,
+	static function createCommandUpdateUser ($id, $firstName, $lastName, $address, $email, $phone,$seat, $agency,$plan, $location,
 		$userModifier, $dateModified = null):CommandUpdateUser {
-		return new CommandUpdateUser($id, $firstName, $lastName, $address, $email, $seat, $agency,$plan, $location,
+		return new CommandUpdateUser($id, $firstName, $lastName, $address, $email, $phone,$seat, $agency,$plan, $location,
 			$userModifier, $dateModified);
 	}
 
@@ -145,13 +147,14 @@ class FactoryCommand {
 	 * @param $_lastName
 	 * @param $_address
 	 * @param $_email
+	 * @param $_phone
 	 * @param $modifier
 	 *
 	 * @return CommandUpdateUserProfile
 	 */
-	static function createCommandUpdateUserProfile ($_id, $_firstName, $_lastName, $_address, $_email,
+	static function createCommandUpdateUserProfile ($_id, $_firstName, $_lastName, $_address, $_email,$_phone,
 		$modifier):CommandUpdateUserProfile {
-		return new CommandUpdateUserProfile($_id, $_firstName, $_lastName, $_address, $_email, $modifier);
+		return new CommandUpdateUserProfile($_id, $_firstName, $_lastName, $_address, $_email, $_phone,$modifier);
 	}
 
 	/**

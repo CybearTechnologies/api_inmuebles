@@ -26,6 +26,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -87,6 +88,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -116,20 +118,20 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS updateUser;
 DELIMITER $$
 CREATE PROCEDURE updateUser(id int, firstName varchar(45), lastName varchar(45), address varchar(255), email varchar(60),
-                            seat int, agency int ,plan int, location int, user int,
+                            phone varchar(50),seat int, agency int ,plan int, location int, user int,
                             dateModified datetime)
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE user
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
             us_email = email, us_seat_fk=seat, us_agency_fk=agency,us_plan_fk = plan,
-            us_location_fk = location, us_user_modified_fk = user
+            us_location_fk = location, us_user_modified_fk = user, us_phone = phone
         WHERE us_id = id;
     ELSE
         UPDATE user
         SET us_first_name = firstName, us_last_name = lastName, us_address = address,
             us_email = email, us_seat_fk=seat, us_agency_fk=agency ,us_plan_fk = plan,
-            us_location_fk = location, us_user_modified_fk = user, us_date_modified=dateModified
+            us_location_fk = location, us_user_modified_fk = user, us_date_modified=dateModified, us_phone = phone
         WHERE us_id = id;
     END IF;
     SELECT us.us_id id,
@@ -138,6 +140,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -163,15 +166,16 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS updateUserProfile;
 DELIMITER $$
 CREATE PROCEDURE updateUserProfile(id int, firstName varchar(45), lastName varchar(45),
-                            address varchar(200),email varchar(255),user int,dateModified datetime)
+                            address varchar(200),email varchar(255),user int,dateModified datetime,phone varchar(50))
 BEGIN
     IF IsNull(dateModified) THEN
         UPDATE user
-            SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email)
+            SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email),us_phone = phone
         WHERE us_id = id;
     ELSE
         UPDATE user
-        SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email), us_date_modified=dateModified
+        SET us_first_name = firstName, us_last_name = lastName, us_address = address, us_email = lower(email),
+            us_date_modified=dateModified,us_phone = phone
         WHERE us_id = id;
     END IF;
     SELECT us.us_id id,
@@ -180,6 +184,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -208,6 +213,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -236,6 +242,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -264,6 +271,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -300,6 +308,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -338,6 +347,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -376,6 +386,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -414,6 +425,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -451,6 +463,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -488,6 +501,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -525,6 +539,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',
@@ -563,6 +578,7 @@ BEGIN
            us.us_address address,
            us.us_deleted deleted,
            us.us_email email,
+           us.us_phone phone,
            us.us_password password,
            us.us_blocked blocked,
            us.us_deleted 'delete',

@@ -215,14 +215,15 @@ class  FactoryEntity {
 	 * @param string $lastName
 	 * @param string $address
 	 * @param string $email
+	 * @param string $phone
 	 * @param string $password
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param	     $seat
-	 * @param	     $agency
+	 * @param int    $seat
+	 * @param int    $agency
 	 * @param int    $rol
 	 * @param int    $plan
 	 * @param int    $location
@@ -236,6 +237,7 @@ class  FactoryEntity {
 		string $lastName = Values::DEFAULT_STRING,
 		string $address = Values::DEFAULT_STRING,
 		string $email = Values::DEFAULT_STRING,
+		string $phone = Values::DEFAULT_STRING,
 		string $password = Values::DEFAULT_STRING,
 		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN,
@@ -249,7 +251,7 @@ class  FactoryEntity {
 		int $location = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE):User {
-		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
+		return new User($id, $firstName, $lastName, $address, $email, $phone,$password, $userCreator, $userModifier, $active,
 			$blocked, $deleted, $seat, $agency,$rol, $plan, $location, $dateCreated, $dateModified);
 	}
 

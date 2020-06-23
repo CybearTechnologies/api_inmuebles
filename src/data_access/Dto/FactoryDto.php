@@ -307,6 +307,7 @@ class FactoryDto {
 	 * @param string          $lastName
 	 * @param string          $address
 	 * @param string          $email
+	 * @param string          $phone
 	 * @param string          $password
 	 * @param int             $identity
 	 * @param string          $passport
@@ -318,7 +319,6 @@ class FactoryDto {
 	 * @param bool            $deleted
 	 * @param DtoSeat|int     $seat
 	 * @param int             $agency
-	 * @param $
 	 * @param DtoRol|int      $rol
 	 * @param DtoPlan|int     $plan
 	 * @param DtoLocation|int $location
@@ -329,7 +329,7 @@ class FactoryDto {
 	 */
 	static function createDtoUser (int $id, string $firstName = Values::DEFAULT_STRING,
 		string $lastName = Values::DEFAULT_STRING, string $address = Values::DEFAULT_STRING,
-		string $email = Values::DEFAULT_STRING, string $password = Values::DEFAULT_STRING,
+		string $email = Values::DEFAULT_STRING, string $phone =Values::DEFAULT_STRING ,string $password = Values::DEFAULT_STRING,
 		int $identity = Values::DEFAULT_INT, string $passport = Values::DEFAULT_STRING,
 		$documents = Values::DEFAULT_ARRAY, $userCreator = Values::DEFAULT_FOREIGN,
 		$userModifier = Values::DEFAULT_FOREIGN, bool $active = Values::DEFAULT_ACTIVE,
@@ -339,7 +339,7 @@ class FactoryDto {
 		$plan = Values::DEFAULT_FOREIGN, $location = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE):DtoUser {
-		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $identity, $passport, $documents,
+		return new DtoUser($id, $firstName, $lastName, $address, $email,$phone,$password, $identity, $passport, $documents,
 			$userCreator,$userModifier, $active, $blocked, $deleted, $seat, $agency,$rol, $plan,
 			$location, $dateCreated, $dateModified);
 	}

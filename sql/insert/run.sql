@@ -371,7 +371,7 @@ VALUES ('Corredor');
 
 INSERT INTO user (us_id, us_first_name, us_last_name, us_address, us_email, us_password, us_rol_fk,
                   us_location_fk)
-VALUES (1, 'Admin', '', 'N/A', 'admin@test.com', '$2y$10$43DlSVjruhwwlvJJ.sKxjuQt5pe5ceskApHZqtl/S/MQ09uH3z0DW', 1, 5);
+VALUES (1, 'Admin', '', 'N/A', 'admin@test.com', '$2y$10$jWGwg8VuFMM9/fyAPmTMoesHwSJuwUR19MWCrdIrLU1CxnWWPXKR6', 1, 5);
 
 ALTER TABLE rol
     ADD COLUMN ro_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',

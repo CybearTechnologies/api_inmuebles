@@ -4,6 +4,7 @@ class User extends Entity {
 	private $_lastName;
 	private $_address;
 	private $_email;
+	private $_phone;
 	private $_password;
 	private $_blocked;
 	private $_seat;
@@ -15,26 +16,27 @@ class User extends Entity {
 	/**
 	 * User constructor.
 	 *
-	 * @param int    $id
-	 * @param string $firstName
-	 * @param string $lastName
-	 * @param string $address
-	 * @param string $email
-	 * @param string $password
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param bool   $active
-	 * @param bool   $blocked
-	 * @param bool   $deleted
-	 * @param	     $seat
-	 * @param 	     $agency
-	 * @param int    $rol
-	 * @param int    $plan
-	 * @param int    $location
-	 * @param string $dateCreated
-	 * @param string $dateModified
+	 * @param int     $id
+	 * @param string  $firstName
+	 * @param string  $lastName
+	 * @param string  $address
+	 * @param string  $email
+	 * @param string  $phone
+	 * @param string  $password
+	 * @param int     $userCreator
+	 * @param int     $userModifier
+	 * @param bool    $active
+	 * @param bool    $blocked
+	 * @param bool    $deleted
+	 * @param         $seat
+	 * @param         $agency
+	 * @param int     $rol
+	 * @param int     $plan
+	 * @param int     $location
+	 * @param string  $dateCreated
+	 * @param string  $dateModified
 	 */
-	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
+	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,string $phone,
 		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted,$seat,
 		$agency,int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
@@ -49,6 +51,7 @@ class User extends Entity {
 		$this->_plan = $plan;
 		$this->_location = $location;
 		$this->_agency = $agency;
+		$this->_phone= $phone;
 	}
 
 	/**
@@ -203,6 +206,18 @@ class User extends Entity {
 		$this->_agency = $agency;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getPhone ():string {
+		return $this->_phone;
+	}
 
+	/**
+	 * @param string $phone
+	 */
+	public function setPhone (string $phone):void {
+		$this->_phone = $phone;
+	}
 
 }
