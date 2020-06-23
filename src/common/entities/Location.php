@@ -55,9 +55,9 @@ class Location extends Entity {
 	}
 
 	/**
-	 * @return int
+	 * @return mixed
 	 */
-	public function getLocationFk ():int {
+	public function getLocationFk () {
 		return $this->_locationFk;
 	}
 
