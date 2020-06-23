@@ -87,7 +87,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandGetUserByUsername($post->email);
 					try {
 						$command->execute();
-						$return = new ErrorResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
+						$return = new ErrorResponse(Values::getText("ERROR_USER_ALREADY_EXIST"));
 						Tools::setResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
 					}
 					catch (UserNotFoundException $e) {
@@ -117,7 +117,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 							->sendEmail();
 					}
 					catch (MultipleUserException $e) {
-						$return = new ErrorResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
+						$return = new ErrorResponse(Values::getText("ERROR_USER_ALREADY_EXIST"));
 						Tools::setResponse(Values::getValue("ERROR_USER_ALREADY_EXIST"));
 					}
 				}

@@ -472,7 +472,7 @@ class DaoUser extends Dao {
 	 */
 	protected function extract ($dbObject):User {
 		return FactoryEntity::createUser($dbObject->id, $dbObject->first_name, $dbObject->last_name, $dbObject->address,
-			$dbObject->email, $dbObject->password, $dbObject->userCreator, $dbObject->userModifier, $dbObject->active,
+			$dbObject->email,$dbObject->phone ,$dbObject->password, $dbObject->userCreator, $dbObject->userModifier, $dbObject->active,
 			$dbObject->blocked, $dbObject->delete, $dbObject->seat, $dbObject->agency,$dbObject->rol, $dbObject->plan,
 			$dbObject->location, $dbObject->dateCreated, $dbObject->dateModified);
 	}

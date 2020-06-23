@@ -307,7 +307,7 @@ class FactoryDto {
 	 * @param string          $lastName
 	 * @param string          $address
 	 * @param string          $email
-	 * @param string          $phone
+	 * @param		          $phone
 	 * @param string          $password
 	 * @param int             $identity
 	 * @param string          $passport
@@ -329,7 +329,7 @@ class FactoryDto {
 	 */
 	static function createDtoUser (int $id, string $firstName = Values::DEFAULT_STRING,
 		string $lastName = Values::DEFAULT_STRING, string $address = Values::DEFAULT_STRING,
-		string $email = Values::DEFAULT_STRING, string $phone =Values::DEFAULT_STRING ,string $password = Values::DEFAULT_STRING,
+		string $email = Values::DEFAULT_STRING,$phone =Values::DEFAULT_STRING ,string $password = Values::DEFAULT_STRING,
 		int $identity = Values::DEFAULT_INT, string $passport = Values::DEFAULT_STRING,
 		$documents = Values::DEFAULT_ARRAY, $userCreator = Values::DEFAULT_FOREIGN,
 		$userModifier = Values::DEFAULT_FOREIGN, bool $active = Values::DEFAULT_ACTIVE,

@@ -215,15 +215,15 @@ class  FactoryEntity {
 	 * @param string $lastName
 	 * @param string $address
 	 * @param string $email
-	 * @param string $phone
+	 * @param		 $phone
 	 * @param string $password
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param int    $seat
-	 * @param int    $agency
+	 * @param	     $seat
+	 * @param	     $agency
 	 * @param int    $rol
 	 * @param int    $plan
 	 * @param int    $location
@@ -237,7 +237,7 @@ class  FactoryEntity {
 		string $lastName = Values::DEFAULT_STRING,
 		string $address = Values::DEFAULT_STRING,
 		string $email = Values::DEFAULT_STRING,
-		string $phone = Values::DEFAULT_STRING,
+		$phone = Values::DEFAULT_STRING,
 		string $password = Values::DEFAULT_STRING,
 		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN,

@@ -21,7 +21,7 @@ class User extends Entity {
 	 * @param string  $lastName
 	 * @param string  $address
 	 * @param string  $email
-	 * @param string  $phone
+	 * @param		  $phone
 	 * @param string  $password
 	 * @param int     $userCreator
 	 * @param int     $userModifier
@@ -36,7 +36,7 @@ class User extends Entity {
 	 * @param string  $dateCreated
 	 * @param string  $dateModified
 	 */
-	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,string $phone,
+	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,$phone,
 		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted,$seat,
 		$agency,int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
@@ -194,7 +194,9 @@ class User extends Entity {
 		$this->_location = $location;
 	}
 
-
+	/**
+	 * @return mixed
+	 */
 	public function getAgency () {
 		return $this->_agency;
 	}
@@ -207,9 +209,9 @@ class User extends Entity {
 	}
 
 	/**
-	 * @return string
+	 * @return mixed
 	 */
-	public function getPhone ():string {
+	public function getPhone () {
 		return $this->_phone;
 	}
 
