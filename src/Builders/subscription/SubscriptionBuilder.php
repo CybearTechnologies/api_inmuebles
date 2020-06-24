@@ -85,12 +85,26 @@ class SubscriptionBuilder extends Builder {
 	}
 
 	/**
+	 * @return SubscriptionBuilder
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function andSeat () {
 		$seatBuilder = new SeatBuilder();
+		$agencyBuilder = new AgencyBuilder();
 		try {
-			$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)->withAgency()->clean()->build();
+			if (isset($this->_data->seat)) {
+				$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
+					->clean()
+					->build();
+				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->seat->agency)
+					->clean()
+					->build();
+			}
+			elseif (isset($this->_data->agency))
+				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->agency)
+					->clean()
+					->build();
 		}
 		catch (SeatNotFoundException $e) {
 			unset($this->_data->seat);

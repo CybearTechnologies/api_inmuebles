@@ -27,17 +27,24 @@ class ListUserBuilder extends ListBuilder {
 
 	/**
 	 * @return ListUserBuilder
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function withSeat () {
 		$seatBuilder = new SeatBuilder();
+		$agencyBuilder = new AgencyBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$datum->seat = $seatBuilder
-					->getMinimumById($datum->seat)
-					->withAgency()
-					->clean()
-					->build();
+				if (isset($datum->seat)) {
+					$datum->seat = $seatBuilder->getMinimumById($datum->seat)->clean()->build();
+					$datum->agency = $agencyBuilder->getMinimumById($datum->seat->agency)
+						->clean()
+						->build();
+				}
+				elseif (isset($datum->agency))
+					$datum->agency = $agencyBuilder->getMinimumById($datum->seat->agency)
+						->clean()
+						->build();
 			}
 			catch (SeatNotFoundException $e) {
 				unset($datum->seat);
