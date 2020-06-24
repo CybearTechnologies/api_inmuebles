@@ -11,6 +11,7 @@ class CommandGetAllSubscription extends Command {
 	}
 
 	/**
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 * @throws SubscriptionNotFoundException
 	 */
