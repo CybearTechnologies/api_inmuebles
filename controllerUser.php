@@ -89,7 +89,8 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						if ($put->agency == "")
 							$put->agency = null;
 						$command = FactoryCommand::createCommandUpdateUser($put->id, $put->firstName, $put->lastName,
-							$put->address, $put->email, $put->phone,$put->seat, $put->agency,$put->plan, $put->location,
+							$put->address, $put->email, $put->phone, $put->seat, $put->agency, $put->plan,
+							$put->location,
 							$loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDTO($command->return());
@@ -105,11 +106,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				elseif (isset($put->firstName) && !empty($put->firstName) &&
-					isset($put->lastName) && !empty($put->lastName) && isset($put->address) && !empty($put->address) &&
-					isset($put->email) && !empty($put->email) && isset($get->profile) && isset($get->phone)) {
+					isset($put->lastName) && !empty($put->lastName)
+					&& isset($put->address) && !empty($put->address) &&
+					isset($put->email) && !empty($put->email)
+					&& isset($get->profile) && isset($put->phone)) {
 					$command = FactoryCommand::createCommandUpdateUserProfile($loggedUser, $put->firstName,
 						$put->lastName,
-						$put->address, $put->email, $put->phone,$loggedUser);
+						$put->address, $put->email, $put->phone, $loggedUser);
 					$command->execute();
 					$return = $command->return();
 					unset($return->password);

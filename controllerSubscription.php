@@ -124,7 +124,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				catch (DatabaseConnectionException $exception) {
 					foreach ($files as $file)
 						file_exists($file) ? Tools::removeFile($file) : null;
-					$return = new ErrorResponse($exception->getMessage());
+					$return = new ErrorResponse(Values::getValue("ERROR_DATABASE"));
 					Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 				}
 				catch (FileNotFoundException $exception) {
@@ -144,7 +144,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					Tools::setResponse(Values::getValue("ERROR_MAILER"));
 				}
 				catch (Exception $exception) {
-					$return = new ErrorResponse($exception->getMessage());
+					$return = new ErrorResponse(Values::getValue("ERROR_DATABASE"));
 					Logger::exception($exception, Logger::ERROR);
 					Tools::setResponse(500);
 				}
