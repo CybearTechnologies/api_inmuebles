@@ -93,7 +93,7 @@ class SubscriptionBuilder extends Builder {
 		$seatBuilder = new SeatBuilder();
 		$agencyBuilder = new AgencyBuilder();
 		try {
-			if (isset($this->_data->seat)) {
+			if (($this->_data->seat!==null) && is_numeric($this->_data->seat)) {
 				$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
 					->clean()
 					->build();
@@ -101,7 +101,7 @@ class SubscriptionBuilder extends Builder {
 					->clean()
 					->build();
 			}
-			elseif (isset($this->_data->agency))
+			elseif (($this->_data->agency!==null) && is_numeric($this->_data->agency))
 				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->agency)
 					->clean()
 					->build();
