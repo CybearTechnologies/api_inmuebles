@@ -37,7 +37,7 @@ class ListUserBuilder extends ListBuilder {
 			try {
 				if (($datum->seat !== null) && is_numeric($datum->seat)) {
 					$datum->seat = $seatBuilder->getMinimumById($datum->seat)->clean()->build();
-					$datum->agency = $agencyBuilder->getMinimumById($datum->agency)
+					$datum->agency = $agencyBuilder->getMinimumById($datum->seat->agency)
 						->clean()
 						->build();
 				}
