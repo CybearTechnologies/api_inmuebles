@@ -47,12 +47,12 @@ class ListSubscriptionBuilder extends ListBuilder {
 			try {
 				if (isset($datum->seat)) {
 					$datum->seat = $seatBuilder->getMinimumById($datum->seat)->clean()->build();
-					$datum->agency = $agencyBuilder->getMinimumById($datum->seat->agency)
+					$datum->agency = $agencyBuilder->getMinimumById($datum->agency)
 						->clean()
 						->build();
 				}
 				elseif (isset($datum->agency))
-					$datum->agency = $agencyBuilder->getMinimumById($datum->seat->agency)
+					$datum->agency = $agencyBuilder->getMinimumById($datum->agency)
 						->clean()
 						->build();
 			}

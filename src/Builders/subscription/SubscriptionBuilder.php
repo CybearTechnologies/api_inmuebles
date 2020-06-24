@@ -97,7 +97,7 @@ class SubscriptionBuilder extends Builder {
 				$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
 					->clean()
 					->build();
-				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->seat->agency)
+				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->agency)
 					->clean()
 					->build();
 			}
