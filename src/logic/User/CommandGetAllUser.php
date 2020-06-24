@@ -10,6 +10,7 @@ class CommandGetAllUser extends Command {
 	}
 
 	/**
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 */
