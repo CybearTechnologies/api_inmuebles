@@ -45,13 +45,14 @@ class ListSubscriptionBuilder extends ListBuilder {
 		$agencyBuilder = new AgencyBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				if (isset($datum->seat)) {
+				if (($datum->seat !== null) && is_numeric($datum->seat)) {
+
 					$datum->seat = $seatBuilder->getMinimumById($datum->seat)->clean()->build();
 					$datum->agency = $agencyBuilder->getMinimumById($datum->agency)
 						->clean()
 						->build();
 				}
-				elseif (isset($datum->agency))
+				else if (($datum->agency!==null) && is_numeric($datum->agency))
 					$datum->agency = $agencyBuilder->getMinimumById($datum->agency)
 						->clean()
 						->build();
