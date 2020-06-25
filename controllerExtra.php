@@ -205,7 +205,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandDeleteExtraById($get->id, $loggedUser);
 					try {
 						$command->execute();
-						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $exception) {
