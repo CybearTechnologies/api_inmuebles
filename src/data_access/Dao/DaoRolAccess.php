@@ -4,6 +4,7 @@ class DaoRolAccess extends Dao {
 	private const QUERY_GET_ACCESS_BY_ROL = "CALL getAccessByRol(:rol)";
 	private const QUERY_DEACTIVATE = "CALL deactivateRolAccessById(:rol,:access,:user,:dateModified)";
 	private const QUERY_ACTIVATE = "CALL activateRolAccessById(:rol,:access,:user,:dateModified)";
+	private const QUERY_DELETE_ALL = "CALL deleteAllRolAccessByRol(:rol)";
 	private $_entity;
 
 	/**
@@ -117,6 +118,29 @@ class DaoRolAccess extends Dao {
 			$stmt->bindParam(":access", $access, PDO::PARAM_INT);
 			$stmt->bindParam(":user", $user, PDO::PARAM_INT);
 			$stmt->bindParam(":dateModified", $dateModified, PDO::PARAM_STR);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new RolAccessNotFoundException("There are no access found", 404);
+			else
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
+	 * @param int $rol
+	 *
+	 * @return RolAccess
+	 * @throws DatabaseConnectionException
+	 * @throws RolAccessNotFoundException
+	 */
+	public function deleteAllRollAccessByRol (int $rol) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_DELETE_ALL);
+			$stmt->bindParam(":rol", $rol, PDO::PARAM_INT);
 			$stmt->execute();
 			if ($stmt->rowCount() == 0)
 				Throw new RolAccessNotFoundException("There are no access found", 404);

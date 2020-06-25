@@ -25,6 +25,7 @@ class DaoSubscription extends Dao {
 	 */
 	public function createSubscription ($entity) {
 		try {
+
 			$ci = $entity->getCi();
 			$firstName = $entity->getFirstName();
 			$lastName = $entity->getLastName();

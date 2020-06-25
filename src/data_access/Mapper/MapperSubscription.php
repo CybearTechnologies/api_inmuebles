@@ -10,9 +10,9 @@ class MapperSubscription extends Mapper {
 			$dto->id = -1;
 		if (!isset($dto->passport))
 			$dto->passport = "";
-		if ($dto->seat == "")
+		if ($dto->seat == "" || !is_numeric($dto->seat))
 			$dto->seat = null;
-		if ($dto->agency == "")
+		if ($dto->agency == "" || !is_numeric($dto->agency))
 			$dto->agency = null;
 		return FactoryEntity::createSubscription($dto->id, $dto->firstName, $dto->lastName,
 			$dto->address, $dto->ci, $dto->passport, $dto->email, $dto->password,
