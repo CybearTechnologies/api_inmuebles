@@ -129,10 +129,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					try {
 						$command->execute();
 						$extra = $command->return();
-						$length = strlen(Environment::baseURL()) - 1;
 						$tempImage = FileHandler::replace($extra->icon, 'image', $post->name, 'files/extra');
 						$command = FactoryCommand::createCommandUpdateExtraById($post->id, $post->name,
-							Environment::baseURL() . $tempImage, $loggedUser);
+							$tempImage, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
@@ -208,7 +207,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
-
 					}
 					catch (DatabaseConnectionException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
