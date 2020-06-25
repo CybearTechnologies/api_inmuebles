@@ -108,6 +108,14 @@ BEGIN
       AND ra_access_fk = ac_id;
 END$$
 
+DROP PROCEDURE IF EXISTS deleteAllRolAccessByRol;
+DELIMITER $$
+CREATE PROCEDURE deleteAllRolAccessByRol(rolId int)
+BEGIN
+    DELETE FROM rol_access WHERE ra_rol_fk = rolId;
+END;
+DELIMITER $$
+
 /**
  ----------------------------------------------------------------------------------------------------------------------
  ---                                                    END                                                         ---
