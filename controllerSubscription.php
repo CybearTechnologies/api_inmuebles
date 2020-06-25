@@ -85,8 +85,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$details = [];
 					$files = [];
 					$command = FactoryCommand::createCommandGetUserByUsername($post->email);
-					Logger::info("incomming suscription agency",$post->agency);
-					Logger::info("incomming suscription seat",$post->seat);
 					try {
 						$command->execute();
 						$return = new ErrorResponse(Values::getText("ERROR_USER_ALREADY_EXIST"));

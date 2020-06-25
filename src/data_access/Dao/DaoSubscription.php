@@ -37,8 +37,6 @@ class DaoSubscription extends Dao {
 			$plan = $entity->getPlan();
 			$location = $entity->getLocation();
 			$dateCreated = $entity->getDateCreated();
-			Logger::info("incomming suscription agency en DAO",$entity->getAgency());
-			Logger::info("incomming suscription seat en DAO",$entity->getSeat());
 			if ($dateCreated == "")
 				$dateCreated = null;
 			$stmt = $this->getDatabase()->prepare(self::QUERY_CREATE);
