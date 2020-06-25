@@ -68,7 +68,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				if (Validate::agency($post) && FileHandler::fileExist('image')) {
 					try {
 						$tempImage = FileHandler::save('image', $post->name, 'files/agency');
-						$dto = FactoryDto::createDtoAgency(-1, $post->name, Environment::baseURL() . $tempImage);
+						$dto = FactoryDto::createDtoAgency(-1, $post->name, $tempImage);
 						$agency = $mapper->fromDtoToEntity($dto);
 						$agency->setUserCreator($loggedUser);
 						$command = FactoryCommand::createCommandCreateAgency($agency);

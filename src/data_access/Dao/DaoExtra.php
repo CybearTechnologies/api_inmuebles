@@ -141,7 +141,6 @@ class DaoExtra extends Dao {
 	 * @param int $id
 	 * @param int $user
 	 *
-	 * @return Extra
 	 * @throws DatabaseConnectionException
 	 */
 	public function deleteExtraById (int $id, int $user) {
