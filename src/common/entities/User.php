@@ -4,9 +4,11 @@ class User extends Entity {
 	private $_lastName;
 	private $_address;
 	private $_email;
+	private $_phone;
 	private $_password;
 	private $_blocked;
 	private $_seat;
+	private $_agency;
 	private $_rol;
 	private $_plan;
 	private $_location;
@@ -14,27 +16,29 @@ class User extends Entity {
 	/**
 	 * User constructor.
 	 *
-	 * @param int    $id
-	 * @param string $firstName
-	 * @param string $lastName
-	 * @param string $address
-	 * @param string $email
-	 * @param string $password
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param bool   $active
-	 * @param bool   $blocked
-	 * @param bool   $deleted
-	 * @param int $seat
-	 * @param int $rol
-	 * @param int $plan
-	 * @param int $location
-	 * @param string $dateCreated
-	 * @param string $dateModified
+	 * @param int     $id
+	 * @param string  $firstName
+	 * @param string  $lastName
+	 * @param string  $address
+	 * @param string  $email
+	 * @param		  $phone
+	 * @param string  $password
+	 * @param int     $userCreator
+	 * @param int     $userModifier
+	 * @param bool    $active
+	 * @param bool    $blocked
+	 * @param bool    $deleted
+	 * @param         $seat
+	 * @param         $agency
+	 * @param int     $rol
+	 * @param int     $plan
+	 * @param int     $location
+	 * @param string  $dateCreated
+	 * @param string  $dateModified
 	 */
-	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted, int $seat,
-		int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
+	public function __construct (int $id, string $firstName, string $lastName, string $address, string $email,$phone,
+		string $password, int $userCreator, int $userModifier, bool $active, bool $blocked, bool $deleted,$seat,
+		$agency,int $rol, int $plan, int $location, string $dateCreated, string $dateModified) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $deleted);
 		$this->_firstName = $firstName;
 		$this->_lastName = $lastName;
@@ -46,6 +50,8 @@ class User extends Entity {
 		$this->_rol = $rol;
 		$this->_plan = $plan;
 		$this->_location = $location;
+		$this->_agency = $agency;
+		$this->_phone= $phone;
 	}
 
 	/**
@@ -133,9 +139,9 @@ class User extends Entity {
 	}
 
 	/**
-	 * @return int
+	 * @return mixed
 	 */
-	public function getSeat ():int {
+	public function getSeat (){
 		return $this->_seat;
 	}
 
@@ -186,6 +192,34 @@ class User extends Entity {
 	 */
 	public function setLocation (int $location):void {
 		$this->_location = $location;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getAgency () {
+		return $this->_agency;
+	}
+
+	/**
+	 * @param int $agency
+	 */
+	public function setAgency (int $agency):void {
+		$this->_agency = $agency;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getPhone () {
+		return $this->_phone;
+	}
+
+	/**
+	 * @param string $phone
+	 */
+	public function setPhone (string $phone):void {
+		$this->_phone = $phone;
 	}
 
 }

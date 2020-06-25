@@ -51,6 +51,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
 				}
+				if (isset($get->pending) && ($get->pending == true)) {
+					$command = FactoryCommand::createCommandGetAllPendingRequest($loggedUser);
+					$command->execute();
+					$return = $command->return();
+					Tools::setResponse();
+				}
 			}
 			catch (DatabaseConnectionException $e) {
 				$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
@@ -84,9 +90,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
-				if (isset($post->property) && is_numeric($post->property) && isset($post->user) && is_numeric($post->user)) {
+				if (isset($post->property) && is_numeric($post->property)) {
 					try {
-						$command = FactoryCommand::createCommandCreateRequest($post->property, $post->user);
+						$command = FactoryCommand::createCommandCreateRequest($post->property, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
@@ -94,6 +100,20 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					catch (DatabaseConnectionException $e) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+					}
+				}
+				if (isset($get->cancel) && isset($post->id)) {
+					$command = FactoryCommand::createCommandGetRequestById($post->id);
+					try {
+						$command->execute();
+						$command = FactoryCommand::createCommandDeleteRequestById($post->id, $loggedUser);
+						$command->execute();
+						$return = true;
+					}
+					catch (RequestNotFoundException $e) {
+						echo "aqui";
+						$return = new ErrorResponse(Values::getText("ERROR_REQUEST_NOT_FOUND"));
+						Tools::setResponse(Values::getValue("ERROR_REQUEST_NOT_FOUND"));
 					}
 				}
 			}

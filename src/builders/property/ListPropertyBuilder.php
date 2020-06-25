@@ -30,16 +30,44 @@ class ListPropertyBuilder extends ListBuilder {
 	}
 
 	/**
+	 * @param int $loggedUser
+	 *
 	 * @return ListPropertyBuilder
 	 * @throws DatabaseConnectionException
-	 * @throws PropertyNotFoundException
 	 */
-	function getAll () {
-		$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllProperty());
-		foreach ($this->_data as $datum) {
-			unset($datum->extras);
-			unset($datum->request);
-			unset($datum->price);
+	function getAll (int $loggedUser = Values::DEFAULT_FOREIGN) {
+		try {
+			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllProperty($loggedUser));
+			foreach ($this->_data as $datum) {
+				unset($datum->extras);
+				unset($datum->request);
+				unset($datum->price);
+			}
+		}
+		catch (PropertyNotFoundException $e) {
+			$this->_data = [];
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @param int $loggedUser
+	 *
+	 * @return ListPropertyBuilder
+	 * @throws DatabaseConnectionException
+	 */
+	function getAllAdmin (int $loggedUser = Values::DEFAULT_FOREIGN) {
+		try {
+			$this->_data = $this->_mapperProperty->fromEntityArrayToDtoArray($this->_dao->getAllPropertiesAdmin($loggedUser));
+			foreach ($this->_data as $datum) {
+				unset($datum->extras);
+				unset($datum->request);
+				unset($datum->price);
+			}
+		}
+		catch (PropertyNotFoundException $e) {
+			$this->_data = [];
 		}
 
 		return $this;
@@ -91,7 +119,7 @@ class ListPropertyBuilder extends ListBuilder {
 		$locationBuilder = new LocationBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$datum->location = $locationBuilder->getMinimumById($datum->id)
+				$datum->location = $locationBuilder->getMinimumById($datum->location)
 					->clean()
 					->build();
 			}
@@ -111,7 +139,8 @@ class ListPropertyBuilder extends ListBuilder {
 		$typeBuilder = new PropertyTypeBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$datum->type = $typeBuilder->getMinimumById($datum->id)
+				$datum->type = $typeBuilder
+					->getMinimumById($datum->type)
 					->clean()
 					->build();
 			}

@@ -14,7 +14,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				if (Validate::id($get)) {
-					$command = FactoryCommand::createCommandGetPropertyById($get->id);
+					$command = FactoryCommand::createCommandGetPropertyById($get->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();
@@ -29,24 +29,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 					}
 				}
-				if (Validate::id($get) && $get->action = "user") {
-					$command = FactoryCommand::createCommandGetAllUserProperties($get->id);
-					try {
-						$command->execute();
-						$return = $command->return();
-						Tools::setResponse();
-					}
-					catch (DatabaseConnectionException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
-					catch (PropertyNotFoundException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_USER_NOT_FOUND"));
-						Tools::setResponse(Values::getValue("ERROR_PROPERTY_USER_NOT_FOUND"));
-					}
+				elseif (isset($get->admin)) {
+					$command = FactoryCommand::createCommandGetAllPropertyAdmin($loggedUser);
+					$command->execute();
+					$return = $command->return();
 				}
 				else {
-					$command = FactoryCommand::createCommandListProperties();
+					$command = FactoryCommand::createCommandListProperties($loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();
@@ -55,10 +44,6 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					catch (DatabaseConnectionException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
-					catch (PropertyNotFoundException $exception) {
-						$return = new ErrorResponse(Values::getText("ERROR_PROPERTIES_NOT_FOUND"));
-						Tools::setResponse(Values::getValue("ERROR_PROPERTIES_NOT_FOUND"));
 					}
 				}
 			}
@@ -94,32 +79,42 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				$post = json_decode(file_get_contents('php://input'));
-				if (isset($post->property) /*&& Validate::property($post->property)*/) {
-					$property = $mapper->fromDTOToEntity($post->property);
+				if (isset($post->name) && !empty($post->name)
+					&& isset($post->area) && is_numeric($post->area)
+					&& isset($post->description) && !empty($post->description)
+					&& isset($post->state) && is_numeric($post->state)
+					&& isset($post->floor) && is_numeric($post->floor)
+					&& isset($post->type) && is_numeric($post->type)
+					&& isset($post->location) && is_numeric($post->location)
+					&& isset($post->price) && is_numeric($post->price)) {
+					$property = FactoryEntity::createProperty(-1, $post->destiny, 0,
+						$post->name, $post->area, $post->description,
+						$post->state, $post->floor, $post->type, $post->location);
 					$property->setUserCreator($loggedUser);
 					$command = FactoryCommand::createCommandCreateProperty($property);
+					$command->execute();
+					$property = $mapper->fromEntityToDto($command->return());
+					if (isset($post->extras) && is_array($post->extras) && !empty($post->extras)) {
+						foreach ($post->extras as $extra) {
+							$command = FactoryCommand::createCommandCreatePropertyExtra($extra->extra, $extra->amount,
+								$property->id, $loggedUser);
+							$command->execute();
+							array_push($property->extras, $mapperExtra->fromEntityToDto($command->return()));
+						}
+					}
+					$command = FactoryCommand::createCommandCreatePropertyPrice($post->price, $property->id,
+						$loggedUser);
+					$command->execute();
+					$price = $mapperPropertyPrice->fromEntityToDto($command->return());
+					array_push($property->price, $price);
+					$return = $property;
+					Tools::setResponse();
+				}
+				elseif ($get->action = "user") {
+					$command = FactoryCommand::createCommandGetAllUserProperties($post->id);
 					try {
 						$command->execute();
-						$property = $mapper->fromEntityToDto($command->return());
-						/** @var PropertyPrice[] $propertyPrice */
-						$propertyPrice = $mapperPropertyPrice->fromDtoArrayToEntityArray($post->property->price);
-						$propertyPrice[0]->setPropertyId($property->id);
-						/** @var PropertyPrice[] $propertyPrice */
-						$command = FactoryCommand::createCommandCreatePropertyPrice($propertyPrice[0]);
-						$command->execute();
-						$property->price = $mapperPropertyPrice->fromEntityToDto($command->return());
-						if (isset($post->property->extras)) {
-							/** @var PropertyExtra[] $propertyExtra */
-							$propertyExtra = $mapperExtra->fromDtoArrayToEntityArray($post->property->extras);
-							foreach ($propertyExtra as $extra) {
-								$extra->setPropertyId($property->id);
-							}
-							$command = FactoryCommand::createCommandCreatePropertyExtra($propertyExtra);
-							$command->execute();
-							/** @var PropertyExtra[] $post ->property->extras */
-							$property->extras = $mapperExtra->fromEntityArrayToDtoArray($command->return());
-						}
-						$return = $property;
+						$return = $command->return();
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $exception) {
@@ -146,11 +141,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$return = new ErrorResponse($exception->getMessage());
 				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
 			}
-			catch (Exception $exception) {
-				Logger::exception($exception, Logger::ERROR);
-				$return = new ErrorResponse($exception->getMessage());
-				Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
-			}
+			/*			catch (Exception $exception) {
+							Logger::exception($exception, Logger::ERROR);
+							$return = new ErrorResponse($exception->getMessage());
+							Tools::setResponse(Values::getValue('ERROR_LOGIN_USER_NOT_LOGGED'));
+						}*/
 		}
 		else {
 			$return = new ErrorResponse(Values::getText("ERROR_HEADER"));
@@ -164,7 +159,13 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::activeProperty($get)) {
+				if (isset($put->price) && isset($put->property) && isset($get->price)) {
+					$command = FactoryCommand::createCommandCreatePropertyPrice($put->price, $put->property,
+						$loggedUser);
+					$command->execute();
+					$return = $mapperPropertyPrice->fromEntityToDto($command->return());
+				}
+				elseif (Validate::activeProperty($get)) {
 					try {
 						$command = FactoryCommand::createCommandActiveProperty($get->id, $loggedUser);
 						$command->execute();
@@ -195,6 +196,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_NOT_FOUND"));
 						Tools::setResponse(Values::getValue("ERROR_PROPERTY_NOT_FOUND"));
 					}
+				}
+				elseif (Validate::putProperty($put)) {
+					$command = FactoryCommand::createCommandUpdateProperty($put->id, $put->destiny, $put->name,
+						$put->area, $put->description, $put->floor, $put->type, $put->location, $put->user);
+					$command->execute();
+					$return = $mapper->fromEntityToDto($command->return());
 				}
 				else {
 					$return = new ErrorResponse(Values::getText("ERROR_DATA_INCOMPLETE"));

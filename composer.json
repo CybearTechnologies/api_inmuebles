@@ -8,7 +8,9 @@
     "ext-gd": "*",
     "firebase/php-jwt": "^5.2",
     "phpmailer/phpmailer": "^6.1",
-    "ext-apache": "*"
+    "ext-apache": "*",
+    "ext-openssl": "*",
+    "ext-iconv": "*"
   },
   "autoload": {
     "classmap": [

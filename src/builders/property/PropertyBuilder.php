@@ -13,13 +13,14 @@ class PropertyBuilder extends Builder {
 
 	/**
 	 * @param int $id
+	 * @param int $loggedUser
 	 *
 	 * @return PropertyBuilder
 	 * @throws DatabaseConnectionException
 	 * @throws PropertyNotFoundException
 	 */
-	public function getMinimumById (int $id) {
-		$this->_data = $this->_mapperProperty->fromEntityToDto($this->_dao->getPropertyById($id));
+	public function getMinimumById (int $id, int $loggedUser = Values::DEFAULT_INT) {
+		$this->_data = $this->_mapperProperty->fromEntityToDto($this->_dao->getPropertyById($id, $loggedUser));
 		$this->_id = $id;
 		unset($this->_data->extras);
 		unset($this->_data->request);
@@ -169,6 +170,15 @@ class PropertyBuilder extends Builder {
 		catch (PropertyTypeNotFoundException $e) {
 			unset($this->_data->type);
 		}
+
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	function setFavorite () {
+		$this->_data->favorite = 1;
 
 		return $this;
 	}

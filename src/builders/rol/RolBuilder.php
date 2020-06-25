@@ -49,12 +49,12 @@ class RolBuilder extends Builder {
 	 * @return RolBuilder
 	 * @throws DatabaseConnectionException
 	 */
-	public function insertRol ($name, $access,$user) {
-		$this->_data = $this->_mapperRol->fromEntityToDto($this->_dao->createRol($name,$user));
+	public function insertRol ($name, $access, $user) {
+		$this->_data = $this->_mapperRol->fromEntityToDto($this->_dao->createRol($name, $user));
 		if (!empty($access)) {
 			$this->_dao = FactoryDao::createDaoRolAccess();
 			foreach ($access as $itm) {
-				$this->_dao->createRolAccess($this->_data->id, $itm,$user);
+				$this->_dao->createRolAccess($this->_data->id, $itm, $user);
 			}
 		}
 

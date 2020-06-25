@@ -31,15 +31,8 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS deleteFavorite;
 DELIMITER $$
-CREATE PROCEDURE deleteFavorite(id int,user int, dateModified datetime)
+CREATE PROCEDURE deleteFavorite(property int,user int, dateModified datetime)
 BEGIN
-    IF IsNull(dateModified)THEN
-        UPDATE favorite SET fa_deleted=1, fa_user_modified_fk=user
-        WHERE  fa_id=id;
-    ELSE
-        UPDATE favorite SET fa_deleted=1, fa_user_modified_fk=user, fa_date_modified = dateModified
-        WHERE  fa_id=id;
-    END IF;
     SELECT fa_id id,
            fa_property_fk property,
            fa_active active,
@@ -49,7 +42,8 @@ BEGIN
            fa_date_created dateCreated,
            fa_date_modified dateModified
     FROM favorite
-    WHERE fa_id = id;
+    WHERE fa_property_fk = property AND fa_user_created_fk=user;
+    DELETE FROM favorite WHERE fa_property_fk = property AND fa_user_created_fk=user;
 END $$
 DELIMITER ;
 

@@ -14,10 +14,14 @@
 #   CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------
 #	USER
+RewriteRule ^user/property$ controllerProperty.php?id=$1&action=user [NC,L]
 RewriteRule ^user/([0-9]+)/request$ controllerPropertyRequest.php?user=$1 [NC,L]
+RewriteRule ^user/pending/request$ controllerPropertyRequest.php?pending=true [NC,L]
 RewriteRule ^user/([0-9]+)$ controllerUser.php?id=$1 [NC,L]
+RewriteRule ^user/(active|inactive|block)/([0-9]+)$ controllerUser.php?action=$1&id=$2 [NC,L]
 RewriteRule ^user/plan$ controllerUser.php [NC,L]
 RewriteRule ^user/password$ controllerUser.php [NC,L]
+RewriteRule ^user/profile$ controllerUser.php?profile=true [NC,L]
 RewriteRule ^user controllerUser.php [NC,L]
 #	ACCESS
 RewriteRule ^access$ controllerAccess.php [NC,L]
@@ -25,12 +29,15 @@ RewriteRule ^access/([0-9]+)$ controllerAccess.php?id=$1 [NC,L]
 #	LOGIN
 RewriteRule ^login$ controllerLogin.php [NC,L]
 #	INMUEBLE
-RewriteRule ^property/user/([0-9]+)$ controllerProperty.php?id=$1&action=user [NC,L]
+RewriteRule ^user/property$ controllerProperty.php?id=$1&action=user [NC,L]
 RewriteRule ^property/([0-9]+)$ controllerProperty.php?id=$1 [NC,L]
 RewriteRule ^property/(active|inactive)/([0-9]+)$ controllerProperty.php?action=$1&id=$2 [NC,L]
+RewriteRule ^property/price$ controllerProperty.php?price [NC,L]
+RewriteRule ^property/admin$ controllerProperty.php?admin [NC,L]
 RewriteRule ^property$ controllerProperty.php [NC,L]
 # REQUEST
 RewriteRule ^property-request$ controllerPropertyRequest.php [NC,L]
+RewriteRule ^property-request/cancel$ controllerPropertyRequest.php?cancel=true [NC,L]
 RewriteRule ^property/([0-9]+)/request$ controllerPropertyRequest.php?property=$1 [NC,L]
 
 
@@ -47,10 +54,13 @@ RewriteRule ^agency/([0-9]+)$ controllerAgencies.php?id=$1 [NC,L]
 RewriteRule ^agency/seats/([0-9]+)$ controllerAgencies.php?seats=true&id=$1 [NC,L]
 RewriteRule ^agency/(active|inactive)/([0-9]+)$ controllerAgencies.php?action=$1&id=$2 [NC,L]
 #	EXTRA
+RewriteRule ^extra$ controllerExtra.php [NC,L]
+RewriteRule ^extra/property/([0-9]+)$ controllerExtra.php?property=$1 [NC,L]
+RewriteRule ^extra/create$ controllerExtra.php?create=true [NC,L]
+RewriteRule ^extra/update$ controllerExtra.php?update=true [NC,L]
 RewriteRule ^extra/([0-9]+)$ controllerExtra.php?id=$1 [NC,L]
 RewriteRule ^extra/(active|inactive)/([0-9]+)$ controllerExtra.php?action=$1&id=$2 [NC,L]
 RewriteRule ^extra/(active|inactive)$ controllerExtra.php?state=$1 [NC,L]
-RewriteRule ^extra$ controllerExtra.php [NC,L]
 #   LOCATION
 RewriteRule ^location/([0-9]+)$ controllerLocation.php?id=$1 [NC,L]
 RewriteRule ^location/type/(Estado|Municipio|Pais)$ controllerLocation.php?type=$1 [NC,L]
@@ -72,12 +82,18 @@ RewriteRule ^rol$ controllerRol.php [NC,L]
 RewriteRule ^rol/([0-9]+)$ controllerRol.php?id=$1 [NC,L]
 RewriteRule ^rol/(active|inactive)/([0-9]+)$ controllerRol.php?action=$1&id=$2 [NC,L]
 #FAVORITE
-RewriteRule ^favorite/([0-9]+)$ controllerFavorite.php?id=$1 [NC,L]
 RewriteRule ^favorite$ controllerFavorite.php [NC,L]
 #SUBSCRIPTION
 RewriteRule ^subscription/([0-9]+)$ controllerSubscription.php?id=$1 [NC,L]
 RewriteRule ^subscription/(accept|decline)/([0-9]+)$ controllerSubscription.php?action=$1&id=$2 [NC,L]
 RewriteRule ^subscription$ controllerSubscription.php [NC,L]
+#PASSWORD TOKEN
+RewriteRule ^recover-password$ controllerPasswordToken.php [NC,L]
+RewriteRule ^recover-password/([A-Za-z0-9._@]+)$ controllerPasswordToken.php?token=$1 [NC,L]
+#PROPERTY EXTRA
+RewriteRule ^property-extra$ controllerPropertyExtra.php?token=$1 [NC,L]
+#PROPERTY DESTINY
+RewriteRule ^property-destiny$ controllerPropertyDestiny.php [NC,L]
 #---------------------------------------------------------------------------------
 #   END CUSTOM REDIRECTS
 #---------------------------------------------------------------------------------

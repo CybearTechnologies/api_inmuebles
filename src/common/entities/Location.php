@@ -1,7 +1,8 @@
 <?php
-class Location extends Entity{
+class Location extends Entity {
 	private $_name;
 	private $_type;
+	private $_locationFk;
 
 	/**
 	 * Location constructor.
@@ -9,6 +10,7 @@ class Location extends Entity{
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $type
+	 * @param        $locationFk
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -16,11 +18,12 @@ class Location extends Entity{
 	 * @param bool   $active
 	 * @param bool   $delete
 	 */
-	public function __construct (int $id, string $name, string $type, int $userCreator,
+	public function __construct (int $id, string $name, string $type, $locationFk, int $userCreator,
 		int $userModifier, string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
 		$this->_name = $name;
 		$this->_type = $type;
+		$this->_locationFk = $locationFk;
 	}
 
 	/**
@@ -49,5 +52,19 @@ class Location extends Entity{
 	 */
 	public function setType (string $type):void {
 		$this->_type = $type;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLocationFk () {
+		return $this->_locationFk;
+	}
+
+	/**
+	 * @param int $locationFk
+	 */
+	public function setLocationFk (int $locationFk) {
+		$this->_locationFk = $locationFk;
 	}
 }

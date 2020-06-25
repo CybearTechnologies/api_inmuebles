@@ -1,32 +1,37 @@
 <?php
 class CommandCreatePropertyExtra extends Command {
-	private $_propertyExtra;
+	private $_id;
+	private $_amount;
+	private $_property;
+	private $_creator;
 
 	/**
 	 * CommandCretePropertyExtra constructor.
 	 *
-	 * @param PropertyExtra[] $propertyExtra
+	 * @param int $id
+	 * @param int $amount
+	 * @param int $property
+	 * @param int $creator
 	 */
-	public function __construct ($propertyExtra) {
+	public function __construct (int $id, int $amount, int $property, int $creator) {
 		$this->_dao = FactoryDao::createDaoPropertyExtra();
-		$this->_propertyExtra = $propertyExtra;
+		$this->_id = $id;
+		$this->_amount = $amount;
+		$this->_property = $property;
+		$this->_creator = $creator;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$extras = $this->_propertyExtra;
-		$propertyExtras = [];
-		for ($i = 0; $i < count($extras); $i++) {
-			$this->_dao->setEntity($extras[$i]);
-			array_push($propertyExtras, $this->_dao->createPropertyExtra());
-		}
-		$this->setData($propertyExtras);
+		$propertyExtra = $this->_dao->createPropertyExtra($this->_id, $this->_amount, $this->_property,
+			$this->_creator);
+		$this->setData($propertyExtra);
 	}
 
 	/**
-	 * @return PropertyExtra[]
+	 * @return PropertyExtra
 	 */
 	public function return () {
 		return $this->getData();

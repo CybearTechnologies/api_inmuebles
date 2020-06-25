@@ -371,15 +371,13 @@ VALUES ('Corredor');
 
 INSERT INTO user (us_id, us_first_name, us_last_name, us_address, us_email, us_password, us_rol_fk,
                   us_location_fk)
-VALUES (1, 'Admin', '', 'N/A', 'admin@test.com', '$2y$10$43DlSVjruhwwlvJJ.sKxjuQt5pe5ceskApHZqtl/S/MQ09uH3z0DW', 1, 5);
+VALUES (1, 'Admin', '', 'N/A', 'admin@test.com', '$2y$10$jWGwg8VuFMM9/fyAPmTMoesHwSJuwUR19MWCrdIrLU1CxnWWPXKR6', 1, 5);
 
 ALTER TABLE rol
     ADD COLUMN ro_user_created_fk  int DEFAULT 1 NOT NULL COMMENT 'Usuario creador',
     ADD COLUMN ro_date_created     datetime      NOT NULL DEFAULT current_timestamp COMMENT 'Fecha de creación',
-    /*ADD COLUMN ro_date_created datetime COMMENT 'Fecha de creación',*/
     ADD COLUMN ro_user_modified_fk int DEFAULT 1 NOT NULL COMMENT 'Usuario modificador',
     ADD COLUMN ro_date_modified    datetime      NOT NULL DEFAULT current_timestamp ON UPDATE current_timestamp COMMENT 'Fecha de modificación',
-    /*ADD COLUMN ro_date_modified datetime COMMENT 'Fecha de modificación',*/
     ADD FOREIGN KEY (ro_user_created_fk) REFERENCES user (us_id),
     ADD FOREIGN KEY (ro_user_modified_fk) REFERENCES user (us_id);
 
@@ -645,7 +643,7 @@ BEGIN
 END $$*/
 
 INSERT INTO property_type(pt_name, pt_image)
-VALUES ('Apartamento','Apartamento.jpg');
+                                                  VALUES ('Apartamento','Apartamento.jpg');
 INSERT INTO property_type(pt_name, pt_image)
 VALUES ('Casa','Casa.jpg');
 INSERT INTO property_type(pt_name, pt_image)
@@ -678,6 +676,10 @@ INSERT INTO agency(ag_name,ag_icon)
 VALUES ('Rent a House','Ruta 3');
 INSERT INTO agency(ag_name,ag_icon)
 VALUES ('Sinergia','Ruta 4');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Agente Independiente','Ruta 5');
+INSERT INTO agency(ag_name,ag_icon)
+VALUES ('Otro','Ruta 6');
 
 INSERT INTO plan(pl_name, pl_price)
 VALUES ('Regular', 5);
@@ -838,3 +840,6 @@ ALTER TABLE property_extra
 ALTER TABLE origin
     ALTER COLUMN or_user_created_fk DROP DEFAULT,
     ALTER COLUMN or_user_modified_fk DROP DEFAULT;
+
+insert into property_destiny(pd_name, pd_user_creator_fk,pd_user_modified_fk) VALUES ('Venta',1,1);
+insert into property_destiny(pd_name, pd_user_creator_fk,pd_user_modified_fk) VALUES ('Alquiler',1,1);

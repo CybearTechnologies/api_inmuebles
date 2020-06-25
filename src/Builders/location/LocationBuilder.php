@@ -1,7 +1,6 @@
 <?php
 class LocationBuilder extends Builder {
 	private $_mapper;
-
 	/**
 	 * LocationBuilder constructor.
 	 */
@@ -18,8 +17,13 @@ class LocationBuilder extends Builder {
 	 * @throws LocationNotFoundException
 	 */
 	public function getMinimumById (int $id) {
-		$this->_data = $this->_mapper->fromEntityToDto($this->_dao->getLocationById($id));
-
+		$location = $this->_dao->getLocationById($id);
+		$this->_data = $this->_mapper->fromEntityToDto($location);
+		if(strcmp($this->_data->type,"Municipio")){
+			$location = $this->_mapper->fromEntityToDto($this->_dao->getLocationById($location->getLocationFk()));
+			$this->_data->nameS=$location->name;
+			$this->_data->idS = $location->id;
+		}
 		return $this;
 	}
 }

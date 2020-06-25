@@ -30,4 +30,20 @@ class ListAgencyBuilder extends ListBuilder {
 
 		return $this;
 	}
+
+	/**
+	 * @return $this
+	 * @throws DatabaseConnectionException
+	 */
+	public function withSeats () {
+		$listSeatBuilder = new ListSeatBuilder();
+		foreach ($this->_data as $datum) {
+			$datum->seats = $listSeatBuilder
+				->getMinimumById($datum->id)
+				->clean()
+				->build();
+		}
+
+		return $this;
+	}
 }

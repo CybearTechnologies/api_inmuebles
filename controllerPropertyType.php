@@ -76,10 +76,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::propertyType($post) && ImageProcessor::imageFileExist('image')) {
+				if (Validate::propertyType($post) && FileHandler::fileExist('image')) {
 					try {
-						$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-							$post->name, 'files/property-type');
+						$tempImage = FileHandler::save('image', $post->name, 'files/property-type');
 						$dto = FactoryDto::createDtoPropertyType(-1, $post->name, Environment::baseURL() . $tempImage);
 						$propertyType = $mapper->fromDTOToEntity($dto);
 						$propertyType->setUserModifier($loggedUser);
@@ -89,22 +88,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $exception) {
-						ImageProcessor::removeImage(__DIR__ . '/' . $tempImage);
+						FileHandler::remove($tempImage);
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
 					catch (PropetyTypeAlreadyExistException $exception) {
-						ImageProcessor::removeImage(__DIR__ . '/' . $tempImage);
+						FileHandler::remove($tempImage);
 						$return = new ErrorResponse(Values::getText("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
 						Tools::setResponse(Values::getValue("ERROR_PROPERTY_TYPE_ALREADY_EXIST"));
-					}
-					catch (FileIsNotImageException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
-					}
-					catch (ImageNotFoundException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
 					}
 				}
 				else {

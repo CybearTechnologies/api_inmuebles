@@ -1,12 +1,15 @@
 <?php
 class CommandGetRequestById extends Command {
+	private $_id;
+
 	/**
 	 * CommandGetRequestById constructor.
 	 *
-	 * @param Request $request
+	 * @param int $id
 	 */
-	public function __construct ($request) {
-		$this->_dao = FactoryDao::createDaoRequest($request);
+	public function __construct ($id) {
+		$this->_dao = FactoryDao::createDaoRequest();
+		$this->_id = $id;
 	}
 
 	/**
@@ -14,7 +17,7 @@ class CommandGetRequestById extends Command {
 	 * @throws RequestNotFoundException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->getRequestById());
+		$this->setData($this->_dao->getRequestById($this->_id));
 	}
 
 	/**

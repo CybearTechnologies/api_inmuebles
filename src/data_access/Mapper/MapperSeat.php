@@ -6,7 +6,7 @@ class MapperSeat extends Mapper {
 	 * @return Seat
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createSeat($dto->id, $dto->name, $dto->rif, $dto->location,$dto->agency);
+		return FactoryEntity::createSeat($dto->id, $dto->name, $dto->rif, $dto->location, $dto->agency);
 	}
 
 	/**

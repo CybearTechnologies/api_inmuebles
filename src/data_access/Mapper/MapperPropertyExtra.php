@@ -5,7 +5,10 @@ class MapperPropertyExtra extends Mapper {
 	 * @var DtoPropertyExtra $dto
 	 */
 	public function fromDtoToEntity ($dto):Entity {
-		return FactoryEntity::createPropertyExtra($dto->id, $dto->name, $dto->amount, $dto->property, $dto->extra);
+		if (!isset($dto->id))
+			$dto->id = -1;
+
+		return FactoryEntity::createPropertyExtra($dto->id, $dto->amount, $dto->property, $dto->extra);
 	}
 
 	/**

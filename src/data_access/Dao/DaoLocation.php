@@ -4,7 +4,9 @@ class DaoLocation extends Dao {
 	private const QUERY_GET_BY_TYPE = "CALL getLocationsByType(:type)";
 	private const QUERY_GET_BY_ID = "CALL getLocationsById(:id)";
 	private const QUERY_GET_ALL_LOCATIONS = "CALL getAllLocations()";
-	const QUERY_GET_BY_STATE = "CALL getLocationsByStateId(:id)";
+	private const QUERY_GET_BY_STATE = "CALL getLocationsByStateId(:id)";
+	private const QUERY_GET_BY_MUNICIPALITY = "CALL getLocationsByMunicipalityId(:id)";
+
 	private $_location;
 
 	/**
@@ -112,12 +114,36 @@ class DaoLocation extends Dao {
 	}
 
 	/**
+	 * @param $id
+	 *
+	 * @return Location
+	 * @throws DatabaseConnectionException
+	 * @throws LocationNotFoundException
+	 */
+	public function getLocationByMunicipality ($id) {
+		try {
+			$stmt = $this->getDatabase()->prepare(self::QUERY_GET_BY_MUNICIPALITY);
+			$stmt->bindParam(":id", $id, PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() == 0)
+				Throw new LocationNotFoundException("There are no Location found", 404);
+			else {
+				return $this->extract($stmt->fetch(PDO::FETCH_OBJ));
+			}
+		}
+		catch (PDOException $exception) {
+			Logger::exception($exception, Logger::ERROR);
+			Throw new DatabaseConnectionException("Database connection problem.", 500);
+		}
+	}
+
+	/**
 	 * @param $dbObject
 	 *
 	 * @return Location
 	 */
 	protected function extract ($dbObject) {
-		return FactoryEntity::createLocation($dbObject->id, $dbObject->name, $dbObject->type, $dbObject->userCreator,
+		return FactoryEntity::createLocation($dbObject->id, $dbObject->name, $dbObject->type, $dbObject->location,$dbObject->userCreator,
 			$dbObject->userModifier, $dbObject->dateCreated, $dbObject->dateModified, $dbObject->active,
 			$dbObject->delete);
 	}

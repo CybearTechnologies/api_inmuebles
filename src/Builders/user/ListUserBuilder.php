@@ -27,17 +27,24 @@ class ListUserBuilder extends ListBuilder {
 
 	/**
 	 * @return ListUserBuilder
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 */
 	public function withSeat () {
 		$seatBuilder = new SeatBuilder();
+		$agencyBuilder = new AgencyBuilder();
 		foreach ($this->_data as $datum) {
 			try {
-				$datum->seat = $seatBuilder
-					->getMinimumById($datum->seat)
-					->withAgency()
-					->clean()
-					->build();
+				if (($datum->seat !== null) && is_numeric($datum->seat)) {
+					$datum->seat = $seatBuilder->getMinimumById($datum->seat)->clean()->build();
+					$datum->agency = $agencyBuilder->getMinimumById($datum->seat->agency)
+						->clean()
+						->build();
+				}
+				else if (($datum->agency!==null) && is_numeric($datum->agency))
+					$datum->agency = $agencyBuilder->getMinimumById($datum->agency)
+						->clean()
+						->build();
 			}
 			catch (SeatNotFoundException $e) {
 				unset($datum->seat);
@@ -109,12 +116,43 @@ class ListUserBuilder extends ListBuilder {
 	}
 
 	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withIdentity () {
+		$subscriptionBuilder = new SubscriptionBuilder();
+		foreach ($this->_data as $datum) {
+			try {
+				$subscription = $subscriptionBuilder
+					->getMinimumByEmail($datum->email)
+					->withDetails()
+					->clean()
+					->build();
+				$datum->documents = $subscription->detail;
+				$datum->passport = $subscription->passport;
+				$datum->identity = $subscription->ci;
+			}
+			catch (SubscriptionNotFoundException $e) {
+				$datum->passport = "";
+				$datum->identity = "";
+			}
+		}
+		return $this;
+	}
+
+	/**
 	 * @return ListBuilder
 	 */
 	public function clean () {
 		parent::clean();
 		foreach ($this->_data as $datum) {
 			unset($datum->password);
+			foreach ($datum->documents as $document) {
+				unset($document->subscription);
+				unset($document->id);
+				unset($document->active);
+				unset($document->delete);
+			}
+
 		}
 
 		return $this;

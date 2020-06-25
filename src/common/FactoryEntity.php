@@ -65,7 +65,8 @@ class  FactoryEntity {
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Agency {
-		return new Agency($id, $name, $icon,$userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete);
+		return new Agency($id, $name, $icon, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 
 	/**
@@ -92,6 +93,7 @@ class  FactoryEntity {
 	 * @param int    $id
 	 * @param string $name
 	 * @param string $type
+	 * @param        $locationFk
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param string $dateCreated
@@ -102,11 +104,13 @@ class  FactoryEntity {
 	 * @return Location
 	 */
 	static function createLocation (int $id, string $name = Values::DEFAULT_STRING,
-		string $type = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
+		string $type = Values::DEFAULT_STRING, $locationFk = Values::DEFAULT_INT,
+		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE):Location {
-		return new Location($id, $name, $type, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+		return new Location($id, $name, $type, $locationFk, $userCreator, $userModifier, $dateCreated, $dateModified,
+			$active,
 			$delete);
 	}
 
@@ -178,6 +182,8 @@ class  FactoryEntity {
 
 	/**
 	 * @param int    $id
+	 * @param        $destiny
+	 * @param int    $favorite
 	 * @param string $name
 	 * @param float  $area
 	 * @param string $description
@@ -194,10 +200,12 @@ class  FactoryEntity {
 	 *
 	 * @return Property
 	 */
-	static function createProperty (int $id, $name = "", $area = 0.0, $description = "", $state = 0, $floor = 0,
+	static function createProperty (int $id, $destiny, int $favorite = 0, $name = "", $area = 0.0, $description = "",
+		$state = 0, $floor = 0,
 		$type = 0, $location = 0, $active = true, $delete = false, $userCreator = 0, $userModifier = 0,
 		string $dateCreated = "", string $dateModified = ""):Property {
-		return new Property($id, $name, $area, $description, $state, $floor, $type, $location, $active, $delete,
+		return new Property($id, $destiny, $favorite, $name, $area, $description, $state, $floor, $type, $location,
+			$active, $delete,
 			$userCreator, $userModifier, $dateCreated, $dateModified);
 	}
 
@@ -207,16 +215,18 @@ class  FactoryEntity {
 	 * @param string $lastName
 	 * @param string $address
 	 * @param string $email
+	 * @param		 $phone
 	 * @param string $password
 	 * @param int    $userCreator
 	 * @param int    $userModifier
 	 * @param bool   $active
 	 * @param bool   $blocked
 	 * @param bool   $deleted
-	 * @param string $seat
-	 * @param string $rol
-	 * @param string $plan
-	 * @param string $location
+	 * @param	     $seat
+	 * @param	     $agency
+	 * @param int    $rol
+	 * @param int    $plan
+	 * @param int    $location
 	 * @param string $dateCreated
 	 * @param string $dateModified
 	 *
@@ -227,20 +237,22 @@ class  FactoryEntity {
 		string $lastName = Values::DEFAULT_STRING,
 		string $address = Values::DEFAULT_STRING,
 		string $email = Values::DEFAULT_STRING,
+		$phone = Values::DEFAULT_STRING,
 		string $password = Values::DEFAULT_STRING,
 		int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN,
 		bool $active = Values::DEFAULT_ACTIVE,
 		bool $blocked = Values::DEFAULT_INT,
 		bool $deleted = Values::DEFAULT_DELETE,
-		int $seat = Values::DEFAULT_FOREIGN,
+		$seat = Values::DEFAULT_FOREIGN,
+		$agency = Values::DEFAULT_FOREIGN,
 		int $rol = Values::DEFAULT_FOREIGN,
 		int $plan = Values::DEFAULT_FOREIGN,
 		int $location = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE):User {
-		return new User($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier, $active,
-			$blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
+		return new User($id, $firstName, $lastName, $address, $email, $phone,$password, $userCreator, $userModifier, $active,
+			$blocked, $deleted, $seat, $agency,$rol, $plan, $location, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -323,7 +335,6 @@ class  FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param int    $value
-	 * @param string $name
 	 * @param int    $propertyId
 	 * @param int    $extraId
 	 * @param int    $userCreator
@@ -383,7 +394,7 @@ class  FactoryEntity {
 	/**
 	 * @param int    $id
 	 * @param int    $property
-	 * @param string $userCreator
+	 * @param int    $userCreator
 	 * @param string $userModifier
 	 * @param string $dateCreated
 	 * @param string $dateModified
@@ -400,37 +411,38 @@ class  FactoryEntity {
 	}
 
 	/**
-	 * @param int    $id
-	 * @param string $firstName
-	 * @param string $lastName
-	 * @param string $address
-	 * @param string $ci
-	 * @param string $passport
-	 * @param string $email
-	 * @param string $password
-	 * @param int    $plan
-	 * @param int    $seat
-	 * @param int    $location
-	 * @param bool   $status
-	 * @param int    $userCreator
-	 * @param int    $userModifier
-	 * @param string $dateCreated
-	 * @param string $dateModified
-	 * @param bool   $active
-	 * @param bool   $delete
+	 * @param int      $id
+	 * @param string   $firstName
+	 * @param string   $lastName
+	 * @param string   $address
+	 * @param string   $ci
+	 * @param string   $passport
+	 * @param string   $email
+	 * @param string   $password
+	 * @param int      $plan
+	 * @param 		   $seat
+	 * @param		   $agency
+	 * @param int      $location
+	 * @param bool     $status
+	 * @param int      $userCreator
+	 * @param int      $userModifier
+	 * @param string   $dateCreated
+	 * @param string   $dateModified
+	 * @param bool     $active
+	 * @param bool     $delete
 	 *
 	 * @return Subscription
 	 */
-	static function createSubscription (int $id,string $firstName,string $lastName,string $address,
+	static function createSubscription (int $id, string $firstName, string $lastName, string $address,
 		string $ci = Values::DEFAULT_STRING, string $passport = Values::DEFAULT_STRING,
 		string $email = Values::DEFAULT_STRING, string $password = Values::DEFAULT_STRING,
-		int $plan = Values::DEFAULT_FOREIGN, int $seat = Values::DEFAULT_FOREIGN,
+		int $plan = Values::DEFAULT_FOREIGN, $seat = Values::DEFAULT_FOREIGN, $agency = Values::DEFAULT_FOREIGN,
 		int $location = Values::DEFAULT_FOREIGN, bool $status = Values::DEFAULT_STATUS,
 		int $userCreator = Values::DEFAULT_FOREIGN, int $userModifier = Values::DEFAULT_FOREIGN,
 		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
 		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):Subscription {
-		return new Subscription($id, $ci,$firstName,$lastName,$address, $passport, $email, $password,
-			$plan, $seat, $location, $status, $userCreator, $userModifier, $dateCreated,
+		return new Subscription($id, $ci, $firstName, $lastName, $address, $passport, $email, $password,
+			$plan, $seat, $agency,$location, $status, $userCreator, $userModifier, $dateCreated,
 			$dateModified, $active, $delete);
 	}
 
@@ -456,5 +468,47 @@ class  FactoryEntity {
 		bool $delete = Values::DEFAULT_DELETE):SubscriptionDetail {
 		return new SubscriptionDetail($id, $subscription, $document, $userCreator,
 			$userModifier, $dateCreated, $dateModified, $active, $delete);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $token
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return PasswordToken
+	 */
+	static function createPasswordToken (int $id, string $token,
+		int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE) {
+		return new PasswordToken($id, $token, $userCreator, $userModifier,
+			$dateCreated, $dateModified, $active, $delete);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return PropertyDestiny
+	 */
+	static function createPropertyDestiny (int $id, string $name,
+		int $userCreator = Values::DEFAULT_FOREIGN,
+		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
+		bool $delete = Values::DEFAULT_DELETE) {
+		return new PropertyDestiny($id, $name, $userCreator, $userModifier,
+			$dateCreated, $dateModified, $active, $delete);
 	}
 }

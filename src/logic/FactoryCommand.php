@@ -101,12 +101,13 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $user
+	 * @param $id
+	 * @param $userModifier
 	 *
 	 * @return CommandBlockUser
 	 */
-	static function createCommandBlockUser ($user):CommandBlockUser {
-		return new CommandBlockUser($user);
+	static function createCommandBlockUser ($id, $userModifier):CommandBlockUser {
+		return new CommandBlockUser($id, $userModifier);
 	}
 
 	/**
@@ -119,12 +120,41 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $user
+	 * @param      $id
+	 * @param      $firstName
+	 * @param      $lastName
+	 * @param      $address
+	 * @param      $email
+	 * @param      $phone
+	 * @param      $seat
+	 * @param      $agency
+	 * @param      $plan
+	 * @param      $location
+	 * @param      $userModifier
+	 * @param      $dateModified
 	 *
 	 * @return CommandUpdateUser
 	 */
-	static function createCommandUpdateUser ($user):CommandUpdateUser {
-		return new CommandUpdateUser($user);
+	static function createCommandUpdateUser ($id, $firstName, $lastName, $address, $email, $phone,$seat, $agency,$plan, $location,
+		$userModifier, $dateModified = null):CommandUpdateUser {
+		return new CommandUpdateUser($id, $firstName, $lastName, $address, $email, $phone,$seat, $agency,$plan, $location,
+			$userModifier, $dateModified);
+	}
+
+	/**
+	 * @param $_id
+	 * @param $_firstName
+	 * @param $_lastName
+	 * @param $_address
+	 * @param $_email
+	 * @param $_phone
+	 * @param $modifier
+	 *
+	 * @return CommandUpdateUserProfile
+	 */
+	static function createCommandUpdateUserProfile ($_id, $_firstName, $_lastName, $_address, $_email,$_phone,
+		$modifier):CommandUpdateUserProfile {
+		return new CommandUpdateUserProfile($_id, $_firstName, $_lastName, $_address, $_email, $_phone,$modifier);
 	}
 
 	/**
@@ -155,8 +185,8 @@ class FactoryCommand {
 	 *
 	 * @return CommandCreateRol
 	 */
-	static function createCommandCreateRol ($name, $access,$user):CommandCreateRol {
-		return new CommandCreateRol($name, $access,$user);
+	static function createCommandCreateRol ($name, $access, $user):CommandCreateRol {
+		return new CommandCreateRol($name, $access, $user);
 	}
 
 	/**
@@ -231,12 +261,21 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Request $request
+	 * @param $user
+	 *
+	 * @return CommandGetAllPendingRequest
+	 */
+	static function createCommandGetAllPendingRequest ($user):CommandGetAllPendingRequest {
+		return new CommandGetAllPendingRequest($user);
+	}
+
+	/**
+	 * @param int $id
 	 *
 	 * @return CommandGetRequestById
 	 */
-	static function createCommandGetRequestById ($request):CommandGetRequestById {
-		return new CommandGetRequestById($request);
+	static function createCommandGetRequestById ($id):CommandGetRequestById {
+		return new CommandGetRequestById($id);
 	}
 
 	/**
@@ -249,12 +288,13 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param $request
+	 * @param $id
+	 * @param $user
 	 *
 	 * @return CommandDeleteRequestById
 	 */
-	static function createCommandDeleteRequestById ($request):CommandDeleteRequestById {
-		return new CommandDeleteRequestById($request);
+	static function createCommandDeleteRequestById (int $id, int $user):CommandDeleteRequestById {
+		return new CommandDeleteRequestById($id, $user);
 	}
 
 	/**
@@ -356,12 +396,16 @@ class FactoryCommand {
 	//----------------------------SEAT---------------------------
 	//------------------------------------------------------------
 	/**
-	 * @param Seat $seat
+	 * @param string $name
+	 * @param string $rif
+	 * @param string $location
+	 * @param string $agency
+	 * @param int    $user
 	 *
 	 * @return CommandCreateSeat
 	 */
-	static function createCommandCreateSeat (Seat $seat):CommandCreateSeat {
-		return new CommandCreateSeat($seat);
+	static function createCommandCreateSeat ($name, $rif, $location, $agency, $user):CommandCreateSeat {
+		return new CommandCreateSeat($name, $rif, $location, $agency, $user);
 	}
 
 	/**
@@ -381,7 +425,7 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param Agency $agency
+	 * @param int $agency
 	 *
 	 * @return CommandGetAllSeatsByAgency
 	 */
@@ -637,12 +681,15 @@ class FactoryCommand {
 	//-----------------------PROPERTY PRICE-----------------------
 	//------------------------------------------------------------
 	/**
-	 * @param PropertyPrice $propertyPrice
+	 * @param     $price
+	 * @param int $propertyId
+	 * @param int $creator
 	 *
 	 * @return CommandCreatePropertyPrice
 	 */
-	static function createCommandCreatePropertyPrice ($propertyPrice):CommandCreatePropertyPrice {
-		return new CommandCreatePropertyPrice($propertyPrice);
+	static function createCommandCreatePropertyPrice ($price, int $propertyId,
+		int $creator):CommandCreatePropertyPrice {
+		return new CommandCreatePropertyPrice($price, $propertyId, $creator);
 	}
 
 	/**
@@ -756,10 +803,12 @@ class FactoryCommand {
 	//----------------------------PROPERTY-----------------------
 	//------------------------------------------------------------
 	/**
+	 * @param int $loggedUser
+	 *
 	 * @return CommandListProperties
 	 */
-	static function createCommandListProperties ():CommandListProperties {
-		return new CommandListProperties();
+	static function createCommandListProperties (int $loggedUser):CommandListProperties {
+		return new CommandListProperties($loggedUser);
 	}
 
 
@@ -791,7 +840,7 @@ class FactoryCommand {
 	 * @return CommandInactiveProperty
 	 */
 	static function createCommandInactiveProperty ($property, $user):CommandInactiveProperty {
-		return new CommandInactiveProperty($property,$user);
+		return new CommandInactiveProperty($property, $user);
 	}
 
 	/**
@@ -820,6 +869,27 @@ class FactoryCommand {
 	}
 
 	/**
+	 * @param      $id
+	 * @param      $destiny
+	 * @param      $name
+	 * @param      $area
+	 * @param      $description
+	 * @param      $floor
+	 * @param      $type
+	 * @param      $location
+	 * @param      $user
+	 * @param      $dateModified
+	 *
+	 * @return CommandUpdateProperty
+	 */
+	static function createCommandUpdateProperty ($id, $destiny, $name, $area, $description, $floor, $type, $location,
+		$user,
+		$dateModified = null):CommandUpdateProperty {
+		return new CommandUpdateProperty($id, $destiny, $name, $area, $description, $floor, $type, $location, $user,
+			$dateModified);
+	}
+
+	/**
 	 * @param Property $property
 	 *
 	 * @return CommandDeletePropertyById
@@ -829,19 +899,22 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @return CommandGetAllProperty
+	 * @param $loggedUser
+	 *
+	 * @return CommandGetAllPropertyAdmin
 	 */
-	static function createCommandGetAllProperty ():CommandGetAllProperty {
-		return new CommandGetAllProperty();
+	static function createCommandGetAllPropertyAdmin ($loggedUser):CommandGetAllPropertyAdmin {
+		return new CommandGetAllPropertyAdmin($loggedUser);
 	}
 
 	/**
 	 * @param int $property
+	 * @param     $loggedUser
 	 *
 	 * @return CommandGetPropertyById
 	 */
-	static function createCommandGetPropertyById ($property):CommandGetPropertyById {
-		return new CommandGetPropertyById($property);
+	static function createCommandGetPropertyById ($property, $loggedUser):CommandGetPropertyById {
+		return new CommandGetPropertyById($property, $loggedUser);
 	}
 	//------------------------------------------------------------
 	//----------------------------RATING---------------------------
@@ -919,14 +992,42 @@ class FactoryCommand {
 	}
 
 	/**
-	 * @param PropertyExtra[] $propertyExtra
+	 * @param int $id
+	 * @param int $amount
+	 * @param int $property
+	 * @param int $creator
 	 *
 	 * @return CommandCreatePropertyExtra
 	 */
-	static function createCommandCreatePropertyExtra ($propertyExtra):CommandCreatePropertyExtra {
-		return new CommandCreatePropertyExtra($propertyExtra);
+	static function createCommandCreatePropertyExtra (int $id, int $amount, int $property,
+		int $creator):CommandCreatePropertyExtra {
+		return new CommandCreatePropertyExtra($id, $amount, $property, $creator);
 	}
 
+	/**
+	 * @param int $id
+	 * @param int $userModified
+	 * @param     $dateModified
+	 *
+	 * @return CommandDeleteExtrasByPropertyId
+	 */
+	static function createCommandDeleteExtrasByPropertyId (
+		int $id, int $userModified, $dateModified = null):CommandDeleteExtrasByPropertyId {
+		return new CommandDeleteExtrasByPropertyId($id, $userModified, $dateModified);
+	}
+
+	/**
+	 * @param int         $id
+	 * @param             $extras
+	 * @param int         $user
+	 * @param string|null $dateModified
+	 *
+	 * @return CommandUpdatePropertyExtras
+	 */
+	static function createCommandUpdatePropertyExtras (int $id, $extras, int $user,
+		string $dateModified = null):CommandUpdatePropertyExtras {
+		return new CommandUpdatePropertyExtras($id, $extras, $user, $dateModified);
+	}
 	////////////////////////////////////////////////////////////////////////////
 	//								FAVORITE
 	////////////////////////////////////////////////////////////////////////////
@@ -942,11 +1043,12 @@ class FactoryCommand {
 
 	/**
 	 * @param int $id
+	 * @param     $user
 	 *
 	 * @return CommandDeleteFavorite
 	 */
-	static function createCommandDeleteFavorite ($id) {
-		return new CommandDeleteFavorite($id);
+	static function createCommandDeleteFavorite ($id, $user) {
+		return new CommandDeleteFavorite($id, $user);
 	}
 
 	/**
@@ -1013,5 +1115,53 @@ class FactoryCommand {
 	 */
 	static function createCommandDeleteSubscription (int $entity):CommandDeleteSubscription {
 		return new CommandDeleteSubscription($entity);
+	}
+
+	/**
+	 * @param int $id
+	 * @param int $rol
+	 * @param int $userModifier
+	 * @param     $dateModified
+	 *
+	 * @return CommandUpdateUserRol
+	 */
+	static function createCommandUpdateUserRol (int $id, int $rol, int $userModifier,
+		string $dateModified = null):CommandUpdateUserRol {
+		return new CommandUpdateUserRol($id, $rol, $userModifier, $dateModified);
+	}
+
+	/**
+	 * @param PasswordToken $passwordToken
+	 *
+	 * @return CommandCreatePasswordToken
+	 */
+	static function createCommandCreatePasswordToken ($passwordToken, $user):CommandCreatePasswordToken {
+		return new CommandCreatePasswordToken($passwordToken, $user);
+	}
+
+	/**
+	 * @param $token
+	 * @param $user
+	 *
+	 * @return CommandGetPasswordTokenByToken
+	 */
+	static function createCommandGetPasswordTokenByToken ($token, $user):CommandGetPasswordTokenByToken {
+		return new CommandGetPasswordTokenByToken($token, $user);
+	}
+
+	/**
+	 * @param $user
+	 *
+	 * @return CommandDeletePasswordTokenByUserId
+	 */
+	static function createCommandDeletePasswordTokenByUserId ($user):CommandDeletePasswordTokenByUserId {
+		return new CommandDeletePasswordTokenByUserId($user);
+	}
+
+	/**
+	 * @return CommandGetAllPropertyDestiny
+	 */
+	static function createCommandGetAllPropertyDestiny ():CommandGetAllPropertyDestiny {
+		return new CommandGetAllPropertyDestiny();
 	}
 }

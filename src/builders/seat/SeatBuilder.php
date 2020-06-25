@@ -19,7 +19,6 @@ class SeatBuilder extends Builder {
 	 */
 	public function getMinimumById (int $id) {
 		$this->_data = $this->_mapperSeat->fromEntityToDto($this->_dao->getSeatById($id));
-
 		return $this;
 	}
 
@@ -53,7 +52,7 @@ class SeatBuilder extends Builder {
 				->build();
 		}
 		catch (AgencyNotFoundException $e) {
-			throw new SeatNotFoundException("Seat not found");
+			throw new SeatNotFoundException("Agency not found");
 		}
 
 		return $this;

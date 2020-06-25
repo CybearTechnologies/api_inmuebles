@@ -11,6 +11,7 @@ class CommandGetAllSubscription extends Command {
 	}
 
 	/**
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 * @throws SubscriptionNotFoundException
 	 */
@@ -18,6 +19,9 @@ class CommandGetAllSubscription extends Command {
 		$dtoSubscriptions = $this->_builder->getAll()
 													->withSeat()
 													->andPlan()
+													->andDetails()
+													->andLocation()
+													->andIdentity()
 													->clean()
 													->build();
 		$this->setData($dtoSubscriptions);

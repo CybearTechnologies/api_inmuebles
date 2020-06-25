@@ -1,4 +1,4 @@
-<?php
+ <?php
 require_once "vendor/autoload.php";
 Tools::headers();
 $get = Tools::getObject();
@@ -12,22 +12,15 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::id($get)) {
-					$command = FactoryCommand::createCommandGetAllFavoriteByUserId($get->id);
-					try {
-						$command->execute();
-						$return = $command->return();
-						Tools::setResponse();
-					}
-					catch (DatabaseConnectionException $e) {
-						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
-						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
-					}
-					catch (FavoriteNotFoundException $e) {
-						echo 'preeeee';
-						$return = new ErrorResponse(Values::getText("ERROR_FAVORITE_NOT_FOUND"));
-						Tools::setResponse(Values::getValue("ERROR_FAVORITE_NOT_FOUND"));
-					}
+				$command = FactoryCommand::createCommandGetAllFavoriteByUserId($loggedUser);
+				try {
+					$command->execute();
+					$return = $command->return();
+					Tools::setResponse();
+				}
+				catch (DatabaseConnectionException $e) {
+					$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+					Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 				}
 			}
 			catch (DatabaseConnectionException $e) {
@@ -66,7 +59,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					$command = FactoryCommand::createCommandCreateFavorite($post->property, $loggedUser);
 					try {
 						$command->execute();
-						$return = $mapper->fromEntityToDto($command->return());
+						$return = $command->return();
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $e) {
@@ -106,8 +99,9 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::id($get)) {
-					$command = FactoryCommand::createCommandDeleteFavorite($get->id);
+				$put = json_decode(file_get_contents('php://input'));
+				if (Validate::id($put)) {
+					$command = FactoryCommand::createCommandDeleteFavorite($put->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $command->return();

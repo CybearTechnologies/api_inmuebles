@@ -10,6 +10,7 @@ class DtoSubscription extends Dto {
 	public $detail;
 	public $plan;
 	public $location;
+	public $agency;
 	public $seat;
 	public $status;
 
@@ -22,6 +23,7 @@ class DtoSubscription extends Dto {
 	 * @param string                        $address
 	 * @param DtoPlan|int                   $plan
 	 * @param DtoSeat|int                   $seat
+	 * @param DtoAgency|int                 $agency
 	 * @param DtoLocation|int               $location
 	 * @param int                           $ci
 	 * @param string                        $passport
@@ -37,7 +39,7 @@ class DtoSubscription extends Dto {
 	 * @param bool                          $status
 	 */
 	public function __construct (int $id, string $firstName, string $lastName, string $address,
-		$plan,$seat,$location,int $ci, string $passport, string $email, string $password,
+		$plan,$seat,$agency,$location,int $ci, string $passport, string $email, string $password,
 		$detail, $userCreator, $userModifier, string $dateCreated,
 		string $dateModified, bool $active, bool $delete,bool $status) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified,
@@ -54,6 +56,7 @@ class DtoSubscription extends Dto {
 		$this->email = $email;
 		$this->detail = $detail;
 		$this->status = $status;
+		$this->agency = $agency;
 	}
 
 }

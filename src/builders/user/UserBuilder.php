@@ -45,14 +45,26 @@ class UserBuilder extends Builder {
 	 */
 	public function withSeat () {
 		$seatBuilder = new SeatBuilder();
+		$agencyBuilder = new AgencyBuilder();
 		try {
-			$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
-				->withAgency()
-				->clean()
-				->build();
+			if (($this->_data->seat!==null) && is_numeric($this->_data->seat)) {
+				$this->_data->seat = $seatBuilder->getMinimumById($this->_data->seat)
+					->clean()
+					->build();
+				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->seat->agency)
+					->clean()
+					->build();
+			}
+			elseif (($this->_data->agency!==null) && is_numeric($this->_data->agency))
+				$this->_data->agency = $agencyBuilder->getMinimumById($this->_data->agency)
+					->clean()
+					->build();
 		}
 		catch (SeatNotFoundException $e) {
 			unset($this->_data->seat);
+		}
+		catch (AgencyNotFoundException $e) {
+			unset($this->_data->agency);
 		}
 
 		return $this;
@@ -105,6 +117,41 @@ class UserBuilder extends Builder {
 		}
 		catch (LocationNotFoundException $e) {
 			unset($this->_data->location);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @throws DatabaseConnectionException
+	 */
+	function withIdentity () {
+		$subscriptionBuilder = new SubscriptionBuilder();
+		try {
+			$subscription = $subscriptionBuilder->getMinimumByEmail($this->_data->email)->withDetails()->clean()
+				->build();
+			$this->_data->documents = $subscription->detail;
+			$this->_data->identity = $subscription->ci;
+			$this->_data->passport = $subscription->passport;
+		}
+		catch (SubscriptionNotFoundException $e) {
+			$this->_data->email = "";
+			$this->_data->passport = "";
+		}
+
+		return $this;
+	}
+
+	/**
+	 * @return UserBuilder
+	 */
+	public function clean () {
+		parent::clean();
+		foreach ($this->_data->documents as $document) {
+			unset($document->subscription);
+			unset($document->id);
+			unset($document->active);
+			unset($document->delete);
 		}
 
 		return $this;

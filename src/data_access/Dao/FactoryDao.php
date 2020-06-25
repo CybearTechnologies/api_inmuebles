@@ -171,4 +171,18 @@ class FactoryDao {
 	static function createDaoSubscriptionDetail ():DaoSubscriptionDetail {
 		return new DaoSubscriptionDetail();
 	}
+
+	/**
+	 * @return DaoPasswordToken
+	 */
+	static function createDaoPasswordToken():DaoPasswordToken{
+		return new DaoPasswordToken();
+	}
+
+	/**
+	 * @return DaoPropertyDestiny
+	 */
+	static function createDaoPropertyDestiny():DaoPropertyDestiny{
+		return new DaoPropertyDestiny();
+	}
 }

@@ -10,6 +10,7 @@ class CommandGetAllUser extends Command {
 	}
 
 	/**
+	 * @throws AgencyNotFoundException
 	 * @throws DatabaseConnectionException
 	 * @throws UserNotFoundException
 	 */
@@ -18,6 +19,7 @@ class CommandGetAllUser extends Command {
 			->getAll()
 			->withLocation()
 			->withSeat()
+			->withIdentity()
 			->withPlan()
 			->withRol()
 			->clean()

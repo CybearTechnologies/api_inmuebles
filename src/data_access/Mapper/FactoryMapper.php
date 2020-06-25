@@ -130,4 +130,18 @@ class FactoryMapper {
 	static function createMapperSubscriptionDetail():MapperSubscriptionDetail{
 		return new MapperSubscriptionDetail();
 	}
+
+	/**
+	 * @return MapperPasswordToken
+	 */
+	static function createMapperPasswordToken():MapperPasswordToken{
+		return new MapperPasswordToken();
+	}
+
+	/**
+	 * @return MapperPropertyDestiny
+	 */
+	static function createMapperPropertyDestiny():MapperPropertyDestiny{
+		return new MapperPropertyDestiny();
+	}
 }

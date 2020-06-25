@@ -1,5 +1,6 @@
 <?php
 class MapperLocation extends Mapper {
+	
 	/**
 	 * @param DtoLocation $dto
 	 *
@@ -19,4 +20,5 @@ class MapperLocation extends Mapper {
 			$entity->getUserCreator(), $entity->getUserModifier(), $entity->getDateCreated(),
 			$entity->getDateModified(), $entity->isActive(), $entity->isDelete());
 	}
+
 }

@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\SMTP;
 class MailerWrapper {
 	private $_mail;
 	private const USERNAME = "admin@cybear.io";
-	private const PASSWORD = "%Kerajo2020*";
+	private const PASSWORD = "%Jafj25CR943*";
 	private const FULL_NAME = "";
 
 	/**
@@ -30,8 +30,7 @@ class MailerWrapper {
 		/*		$this->_mail->Host = 'smtp.gmail.com';
 				$this->_mail->Port = 587;
 				$this->_mail->SMTPAuth = true;
-				$this->_mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-		*/
+				$this->_mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;*/
 	}
 
 	private function smtpAuth () {

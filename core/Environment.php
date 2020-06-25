@@ -7,17 +7,19 @@
 require_once __DIR__ . "/../vendor/autoload.php";
 class Environment {
 	//	Site settings
-	private const BASE_URL = "http://localhost/";
+	private const BASE_URL = "http://api.cybear.io/";
+	private const BASE_FRONT_URL = "http://buscamatch.cybear.io/";
 	private const SITE_KEY = "coronavirus";
 	//	Database connections settings
-	private const HOST = "localhost";
-	private const DATABASE = "inmobiliaria";
-	private const USERNAME = "root";
-	private const PASSWORD = "";
-	/*private const HOST = "160.153.54.65";
-	private const DATABASE = "buscamatch";
-	private const USERNAME = "buscaRoot";
-	private const PASSWORD = "dIo{xi5miupN";*/
+		private const HOST = "localhost";
+		private const DATABASE = "inmobiliaria";
+		private const USERNAME = "root";
+		private const PASSWORD = "";
+	/*	private const HOST = "160.153.54.65";
+		private const DATABASE = "buscamatch";
+		private const USERNAME = "buscaRoot";
+		private const PASSWORD = "dIo{xi5miupN";*/
+
 	/**
 	 * @return PDO
 	 */
@@ -50,5 +52,12 @@ class Environment {
 	 */
 	public static function siteKey ():string {
 		return self::SITE_KEY;
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function baseFrontURL ():string {
+		return self::BASE_FRONT_URL;
 	}
 }

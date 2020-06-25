@@ -127,6 +127,8 @@ class FactoryDto {
 	 * @param string $dateModified
 	 * @param bool   $active
 	 * @param bool   $delete
+	 * @param String $nameS
+	 * @param int    $idS
 	 *
 	 * @return DtoLocation
 	 */
@@ -134,9 +136,9 @@ class FactoryDto {
 		string $type = Values::DEFAULT_STRING, int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
-		bool $delete = Values::DEFAULT_DELETE):DtoLocation {
+		bool $delete = Values::DEFAULT_DELETE,String $nameS = Values::DEFAULT_STRING,int $idS = Values::DEFAULT_INT ):DtoLocation {
 		return new DtoLocation($id, $name, $type, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
-			$delete);
+			$delete,$nameS,$idS);
 	}
 
 	/**
@@ -202,6 +204,8 @@ class FactoryDto {
 	//		int $state, int $floor, $extras, $request, $user, $price
 	/**
 	 * @param int                      $id
+	 * @param                          $destiny
+	 * @param int                      $favorite
 	 * @param string                   $userCreator
 	 * @param string                   $userModifier
 	 * @param string                   $dateCreated
@@ -221,11 +225,11 @@ class FactoryDto {
 	 *
 	 * @return DtoProperty
 	 */
-	static function createDtoProperty (int $id, $userCreator = "", $userModifier = "", $dateCreated = "",
+	static function createDtoProperty (int $id, $destiny,int $favorite=0,$userCreator = "", $userModifier = "", $dateCreated = "",
 		$dateModified = "", $active = 0, $delete = 0, $name = "", $area = 0.0, $description = "",
 		$state = 0, $floor = 0, $type = 0, $location = 0, $extras = [], $request = [],
 		$propertyPrice = []):DtoProperty {
-		return new DtoProperty($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
+		return new DtoProperty($id, $destiny,$favorite,$userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete, $name,
 			$area, $description, $state, $floor, $type, $location, $extras, $request, $propertyPrice);
 	}
 
@@ -303,13 +307,18 @@ class FactoryDto {
 	 * @param string          $lastName
 	 * @param string          $address
 	 * @param string          $email
+	 * @param		          $phone
 	 * @param string          $password
+	 * @param int             $identity
+	 * @param string          $passport
+	 * @param array           $documents
 	 * @param DtoUser|int     $userCreator
 	 * @param DtoUser|int     $userModifier
 	 * @param bool            $active
 	 * @param bool            $blocked
 	 * @param bool            $deleted
 	 * @param DtoSeat|int     $seat
+	 * @param int             $agency
 	 * @param DtoRol|int      $rol
 	 * @param DtoPlan|int     $plan
 	 * @param DtoLocation|int $location
@@ -318,11 +327,21 @@ class FactoryDto {
 	 *
 	 * @return DtoUser
 	 */
-	static function createDtoUser (int $id, string $firstName, string $lastName, string $address, string $email,
-		string $password, $userCreator, $userModifier, bool $active, bool $blocked, bool $deleted, $seat,
-		$rol, $plan, $location, string $dateCreated, string $dateModified):DtoUser {
-		return new DtoUser($id, $firstName, $lastName, $address, $email, $password, $userCreator, $userModifier,
-			$active, $blocked, $deleted, $seat, $rol, $plan, $location, $dateCreated, $dateModified);
+	static function createDtoUser (int $id, string $firstName = Values::DEFAULT_STRING,
+		string $lastName = Values::DEFAULT_STRING, string $address = Values::DEFAULT_STRING,
+		string $email = Values::DEFAULT_STRING,$phone =Values::DEFAULT_STRING ,string $password = Values::DEFAULT_STRING,
+		int $identity = Values::DEFAULT_INT, string $passport = Values::DEFAULT_STRING,
+		$documents = Values::DEFAULT_ARRAY, $userCreator = Values::DEFAULT_FOREIGN,
+		$userModifier = Values::DEFAULT_FOREIGN, bool $active = Values::DEFAULT_ACTIVE,
+		bool $blocked = Values::DEFAULT_STATUS,
+		bool $deleted = Values::DEFAULT_DELETE, $seat = Values::DEFAULT_FOREIGN, $agency = Values::DEFAULT_FOREIGN,
+		$rol = Values::DEFAULT_FOREIGN,
+		$plan = Values::DEFAULT_FOREIGN, $location = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE,
+		string $dateModified = Values::DEFAULT_DATE):DtoUser {
+		return new DtoUser($id, $firstName, $lastName, $address, $email,$phone,$password, $identity, $passport, $documents,
+			$userCreator,$userModifier, $active, $blocked, $deleted, $seat, $agency,$rol, $plan,
+			$location, $dateCreated, $dateModified);
 	}
 
 	/**
@@ -398,6 +417,7 @@ class FactoryDto {
 	 * @param string                        $address
 	 * @param DtoPlan|int                   $plan
 	 * @param DtoSeat|int                   $seat
+	 * @param                               $agency
 	 * @param DtoLocation|int               $location
 	 * @param int                           $ci
 	 * @param string                        $passport
@@ -415,12 +435,12 @@ class FactoryDto {
 	 * @return DtoSubscription
 	 */
 	static function createDtoSubscription (int $id, string $firstName, string $lastName,
-		string $address, $plan, $seat, $location, int $ci, string $passport,
+		string $address, $plan, $seat, $agency,$location, int $ci, string $passport,
 		string $email, string $password, $subsDetails, int $userCreator = Values::DEFAULT_FOREIGN,
 		int $userModifier = Values::DEFAULT_FOREIGN, string $dateCreated = Values::DEFAULT_DATE,
 		string $dateModified = Values::DEFAULT_DATE, bool $active = Values::DEFAULT_ACTIVE,
 		bool $delete = Values::DEFAULT_DELETE, bool $status = Values::DEFAULT_STATUS):DtoSubscription {
-		return new DtoSubscription($id, $firstName, $lastName, $address, $plan, $seat, $location, $ci,
+		return new DtoSubscription($id, $firstName, $lastName, $address, $plan, $seat, $agency,$location, $ci,
 			$passport, $email, $password,
 			$subsDetails, $userCreator, $userModifier, $dateCreated, $dateModified, $active, $delete,
 			$status);
@@ -455,5 +475,44 @@ class FactoryDto {
 	 */
 	static function createDtoLogin ($user, $token):DtoLogin {
 		return new DtoLogin($user, $token);
+	}
+
+	/**
+	 * @param int         $id
+	 * @param string      $token
+	 * @param DtoUser|int $userCreator
+	 * @param DtoUser|int $userModifier
+	 * @param string      $dateCreated
+	 * @param string      $dateModified
+	 * @param bool        $active
+	 * @param bool        $delete
+	 *
+	 * @return DtoPasswordToken
+	 */
+	static function createDtoPasswordToken (int $id, string $token,
+		$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE):DtoPasswordToken {
+		return new DtoPasswordToken($id, $token, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
+	}
+
+	/**
+	 * @param int    $id
+	 * @param string $name
+	 * @param int    $userCreator
+	 * @param int    $userModifier
+	 * @param string $dateCreated
+	 * @param string $dateModified
+	 * @param bool   $active
+	 * @param bool   $delete
+	 *
+	 * @return DtoPropertyDestiny
+	 */
+	static  function createDtoPropertyDestiny(int $id, string $name,$userCreator = Values::DEFAULT_FOREIGN, $userModifier = Values::DEFAULT_FOREIGN,
+		string $dateCreated = Values::DEFAULT_DATE, string $dateModified = Values::DEFAULT_DATE,
+		bool $active = Values::DEFAULT_ACTIVE, bool $delete = Values::DEFAULT_DELETE){
+		return new DtoPropertyDestiny($id,$name,$userCreator, $userModifier, $dateCreated, $dateModified, $active,
+			$delete);
 	}
 }

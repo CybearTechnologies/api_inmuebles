@@ -1,19 +1,28 @@
 <?php
 class CommandCreatePropertyPrice extends Command {
+	private $_price;
+	private $_propertyId;
+	private $_creator;
+
 	/**
 	 * CommandCreatePropertyPrice constructor.
 	 *
-	 * @param PropertyPrice $entity
+	 * @param     $price
+	 * @param int $propertyId
+	 * @param int $creator
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoPropertyPrice($entity);
+	public function __construct ($price, int $propertyId, int $creator) {
+		$this->_dao = FactoryDao::createDaoPropertyPrice();
+		$this->_price = $price;
+		$this->_propertyId = $propertyId;
+		$this->_creator = $creator;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
 	 */
 	public function execute ():void {
-		$this->setData($this->_dao->createPropertyPrice());
+		$this->setData($this->_dao->createPropertyPrice($this->_price, $this->_propertyId, $this->_creator));
 	}
 
 	/**

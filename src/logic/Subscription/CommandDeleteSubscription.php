@@ -10,6 +10,7 @@ class CommandDeleteSubscription extends Command {
 	public function __construct ($entity) {
 		$this->_dao= FactoryDao::createDaoSubscription();
 		$this->_mapperSubscription = FactoryMapper::createMapperSubscription();
+		$this->_id = $entity;
 	}
 
 	/**

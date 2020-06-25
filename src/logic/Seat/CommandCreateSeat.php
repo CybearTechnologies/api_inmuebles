@@ -1,29 +1,34 @@
 <?php
 class CommandCreateSeat extends Command {
 	private $_command;
+	private $_name;
+	private $_rif;
+	private $_location;
+	private $_agency;
+	private $_user;
 
 	/**
 	 * CommandCreateSeat constructor.
 	 *
-	 * @param Seat $entity
+	 * @param $name
+	 * @param $rif
+	 * @param $location
+	 * @param $agency
 	 */
-	public function __construct ($entity) {
-		$this->_dao = FactoryDao::createDaoSeat($entity);
-		$this->_command = FactoryCommand::createCommandGetSeatByName($entity);
+	public function __construct ($name, $rif, $location, $agency, $user) {
+		$this->_dao = FactoryDao::createDaoSeat();
+		$this->_name = $name;
+		$this->_rif = $rif;
+		$this->_location = $location;
+		$this->_agency = $agency;
+		$this->_user = $user;
 	}
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws SeatAlreadyExistException
 	 */
 	public function execute ():void {
-		try {
-			$this->_command->execute();
-			Throw new SeatAlreadyExistException("Seat already exist");
-		}
-		catch (SeatNotFoundException $e) {
-			$this->setData($this->_dao->createSeat());
-		}
+		$this->setData($this->_dao->createSeat($this->_name, $this->_rif, $this->_location, $this->_agency, $this->_user));
 	}
 
 	/**

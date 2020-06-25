@@ -9,6 +9,7 @@ class Subscription extends Entity {
 	private $_password;
 	private $_plan;
 	private $_seat;
+	private $_agency;
 	private $_location;
 	private $_status;
 
@@ -24,7 +25,8 @@ class Subscription extends Entity {
 	 * @param string $email
 	 * @param string $password
 	 * @param int    $plan
-	 * @param int    $seat
+	 * @param 	     $seat
+	 * @param	     $agency
 	 * @param int    $location
 	 * @param bool   $status
 	 * @param int    $userCreator
@@ -34,9 +36,9 @@ class Subscription extends Entity {
 	 * @param bool   $active
 	 * @param bool   $delete
 	 */
-	public function __construct (int $id, string $ci, string $firstName,string $lastName,
-		string $address,string $_passport, string $email, string $password,
-		int $plan, int $seat, int $location, bool $status, int $userCreator, int $userModifier,
+	public function __construct (int $id, string $ci, string $firstName, string $lastName,
+		string $address, string $_passport, string $email, string $password,
+		int $plan, $seat, $agency,int $location, bool $status, int $userCreator, int $userModifier,
 		string $dateCreated, string $dateModified, bool $active, bool $delete) {
 		parent::__construct($id, $userCreator, $userModifier, $dateCreated, $dateModified, $active,
 			$delete);
@@ -51,6 +53,7 @@ class Subscription extends Entity {
 		$this->_seat = $seat;
 		$this->_location = $location;
 		$this->_status = $status;
+		$this->_agency = $agency;
 	}
 
 	/**
@@ -108,8 +111,6 @@ class Subscription extends Entity {
 	public function setAddress (string $address):void {
 		$this->_address = $address;
 	}
-
-
 
 	/**
 	 * @return mixed
@@ -207,6 +208,20 @@ class Subscription extends Entity {
 	 */
 	public function setStatus (bool $status):void {
 		$this->_status = $status;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getAgency () {
+		return $this->_agency;
+	}
+
+	/**
+	 * @param int $agency
+	 */
+	public function setAgency (int $agency):void {
+		$this->_agency = $agency;
 	}
 
 

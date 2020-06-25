@@ -56,6 +56,12 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						Tools::setResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
 					}
 				}
+				elseif (isset($get->property) && is_numeric($get->property)) {
+					$command = FactoryCommand::createCommandGetAllExtrasByPropertyId($get->property);
+					$command->execute();
+					$return = $command->return();
+					Tools::setResponse();
+				}
 				else {
 					$command = FactoryCommand::createCommandGetAllExtra();
 					try {
@@ -104,28 +110,60 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 			try {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
-				if (Validate::extra($post) && ImageProcessor::imageFileExist('image')) {
+				if (Validate::extra($post) && FileHandler::fileExist('image') && isset($get->create)) {
 					try {
-						$tempImage = ImageProcessor::saveImage($_FILES['image']['tmp_name'],
-							$post->name, 'files/extra');
-						$command = FactoryCommand::createCommandCreateExtra($post->name,
+						$tempImage = FileHandler::save('image', $post->name, 'files/extra');
+						$command = FactoryCommand::createCommandCreateExtra($post->name, $tempImage, $loggedUser);
+						$command->execute();
+						$return = $mapper->fromEntityToDto($command->return());
+						Tools::setResponse();
+					}
+					catch (DatabaseConnectionException $exception) {
+						FileHandler::remove($tempImage);
+						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+					}
+				}
+				elseif (Validate::putExtra($post) && FileHandler::fileExist('image') && isset($get->update)) {
+					$command = FactoryCommand::createCommandGetExtraById($post->id);
+					try {
+						$command->execute();
+						$extra = $command->return();
+						$length = strlen(Environment::baseURL()) - 1;
+						$tempImage = FileHandler::replace($extra->icon, 'image', $post->name, 'files/extra');
+						$command = FactoryCommand::createCommandUpdateExtraById($post->id, $post->name,
 							Environment::baseURL() . $tempImage, $loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
 					}
 					catch (DatabaseConnectionException $exception) {
-						ImageProcessor::removeImage(__DIR__ . '/' . $tempImage);
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
 						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
 					}
-					catch (FileIsNotImageException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
+					catch (ExtraNotFoundException $exception) {
+						$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
+						Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
 					}
-					catch (ImageNotFoundException $exception) {
-						$return = $exception->getMessage();
-						Tools::setResponse($exception->getCode());
+				}
+				elseif (Validate::putExtra($post) && isset($get->update)) {
+					$command = FactoryCommand::createCommandGetExtraById($post->id);
+					try {
+						$command->execute();
+						$extra = $command->return();
+						$command = FactoryCommand::createCommandUpdateExtraById($post->id, $post->name,
+							$extra->icon, $loggedUser);
+						$command->execute();
+						$return = $mapper->fromEntityToDto($command->return());
+						Tools::setResponse();
+					}
+					catch (DatabaseConnectionException $exception) {
+						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
+						Tools::setResponse(Values::getValue("ERROR_DATABASE"));
+					}
+					catch (ExtraNotFoundException $exception) {
+						$return = new ErrorResponse(Values::getText("ERROR_EXTRA_NOT_FOUND"));
+						Tools::setResponse(Values::getValue("ERROR_EXTRA_NOT_FOUND"));
 					}
 				}
 				else {
@@ -170,6 +208,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
+
 					}
 					catch (DatabaseConnectionException $exception) {
 						$return = new ErrorResponse(Values::getText("ERROR_DATABASE"));
@@ -213,10 +252,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 				$loggedUser = Tools::getUserLogged($headers[Values::BEARER_HEADER],
 					$headers[Values::APPLICATION_HEADER]);
 				$put = json_decode(file_get_contents('php://input'));
-				if (Validate::putExtra($put)) {
-					$command = FactoryCommand::createCommandUpdateExtraById($put->id, $put->name, $put->icon,
-						$loggedUser);
+				if (Validate::putExtra($put) && FileHandler::fileExist('image')) {
+					$command = FactoryCommand::createCommandGetExtraById($put->id);
 					try {
+						$command->execute();
+						$extra = $command->return();
+						$tempImage = FileHandler::replace($extra->icon, 'image', $post->name, 'files/extra');
+						$command = FactoryCommand::createCommandUpdateExtraById($put->id, $put->name, $tempImage,
+							$loggedUser);
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());
 						Tools::setResponse();
@@ -247,7 +290,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 					}
 				}
 				elseif (isset($get->id) && is_numeric($get->id) && isset($get->action) && strtolower($get->action) == "inactive") {
-					$command = FactoryCommand::createCommandInactiveExtraById($get->id,$loggedUser);
+					$command = FactoryCommand::createCommandInactiveExtraById($get->id, $loggedUser);
 					try {
 						$command->execute();
 						$return = $mapper->fromEntityToDto($command->return());

@@ -17,7 +17,6 @@ class CommandDeleteExtraById extends Command {
 
 	/**
 	 * @throws DatabaseConnectionException
-	 * @throws ExtraNotFoundException
 	 */
 	public function execute ():void {
 		$this->setData($this->_dao->deleteExtraById($this->_id, $this->_user));
